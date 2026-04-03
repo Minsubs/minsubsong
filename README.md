@@ -1,2 +1,3 @@
 # minsubsong
 minsub
+test
