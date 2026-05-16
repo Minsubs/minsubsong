@@ -15,15 +15,54 @@ from datetime import datetime, timedelta
 
 from config import (
     TICKET_URL, HEADLESS, SLOW_MO,
-    WAIT_FOR_OPEN, OPEN_TIME,
+    WAIT_FOR_OPEN, OPEN_TIME, FAST_MODE,
+    USE_PERSISTENT_CONTEXT, PROFILE_DIR,
+    PERSISTENT_CONTEXT_STEALTH, PERSISTENT_CONTEXT_CHANNEL,
 )
-from browser import create_browser, create_context, create_page, human_delay
+from browser import (
+    create_browser, create_context, create_page,
+    create_persistent_setup,
+    human_delay, human_mouse_move, human_click_at,
+    detect_bot_block,
+)
 from login import login
 from seat_selector import (
-    wait_for_booking_page, select_game, select_zone,
+    select_game, select_zone,
     select_seats, auto_select_seats_fast,
 )
 from notifier import notify_success, notify_failure, notify_waiting
+
+
+async def _pace(min_ms: int, max_ms: int):
+    """critical-path 인간형 dwell. FAST_MODE 면 거의 0."""
+    if FAST_MODE:
+        await human_delay(50, 150)
+    else:
+        await human_delay(min_ms, max_ms)
+
+
+async def _wait_until_url_stable(page, max_ms: int = 3000, stable_ms: int = 500, poll_ms: int = 100):
+    """URL 이 일정 시간 변하지 않을 때까지 폴링. 리다이렉트 완료 감지용."""
+    try:
+        prev = page.url
+    except Exception:
+        return
+    elapsed = 0
+    stable = 0
+    while elapsed < max_ms:
+        await page.wait_for_timeout(poll_ms)
+        elapsed += poll_ms
+        try:
+            cur = page.url
+        except Exception:
+            return
+        if cur == prev:
+            stable += poll_ms
+            if stable >= stable_ms:
+                return
+        else:
+            prev = cur
+            stable = 0
 
 
 async def wait_for_open_time(target_time_str: str):
@@ -50,120 +89,101 @@ async def wait_for_open_time(target_time_str: str):
             await asyncio.sleep(0.01)
 
 
-async def open_booking_window(page, context):
-    """홈구장 티켓 예매하기 - URL 추출 후 새 탭에서 직접 이동"""
-    print("\n🎟️ 티켓 예매 페이지로 이동 중...")
+async def open_booking_window(page, context, max_retries: int = 1):
+    """홈구장 티켓 예매하기 — 실제 버튼 클릭으로 새 페이지 열기.
+
+    티켓링크의 href 는 `javascript:clickTicketReserve()` — JS 함수가 NetFunnel 키
+    발급 + window.open 호출. URL 만 빼서 직접 goto 하면 NetFunnel invalid.key
+    차단당함. 따라서 진짜 클릭 + 새 페이지 이벤트 리스너로 받아야 함.
+    """
+    print("\n🎟️ 티켓 페이지로 이동 중...")
     await page.goto(TICKET_URL, wait_until="domcontentloaded")
-    await page.wait_for_timeout(3000)
 
-    print("🔍 예매 URL 추출 중...")
-    
-    # JavaScript로 예매 버튼의 URL 추출 (팝업 열지 않고 URL만 가져옴)
-    booking_url = await page.evaluate("""
-        () => {
-            // 방법 1: onclick에서 window.open URL 추출
-            const allElements = document.querySelectorAll('a, button, div, span');
-            for (const el of allElements) {
-                const onclick = el.getAttribute('onclick') || '';
-                const text = el.textContent || '';
-                
-                if (text.includes('티켓 예매하기') || text.includes('예매하기')) {
-                    // onclick에서 URL 추출
-                    const match = onclick.match(/window\\.open\\s*\\(\\s*['"](https?:\\/\\/[^'"]+)/);
-                    if (match) return match[1];
-                    
-                    // href 확인
-                    const href = el.getAttribute('href') || '';
-                    if (href.includes('ticketlink') || href.includes('facility')) {
-                        return href;
-                    }
-                }
-            }
-            
-            // 방법 2: 모든 링크에서 ticketlink URL 찾기
-            const links = document.querySelectorAll('a[href*="ticketlink"], a[href*="facility"]');
-            for (const link of links) {
-                const href = link.getAttribute('href');
-                if (href && href.includes('reserve')) return href;
-            }
-            
-            // 방법 3: 스크립트 내에서 URL 패턴 찾기
-            const scripts = document.querySelectorAll('script');
-            for (const script of scripts) {
-                const text = script.textContent || '';
-                const match = text.match(/(https?:\\/\\/facility\\.ticketlink\\.co\\.kr[^'"\\s]+)/);
-                if (match) return match[1];
-            }
-            
-            // 방법 4: onclick 함수 내에서 URL 찾기
-            for (const el of allElements) {
-                const onclick = el.getAttribute('onclick') || '';
-                if (onclick.includes('facility') || onclick.includes('ticketlink')) {
-                    const match = onclick.match(/(https?:\\/\\/[^'"\\s)]+)/);
-                    if (match) return match[1];
-                }
-            }
-            
-            return null;
-        }
-    """)
-
-    if booking_url:
-        print(f"  ✅ 예매 URL 추출 성공: {booking_url[:80]}...")
-    else:
-        # URL 추출 실패 시: 버튼 클릭 + 새 페이지 이벤트 리스너
-        print("  ⚠️ URL 추출 실패, 버튼 클릭 방식으로 전환...")
-        
-        # 새 페이지 이벤트 리스너 설정
-        new_pages = []
-        context.on("page", lambda p: new_pages.append(p))
-        
-        # 버튼 클릭
-        btn = page.locator('text="홈구장 티켓 예매하기"').first
-        if await btn.count() > 0:
-            await btn.click()
-            await page.wait_for_timeout(5000)
-            
-            if new_pages:
-                booking_page = new_pages[-1]
-                if not booking_page.is_closed():
-                    await booking_page.wait_for_timeout(3000)
-                    print(f"  ✅ 새 창 감지: {booking_page.url}")
-                    return booking_page
-        
-        print("  ❌ 예매 URL을 찾을 수 없습니다.")
+    # 예매 버튼 등장 대기 — 클래스 + 텍스트 둘 다 시도
+    btn = None
+    for sel in ['a.btn_ticket', 'a:has-text("홈구장 티켓 예매하기")']:
+        try:
+            await page.locator(sel).first.wait_for(state="visible", timeout=8000)
+            btn = page.locator(sel).first
+            print(f"  ✅ 예매 버튼 발견: {sel}")
+            break
+        except Exception:
+            continue
+    if btn is None:
+        print("  ❌ 예매 버튼을 찾을 수 없음")
         return None
 
-    # 새 탭에서 예매 URL 열기
-    print("  🌐 새 탭에서 예매 페이지 열기...")
-    booking_page = await context.new_page()
-    
+    # 사람처럼 살짝 둘러보기 (NetFunnel 입장에서 자연스러운 사용자 흐름)
+    await human_mouse_move(page, steps=4)
+
+    # 새 페이지 이벤트 리스너 (클릭 전에 등록 필수)
+    new_page_future: asyncio.Future = asyncio.get_event_loop().create_future()
+
+    def _on_page(p):
+        if not new_page_future.done():
+            new_page_future.set_result(p)
+
+    context.on("page", _on_page)
+
+    booking_page = None
     try:
-        await booking_page.goto(booking_url, wait_until="domcontentloaded", timeout=30000)
+        print("🎯 예매 버튼 클릭 (사람처럼 mouseDown/Up timing) → 새 페이지 대기...")
+        await human_click_at(page, btn)
+
+        try:
+            booking_page = await asyncio.wait_for(new_page_future, timeout=15)
+        except asyncio.TimeoutError:
+            print("  ❌ 15초 안에 새 페이지 안 열림 (popup blocker? 버튼 비활성?)")
+            return None
+    finally:
+        try:
+            context.remove_listener("page", _on_page)
+        except Exception:
+            pass
+
+    # 새 페이지 활성화 + 사람처럼 행동 (페이지 측 봇 탐지 회피)
+    try:
+        await booking_page.bring_to_front()
+    except Exception:
+        pass
+
+    try:
+        await booking_page.wait_for_load_state("domcontentloaded", timeout=20000)
     except Exception as e:
-        print(f"  ⚠️ 첫 로딩 타임아웃 (리다이렉트 중일 수 있음): {e}")
-    
-    # 리다이렉트 완료 대기
-    await booking_page.wait_for_timeout(5000)
-    
+        print(f"  ⚠️ 로딩 타임아웃: {e}")
+
+    # 페이지 진입 직후 마우스 + 인간형 dwell — 페이지 측 봇 탐지 회피
+    try:
+        await human_mouse_move(booking_page, steps=8)
+    except Exception:
+        pass
+    await _pace(2000, 4000)
+
+    # URL 안정화 (NetFunnel/리다이렉트 완료)
+    await _wait_until_url_stable(booking_page, max_ms=4000, stable_ms=600)
+
     if booking_page.is_closed():
         print("  ❌ 예매 페이지가 닫혔습니다.")
         return None
-    
+
     final_url = booking_page.url
-    print(f"  ✅ 예매 페이지 최종 URL: {final_url}")
-    
-    # 에러 확인
-    if "error" in final_url:
-        print("  ⚠️ 에러 페이지 감지")
-        try:
-            body_text = await booking_page.locator('body').text_content()
-            if "비정상" in (body_text or ""):
-                print("  ℹ️ NetFunnel '비정상적인 접근' 에러")
-                print("  ℹ️ 예매 시간이 아니거나 봇 탐지에 걸린 경우입니다.")
-        except:
-            pass
-    
+    print(f"  ✅ 예매 페이지 URL: {final_url}")
+
+    # 차단 감지
+    blocked, reason = await detect_bot_block(booking_page)
+    if blocked:
+        print(f"  🚫 차단 감지: {reason}")
+        if max_retries > 0:
+            print(f"  🔄 잠시 대기 후 재시도 (남은: {max_retries})")
+            await booking_page.close()
+            await _pace(3000, 5000)
+            return await open_booking_window(page, context, max_retries=max_retries - 1)
+        else:
+            print("  ❌ 재시도 한도 도달. 가능 원인:")
+            print("     - 예매 오픈 시간 미도래")
+            print("     - 단시간 반복 시도로 IP/세션 일시 차단")
+            print("     - 캡차 또는 추가 인증 필요 (브라우저에서 직접 확인)")
+
     return booking_page
 
 
@@ -191,22 +211,19 @@ async def handle_booking_flow(booking_page):
         game_selected = await select_game(booking_page)
 
         if game_selected:
-            # 경기 선택 후 페이지 변화 대기 (사람처럼)
             print("  ⏳ 페이지 전환 대기...")
-            await human_delay(2000, 4000)
-            
-            # 회차 선택 버튼이 있으면 클릭
+            await _pace(2000, 4000)
+
             try:
                 round_btn = booking_page.locator('[class*="round"], [class*="time"], [class*="session"]').first
                 if await round_btn.count() > 0 and await round_btn.is_visible():
                     await human_delay(500, 1000)
                     await round_btn.click()
                     print("  ✅ 회차 선택 완료")
-                    await human_delay(1500, 2500)
+                    await _pace(1500, 2500)
             except:
                 pass
 
-            # "다음" 또는 "좌석선택" 버튼 찾기
             next_selectors = [
                 'button:has-text("좌석선택")',
                 'button:has-text("다음")',
@@ -223,7 +240,7 @@ async def handle_booking_flow(booking_page):
                         await human_delay(500, 1000)
                         await btn.click()
                         print(f"  ✅ 다음 단계 버튼 클릭: {sel}")
-                        await human_delay(2000, 4000)
+                        await _pace(2000, 4000)
                         break
                 except:
                     continue
@@ -281,9 +298,23 @@ async def run_macro(headless: bool = False, slow_mo: int = 0,
 
     # 1. 브라우저 시작
     print("🌐 브라우저 시작 중...")
-    pw, browser = await create_browser(headless=headless, slow_mo=slow_mo)
-    context = await create_context(browser)
-    page = await create_page(context)
+    browser = None
+    if USE_PERSISTENT_CONTEXT:
+        print(f"   📂 Persistent profile: {PROFILE_DIR}")
+        pw, context = await create_persistent_setup(
+            profile_dir=PROFILE_DIR,
+            headless=headless,
+            slow_mo=slow_mo,
+            stealth=PERSISTENT_CONTEXT_STEALTH,
+            channel=PERSISTENT_CONTEXT_CHANNEL,
+        )
+        page = context.pages[0] if context.pages else await context.new_page()
+        page.set_default_timeout(15000)
+        page.set_default_navigation_timeout(30000)
+    else:
+        pw, browser = await create_browser(headless=headless, slow_mo=slow_mo)
+        context = await create_context(browser)
+        page = await create_page(context)
 
     try:
         # 2. 로그인
@@ -345,7 +376,10 @@ async def run_macro(headless: bool = False, slow_mo: int = 0,
 
     finally:
         try:
-            await browser.close()
+            if browser:
+                await browser.close()
+            else:
+                await context.close()
         except:
             pass
         try:
