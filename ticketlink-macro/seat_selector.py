@@ -3,25 +3,9 @@
 사람처럼 행동하는 딜레이 포함
 """
 import asyncio
-from playwright.async_api import Page, BrowserContext
+from playwright.async_api import Page
 from config import PREFERRED_ZONES, TICKET_COUNT, TARGET_OPPONENT, TARGET_DATE
 from browser import human_delay, human_click
-
-
-async def wait_for_booking_page(page: Page) -> bool:
-    """예매 페이지가 정상 로딩될 때까지 대기"""
-    print("⏳ 예매 페이지 로딩 대기 중...")
-    try:
-        error = page.locator('text=비정상적인 접근')
-        if await error.count() > 0:
-            print("  ❌ 비정상 접근 에러 감지")
-            return False
-        await page.wait_for_load_state("domcontentloaded", timeout=30000)
-        print("  ✅ 예매 페이지 로딩 완료")
-        return True
-    except Exception as e:
-        print(f"  ❌ 페이지 로딩 실패: {e}")
-        return False
 
 
 async def select_game(page: Page, game_date: str = None) -> bool:

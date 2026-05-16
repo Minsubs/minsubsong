@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# 가상환경
+venv/
+env/
+.venv/
+.env
+
+# 자격증명 / 비밀 (.env.example 만 커밋)
+.env.local
+.env.*.local
+
+# Playwright
+playwright-report/
+test-results/
+.playwright/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# 로그
+*.log
+
+# DOM 분석 캡처 (개인정보 포함 가능)
+captures/
+test_results/
+
+# 예매 URL 캐시
+.cache/
+
+# Persistent context (로그인 쿠키/세션 — 절대 커밋 금지)
+profile/
