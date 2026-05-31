@@ -1,0 +1,71 @@
+[
+  {
+    "id": "batting-average",
+    "title": "타율 리그 순위",
+    "scope": "타자",
+    "players": [
+      {
+        "rank": 7,
+        "name": "강백호",
+        "value": "0.333",
+        "note": "리그 7위"
+      },
+      {
+        "rank": 8,
+        "name": "페라자",
+        "value": "0.323",
+        "note": "리그 8위"
+      },
+      {
+        "rank": 11,
+        "name": "문현빈",
+        "value": "0.311",
+        "note": "리그 11위"
+      }
+    ]
+  },
+  {
+    "id": "pitching-era",
+    "title": "평균자책 리그 순위",
+    "scope": "투수",
+    "players": [
+      {
+        "rank": 4,
+        "name": "왕옌청",
+        "value": "3.24",
+        "note": "5승 2패 · WHIP 1.41"
+      },
+      {
+        "rank": 6,
+        "name": "류현진",
+        "value": "3.28",
+        "note": "6승 2패 · WHIP 1.06"
+      }
+    ]
+  },
+  {
+    "id": "team-power",
+    "title": "한화 장타 지표",
+    "scope": "팀 내부",
+    "players": [
+      {
+        "rank": 1,
+        "name": "강백호",
+        "value": "12 HR",
+        "note": "60타점"
+      },
+      {
+        "rank": 2,
+        "name": "페라자",
+        "value": "10 HR",
+        "note": "31타점"
+      },
+      {
+        "rank": 3,
+        "name": "문현빈",
+        "value": "8 HR",
+        "note": "38타점"
+      }
+    ]
+  }
+]

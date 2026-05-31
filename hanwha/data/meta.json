@@ -1,0 +1,26 @@
+{
+  "updatedAt": "2026-05-31 04:39 KST",
+  "note": "KBO 공식 페이지 자동 수집 기반 JSON 스냅샷입니다.",
+  "sources": [
+    {
+      "name": "KBO Team Standings",
+      "url": "https://eng.koreabaseball.com/Standings/TeamStandings.aspx"
+    },
+    {
+      "name": "KBO Daily Schedule",
+      "url": "https://eng.koreabaseball.com/Schedule/DailySchedule.aspx"
+    },
+    {
+      "name": "KBO Scoreboard",
+      "url": "https://eng.koreabaseball.com/Schedule/Scoreboard.aspx"
+    },
+    {
+      "name": "KBO Player Batting",
+      "url": "https://www.koreabaseball.com/Record/Player/HitterBasic/Basic1.aspx"
+    },
+    {
+      "name": "KBO Player Pitching",
+      "url": "https://www.koreabaseball.com/Record/Player/PitcherBasic/Basic1.aspx"
+    }
+  ]
+}

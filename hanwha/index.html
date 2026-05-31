@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#17120f" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="민섭이 한화이글스 앱" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>민섭이가 쓰려고 만든 한화이글스 앱</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./assets/app-icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./assets/app-icon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css?v=15" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#live" data-view-target="live" aria-label="민섭이 한화이글스 앱 홈">
+        <span class="brand-mark">E</span>
+        <span>
+          <strong>민섭이 한화이글스 앱</strong>
+          <small>민섭이 경기 · 랭킹 · 티켓 체크</small>
+        </span>
+      </a>
+      <nav class="nav" aria-label="주요 메뉴">
+        <a href="#live" data-view-target="live">실시간</a>
+        <a href="#games" data-view-target="games">경기</a>
+        <a href="#tickets" data-view-target="tickets">티켓팅</a>
+        <a href="#rankings" data-view-target="rankings">랭킹</a>
+        <a href="#players" data-view-target="players">선수</a>
+        <a href="#community" data-view-target="community">메모</a>
+      </nav>
+      <div class="top-actions">
+        <button class="notify-button" id="notifyButton" type="button" hidden>알림 켜기</button>
+        <button class="install-button" id="installApp" type="button" hidden>앱 설치</button>
+        <button class="icon-button" id="themeToggle" type="button" aria-label="테마 전환" title="테마 전환">
+          <span aria-hidden="true">◐</span>
+        </button>
+      </div>
+    </header>
+
+    <nav class="view-tabs" aria-label="화면 탭" role="tablist">
+      <button class="active" type="button" data-view-target="live" aria-controls="live" role="tab">실시간</button>
+      <button type="button" data-view-target="games" aria-controls="games" role="tab">경기</button>
+      <button type="button" data-view-target="tickets" aria-controls="tickets" role="tab">티켓팅</button>
+      <button type="button" data-view-target="rankings" aria-controls="rankings" role="tab">랭킹</button>
+      <button type="button" data-view-target="players" aria-controls="players" role="tab">선수</button>
+      <button type="button" data-view-target="community" aria-controls="community" role="tab">메모</button>
+    </nav>
+
+    <main id="top">
+      <section class="hero dashboard-hero" id="live" aria-labelledby="heroTitle" data-view-panel="live">
+        <img src="./assets/hero-stadium.png" alt="야간 야구장과 응원석" />
+        <div class="hero-overlay"></div>
+        <div class="hero-dashboard" aria-label="실시간 경기와 선수 랭킹">
+          <article class="live-panel" id="liveGamePanel">
+            <span class="game-status">로딩</span>
+            <p class="meta">경기 데이터를 불러오는 중</p>
+          </article>
+          <aside class="ranking-panel" id="rankingPanel"></aside>
+        </div>
+        <div class="hero-content">
+          <h1 id="heroTitle">민섭이가 쓰려고 만든 한화이글스 앱</h1>
+          <p class="hero-copy">
+            경기 흐름, 선수 순위, 티켓팅 시간을 민섭이가 바로 확인하려고 모아둔 화면입니다.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-action" href="#live" data-view-target="live">경기판 보기</a>
+            <a class="secondary-action" href="#rankings" data-view-target="rankings">랭킹 보기</a>
+          </div>
+          <div class="shop-links" aria-label="굿즈 쇼핑몰 바로가기">
+            <a href="https://spyder.co.kr/eagles_index.html" target="_blank" rel="noopener">스파이더 한화이글스</a>
+            <a href="https://www.eaglesshop.co.kr/" target="_blank" rel="noopener">형지 한화이글스샵</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="snapshot" id="summaryBoard" aria-label="팀 요약" data-view-panel="live">
+        <article>
+          <span>순위</span>
+          <strong>로딩</strong>
+          <small>데이터 확인 중</small>
+        </article>
+        <article>
+          <span>팀 타율</span>
+          <strong>로딩</strong>
+          <small>데이터 확인 중</small>
+        </article>
+        <article>
+          <span>홈런</span>
+          <strong>로딩</strong>
+          <small>데이터 확인 중</small>
+        </article>
+        <article>
+          <span>최근 흐름</span>
+          <strong>로딩</strong>
+          <small>데이터 확인 중</small>
+        </article>
+      </section>
+
+      <section class="section-grid" id="games" data-view-panel="games">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Game Center</p>
+            <h2>경기 결과</h2>
+          </div>
+        </div>
+        <div class="games-layout">
+          <div class="featured-game" id="featuredGame"></div>
+          <div class="game-list" id="gameList"></div>
+        </div>
+      </section>
+
+      <section class="section-grid" id="tickets" data-view-panel="tickets">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Ticketing</p>
+            <h2>티켓팅 정보</h2>
+          </div>
+        </div>
+        <div class="ticket-game-list" id="ticketGameList"></div>
+      </section>
+
+      <section class="section-grid muted-band" id="rankings" data-view-panel="rankings">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Rankings</p>
+            <h2>KBO 전체 순위와 한화 선수</h2>
+          </div>
+        </div>
+        <div class="ranking-subsection">
+          <div class="section-heading compact">
+            <div>
+              <p class="eyebrow">KBO Standings</p>
+              <h3>전체 팀 순위</h3>
+            </div>
+          </div>
+          <div id="teamStandingsBoard"></div>
+        </div>
+        <div class="ranking-subsection">
+          <div class="section-heading compact">
+            <div>
+              <p class="eyebrow">Hanwha Players</p>
+              <h3>한화 선수 순위</h3>
+            </div>
+          </div>
+          <div class="ranking-board" id="rankingBoard"></div>
+        </div>
+      </section>
+
+      <section class="section-grid" id="players" data-view-panel="players">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Player Stats</p>
+            <h2>선수 기록 보드</h2>
+          </div>
+          <div class="segmented" role="tablist" aria-label="선수 기록 필터">
+            <button class="active" type="button" data-player-filter="all">전체</button>
+            <button type="button" data-player-filter="hitter">타자</button>
+            <button type="button" data-player-filter="pitcher">투수</button>
+          </div>
+        </div>
+        <div class="player-grid" id="playerGrid"></div>
+      </section>
+
+      <section class="community-layout" id="community" data-view-panel="community">
+        <div class="section-heading stacked">
+          <p class="eyebrow">My Notes</p>
+          <h2>민섭이 한화 메모장</h2>
+        </div>
+        <form class="post-box" id="postForm">
+          <label for="postInput">민섭이 메모</label>
+          <textarea id="postInput" rows="4" placeholder="오늘 민섭이가 체크할 경기 포인트를 남겨두세요."></textarea>
+          <div class="post-actions">
+            <select id="postTag" aria-label="게시글 태그">
+              <option>경기메모</option>
+              <option>선수체크</option>
+              <option>티켓준비</option>
+              <option>직관노트</option>
+            </select>
+            <button type="submit">저장</button>
+          </div>
+        </form>
+        <div class="feed" id="feed"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p id="dataUpdated">데이터 기준: 확인 중. MVP용 정적 데이터이며 실제 서비스에서는 자동 연동 대상으로 분리 예정.</p>
+      <p>
+        출처:
+        <a href="https://eng.koreabaseball.com/Standings/TeamStandings.aspx">KBO Team Standings</a>,
+        <a href="https://eng.koreabaseball.com/Schedule/DailySchedule.aspx">KBO Schedule</a>
+      </p>
+    </footer>
+
+    <script src="./script.js?v=15"></script>
+  </body>
+</html>

@@ -1,0 +1,86 @@
+[
+  {
+    "type": "hitter",
+    "number": 7,
+    "name": "강백호",
+    "role": "타자",
+    "stats": [
+      {
+        "label": "AVG",
+        "value": "0.333"
+      },
+      {
+        "label": "HR",
+        "value": "12"
+      },
+      {
+        "label": "RBI",
+        "value": "60"
+      }
+    ],
+    "note": "KBO 타율 7위"
+  },
+  {
+    "type": "hitter",
+    "number": 8,
+    "name": "페라자",
+    "role": "타자",
+    "stats": [
+      {
+        "label": "AVG",
+        "value": "0.323"
+      },
+      {
+        "label": "HR",
+        "value": "10"
+      },
+      {
+        "label": "RBI",
+        "value": "31"
+      }
+    ],
+    "note": "KBO 타율 8위"
+  },
+  {
+    "type": "hitter",
+    "number": 11,
+    "name": "문현빈",
+    "role": "타자",
+    "stats": [
+      {
+        "label": "AVG",
+        "value": "0.311"
+      },
+      {
+        "label": "HR",
+        "value": "8"
+      },
+      {
+        "label": "RBI",
+        "value": "38"
+      }
+    ],
+    "note": "KBO 타율 11위"
+  },
+  {
+    "type": "pitcher",
+    "number": 4,
+    "name": "왕옌청",
+    "role": "투수",
+    "stats": [
+      {
+        "label": "ERA",
+        "value": "3.24"
+      },
+      {
+        "label": "W-L",
+        "value": "5-2"
+      },
+      {
+        "label": "WHIP",
+        "value": "1.41"
+      }
+    ],
+    "note": "KBO 평균자책 4위"
+  }
+]

@@ -1,0 +1,40 @@
+name: Deploy hanwha app to GitHub Pages
+
+on:
+  # 코드 push 또는 자동 데이터 갱신 커밋이 올라오면 배포한다.
+  push:
+    branches: [main, master]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 동시에 한 번만 배포하고, 새 배포가 들어오면 진행 중인 배포는 취소한다.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # 정적 앱이라 빌드 없이 hanwha 디렉토리를 사이트 루트로 배포한다.
+          path: ./hanwha
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

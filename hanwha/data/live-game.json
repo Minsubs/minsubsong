@@ -1,0 +1,61 @@
+{
+  "date": "05.31",
+  "time": "일 14:00",
+  "location": "대전",
+  "status": "scheduled",
+  "statusLabel": "경기 예정",
+  "state": "스코어 대기",
+  "inning": "연동 대기",
+  "awayTeam": "SSG",
+  "homeTeam": "한화",
+  "awayScore": null,
+  "homeScore": null,
+  "note": "05.31 14:00 SSG vs 한화. 경기 시작 후 스코어가 갱신됩니다.",
+  "linescore": [
+    {
+      "inning": "1",
+      "away": null,
+      "home": null
+    },
+    {
+      "inning": "2",
+      "away": null,
+      "home": null
+    },
+    {
+      "inning": "3",
+      "away": null,
+      "home": null
+    },
+    {
+      "inning": "4",
+      "away": null,
+      "home": null
+    },
+    {
+      "inning": "5",
+      "away": null,
+      "home": null
+    },
+    {
+      "inning": "6",
+      "away": null,
+      "home": null
+    },
+    {
+      "inning": "7",
+      "away": null,
+      "home": null
+    },
+    {
+      "inning": "8",
+      "away": null,
+      "home": null
+    },
+    {
+      "inning": "9",
+      "away": null,
+      "home": null
+    }
+  ]
+}

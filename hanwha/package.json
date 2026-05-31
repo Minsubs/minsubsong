@@ -1,0 +1,11 @@
+{
+  "name": "eagles-lounge",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "serve": "python3 -m http.server 4173",
+    "update:data": "node scripts/update-data.mjs",
+    "check": "node --check script.js && node --check service-worker.js && node --check scripts/update-data.mjs"
+  }
+}

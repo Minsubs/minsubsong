@@ -1,0 +1,51 @@
+name: Update KBO data (hanwha)
+
+on:
+  schedule:
+    # cron 은 UTC 기준. KST = UTC + 9.
+    - cron: "0 23 * * *"   # 08:00 KST · 아침 일정/순위 갱신
+    - cron: "0 9 * * *"    # 18:00 KST · 낮/저녁 경기 시작 전 갱신
+    - cron: "30 14 * * *"  # 23:30 KST · 저녁 경기 결과 반영
+    - cron: "30 15 * * *"  # 00:30 KST · 연장/지연 경기 마무리
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-data-hanwha
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Update KBO data snapshot
+        run: node hanwha/scripts/update-data.mjs
+
+      - name: Commit data changes
+        run: |
+          # meta.json 은 실행 시각(updatedAt) 때문에 매번 바뀐다.
+          # 실제 경기/순위/선수 데이터가 바뀐 경우에만 커밋한다.
+          DATA_CHANGED="$(git status --porcelain hanwha/data | grep -v 'hanwha/data/meta.json' || true)"
+
+          if [ -n "$DATA_CHANGED" ]; then
+            git config user.name "eagles-data-bot"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add hanwha/data
+            git commit -m "chore(hanwha): refresh KBO snapshot"
+            git push
+            echo "Committed refreshed KBO snapshot."
+          else
+            # 데이터 변화가 없으면 시각만 바뀐 meta.json 변경을 되돌린다.
+            git checkout -- hanwha/data/meta.json || true
+            echo "No data changes. Skipped commit."
+          fi

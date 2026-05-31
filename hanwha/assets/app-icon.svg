@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="이글스 라운지 앱 아이콘">
+  <rect width="512" height="512" rx="112" fill="#17120f"/>
+  <circle cx="256" cy="256" r="172" fill="#f15a24"/>
+  <path fill="#fff8ef" d="M168 154h184v58H235v45h102v55H235v46h122v58H168z"/>
+  <path fill="#17120f" opacity=".24" d="M371 123c-16 44-55 81-107 108 58 0 102 21 132 62-17-74-10-123-25-170Z"/>
+  <path fill="#fff8ef" d="M342 132c-10 38-45 72-96 101 54-7 98 5 134 39-26-52-21-99-38-140Z"/>
+</svg>
