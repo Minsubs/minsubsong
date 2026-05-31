@@ -5,22 +5,22 @@
     "scope": "타자",
     "players": [
       {
-        "rank": 7,
+        "rank": 6,
         "name": "강백호",
-        "value": "0.333",
-        "note": "리그 7위"
+        "value": "0.342",
+        "note": "리그 6위"
       },
       {
         "rank": 8,
         "name": "페라자",
-        "value": "0.323",
+        "value": "0.322",
         "note": "리그 8위"
       },
       {
-        "rank": 11,
+        "rank": 13,
         "name": "문현빈",
-        "value": "0.311",
-        "note": "리그 11위"
+        "value": "0.306",
+        "note": "리그 13위"
       }
     ]
   },
@@ -30,13 +30,13 @@
     "scope": "투수",
     "players": [
       {
-        "rank": 4,
+        "rank": 5,
         "name": "왕옌청",
         "value": "3.24",
         "note": "5승 2패 · WHIP 1.41"
       },
       {
-        "rank": 6,
+        "rank": 8,
         "name": "류현진",
         "value": "3.28",
         "note": "6승 2패 · WHIP 1.06"

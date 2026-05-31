@@ -2,26 +2,6 @@
   {
     "type": "recent",
     "status": "최근 결과",
-    "date": "05.28",
-    "time": "목 18:30",
-    "location": "창원",
-    "home": "NC",
-    "away": "한화",
-    "score": "승 18:7",
-    "detail": "창원 경기",
-    "ticketing": {
-      "provider": "NC 다이노스",
-      "url": "https://www.ncdinos.com/",
-      "note": "NC 홈 예매",
-      "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    }
-  },
-  {
-    "type": "recent",
-    "status": "최근 결과",
     "date": "05.29",
     "time": "금 18:30",
     "location": "대전",
@@ -60,15 +40,15 @@
     }
   },
   {
-    "type": "upcoming",
-    "status": "예정 경기",
+    "type": "recent",
+    "status": "최근 결과",
     "date": "05.31",
     "time": "일 14:00",
     "location": "대전",
     "home": "한화",
     "away": "SSG",
-    "score": "경기전",
-    "detail": "한화 홈 경기",
+    "score": "승 6:2",
+    "detail": "KBO 스코어보드 최종",
     "ticketing": {
       "provider": "티켓링크",
       "url": "https://www.ticketlink.co.kr/sports/137/63",
