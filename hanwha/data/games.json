@@ -1,14 +1,14 @@
 [
   {
-    "type": "upcoming",
-    "status": "예정 경기",
+    "type": "recent",
+    "status": "최근 결과",
     "date": "06.02",
     "time": "화 18:30",
     "location": "잠실",
     "home": "두산",
     "away": "한화",
-    "score": "경기전",
-    "detail": "두산 홈 경기",
+    "score": "패 3:5",
+    "detail": "KBO 스코어보드 최종",
     "ticketing": {
       "provider": "NOL 티켓",
       "url": "https://tickets.interpark.com/contents/sports",
