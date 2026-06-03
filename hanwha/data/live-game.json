@@ -1,61 +1,61 @@
 {
-  "date": "06.03",
-  "time": "수 17:00",
+  "date": "06.04",
+  "time": "목 18:30",
   "location": "잠실",
-  "status": "final",
-  "statusLabel": "경기 결과",
-  "state": "종료",
-  "inning": "최종",
+  "status": "scheduled",
+  "statusLabel": "경기 예정",
+  "state": "스코어 대기",
+  "inning": "연동 대기",
   "awayTeam": "한화",
   "homeTeam": "두산",
-  "awayScore": 3,
-  "homeScore": 3,
-  "note": "한화 3:3 두산. KBO 스코어보드 기준 결과입니다.",
+  "awayScore": null,
+  "homeScore": null,
+  "note": "06.04 18:30 한화 vs 두산. 경기 시작 후 스코어가 갱신됩니다.",
   "linescore": [
     {
       "inning": "1",
-      "away": 0,
-      "home": 0
+      "away": null,
+      "home": null
     },
     {
       "inning": "2",
-      "away": 0,
-      "home": 0
+      "away": null,
+      "home": null
     },
     {
       "inning": "3",
-      "away": 1,
-      "home": 0
+      "away": null,
+      "home": null
     },
     {
       "inning": "4",
-      "away": 0,
-      "home": 0
+      "away": null,
+      "home": null
     },
     {
       "inning": "5",
-      "away": 0,
-      "home": 1
+      "away": null,
+      "home": null
     },
     {
       "inning": "6",
-      "away": 0,
-      "home": 0
+      "away": null,
+      "home": null
     },
     {
       "inning": "7",
-      "away": 0,
-      "home": 0
+      "away": null,
+      "home": null
     },
     {
       "inning": "8",
-      "away": 0,
-      "home": 0
+      "away": null,
+      "home": null
     },
     {
       "inning": "9",
-      "away": 0,
-      "home": 0
+      "away": null,
+      "home": null
     }
   ]
 }
