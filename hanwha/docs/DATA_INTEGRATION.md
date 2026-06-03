@@ -17,7 +17,8 @@ MVP 다음 단계의 기본 전략은 공식 KBO 페이지를 1차 출처로 사
 ## 확인한 공식 데이터 지점
 
 - KBO 팀 순위: `https://eng.koreabaseball.com/Standings/TeamStandings.aspx`
-- KBO 일별 일정: `https://eng.koreabaseball.com/Schedule/DailySchedule.aspx`
+- KBO 영문 일별 일정: `https://eng.koreabaseball.com/Schedule/DailySchedule.aspx`
+- KBO 국문 월별 일정: `https://www.koreabaseball.com/Schedule/Schedule.aspx` (`/ws/Schedule.asmx/GetScheduleList` form POST)
 - KBO 팀 타자 기록: `https://www.koreabaseball.com/Record/Team/Hitter/Basic1.aspx`
 - KBO 선수 타자 기록: `https://www.koreabaseball.com/Record/Player/HitterBasic/Basic1.aspx`
 - KBO 선수 투수 기록: `https://www.koreabaseball.com/Record/Player/PitcherBasic/Basic1.aspx`
@@ -56,14 +57,13 @@ MVP 다음 단계의 기본 전략은 공식 KBO 페이지를 1차 출처로 사
 
 - `scripts/update-data.mjs`를 추가했다.
 - KBO 팀 순위와 팀 기록에서 `summary.json`을 자동 생성한다.
-- KBO 일별 일정에서 한화 경기만 추출해 `games.json`과 `live-game.json`을 자동 생성한다.
+- KBO 국문 월별 일정 API에서 현재 달과 다음 달 한화 경기만 추출해 `games.json`과 `live-game.json`을 자동 생성한다.
 - KBO 스코어보드에서 오늘 한화 경기 결과와 1~9회 라인스코어를 추출해 `live-game.json`에 반영한다.
 - KBO 선수 타자/투수 기록에서 한화 주요 선수만 추출해 `players.json`과 `player-rankings.json`을 자동 생성한다.
-- 수집 원본 HTML은 `data/cache/raw/`에 저장하고 `.gitignore`로 제외한다.
+- 수집 원본 HTML/JSON은 `data/cache/raw/`에 저장하고 `.gitignore`로 제외한다.
 
 ## 다음 구현 단계
 
-1. GitHub Actions, cron, 서버 스케줄러 중 하나로 `npm run update:data`를 주기 실행한다.
-2. 경기 중 실시간 상태 텍스트가 필요하면 문자중계/GameCenter 출처를 추가한다.
-3. 수집 실패 시 기존 JSON을 보존하는 테스트를 추가한다.
-4. 자동 갱신 후 PWA 캐시 갱신 알림 UX를 추가한다.
+1. 경기 중 실시간 상태 텍스트가 필요하면 문자중계/GameCenter 출처를 추가한다.
+2. 수집 실패 시 기존 JSON을 보존하는 테스트를 추가한다.
+3. 자동 갱신 후 PWA 캐시 갱신 알림 UX를 추가한다.

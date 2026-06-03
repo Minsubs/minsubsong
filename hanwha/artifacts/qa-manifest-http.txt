@@ -1,0 +1,40 @@
+HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.14.2
+Date: Wed, 03 Jun 2026 06:04:44 GMT
+Content-type: application/manifest+json
+Content-Length: 847
+Last-Modified: Sun, 31 May 2026 07:43:10 GMT
+
+{
+  "name": "민섭이가 쓰려고 만든 한화이글스 앱",
+  "short_name": "민섭이 한화앱",
+  "description": "민섭이가 보려고 모아둔 한화이글스 경기, 랭킹, 티켓 체크 앱",
+  "lang": "ko-KR",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#17120f",
+  "theme_color": "#17120f",
+  "categories": ["sports", "news", "utilities"],
+  "icons": [
+    {
+      "src": "./assets/app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "실시간 경기",
+      "short_name": "실시간",
+      "url": "./index.html#live"
+    },
+    {
+      "name": "선수 랭킹",
+      "short_name": "랭킹",
+      "url": "./index.html#rankings"
+    }
+  ]
+}

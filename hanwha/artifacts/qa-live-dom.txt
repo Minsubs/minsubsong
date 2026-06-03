@@ -1,0 +1,146 @@
+- banner:
+  - link "민섭이 한화이글스 앱 홈":
+    - /url: "#live"
+    - generic: E
+    - strong: 민섭이 한화이글스 앱
+    - generic: 민섭이 경기 · 랭킹 · 티켓 체크
+  - navigation "주요 메뉴":
+    - link "실시간":
+      - /url: "#live"
+    - link "경기":
+      - /url: "#games"
+    - link "티켓팅":
+      - /url: "#tickets"
+    - link "랭킹":
+      - /url: "#rankings"
+    - link "선수":
+      - /url: "#players"
+    - link "메모":
+      - /url: "#community"
+  - button "알림 차단됨" [disabled]
+  - button "테마 전환":
+    - generic: ◐
+- tablist "화면 탭":
+  - tab "실시간" [active] [selected]
+  - tab "경기"
+  - tab "티켓팅"
+  - tab "랭킹"
+  - tab "선수"
+  - tab "메모"
+- main:
+  - region "민섭이가 쓰려고 만든 한화이글스 앱":
+    - img "야간 야구장과 응원석"
+    - generic "실시간 경기와 선수 랭킹":
+      - article:
+        - generic: 경기 예정
+        - generic: 06.03 · 수 17:00 · 잠실
+        - generic: E
+        - text: 원정
+        - strong: 한화
+        - generic: "-"
+        - generic: 연동 대기
+        - strong: 스코어 대기
+        - generic: D
+        - text: 홈
+        - strong: 두산
+        - generic: "-"
+        - paragraph: 06.03 17:00 한화 vs 두산. 경기 시작 후 스코어가 갱신됩니다.
+        - generic "이닝별 스코어":
+          - table:
+            - rowgroup:
+              - row "팀 1 2 3 4 5 6 7 8 9 R":
+                - columnheader "팀"
+                - columnheader "1"
+                - columnheader "2"
+                - columnheader "3"
+                - columnheader "4"
+                - columnheader "5"
+                - columnheader "6"
+                - columnheader "7"
+                - columnheader "8"
+                - columnheader "9"
+                - columnheader "R"
+            - rowgroup:
+              - row "한화 - - - - - - - - - -":
+                - rowheader "한화"
+                - cell "-"
+                - cell "-"
+                - cell "-"
+                - cell "-"
+                - cell "-"
+                - cell "-"
+                - cell "-"
+                - cell "-"
+                - cell "-"
+                - cell "-"
+              - row "두산 - - - - - - - - - -":
+                - rowheader "두산"
+                - cell "-"
+                - cell "-"
+                - cell "-"
+                - cell "-"
+                - cell "-"
+                - cell "-"
+                - cell "-"
+                - cell "-"
+                - cell "-"
+                - cell "-"
+      - complementary:
+        - generic: 타자
+        - heading "타율 리그 순위" [level=3]
+        - list:
+          - generic: "7"
+          - generic: 강백호
+          - strong: "0.335"
+          - generic: "8"
+          - generic: 페라자
+          - strong: "0.321"
+          - generic: "16"
+          - generic: 문현빈
+          - strong: "0.302"
+        - generic: 투수
+        - heading "평균자책 리그 순위" [level=3]
+        - list:
+          - generic: "4"
+          - generic: 왕옌청
+          - strong: "3.24"
+          - generic: "8"
+          - generic: 류현진
+          - strong: "3.28"
+    - heading "민섭이가 쓰려고 만든 한화이글스 앱" [level=1]
+    - paragraph: 경기 흐름, 선수 순위, 티켓팅 시간을 민섭이가 바로 확인하려고 모아둔 화면입니다.
+    - link "경기판 보기":
+      - /url: "#live"
+    - link "랭킹 보기":
+      - /url: "#rankings"
+    - generic "굿즈 쇼핑몰 바로가기":
+      - link "스파이더 한화이글스":
+        - /url: https://spyder.co.kr/eagles_index.html
+      - link "형지 한화이글스샵":
+        - /url: https://www.eaglesshop.co.kr/
+  - region "팀 요약":
+    - article:
+      - generic: 순위
+      - strong: 5위
+      - generic: 27승 26패
+    - article:
+      - generic: 팀 타율
+      - strong: "0.282"
+      - generic: KBO 2위권
+    - article:
+      - generic: 홈런
+      - strong: "60"
+      - generic: 팀 홈런
+    - article:
+      - generic: 최근 흐름
+      - strong: L1
+      - generic: 1연패
+- contentinfo:
+  - paragraph: "데이터 기준: 2026-06-03 15:00 KST. KBO 공식 페이지 자동 수집 기반 JSON 스냅샷입니다."
+  - paragraph:
+    - text: "출처:"
+    - link "KBO Team Standings":
+      - /url: https://eng.koreabaseball.com/Standings/TeamStandings.aspx
+    - text: ","
+    - link "KBO Schedule":
+      - /url: https://eng.koreabaseball.com/Schedule/DailySchedule.aspx

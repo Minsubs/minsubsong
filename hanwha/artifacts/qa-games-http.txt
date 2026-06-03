@@ -1,0 +1,235 @@
+HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.14.2
+Date: Wed, 03 Jun 2026 06:04:44 GMT
+Content-type: application/json
+Content-Length: 6112
+Last-Modified: Wed, 03 Jun 2026 06:00:11 GMT
+
+[
+  {
+    "type": "recent",
+    "status": "최근 결과",
+    "date": "06.02",
+    "time": "화 18:30",
+    "location": "잠실",
+    "home": "두산",
+    "away": "한화",
+    "score": "패 3:5",
+    "detail": "잠실 경기",
+    "ticketing": {
+      "provider": "NOL 티켓",
+      "url": "https://tickets.interpark.com/contents/sports",
+      "note": "두산 홈 예매",
+      "openLabel": "두산 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "earlyOpenLabel": "베어스클럽 10:00",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "06.03",
+    "time": "수 17:00",
+    "location": "잠실",
+    "home": "두산",
+    "away": "한화",
+    "score": "경기전",
+    "detail": "두산 홈 경기",
+    "ticketing": {
+      "provider": "NOL 티켓",
+      "url": "https://tickets.interpark.com/contents/sports",
+      "note": "두산 홈 예매",
+      "openLabel": "두산 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "earlyOpenLabel": "베어스클럽 10:00",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "06.04",
+    "time": "목 18:30",
+    "location": "잠실",
+    "home": "두산",
+    "away": "한화",
+    "score": "경기전",
+    "detail": "두산 홈 경기",
+    "ticketing": {
+      "provider": "NOL 티켓",
+      "url": "https://tickets.interpark.com/contents/sports",
+      "note": "두산 홈 예매",
+      "openLabel": "두산 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "earlyOpenLabel": "베어스클럽 10:00",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "06.05",
+    "time": "금 18:30",
+    "location": "사직",
+    "home": "롯데",
+    "away": "한화",
+    "score": "경기전",
+    "detail": "롯데 홈 경기",
+    "ticketing": {
+      "provider": "롯데 자이언츠",
+      "url": "https://ticket.giantsclub.com/",
+      "note": "롯데 홈 예매",
+      "openLabel": "롯데 홈 예매 일정 기준",
+      "openDaysBefore": 14,
+      "openTime": "14:00",
+      "openCaution": "구단 앱 공지 기준 확인",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "06.06",
+    "time": "토 17:00",
+    "location": "사직",
+    "home": "롯데",
+    "away": "한화",
+    "score": "경기전",
+    "detail": "롯데 홈 경기",
+    "ticketing": {
+      "provider": "롯데 자이언츠",
+      "url": "https://ticket.giantsclub.com/",
+      "note": "롯데 홈 예매",
+      "openLabel": "롯데 홈 예매 일정 기준",
+      "openDaysBefore": 14,
+      "openTime": "14:00",
+      "openCaution": "구단 앱 공지 기준 확인",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "06.07",
+    "time": "일 17:00",
+    "location": "사직",
+    "home": "롯데",
+    "away": "한화",
+    "score": "경기전",
+    "detail": "롯데 홈 경기",
+    "ticketing": {
+      "provider": "롯데 자이언츠",
+      "url": "https://ticket.giantsclub.com/",
+      "note": "롯데 홈 예매",
+      "openLabel": "롯데 홈 예매 일정 기준",
+      "openDaysBefore": 14,
+      "openTime": "14:00",
+      "openCaution": "구단 앱 공지 기준 확인",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "06.09",
+    "time": "화 18:30",
+    "location": "대전",
+    "home": "한화",
+    "away": "KIA",
+    "score": "경기전",
+    "detail": "한화 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports/137/63",
+      "note": "한화 홈 예매",
+      "openLabel": "홈경기 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "venueType": "홈"
+    }
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "06.10",
+    "time": "수 18:30",
+    "location": "대전",
+    "home": "한화",
+    "away": "KIA",
+    "score": "경기전",
+    "detail": "한화 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports/137/63",
+      "note": "한화 홈 예매",
+      "openLabel": "홈경기 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "venueType": "홈"
+    }
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "06.11",
+    "time": "목 18:30",
+    "location": "대전",
+    "home": "한화",
+    "away": "KIA",
+    "score": "경기전",
+    "detail": "한화 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports/137/63",
+      "note": "한화 홈 예매",
+      "openLabel": "홈경기 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "venueType": "홈"
+    }
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "06.12",
+    "time": "금 18:30",
+    "location": "고척",
+    "home": "키움",
+    "away": "한화",
+    "score": "경기전",
+    "detail": "키움 홈 경기",
+    "ticketing": {
+      "provider": "NOL 티켓",
+      "url": "https://tickets.interpark.com/contents/sports",
+      "note": "키움 홈 예매",
+      "openLabel": "키움 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "06.13",
+    "time": "토 17:00",
+    "location": "고척",
+    "home": "키움",
+    "away": "한화",
+    "score": "경기전",
+    "detail": "키움 홈 경기",
+    "ticketing": {
+      "provider": "NOL 티켓",
+      "url": "https://tickets.interpark.com/contents/sports",
+      "note": "키움 홈 예매",
+      "openLabel": "키움 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "venueType": "원정"
+    }
+  }
+]

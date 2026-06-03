@@ -2,13 +2,15 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { fetchKoreanScheduleMonth, mergeScheduleMonths, parseKoreanScheduleRows, scheduleMonthTargets } from "./kbo-schedule-api.mjs";
+
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const DATA_DIR = join(ROOT, "data");
 const CACHE_DIR = join(DATA_DIR, "cache", "raw");
 
 const SOURCES = {
   standings: "https://eng.koreabaseball.com/Standings/TeamStandings.aspx",
-  schedule: "https://eng.koreabaseball.com/Schedule/DailySchedule.aspx",
+  schedule: "https://www.koreabaseball.com/Schedule/Schedule.aspx",
   scoreboard: "https://eng.koreabaseball.com/Schedule/Scoreboard.aspx",
   hitters: "https://www.koreabaseball.com/Record/Player/HitterBasic/Basic1.aspx",
   pitchers: "https://www.koreabaseball.com/Record/Player/PitcherBasic/Basic1.aspx",
@@ -108,16 +110,17 @@ const updatedAt = `${kstDate} ${kstParts.hour}:${kstParts.minute} KST`;
 async function main() {
   await mkdir(CACHE_DIR, { recursive: true });
 
-  const [standingsHtml, scheduleHtml, scoreboardHtml, hittersHtml, pitchersHtml] = await Promise.all([
+  const scheduleTargets = scheduleMonthTargets(kstParts.year, kstParts.month);
+  const [standingsHtml, schedulePayloads, scoreboardHtml, hittersHtml, pitchersHtml] = await Promise.all([
     fetchSource("standings", SOURCES.standings),
-    fetchSource("schedule", SOURCES.schedule),
+    Promise.all(scheduleTargets.map((target) => fetchScheduleMonth(target))),
     fetchSource("scoreboard", SOURCES.scoreboard),
     fetchSource("hitters", SOURCES.hitters),
     fetchSource("pitchers", SOURCES.pitchers),
   ]);
 
   const { standings, standing, teamStats } = parseStandings(standingsHtml);
-  const schedule = parseSchedule(scheduleHtml);
+  const schedule = mergeScheduleMonths(schedulePayloads.map((payload) => parseKoreanScheduleRows(payload.rows)));
   const scoreboard = parseScoreboard(scoreboardHtml);
   const hitters = parseHitters(hittersHtml);
   const pitchers = parsePitchers(pitchersHtml);
@@ -151,6 +154,12 @@ async function fetchSource(name, url) {
   const html = await response.text();
   await writeFile(join(CACHE_DIR, `${name}.html`), html);
   return html;
+}
+
+async function fetchScheduleMonth(target) {
+  const payload = await fetchKoreanScheduleMonth(target);
+  await writeFile(join(CACHE_DIR, `schedule-${target.seasonId}-${target.gameMonth}.json`), `${JSON.stringify(payload, null, 2)}\n`);
+  return payload;
 }
 
 function parseStandings(html) {
@@ -664,6 +673,11 @@ function locationToKorean(location) {
 function toEnglishTeam(team) {
   const names = {
     한화: "HANWHA",
+    SSG: "SSG",
+    NC: "NC",
+    LG: "LG",
+    KIA: "KIA",
+    KT: "KT",
     롯데: "LOTTE",
     삼성: "SAMSUNG",
     두산: "DOOSAN",

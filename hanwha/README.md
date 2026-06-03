@@ -63,7 +63,7 @@ KBO 공식 페이지에서 팀 순위, 경기 일정, 선수 기록을 가져와
 npm run update:data
 ```
 
-수집 원본 HTML은 `data/cache/raw/`에 저장되며 버전 관리에서는 제외됩니다.
+수집 원본 HTML/JSON은 `data/cache/raw/`에 저장되며 버전 관리에서는 제외됩니다. 경기 일정은 KBO 공식 일정 API에서 현재 달과 다음 달을 함께 가져와 월말에도 예정 경기 10개를 유지합니다.
 
 ## 자동 갱신과 배포 (GitHub)
 
@@ -78,4 +78,4 @@ GitHub에 올리면 사람이 손대지 않아도 데이터가 자동으로 갱�
 2. GitHub → Settings → Pages → Source를 **GitHub Actions**로 설정합니다.
 3. Settings → Actions → General → Workflow permissions를 **Read and write**로 둡니다.
 
-참고: KBO 일정 페이지는 현재 달만 제공하므로, 매월 말일에는 예정 경기가 잠시 비었다가 다음 달 1일 자동 갱신부터 다시 채워집니다.
+참고: 앱이 완전히 종료된 상태의 백그라운드 푸시는 아직 서버 푸시 연동이 필요합니다. 설치형 PWA/Chromium 계열에서 지원되는 경우에는 Periodic Background Sync로 데이터 캐시 갱신을 best-effort로 시도합니다.

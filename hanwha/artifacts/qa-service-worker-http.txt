@@ -1,0 +1,136 @@
+HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.14.2
+Date: Wed, 03 Jun 2026 06:04:44 GMT
+Content-type: text/javascript
+Content-Length: 3179
+Last-Modified: Sun, 31 May 2026 07:43:10 GMT
+
+const CACHE_NAME = "eagles-lounge-v16";
+const APP_SHELL = [
+  "./",
+  "./index.html",
+  "./offline.html",
+  "./styles.css?v=15",
+  "./script.js?v=15",
+  "./manifest.webmanifest",
+  "./assets/app-icon.svg",
+  "./assets/hero-stadium.png",
+  "./data/meta.json?v=15",
+  "./data/summary.json?v=15",
+  "./data/team-standings.json?v=15",
+  "./data/live-game.json?v=15",
+  "./data/player-rankings.json?v=15",
+  "./data/games.json?v=15",
+  "./data/players.json?v=15",
+  "./data/posts.json?v=15",
+];
+
+self.addEventListener("install", (event) => {
+  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
+  self.skipWaiting();
+});
+
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches
+      .keys()
+      .then((keys) => Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key)))),
+  );
+  self.clients.claim();
+});
+
+self.addEventListener("fetch", (event) => {
+  const request = event.request;
+  const url = new URL(request.url);
+
+  if (request.method !== "GET") {
+    return;
+  }
+
+  if (request.mode === "navigate") {
+    event.respondWith(networkFirst(request, "./index.html"));
+    return;
+  }
+
+  if (url.pathname.includes("/data/")) {
+    event.respondWith(networkFirst(request));
+    return;
+  }
+
+  event.respondWith(cacheFirst(request));
+});
+
+async function networkFirst(request, fallback = null) {
+  const cache = await caches.open(CACHE_NAME);
+
+  try {
+    const response = await fetch(request);
+    cache.put(request, response.clone());
+    return response;
+  } catch {
+    const cached = await cache.match(request);
+
+    if (cached) {
+      return cached;
+    }
+
+    return cache.match(fallback ?? "./offline.html");
+  }
+}
+
+async function cacheFirst(request) {
+  const cache = await caches.open(CACHE_NAME);
+  const cached = await cache.match(request);
+
+  if (cached) {
+    return cached;
+  }
+
+  const response = await fetch(request);
+  cache.put(request, response.clone());
+  return response;
+}
+
+self.addEventListener("notificationclick", (event) => {
+  const targetUrl = new URL(event.notification.data?.url ?? "./index.html#live", self.registration.scope).href;
+  event.notification.close();
+
+  event.waitUntil(
+    clients
+      .matchAll({ type: "window", includeUncontrolled: true })
+      .then((clientList) => {
+        const existingClient = clientList.find((client) => client.url.includes("/index.html"));
+
+        if (existingClient) {
+          existingClient.focus();
+          return existingClient.navigate(targetUrl);
+        }
+
+        return clients.openWindow(targetUrl);
+      }),
+  );
+});
+
+self.addEventListener("periodicsync", (event) => {
+  if (event.tag === "refresh-data") {
+    event.waitUntil(refreshDataCache());
+  }
+});
+
+async function refreshDataCache() {
+  const cache = await caches.open(CACHE_NAME);
+
+  await Promise.all(
+    APP_SHELL.filter((url) => url.includes("/data/")).map(async (url) => {
+      try {
+        const response = await fetch(url, { cache: "no-store" });
+
+        if (response.ok) {
+          await cache.put(url, response.clone());
+        }
+      } catch {
+        // 네트워크 실패 시 기존 캐시를 유지한다.
+      }
+    }),
+  );
+}

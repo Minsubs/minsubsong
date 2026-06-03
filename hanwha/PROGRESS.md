@@ -403,3 +403,62 @@
   - 설정 후 Actions 탭에서 `Deploy hanwha app to GitHub Pages` 성공 확인, `Update KBO data (hanwha)`는 Run workflow로 1회 수동 검증 권장.
 - 로컬 작업 폴더는 `/Users/minsub/Documents/minsubsong`(hanwha/ 포함). 초기 작업에 쓰던 `/Users/minsub/Documents/한화` standalone 폴더는 이제 사용하지 않아도 된다.
 - 남은 개선 후보(선택): 월말 예정 경기 공백 해소를 위한 다음 달 일정 수집(POST/`__VIEWSTATE` 필요), 실제 브라우저(설치형 PWA)에서 알림/Periodic Sync 동작 확인.
+
+## 세션 핸드오프 (2026-06-03)
+
+- 현재 작업 루트는 `/Users/minsub/Documents/한화`이고, 원격 기준 앱 파일은 `hanwha/` 하위 디렉토리에 있다.
+- Git 상태 확인 결과 `main` 브랜치가 `origin/main`을 추적하며 HEAD는 둘 다 `604cb3e`였다.
+- 원격 `hanwha/service-worker.js`에는 GitHub Pages 하위 경로 대응 수정이 이미 반영되어 있다.
+  - 알림 클릭 URL base: `self.registration.scope`
+- `hanwha` 디렉토리에서 `npm run check` 실행 완료.
+  - `script.js`, `service-worker.js`, `scripts/update-data.mjs` 문법 체크 통과.
+- 루트에 untracked 항목이 남아 있다.
+  - `.claude/`
+  - `data/`
+  - 원격 앱 기준 파일은 `hanwha/` 아래이므로 이번 세션에서는 건드리지 않았다.
+- 사용자가 요청한 `lazycodex` 설치를 진행했다.
+  - 실행 명령: `npx lazycodex-ai install --no-tui --codex-autonomous`
+  - 설치 패키지: `lazycodex-ai@4.7.5`
+  - Codex 플러그인: `omo@sisyphuslabs` enabled 상태로 `/Users/minsub/.codex/config.toml`에 반영됨.
+  - 생성/등록된 주요 에이전트: `explorer`, `librarian`, `metis`, `momus`, `plan`, `codex-ultrawork-reviewer`
+  - 현재 세션에서는 일부 multi-agent 도구와 역할이 보이지만, `session_start` 훅과 플러그인 전체 로드는 새 Codex 세션 시작 후가 더 안정적이다.
+- 새 세션 시작 권장 절차:
+  1. `/Users/minsub/Documents/한화/AGENTS.md` 확인.
+  2. `/Users/minsub/Documents/한화/hanwha/PROGRESS.md`의 이 섹션부터 확인.
+  3. `git status --short --branch`로 루트 untracked 항목을 확인하되, 앱 작업은 기본적으로 `hanwha/` 기준으로 진행.
+  4. 필요한 경우 `hanwha`에서 `npm run check` 후 개발 서버 `python3 -m http.server 4173` 실행.
+
+## Next-Month Schedule & PWA QA Handoff (2026-06-03)
+
+- 월말 예정 경기 공백 해소를 구현했다.
+  - 새 모듈: `scripts/kbo-schedule-api.mjs`
+  - KBO 공식 국문 일정 API(`/ws/Schedule.asmx/GetScheduleList`)를 form POST로 호출한다.
+  - 현재 달과 다음 달 한화 경기(`teamId=HH`)를 함께 수집하고 중복 제거 후 `games.json`/`live-game.json` 생성에 사용한다.
+  - `data/cache/raw/schedule-YYYY-MM.json` 원본 JSON을 저장한다(`data/cache/`는 git 제외).
+- 테스트 인프라를 추가했다.
+  - `npm test`: `node --test tests/*.test.mjs`
+  - `npm run check`: 문법 체크 + 테스트 실행
+  - 일정 파싱/다음 달 병합/중복 제거 테스트 3개
+  - PWA 서비스워커 등록/Periodic Sync/알림 클릭 scope 회귀 테스트 2개
+- 실제 데이터 갱신을 실행했다.
+  - `npm run update:data`
+  - 기준 시각: `2026-06-03 15:00 KST`
+  - 결과: `games.json`은 최근 1경기 + 예정 10경기, 예정 경기는 06.03~06.13까지 노출
+- 브라우저/HTTP QA를 수행했다.
+  - 로컬 서버: `python3 -m http.server 4173`
+  - 브라우저 DOM QA: 실시간 탭이 2026-06-03 데이터로 렌더링되고, 티켓팅 탭에 예정 경기 10개와 예매 오픈/10분 전 알림 정보가 표시됨.
+  - QA artifacts:
+    - `artifacts/qa-live-dom.txt`
+    - `artifacts/qa-ticketing-dom.txt`
+    - `artifacts/qa-games-http.txt`
+    - `artifacts/qa-service-worker-http.txt`
+    - `artifacts/qa-manifest-http.txt`
+  - 스크린샷 캡처는 Browser CDP `Page.captureScreenshot` 타임아웃으로 실패했지만, DOM snapshot과 HTTP response artifact는 남겼다.
+- 검증 명령:
+  - `node --test tests/kbo-schedule-api.test.mjs` RED: `ERR_MODULE_NOT_FOUND` 확인 후 구현
+  - `npm test` GREEN: 5/5 통과
+  - `npm run check` GREEN
+  - `npm run update:data` 성공
+  - `curl -i /data/games.json`: HTTP 200, 예정 10경기 확인
+  - `curl -i /service-worker.js`: HTTP 200, `self.registration.scope`, `periodicsync`, `refresh-data` 확인
+  - `curl -i /manifest.webmanifest`: HTTP 200, 민섭이 브랜딩과 icon 확인

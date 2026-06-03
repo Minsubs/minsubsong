@@ -1,0 +1,181 @@
+- banner:
+  - link "민섭이 한화이글스 앱 홈":
+    - /url: "#live"
+    - generic: E
+    - strong: 민섭이 한화이글스 앱
+    - generic: 민섭이 경기 · 랭킹 · 티켓 체크
+  - navigation "주요 메뉴":
+    - link "실시간":
+      - /url: "#live"
+    - link "경기":
+      - /url: "#games"
+    - link "티켓팅":
+      - /url: "#tickets"
+    - link "랭킹":
+      - /url: "#rankings"
+    - link "선수":
+      - /url: "#players"
+    - link "메모":
+      - /url: "#community"
+  - button "알림 차단됨" [disabled]
+  - button "테마 전환":
+    - generic: ◐
+- tablist "화면 탭":
+  - tab "실시간"
+  - tab "경기"
+  - tab "티켓팅" [active] [selected]
+  - tab "랭킹"
+  - tab "선수"
+  - tab "메모"
+- main:
+  - paragraph: Ticketing
+  - heading "티켓팅 정보" [level=2]
+  - article:
+    - time:
+      - text: "06.03"
+      - text: 수 17:00
+    - strong: 한화 vs 두산
+    - text: 잠실 · 두산 홈 경기
+    - generic: 원정 · NOL 티켓
+    - strong: 예매 중
+    - generic: 예매 오픈 05.27.11:00 · 베어스클럽 10:00
+    - generic: 알림 05.27.10:50 (10분 전)
+    - link "예매처":
+      - /url: https://tickets.interpark.com/contents/sports
+    - button "오픈됨" [disabled]
+    - generic: 경기전
+  - article:
+    - time:
+      - text: "06.04"
+      - text: 목 18:30
+    - strong: 한화 vs 두산
+    - text: 잠실 · 두산 홈 경기
+    - generic: 원정 · NOL 티켓
+    - strong: 예매 중
+    - generic: 예매 오픈 05.28.11:00 · 베어스클럽 10:00
+    - generic: 알림 05.28.10:50 (10분 전)
+    - link "예매처":
+      - /url: https://tickets.interpark.com/contents/sports
+    - button "오픈됨" [disabled]
+    - generic: 경기전
+  - article:
+    - time:
+      - text: "06.05"
+      - text: 금 18:30
+    - strong: 한화 vs 롯데
+    - text: 사직 · 롯데 홈 경기
+    - generic: 원정 · 롯데 자이언츠
+    - strong: 예매 중
+    - generic: 예매 오픈 05.22.14:00 · 구단 앱 공지 기준 확인
+    - generic: 알림 05.22.13:50 (10분 전)
+    - link "예매처":
+      - /url: https://ticket.giantsclub.com/
+    - button "오픈됨" [disabled]
+    - generic: 경기전
+  - article:
+    - time:
+      - text: "06.06"
+      - text: 토 17:00
+    - strong: 한화 vs 롯데
+    - text: 사직 · 롯데 홈 경기
+    - generic: 원정 · 롯데 자이언츠
+    - strong: 예매 중
+    - generic: 예매 오픈 05.23.14:00 · 구단 앱 공지 기준 확인
+    - generic: 알림 05.23.13:50 (10분 전)
+    - link "예매처":
+      - /url: https://ticket.giantsclub.com/
+    - button "오픈됨" [disabled]
+    - generic: 경기전
+  - article:
+    - time:
+      - text: "06.07"
+      - text: 일 17:00
+    - strong: 한화 vs 롯데
+    - text: 사직 · 롯데 홈 경기
+    - generic: 원정 · 롯데 자이언츠
+    - strong: 예매 중
+    - generic: 예매 오픈 05.24.14:00 · 구단 앱 공지 기준 확인
+    - generic: 알림 05.24.13:50 (10분 전)
+    - link "예매처":
+      - /url: https://ticket.giantsclub.com/
+    - button "오픈됨" [disabled]
+    - generic: 경기전
+  - article:
+    - time:
+      - text: "06.09"
+      - text: 화 18:30
+    - strong: KIA vs 한화
+    - text: 대전 · 한화 홈 경기
+    - generic: 홈 · 티켓링크
+    - strong: 예매 중
+    - generic: 예매 오픈 06.02.11:00
+    - generic: 알림 06.02.10:50 (10분 전)
+    - link "예매처":
+      - /url: https://www.ticketlink.co.kr/sports/137/63
+    - button "오픈됨" [disabled]
+    - generic: 경기전
+  - article:
+    - time:
+      - text: "06.10"
+      - text: 수 18:30
+    - strong: KIA vs 한화
+    - text: 대전 · 한화 홈 경기
+    - generic: 홈 · 티켓링크
+    - strong: 예매 중
+    - generic: 예매 오픈 06.03.11:00
+    - generic: 알림 06.03.10:50 (10분 전)
+    - link "예매처":
+      - /url: https://www.ticketlink.co.kr/sports/137/63
+    - button "오픈됨" [disabled]
+    - generic: 경기전
+  - article:
+    - time:
+      - text: "06.11"
+      - text: 목 18:30
+    - strong: KIA vs 한화
+    - text: 대전 · 한화 홈 경기
+    - generic: 홈 · 티켓링크
+    - strong: 오픈 전
+    - generic: 예매 오픈 06.04.11:00
+    - generic: 알림 06.04.10:50 (10분 전)
+    - link "예매처":
+      - /url: https://www.ticketlink.co.kr/sports/137/63
+    - button "10분 전 알림"
+    - generic: 경기전
+  - article:
+    - time:
+      - text: "06.12"
+      - text: 금 18:30
+    - strong: 한화 vs 키움
+    - text: 고척 · 키움 홈 경기
+    - generic: 원정 · NOL 티켓
+    - strong: 오픈 전
+    - generic: 예매 오픈 06.05.11:00
+    - generic: 알림 06.05.10:50 (10분 전)
+    - link "예매처":
+      - /url: https://tickets.interpark.com/contents/sports
+    - button "10분 전 알림"
+    - generic: 경기전
+  - article:
+    - time:
+      - text: "06.13"
+      - text: 토 17:00
+    - strong: 한화 vs 키움
+    - text: 고척 · 키움 홈 경기
+    - generic: 원정 · NOL 티켓
+    - strong: 오픈 전
+    - generic: 예매 오픈 06.06.11:00
+    - generic: 알림 06.06.10:50 (10분 전)
+    - link "예매처":
+      - /url: https://tickets.interpark.com/contents/sports
+    - button "10분 전 알림"
+    - generic: 경기전
+- contentinfo:
+  - paragraph: "데이터 기준: 2026-06-03 15:00 KST. KBO 공식 페이지 자동 수집 기반 JSON 스냅샷입니다."
+  - paragraph:
+    - text: "출처:"
+    - link "KBO Team Standings":
+      - /url: https://eng.koreabaseball.com/Standings/TeamStandings.aspx
+    - text: ","
+    - link "KBO Schedule":
+      - /url: https://eng.koreabaseball.com/Schedule/DailySchedule.aspx
