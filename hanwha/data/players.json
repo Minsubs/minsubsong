@@ -7,7 +7,7 @@
     "stats": [
       {
         "label": "AVG",
-        "value": "0.335"
+        "value": "0.333"
       },
       {
         "label": "HR",
@@ -28,7 +28,7 @@
     "stats": [
       {
         "label": "AVG",
-        "value": "0.321"
+        "value": "0.315"
       },
       {
         "label": "HR",
@@ -43,13 +43,13 @@
   },
   {
     "type": "hitter",
-    "number": 16,
+    "number": 18,
     "name": "문현빈",
     "role": "타자",
     "stats": [
       {
         "label": "AVG",
-        "value": "0.302"
+        "value": "0.294"
       },
       {
         "label": "HR",
@@ -60,17 +60,17 @@
         "value": "38"
       }
     ],
-    "note": "KBO 타율 16위"
+    "note": "KBO 타율 18위"
   },
   {
     "type": "pitcher",
-    "number": 4,
+    "number": 3,
     "name": "왕옌청",
     "role": "투수",
     "stats": [
       {
         "label": "ERA",
-        "value": "3.24"
+        "value": "3.13"
       },
       {
         "label": "W-L",
@@ -81,6 +81,6 @@
         "value": "1.41"
       }
     ],
-    "note": "KBO 평균자책 4위"
+    "note": "KBO 평균자책 3위"
   }
 ]

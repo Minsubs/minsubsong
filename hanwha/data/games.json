@@ -21,15 +21,15 @@
     }
   },
   {
-    "type": "upcoming",
-    "status": "예정 경기",
+    "type": "recent",
+    "status": "최근 결과",
     "date": "06.03",
     "time": "수 17:00",
     "location": "잠실",
     "home": "두산",
     "away": "한화",
-    "score": "경기전",
-    "detail": "두산 홈 경기",
+    "score": "무 3:3",
+    "detail": "KBO 스코어보드 최종",
     "ticketing": {
       "provider": "NOL 티켓",
       "url": "https://tickets.interpark.com/contents/sports",
@@ -210,6 +210,26 @@
     "status": "예정 경기",
     "date": "06.13",
     "time": "토 17:00",
+    "location": "고척",
+    "home": "키움",
+    "away": "한화",
+    "score": "경기전",
+    "detail": "키움 홈 경기",
+    "ticketing": {
+      "provider": "NOL 티켓",
+      "url": "https://tickets.interpark.com/contents/sports",
+      "note": "키움 홈 예매",
+      "openLabel": "키움 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "06.14",
+    "time": "일 14:00",
     "location": "고척",
     "home": "키움",
     "away": "한화",
