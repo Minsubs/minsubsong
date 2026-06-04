@@ -5,22 +5,22 @@
     "scope": "타자",
     "players": [
       {
-        "rank": 7,
+        "rank": 6,
         "name": "강백호",
         "value": "0.333",
-        "note": "리그 7위"
+        "note": "리그 6위"
       },
       {
         "rank": 8,
         "name": "페라자",
-        "value": "0.315",
+        "value": "0.313",
         "note": "리그 8위"
       },
       {
-        "rank": 18,
+        "rank": 19,
         "name": "문현빈",
-        "value": "0.294",
-        "note": "리그 18위"
+        "value": "0.293",
+        "note": "리그 19위"
       }
     ]
   },
