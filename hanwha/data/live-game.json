@@ -1,55 +1,55 @@
 {
-  "date": "06.05",
-  "time": "금 18:30",
+  "date": "06.06",
+  "time": "토 17:00",
   "location": "사직",
-  "status": "final",
-  "statusLabel": "경기 결과",
-  "state": "TOP 8",
-  "inning": "TOP 8",
+  "status": "scheduled",
+  "statusLabel": "경기 예정",
+  "state": "스코어 대기",
+  "inning": "연동 대기",
   "awayTeam": "한화",
   "homeTeam": "롯데",
-  "awayScore": 8,
-  "homeScore": 2,
-  "note": "한화 8:2 롯데. KBO 스코어보드 기준 결과입니다.",
+  "awayScore": null,
+  "homeScore": null,
+  "note": "06.06 17:00 한화 vs 롯데. 경기 시작 후 스코어가 갱신됩니다.",
   "linescore": [
     {
       "inning": "1",
-      "away": 0,
-      "home": 0
+      "away": null,
+      "home": null
     },
     {
       "inning": "2",
-      "away": 0,
-      "home": 0
+      "away": null,
+      "home": null
     },
     {
       "inning": "3",
-      "away": 1,
-      "home": 0
+      "away": null,
+      "home": null
     },
     {
       "inning": "4",
-      "away": 0,
-      "home": 1
+      "away": null,
+      "home": null
     },
     {
       "inning": "5",
-      "away": 1,
-      "home": 0
+      "away": null,
+      "home": null
     },
     {
       "inning": "6",
-      "away": 4,
-      "home": 1
+      "away": null,
+      "home": null
     },
     {
       "inning": "7",
-      "away": 1,
-      "home": 0
+      "away": null,
+      "home": null
     },
     {
       "inning": "8",
-      "away": 1,
+      "away": null,
       "home": null
     },
     {

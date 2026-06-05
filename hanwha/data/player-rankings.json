@@ -5,22 +5,22 @@
     "scope": "타자",
     "players": [
       {
-        "rank": 6,
+        "rank": 5,
         "name": "강백호",
         "value": "0.333",
-        "note": "리그 6위"
+        "note": "리그 5위"
       },
       {
         "rank": 8,
         "name": "페라자",
-        "value": "0.313",
+        "value": "0.321",
         "note": "리그 8위"
       },
       {
-        "rank": 19,
+        "rank": 17,
         "name": "문현빈",
-        "value": "0.293",
-        "note": "리그 19위"
+        "value": "0.297",
+        "note": "리그 17위"
       }
     ]
   },
@@ -31,15 +31,15 @@
     "players": [
       {
         "rank": 3,
+        "name": "류현진",
+        "value": "2.97",
+        "note": "7승 2패 · WHIP 1.01"
+      },
+      {
+        "rank": 4,
         "name": "왕옌청",
         "value": "3.13",
         "note": "5승 2패 · WHIP 1.41"
-      },
-      {
-        "rank": 8,
-        "name": "류현진",
-        "value": "3.28",
-        "note": "6승 2패 · WHIP 1.06"
       }
     ]
   },
@@ -52,19 +52,19 @@
         "rank": 1,
         "name": "강백호",
         "value": "12 HR",
-        "note": "60타점"
+        "note": "61타점"
       },
       {
         "rank": 2,
         "name": "페라자",
-        "value": "10 HR",
-        "note": "32타점"
+        "value": "11 HR",
+        "note": "35타점"
       },
       {
         "rank": 3,
         "name": "문현빈",
         "value": "8 HR",
-        "note": "38타점"
+        "note": "40타점"
       }
     ]
   }

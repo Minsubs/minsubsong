@@ -1,7 +1,7 @@
 [
   {
     "type": "hitter",
-    "number": 6,
+    "number": 5,
     "name": "강백호",
     "role": "타자",
     "stats": [
@@ -15,10 +15,10 @@
       },
       {
         "label": "RBI",
-        "value": "60"
+        "value": "61"
       }
     ],
-    "note": "KBO 타율 6위"
+    "note": "KBO 타율 5위"
   },
   {
     "type": "hitter",
@@ -28,28 +28,28 @@
     "stats": [
       {
         "label": "AVG",
-        "value": "0.313"
+        "value": "0.321"
       },
       {
         "label": "HR",
-        "value": "10"
+        "value": "11"
       },
       {
         "label": "RBI",
-        "value": "32"
+        "value": "35"
       }
     ],
     "note": "KBO 타율 8위"
   },
   {
     "type": "hitter",
-    "number": 19,
+    "number": 17,
     "name": "문현빈",
     "role": "타자",
     "stats": [
       {
         "label": "AVG",
-        "value": "0.293"
+        "value": "0.297"
       },
       {
         "label": "HR",
@@ -57,28 +57,28 @@
       },
       {
         "label": "RBI",
-        "value": "38"
+        "value": "40"
       }
     ],
-    "note": "KBO 타율 19위"
+    "note": "KBO 타율 17위"
   },
   {
     "type": "pitcher",
     "number": 3,
-    "name": "왕옌청",
+    "name": "류현진",
     "role": "투수",
     "stats": [
       {
         "label": "ERA",
-        "value": "3.13"
+        "value": "2.97"
       },
       {
         "label": "W-L",
-        "value": "5-2"
+        "value": "7-2"
       },
       {
         "label": "WHIP",
-        "value": "1.41"
+        "value": "1.01"
       }
     ],
     "note": "KBO 평균자책 3위"
