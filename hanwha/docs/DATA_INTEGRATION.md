@@ -1,69 +1,70 @@
-# 데이터 연동 검토
+# 데이터 연동 전략
 
-검토일: 2026-05-30 KST
+검토 기준: 2026-06-06 KST
 
-## 결론
+## 목적
 
-MVP 다음 단계의 기본 전략은 공식 KBO 페이지를 1차 출처로 사용하고, 서버 사이드 수집 작업이 JSON을 생성해 현재 정적 프런트엔드가 그대로 소비하게 만드는 방식이 가장 현실적이다. 클라이언트에서 KBO 페이지를 직접 fetch하지 않고, 별도 수집 스크립트가 `data/*.json`을 갱신하는 구조를 권장한다.
+KBO 티켓팅 도우미는 10구단 경기 일정, 홈팀 기준 예매처, 예매 오픈 시각, 티켓 알림 저장 여부를 안정적으로 제공해야 한다. 현재 앱은 서버 없이 정적 JSON을 읽는 PWA이므로, 수집 스크립트가 공식 데이터를 정규화해 `data/*.json`으로 배포하는 구조를 유지한다.
 
-## 후보 출처 비교
+## 데이터 출처
 
-| 출처 | 적합 데이터 | 장점 | 리스크 | 권장 용도 |
-| --- | --- | --- | --- | --- |
-| KBO 공식 영문/국문 사이트 | 일정, 결과, 팀 순위, 팀 기록, 선수 기록 | 공식 출처이고 현재 페이지에서 표 데이터가 노출됨 | 공개 API가 아니라 HTML 구조 변경에 취약 | 1차 기준 데이터 |
-| 한화이글스 공식 사이트 | 한화 홈 경기 일정, 구단 소식, 선수단/팬 콘텐츠 | 구단 맥락과 팬용 콘텐츠가 좋음 | 기록 상세는 KBO가 더 체계적 | 보조 출처, 구단 소식 |
-| MyKBO Stats | 영문 선수/로스터/일정 요약, ICS | 팬 서비스에 유용한 정리 데이터 | 비공식 출처 | 백업/교차 검증 |
+| 출처 | 사용 데이터 | 현재 용도 | 리스크 |
+| --- | --- | --- | --- |
+| KBO 국문 일정 | 월별 경기 일정 | `games.json`, `ticketing-calendar.json` | 공개 API가 아니라 응답 형식 변경 가능 |
+| KBO 팀 순위/기록 | 순위, 팀 요약 | `summary.json`, `team-standings.json` | HTML 구조 변경 가능 |
+| KBO 선수 기록 | 주요 선수 기록 | `players.json`, `player-rankings.json` | HTML 구조 변경 가능 |
+| 홈팀 예매처 매핑 | 예매처 URL, 오픈 규칙 | `ticketing` metadata | 구단별 정책 변경 가능 |
 
-## 확인한 공식 데이터 지점
+## 현재 파이프라인
 
-- KBO 팀 순위: `https://eng.koreabaseball.com/Standings/TeamStandings.aspx`
-- KBO 영문 일별 일정: `https://eng.koreabaseball.com/Schedule/DailySchedule.aspx`
-- KBO 국문 월별 일정: `https://www.koreabaseball.com/Schedule/Schedule.aspx` (`/ws/Schedule.asmx/GetScheduleList` form POST)
-- KBO 팀 타자 기록: `https://www.koreabaseball.com/Record/Team/Hitter/Basic1.aspx`
-- KBO 선수 타자 기록: `https://www.koreabaseball.com/Record/Player/HitterBasic/Basic1.aspx`
-- KBO 선수 투수 기록: `https://www.koreabaseball.com/Record/Player/PitcherBasic/Basic1.aspx`
-- 한화이글스 공식 사이트: `https://www.hanwhaeagles.co.kr/index.do`
-- MyKBO Stats 한화 페이지: `https://mykbostats.com/teams/4/2026`
+1. `scripts/update-data.mjs`가 KBO 데이터와 일정 API를 호출한다.
+2. 한화 중심 경기 데이터는 `data/games.json`, `data/live-game.json`에 쓴다.
+3. 10구단 캘린더는 `KBO_TEAM_IDS` 전체를 월별로 호출한다.
+4. 중복 경기는 `date|time|away|home` 기준으로 병합한다.
+5. `buildTicketCalendar()`가 예정 경기만 남기고 홈팀 기준 `ticketing` metadata를 붙인다.
+6. public JSON에서는 내부 원본 필드(`rawTime`, `rawScore`)를 제거한다.
+7. 수집 원본은 `data/cache/raw/`에 저장하며 버전 관리에서는 제외한다.
 
-## 권장 데이터 파이프라인
+## 생성 파일
 
-1. 수집 스크립트가 KBO/한화 페이지 HTML을 요청한다.
-2. DOM 파서로 필요한 표와 일정 카드만 읽는다.
-3. 앱에서 쓰는 형태로 정규화한다.
-4. `data/summary.json`, `data/games.json`, `data/players.json`, `data/meta.json`을 원자적으로 갱신한다.
-5. 갱신 시각, 출처 URL, 수집 성공/실패 상태를 `data/meta.json`에 남긴다.
+- `data/meta.json`
+- `data/summary.json`
+- `data/team-standings.json`
+- `data/live-game.json`
+- `data/player-rankings.json`
+- `data/games.json`
+- `data/ticketing-calendar.json`
+- `data/players.json`
 
-## 갱신 주기
+## 갱신 명령
 
-- 경기일 낮 시간: 30분마다 갱신
-- 경기 시작 1시간 전부터 경기 종료 예상 후 30분까지: 5분마다 갱신
-- 비경기일: 하루 1회 갱신
-- 실패 시: 마지막 성공 JSON을 유지하고 `meta.json`에 오류만 기록
+```bash
+npm run update:data
+```
 
-## 캐싱 전략
+## 검증
 
-- 프런트엔드는 항상 로컬 `data/*.json`만 읽는다.
-- 수집 스크립트는 `data/cache/raw/`에 원본 HTML 스냅샷을 저장한다.
-- 정규화 JSON은 사람이 리뷰하기 쉬운 pretty JSON으로 유지한다.
-- 배포 환경에서는 `data/*.json`에 짧은 캐시 TTL을 적용하고, 이미지/CSS/JS는 긴 캐시를 적용한다.
+```bash
+npm run check
+```
 
-## 구현 후보
+중요 회귀 조건:
 
-- 단기: Node.js + `fetch` + `cheerio` 수집 스크립트
-- 대안: Python + `requests` + `BeautifulSoup`
-- 브라우저 렌더링이 필요한 페이지가 생길 경우: Playwright 기반 수집 작업
+- `KBO_TEAM_IDS`가 10개 팀 코드와 일치한다.
+- 10구단 캘린더 수집에서 빈 `teamId`를 보내지 않는다.
+- `ticketing-calendar.json`은 예정 경기만 포함한다.
+- `ticketing-calendar.json`은 `rawTime`, `rawScore`를 노출하지 않는다.
+- 예매 캘린더는 오픈 시각순으로 정렬된다.
+- 서비스워커가 `data/ticketing-calendar.json?v=18`을 캐시 목록에 포함한다.
 
-## 구현 상태
+## 운영 리스크
 
-- `scripts/update-data.mjs`를 추가했다.
-- KBO 팀 순위와 팀 기록에서 `summary.json`을 자동 생성한다.
-- KBO 국문 월별 일정 API에서 현재 달과 다음 달 한화 경기만 추출해 `games.json`과 `live-game.json`을 자동 생성한다.
-- KBO 스코어보드에서 오늘 한화 경기 결과와 1~9회 라인스코어를 추출해 `live-game.json`에 반영한다.
-- KBO 선수 타자/투수 기록에서 한화 주요 선수만 추출해 `players.json`과 `player-rankings.json`을 자동 생성한다.
-- 수집 원본 HTML/JSON은 `data/cache/raw/`에 저장하고 `.gitignore`로 제외한다.
+- KBO 일정 endpoint는 공식 문서화된 public API가 아니다.
+- 호출 수는 현재 월 2개 x 팀 10개로 늘어났으므로, 실패 시 graceful skip과 기존 스냅샷 보존이 중요하다.
+- 예매 오픈 규칙은 홈팀 정책 변경 가능성이 있으므로 `openCaution` 문구와 수동 점검 루틴이 필요하다.
 
-## 다음 구현 단계
+## 다음 개선 후보
 
-1. 경기 중 실시간 상태 텍스트가 필요하면 문자중계/GameCenter 출처를 추가한다.
-2. 수집 실패 시 기존 JSON을 보존하는 테스트를 추가한다.
-3. 자동 갱신 후 PWA 캐시 갱신 알림 UX를 추가한다.
+1. 예매처/오픈 규칙의 최신성 점검 체크리스트 추가
+2. 수집 실패 섹션별 기존 JSON 보존 테스트 강화
+3. 수요 검증 신호를 서버로 보낼지 여부 결정 전 개인정보 영향 검토

@@ -23,9 +23,9 @@
       })();
     </script>
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-title" content="민섭이 한화이글스 앱" />
+    <meta name="apple-mobile-web-app-title" content="KBO 티켓팅 도우미" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <title>민섭이가 쓰려고 만든 한화이글스 앱</title>
+    <title>KBO 티켓팅 도우미</title>
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" href="./assets/app-icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="./assets/app-icon.svg" />
@@ -35,15 +35,15 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=18" />
+    <link rel="stylesheet" href="./styles.css?v=19" />
   </head>
   <body>
     <header class="topbar">
-      <a class="brand" href="#live" data-view-target="live" aria-label="민섭이 한화이글스 앱 홈">
+      <a class="brand" href="#live" data-view-target="live" aria-label="KBO 티켓팅 도우미 홈">
         <span class="brand-mark">E</span>
         <span>
-          <strong>민섭이 한화이글스 앱</strong>
-          <small>민섭이 경기 · 랭킹 · 티켓 체크</small>
+          <strong>KBO 티켓팅 도우미</strong>
+          <small>10구단 예매 캘린더 · 알림 체크</small>
         </span>
       </a>
       <nav class="nav" aria-label="주요 메뉴">
@@ -53,6 +53,7 @@
         <a href="#calendar" data-view-target="calendar">예매 캘린더</a>
         <a href="#rankings" data-view-target="rankings">랭킹</a>
         <a href="#players" data-view-target="players">선수</a>
+        <a href="#validation" data-view-target="validation">검증</a>
       </nav>
       <div class="top-actions">
         <button class="notify-button" id="notifyButton" type="button" hidden>알림 켜기</button>
@@ -70,6 +71,7 @@
       <button type="button" data-view-target="calendar" aria-controls="calendar" role="tab">예매 캘린더</button>
       <button type="button" data-view-target="rankings" aria-controls="rankings" role="tab">랭킹</button>
       <button type="button" data-view-target="players" aria-controls="players" role="tab">선수</button>
+      <button type="button" data-view-target="validation" aria-controls="validation" role="tab">검증</button>
     </nav>
 
     <main id="top">
@@ -84,13 +86,13 @@
           <aside class="ranking-panel" id="rankingPanel"></aside>
         </div>
         <div class="hero-content">
-          <h1 id="heroTitle">민섭이가 쓰려고 만든 한화이글스 앱</h1>
+          <h1 id="heroTitle">KBO 티켓팅 도우미</h1>
           <p class="hero-copy">
-            경기 흐름, 선수 순위, 티켓팅 시간을 민섭이가 바로 확인하려고 모아둔 화면입니다.
+            10구단 예매 오픈 일정과 예매처를 모아 보고, 티켓팅 직전 알림 수요를 검증합니다.
           </p>
           <div class="hero-actions">
-            <a class="primary-action" href="#live" data-view-target="live">경기판 보기</a>
-            <a class="secondary-action" href="#rankings" data-view-target="rankings">랭킹 보기</a>
+            <a class="primary-action" href="#calendar" data-view-target="calendar">예매 캘린더</a>
+            <a class="secondary-action" href="#validation" data-view-target="validation">수요 검증</a>
           </div>
           <div class="shop-links" aria-label="굿즈 쇼핑몰 바로가기">
             <a href="https://spyder.co.kr/eagles_index.html" target="_blank" rel="noopener">스파이더 한화이글스</a>
@@ -198,6 +200,21 @@
         <div class="player-grid" id="playerGrid"></div>
       </section>
 
+      <section class="section-grid muted-band" id="validation" data-view-panel="validation">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Demand Check</p>
+            <h2>수요 검증</h2>
+          </div>
+          <div class="validation-actions">
+            <button class="secondary-button" id="exportDemandSignals" type="button">내보내기</button>
+            <button class="secondary-button subtle" id="resetDemandSignals" type="button">초기화</button>
+          </div>
+        </div>
+        <div class="demand-signal-board" id="demandSignalBoard"></div>
+        <div class="demand-signal-events" id="demandSignalEvents"></div>
+      </section>
+
     </main>
 
     <footer class="footer">
@@ -209,6 +226,6 @@
       </p>
     </footer>
 
-    <script src="./script.js?v=18"></script>
+    <script src="./script.js?v=19"></script>
   </body>
 </html>

@@ -25,6 +25,8 @@ const DATA_VERSION = "v=18";
 const TICKET_REMINDER_MINUTES = 10;
 const DEFAULT_VIEW = "live";
 const POLL_INTERVAL_MS = 5 * 60 * 1000;
+const DEMAND_SIGNALS_KEY = "eaglesDemandSignals";
+const DEMAND_EVENT_LIMIT = 12;
 
 const teamInitials = {
   한화: "E",
@@ -142,6 +144,10 @@ const ticketGameList = document.querySelector("#ticketGameList");
 const ticketCalendarFilters = document.querySelector("#ticketCalendarFilters");
 const ticketCalendarList = document.querySelector("#ticketCalendarList");
 const playerGrid = document.querySelector("#playerGrid");
+const demandSignalBoard = document.querySelector("#demandSignalBoard");
+const demandSignalEvents = document.querySelector("#demandSignalEvents");
+const exportDemandSignals = document.querySelector("#exportDemandSignals");
+const resetDemandSignals = document.querySelector("#resetDemandSignals");
 const themeToggle = document.querySelector("#themeToggle");
 const installApp = document.querySelector("#installApp");
 const notifyButton = document.querySelector("#notifyButton");
@@ -413,6 +419,144 @@ function getTicketReminders() {
   }
 }
 
+function emptyDemandSignals(now = new Date()) {
+  const timestamp = now.toISOString();
+
+  return {
+    version: 1,
+    firstSeenAt: timestamp,
+    updatedAt: timestamp,
+    eventCounts: {},
+    teams: {},
+    providers: {},
+    permissionResults: {},
+    lastEvents: [],
+  };
+}
+
+function readDemandSignals() {
+  try {
+    const stored = JSON.parse(localStorage.getItem(DEMAND_SIGNALS_KEY) ?? "null");
+
+    if (!stored || typeof stored !== "object") {
+      return emptyDemandSignals();
+    }
+
+    return {
+      ...emptyDemandSignals(),
+      ...stored,
+      eventCounts: stored.eventCounts ?? {},
+      teams: stored.teams ?? {},
+      providers: stored.providers ?? {},
+      permissionResults: stored.permissionResults ?? {},
+      lastEvents: Array.isArray(stored.lastEvents) ? stored.lastEvents : [],
+    };
+  } catch {
+    return emptyDemandSignals();
+  }
+}
+
+function incrementDemandBucket(bucket, key) {
+  if (!key) {
+    return;
+  }
+
+  bucket[key] = (bucket[key] ?? 0) + 1;
+}
+
+function trackDemandSignal(eventName, details = {}) {
+  const now = new Date().toISOString();
+  const signals = readDemandSignals();
+  signals.updatedAt = now;
+  signals.eventCounts[eventName] = (signals.eventCounts[eventName] ?? 0) + 1;
+  incrementDemandBucket(signals.teams, details.team);
+  incrementDemandBucket(signals.providers, details.provider);
+  incrementDemandBucket(signals.permissionResults, details.permission);
+  signals.lastEvents = [{ eventName, at: now, ...details }, ...signals.lastEvents].slice(0, DEMAND_EVENT_LIMIT);
+
+  try {
+    localStorage.setItem(DEMAND_SIGNALS_KEY, JSON.stringify(signals));
+  } catch {
+    return;
+  }
+
+  renderDemandSignals();
+}
+
+function topDemandEntry(bucket) {
+  const [name, count] = Object.entries(bucket).sort((a, b) => b[1] - a[1])[0] ?? [];
+  return name ? `${name} ${count}` : "-";
+}
+
+function demandMetricCards(signals) {
+  const permissionTotal = Object.values(signals.permissionResults).reduce((sum, count) => sum + count, 0);
+  const metrics = [
+    ["알림 저장", signals.eventCounts.ticket_reminder_saved ?? 0, topDemandEntry(signals.teams)],
+    ["예매처 클릭", signals.eventCounts.provider_click ?? 0, topDemandEntry(signals.providers)],
+    ["구단 필터", signals.eventCounts.calendar_filter_selected ?? 0, topDemandEntry(signals.teams)],
+    ["알림 권한", permissionTotal, topDemandEntry(signals.permissionResults)],
+  ];
+
+  return html`${metrics.map(
+    ([label, value, detail]) => html`
+        <article>
+          <span>${label}</span>
+          <strong>${value}</strong>
+          <small>${detail}</small>
+        </article>
+      `,
+  )}`;
+}
+
+function renderDemandSignals() {
+  if (!demandSignalBoard || !demandSignalEvents) {
+    return;
+  }
+
+  const signals = readDemandSignals();
+  demandSignalBoard.innerHTML = demandMetricCards(signals);
+  demandSignalEvents.innerHTML = html`
+    <div class="section-heading compact">
+      <div>
+        <p class="eyebrow">Signals</p>
+        <h3>최근 신호</h3>
+      </div>
+      <p class="meta">마지막 업데이트 ${new Date(signals.updatedAt).toLocaleString("ko-KR")}</p>
+    </div>
+    <ol>
+      ${signals.lastEvents.length
+        ? signals.lastEvents.map(
+            (event) => html`
+              <li>
+                <span>${event.eventName}</span>
+                <strong>${[event.team, event.provider, event.permission].filter(Boolean).join(" · ") || "-"}</strong>
+                <small>${new Date(event.at).toLocaleString("ko-KR")}</small>
+              </li>
+            `,
+          )
+        : html`<li><span>대기</span><strong>-</strong><small>아직 기록된 신호가 없습니다.</small></li>`}
+    </ol>
+  `;
+}
+
+function exportDemandSignalSnapshot() {
+  const signals = readDemandSignals();
+  const blob = new Blob([JSON.stringify(signals, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = `eagles-demand-signals-${new Date().toISOString().slice(0, 10)}.json`;
+  anchor.click();
+  URL.revokeObjectURL(url);
+  trackDemandSignal("signals_exported");
+}
+
+function resetDemandSignalSnapshot() {
+  localStorage.removeItem(DEMAND_SIGNALS_KEY);
+  renderDemandSignals();
+  showToast("수요 검증 신호를 초기화했습니다.");
+}
+
 function setTicketReminder(game, ticketing) {
   const openInfo = getTicketOpenInfo(game, ticketing);
 
@@ -540,7 +684,15 @@ function renderTicketInfo(game, featured = false) {
         <small>${openInfo.reminderText}</small>
       </div>
       <div class="ticket-actions">
-        <a href="${ticketing.url}" target="_blank" rel="noopener">예매처</a>
+        <a
+          href="${ticketing.url}"
+          target="_blank"
+          rel="noopener"
+          data-demand-action="provider-click"
+          data-demand-provider="${ticketing.provider}"
+          data-demand-team="${game.home}"
+          data-demand-source="${featured ? "featured" : "list"}"
+        >예매처</a>
         <button class="${raw(reminderOn ? "is-on" : "")}" type="button" data-ticket-alert="${gameId(game)}" ${raw(canClickReminder ? "" : "disabled")}>
           ${isUpcoming ? alertLabel : "종료"}
         </button>
@@ -778,6 +930,7 @@ function renderAll() {
   renderTickets();
   renderTicketCalendar();
   renderPlayers(currentPlayerFilter());
+  renderDemandSignals();
 }
 
 async function pollData() {
@@ -907,8 +1060,12 @@ ticketCalendarFilters?.addEventListener("click", (event) => {
   }
 
   setActiveButton(ticketCalendarFilters.querySelectorAll("[data-calendar-filter]"), button);
+  trackDemandSignal("calendar_filter_selected", { team: button.dataset.calendarFilter });
   renderTicketCalendar(button.dataset.calendarFilter);
 });
+
+exportDemandSignals?.addEventListener("click", exportDemandSignalSnapshot);
+resetDemandSignals?.addEventListener("click", resetDemandSignalSnapshot);
 
 function syncThemeColor(isDark) {
   const meta = document.querySelector('meta[name="theme-color"]');
@@ -979,6 +1136,10 @@ function updateNotifyButton() {
   }
 }
 
+function trackNotificationPermission(permission, source) {
+  trackDemandSignal("notification_permission_result", { permission, source });
+}
+
 function buildGameNotification() {
   const game = data.liveGame ?? {};
   const awayScore = scoreValue(game.awayScore);
@@ -1034,12 +1195,14 @@ async function maybeShowTicketNotification(game, ticketing) {
 
   if (permission !== "granted") {
     updateNotifyButton();
+    trackNotificationPermission(permission, "ticket");
     return false;
   }
 
   localStorage.setItem("eaglesNotifications", "on");
   updateNotifyButton();
   await showTicketNotification(game, ticketing);
+  trackNotificationPermission(permission, "ticket");
   return true;
 }
 
@@ -1058,15 +1221,17 @@ async function enableNotifications() {
     localStorage.setItem("eaglesNotifications", "on");
     updateNotifyButton();
     await showGameNotification();
+    trackNotificationPermission(permission, "game");
     return;
   }
 
   updateNotifyButton();
+  trackNotificationPermission(permission, "game");
 }
 
 notifyButton?.addEventListener("click", enableNotifications);
 
-async function enableTicketReminder(gameKey) {
+async function enableTicketReminder(gameKey, source = "unknown") {
   const game = [...data.games, ...(data.ticketCalendar ?? [])].find((item) => gameId(item) === gameKey);
 
   if (!game || game.type !== "upcoming") {
@@ -1084,6 +1249,7 @@ async function enableTicketReminder(gameKey) {
   renderGames(document.querySelector("[data-game-filter].active")?.dataset.gameFilter ?? "recent");
   renderTickets();
   renderTicketCalendar();
+  trackDemandSignal("ticket_reminder_saved", { team: game.home, provider: ticketing.provider, source });
   showToast(`${formatKstDateTime(new Date(reminder.remindAt))} 티켓 알림을 저장했습니다.`);
 
   if (!(await maybeShowTicketNotification(game, ticketing))) {
@@ -1134,13 +1300,22 @@ async function checkTicketReminders() {
 }
 
 document.addEventListener("click", (event) => {
+  const providerLink = event.target.closest('[data-demand-action="provider-click"]');
+  if (providerLink) {
+    trackDemandSignal("provider_click", {
+      team: providerLink.dataset.demandTeam,
+      provider: providerLink.dataset.demandProvider,
+      source: providerLink.dataset.demandSource,
+    });
+  }
+
   const button = event.target.closest("[data-ticket-alert]");
 
   if (!button) {
     return;
   }
 
-  enableTicketReminder(button.dataset.ticketAlert);
+  enableTicketReminder(button.dataset.ticketAlert, button.closest("#calendar") ? "calendar" : "tickets");
 });
 
 if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {

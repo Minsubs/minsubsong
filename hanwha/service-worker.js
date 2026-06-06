@@ -1,10 +1,10 @@
-const CACHE_NAME = "eagles-lounge-v19";
+const CACHE_NAME = "eagles-lounge-v21";
 const APP_SHELL = [
   "./",
   "./index.html",
   "./offline.html",
-  "./styles.css?v=18",
-  "./script.js?v=18",
+  "./styles.css?v=19",
+  "./script.js?v=19",
   "./manifest.webmanifest",
   "./assets/app-icon.svg",
   "./assets/hero-stadium.png",

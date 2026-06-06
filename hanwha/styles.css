@@ -665,6 +665,7 @@ textarea {
 
 .primary-action,
 .secondary-action,
+.secondary-button,
 .post-actions button {
   display: inline-flex;
   align-items: center;
@@ -686,6 +687,18 @@ textarea {
 .secondary-action {
   border: 1px solid rgba(255, 255, 255, 0.36);
   color: #fff8ef;
+}
+
+.secondary-button {
+  border: 1px solid color-mix(in srgb, var(--orange) 34%, var(--line));
+  background: var(--surface-strong);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.secondary-button.subtle {
+  border-color: var(--line);
+  color: var(--muted);
 }
 
 .shop-links {
@@ -931,6 +944,78 @@ textarea {
 .calendar-filters {
   max-width: min(100%, 720px);
   overflow-x: auto;
+}
+
+.validation-actions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.demand-signal-board {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.demand-signal-board article,
+.demand-signal-events {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-strong);
+  box-shadow: var(--shadow-soft);
+}
+
+.demand-signal-board article {
+  min-height: 132px;
+  padding: 20px;
+}
+
+.demand-signal-board span,
+.demand-signal-board small,
+.demand-signal-events small {
+  display: block;
+  color: var(--muted);
+}
+
+.demand-signal-board strong {
+  display: block;
+  margin: 4px 0;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 900;
+}
+
+.demand-signal-events {
+  display: grid;
+  gap: 12px;
+  padding: 20px;
+}
+
+.demand-signal-events ol {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.demand-signal-events li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(160px, auto) auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+}
+
+.demand-signal-events span,
+.demand-signal-events strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .game-card time,
@@ -1261,6 +1346,10 @@ textarea {
   .player-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .demand-signal-board {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 760px) {
@@ -1361,6 +1450,15 @@ textarea {
 
   .player-grid {
     grid-template-columns: 1fr;
+  }
+
+  .demand-signal-board,
+  .demand-signal-events li {
+    grid-template-columns: 1fr;
+  }
+
+  .validation-actions {
+    justify-content: flex-start;
   }
 }
 
