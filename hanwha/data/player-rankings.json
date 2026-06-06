@@ -5,22 +5,22 @@
     "scope": "타자",
     "players": [
       {
-        "rank": 5,
+        "rank": 6,
         "name": "강백호",
         "value": "0.333",
-        "note": "리그 5위"
+        "note": "리그 6위"
       },
       {
-        "rank": 8,
+        "rank": 7,
         "name": "페라자",
-        "value": "0.321",
-        "note": "리그 8위"
+        "value": "0.324",
+        "note": "리그 7위"
       },
       {
-        "rank": 17,
+        "rank": 13,
         "name": "문현빈",
-        "value": "0.297",
-        "note": "리그 17위"
+        "value": "0.299",
+        "note": "리그 13위"
       }
     ]
   },
@@ -36,7 +36,7 @@
         "note": "7승 2패 · WHIP 1.01"
       },
       {
-        "rank": 4,
+        "rank": 5,
         "name": "왕옌청",
         "value": "3.13",
         "note": "5승 2패 · WHIP 1.41"
@@ -58,7 +58,7 @@
         "rank": 2,
         "name": "페라자",
         "value": "11 HR",
-        "note": "35타점"
+        "note": "36타점"
       },
       {
         "rank": 3,

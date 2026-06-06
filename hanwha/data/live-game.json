@@ -1,61 +1,61 @@
 {
-  "date": "06.06",
-  "time": "토 17:00",
+  "date": "06.07",
+  "time": "일 17:00",
   "location": "사직",
-  "status": "live",
-  "statusLabel": "경기 중",
-  "state": "BOT 9",
-  "inning": "BOT 9",
+  "status": "scheduled",
+  "statusLabel": "경기 예정",
+  "state": "스코어 대기",
+  "inning": "연동 대기",
   "awayTeam": "한화",
   "homeTeam": "롯데",
-  "awayScore": 7,
-  "homeScore": 2,
-  "note": "한화 7:2 롯데. BOT 9 진행 중입니다.",
+  "awayScore": null,
+  "homeScore": null,
+  "note": "06.07 17:00 한화 vs 롯데. 경기 시작 후 스코어가 갱신됩니다.",
   "linescore": [
     {
       "inning": "1",
-      "away": 0,
-      "home": 0
+      "away": null,
+      "home": null
     },
     {
       "inning": "2",
-      "away": 0,
-      "home": 0
+      "away": null,
+      "home": null
     },
     {
       "inning": "3",
-      "away": 0,
-      "home": 2
+      "away": null,
+      "home": null
     },
     {
       "inning": "4",
-      "away": 0,
-      "home": 0
+      "away": null,
+      "home": null
     },
     {
       "inning": "5",
-      "away": 0,
-      "home": 0
+      "away": null,
+      "home": null
     },
     {
       "inning": "6",
-      "away": 0,
-      "home": 0
+      "away": null,
+      "home": null
     },
     {
       "inning": "7",
-      "away": 0,
-      "home": 0
+      "away": null,
+      "home": null
     },
     {
       "inning": "8",
-      "away": 4,
-      "home": 0
+      "away": null,
+      "home": null
     },
     {
       "inning": "9",
-      "away": 3,
-      "home": 0
+      "away": null,
+      "home": null
     }
   ]
 }

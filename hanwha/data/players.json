@@ -1,7 +1,7 @@
 [
   {
     "type": "hitter",
-    "number": 5,
+    "number": 6,
     "name": "강백호",
     "role": "타자",
     "stats": [
@@ -18,17 +18,17 @@
         "value": "61"
       }
     ],
-    "note": "KBO 타율 5위"
+    "note": "KBO 타율 6위"
   },
   {
     "type": "hitter",
-    "number": 8,
+    "number": 7,
     "name": "페라자",
     "role": "타자",
     "stats": [
       {
         "label": "AVG",
-        "value": "0.321"
+        "value": "0.324"
       },
       {
         "label": "HR",
@@ -36,20 +36,20 @@
       },
       {
         "label": "RBI",
-        "value": "35"
+        "value": "36"
       }
     ],
-    "note": "KBO 타율 8위"
+    "note": "KBO 타율 7위"
   },
   {
     "type": "hitter",
-    "number": 17,
+    "number": 13,
     "name": "문현빈",
     "role": "타자",
     "stats": [
       {
         "label": "AVG",
-        "value": "0.297"
+        "value": "0.299"
       },
       {
         "label": "HR",
@@ -60,7 +60,7 @@
         "value": "40"
       }
     ],
-    "note": "KBO 타율 17위"
+    "note": "KBO 타율 13위"
   },
   {
     "type": "pitcher",
