@@ -5,8 +5,8 @@ let data = {
   liveGame: {},
   rankings: [],
   games: [],
+  ticketCalendar: [],
   players: [],
-  posts: [],
 };
 
 const dataFiles = {
@@ -16,25 +16,41 @@ const dataFiles = {
   liveGame: "./data/live-game.json",
   rankings: "./data/player-rankings.json",
   games: "./data/games.json",
+  ticketCalendar: "./data/ticketing-calendar.json",
   players: "./data/players.json",
-  posts: "./data/posts.json",
 };
 
 const MAX_UPCOMING_GAMES = 10;
-const DATA_VERSION = "v=15";
+const DATA_VERSION = "v=18";
 const TICKET_REMINDER_MINUTES = 10;
 const DEFAULT_VIEW = "live";
 const POLL_INTERVAL_MS = 5 * 60 * 1000;
-const NOTES_STORAGE_KEY = "eaglesNotes";
 
 const teamInitials = {
   한화: "E",
-  SSG: "SS",
+  LG: "LG",
+  SSG: "SSG",
   두산: "D",
-  롯데: "L",
   KIA: "K",
-  키움: "K",
-  NC: "N",
+  삼성: "S",
+  롯데: "L",
+  KT: "KT",
+  NC: "NC",
+  키움: "H",
+};
+
+// 구단 크레스트(엠블럼) 색상. 공식 로고가 아닌 자체 방패형 엠블럼용 팀 컬러.
+const teamColors = {
+  한화: { base: "#ff6a16", edge: "#c23e00", ink: "#ffffff" },
+  LG: { base: "#c4194e", edge: "#8a0033", ink: "#ffffff" },
+  SSG: { base: "#d10d2b", edge: "#960019", ink: "#ffffff" },
+  두산: { base: "#1a2a6c", edge: "#0c1640", ink: "#ffffff" },
+  KIA: { base: "#e3002b", edge: "#9c001d", ink: "#ffffff" },
+  삼성: { base: "#1063b0", edge: "#063a6b", ink: "#ffffff" },
+  롯데: { base: "#0a2a55", edge: "#c8102e", ink: "#ffffff" },
+  KT: { base: "#2c2c30", edge: "#000000", ink: "#ffffff" },
+  NC: { base: "#1d467f", edge: "#0f2c54", ink: "#f0d08a" },
+  키움: { base: "#641a2e", edge: "#3c0a18", ink: "#ffffff" },
 };
 
 const ticketProviders = {
@@ -89,6 +105,30 @@ const ticketProviders = {
     openDaysBefore: 7,
     openTime: "11:00",
   },
+  LG: {
+    provider: "NOL 티켓",
+    url: "https://tickets.interpark.com/contents/sports",
+    note: "LG 홈 예매",
+    openDaysBefore: 7,
+    openTime: "11:00",
+    openCaution: "구단 공지 기준 확인",
+  },
+  KT: {
+    provider: "티켓링크",
+    url: "https://www.ticketlink.co.kr/sports",
+    note: "KT 홈 예매",
+    openDaysBefore: 7,
+    openTime: "11:00",
+    openCaution: "구단 공지 기준 확인",
+  },
+  삼성: {
+    provider: "티켓링크",
+    url: "https://www.ticketlink.co.kr/sports",
+    note: "삼성 홈 예매",
+    openDaysBefore: 7,
+    openTime: "11:00",
+    openCaution: "구단 공지 기준 확인",
+  },
 };
 
 const summaryBoard = document.querySelector("#summaryBoard");
@@ -99,8 +139,9 @@ const teamStandingsBoard = document.querySelector("#teamStandingsBoard");
 const gameList = document.querySelector("#gameList");
 const featuredGame = document.querySelector("#featuredGame");
 const ticketGameList = document.querySelector("#ticketGameList");
+const ticketCalendarFilters = document.querySelector("#ticketCalendarFilters");
+const ticketCalendarList = document.querySelector("#ticketCalendarList");
 const playerGrid = document.querySelector("#playerGrid");
-const feed = document.querySelector("#feed");
 const themeToggle = document.querySelector("#themeToggle");
 const installApp = document.querySelector("#installApp");
 const notifyButton = document.querySelector("#notifyButton");
@@ -122,23 +163,43 @@ function escapeHtml(value) {
     .replace(/'/g, "&#39;");
 }
 
-function getUserNotes() {
-  try {
-    const stored = JSON.parse(localStorage.getItem(NOTES_STORAGE_KEY) ?? "[]");
-    return Array.isArray(stored) ? stored : [];
-  } catch {
-    return [];
+// escape-by-default 태그드 템플릿.
+// 보간되는 leaf 값은 기본적으로 escapeHtml 하고, SafeHtml(중첩 html`` 결과나
+// 렌더 헬퍼 반환값)과 그 배열은 신뢰된 HTML 로 보고 이스케이프하지 않는다.
+// KBO 외부 데이터(선수명/팀명/노트 등)가 그대로 innerHTML 에 들어가
+// stored XSS 가 되던 경로를 일괄 차단한다.
+class SafeHtml {
+  constructor(value) {
+    this.value = value;
+  }
+  toString() {
+    return this.value;
   }
 }
 
-function saveUserNotes(notes) {
-  localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(notes));
+function raw(value) {
+  return new SafeHtml(String(value));
 }
 
-function deleteUserNote(id) {
-  saveUserNotes(getUserNotes().filter((note) => note.id !== id));
-  renderFeed();
-  showToast("메모를 삭제했어요.");
+function serializeHtml(value) {
+  if (value instanceof SafeHtml) {
+    return value.value;
+  }
+  if (Array.isArray(value)) {
+    return value.map(serializeHtml).join("");
+  }
+  if (value === null || value === undefined) {
+    return "";
+  }
+  return escapeHtml(value);
+}
+
+function html(strings, ...values) {
+  let out = strings[0];
+  for (let i = 0; i < values.length; i += 1) {
+    out += serializeHtml(values[i]) + strings[i + 1];
+  }
+  return new SafeHtml(out);
 }
 
 async function fetchJson(path) {
@@ -153,32 +214,30 @@ async function fetchJson(path) {
 }
 
 async function loadData() {
-  const [meta, summary, teamStandings, liveGame, rankings, games, players, posts] = await Promise.all([
+  const [meta, summary, teamStandings, liveGame, rankings, games, ticketCalendar, players] = await Promise.all([
     fetchJson(dataFiles.meta),
     fetchJson(dataFiles.summary),
     fetchJson(dataFiles.teamStandings),
     fetchJson(dataFiles.liveGame),
     fetchJson(dataFiles.rankings),
     fetchJson(dataFiles.games),
+    fetchJson(dataFiles.ticketCalendar),
     fetchJson(dataFiles.players),
-    fetchJson(dataFiles.posts),
   ]);
 
-  data = { meta, summary, teamStandings, liveGame, rankings, games, players, posts };
+  data = { meta, summary, teamStandings, liveGame, rankings, games, ticketCalendar, players };
 }
 
 function renderSummary() {
-  summaryBoard.innerHTML = data.summary
-    .map(
-      (item) => `
+  summaryBoard.innerHTML = html`${data.summary.map(
+    (item) => html`
         <article>
           <span>${item.label}</span>
           <strong>${item.value}</strong>
           <small>${item.caption}</small>
         </article>
       `,
-    )
-    .join("");
+  )}`;
 }
 
 function renderGames(filter = "recent") {
@@ -191,7 +250,7 @@ function renderGames(filter = "recent") {
     return;
   }
 
-  featuredGame.innerHTML = `
+  featuredGame.innerHTML = html`
     <span class="game-status">${featured.status}</span>
     <div class="featured-score">
       <div class="team featured-team">
@@ -214,9 +273,8 @@ function renderGames(filter = "recent") {
     <p>${featured.detail}</p>
   `;
 
-  gameList.innerHTML = games
-    .map(
-      (game) => `
+  gameList.innerHTML = html`${games.map(
+    (game) => html`
         <article class="game-card">
           <time>${game.date}<br />${game.time}</time>
           <div class="matchup">
@@ -226,8 +284,7 @@ function renderGames(filter = "recent") {
           <span class="chip">${game.score}</span>
         </article>
       `,
-    )
-    .join("");
+  )}`;
 }
 
 function renderTickets() {
@@ -238,9 +295,8 @@ function renderTickets() {
     return;
   }
 
-  ticketGameList.innerHTML = upcomingGames
-    .map(
-      (game) => `
+  ticketGameList.innerHTML = html`${upcomingGames.map(
+    (game) => html`
         <article class="game-card ticket-game-card">
           <time>${game.date}<br />${game.time}</time>
           <div class="matchup">
@@ -251,14 +307,98 @@ function renderTickets() {
           <span class="chip">${game.score}</span>
         </article>
       `,
-    )
-    .join("");
+  )}`;
+}
+
+function calendarTeams() {
+  const teams = new Set();
+  for (const game of data.ticketCalendar) {
+    teams.add(game.home);
+    teams.add(game.away);
+  }
+  return [...teams].sort((a, b) => String(a).localeCompare(String(b), "ko"));
+}
+
+function currentCalendarFilter() {
+  return document.querySelector("[data-calendar-filter].active")?.dataset.calendarFilter ?? "all";
+}
+
+function renderTicketCalendar(filter = currentCalendarFilter()) {
+  if (!ticketCalendarFilters || !ticketCalendarList) {
+    return;
+  }
+
+  const teams = calendarTeams();
+  ticketCalendarFilters.innerHTML = html`
+    <button class="${raw(filter === "all" ? "active" : "")}" type="button" data-calendar-filter="all">전체</button>
+    ${teams.map(
+      (team) => html`
+        <button class="${raw(filter === team ? "active" : "")}" type="button" data-calendar-filter="${team}">
+          ${team}
+        </button>
+      `,
+    )}
+  `;
+
+  const games =
+    filter === "all"
+      ? data.ticketCalendar
+      : data.ticketCalendar.filter((game) => game.home === filter || game.away === filter);
+
+  if (!games.length) {
+    ticketCalendarList.innerHTML = `<p class="meta">선택한 구단의 예매 캘린더가 없습니다.</p>`;
+    return;
+  }
+
+  ticketCalendarList.innerHTML = html`${games.map(
+    (game) => html`
+        <article class="game-card calendar-game-card">
+          <time>${game.date}<br />${game.time}</time>
+          <div class="matchup">
+            <strong>
+              ${renderTeamBadge(game.away)}
+              ${game.away} vs ${renderTeamBadge(game.home)}
+              ${game.home}
+            </strong>
+            <span class="meta">${game.location} · ${game.detail}</span>
+            ${renderTicketInfo({ ...game, type: "upcoming" })}
+          </div>
+          <span class="chip">${game.ticketing?.provider ?? getTicketing(game).provider}</span>
+        </article>
+      `,
+  )}`;
 }
 
 function renderTeamBadge(team) {
-  const initial = teamInitials[team] ?? String(team).slice(0, 1);
-  const isEagles = team === "한화" ? " is-eagles" : "";
-  return `<span class="team-badge${isEagles}" aria-hidden="true">${initial}</span>`;
+  const initial = teamInitials[team] ?? String(team).slice(0, 2).toUpperCase();
+  const color = teamColors[team] ?? { base: "#4a4a4a", edge: "#262626", ink: "#ffffff" };
+  const eagles = team === "한화" ? " is-eagles" : "";
+  const fontSize = initial.length >= 3 ? 11.5 : initial.length === 2 ? 14.5 : 19;
+  return html`<span class="team-crest${raw(eagles)}" aria-hidden="true">
+      <svg viewBox="0 0 44 50" role="img">
+        <path
+          d="M22 1.5 L41 8 L41 26.5 C41 37.6 32.4 44.8 22 48.6 C11.6 44.8 3 37.6 3 26.5 L3 8 Z"
+          fill="${raw(color.base)}"
+          stroke="${raw(color.edge)}"
+          stroke-width="2.4"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M22 1.5 L41 8 L41 19 C41 19 33 23 22 23 C11 23 3 19 3 19 L3 8 Z"
+          fill="#ffffff"
+          fill-opacity="0.16"
+        />
+        <text
+          x="22"
+          y="31.5"
+          text-anchor="middle"
+          font-family="'Noto Sans KR', sans-serif"
+          font-size="${raw(fontSize)}"
+          font-weight="900"
+          fill="${raw(color.ink)}"
+        >${initial}</text>
+      </svg>
+    </span>`;
 }
 
 function gameId(game) {
@@ -391,8 +531,8 @@ function renderTicketInfo(game, featured = false) {
   const ticketStatus = isUpcoming ? (openInfo.isOpen ? "예매 중" : "오픈 전") : "예매 종료";
   const canClickReminder = isUpcoming && (reminderOn || openInfo.canRemind);
 
-  return `
-    <div class="ticket-strip ${featured ? "featured" : ""}">
+  return html`
+    <div class="ticket-strip ${raw(featured ? "featured" : "")}">
       <div>
         <span>${ticketing.venueType} · ${ticketing.provider}</span>
         <strong>${ticketStatus}</strong>
@@ -401,7 +541,7 @@ function renderTicketInfo(game, featured = false) {
       </div>
       <div class="ticket-actions">
         <a href="${ticketing.url}" target="_blank" rel="noopener">예매처</a>
-        <button class="${reminderOn ? "is-on" : ""}" type="button" data-ticket-alert="${gameId(game)}" ${canClickReminder ? "" : "disabled"}>
+        <button class="${raw(reminderOn ? "is-on" : "")}" type="button" data-ticket-alert="${gameId(game)}" ${raw(canClickReminder ? "" : "disabled")}>
           ${isUpcoming ? alertLabel : "종료"}
         </button>
       </div>
@@ -433,14 +573,14 @@ function scoreValue(score) {
 
 function renderLineScore(game, linescore) {
   if (!linescore.length) {
-    return `<p class="meta">이닝별 스코어를 준비 중입니다.</p>`;
+    return html`<p class="meta">이닝별 스코어를 준비 중입니다.</p>`;
   }
 
-  const inningHeads = linescore.map((item) => `<th scope="col">${item.inning}</th>`).join("");
-  const awayScores = linescore.map((item) => `<td>${scoreValue(item.away)}</td>`).join("");
-  const homeScores = linescore.map((item) => `<td>${scoreValue(item.home)}</td>`).join("");
+  const inningHeads = linescore.map((item) => html`<th scope="col">${item.inning}</th>`);
+  const awayScores = linescore.map((item) => html`<td>${scoreValue(item.away)}</td>`);
+  const homeScores = linescore.map((item) => html`<td>${scoreValue(item.home)}</td>`);
 
-  return `
+  return html`
     <div class="line-score" aria-label="이닝별 스코어">
       <table>
         <thead>
@@ -471,7 +611,7 @@ function renderLiveGame() {
   const game = data.liveGame;
   const linescore = game.linescore ?? [];
 
-  liveGamePanel.innerHTML = `
+  liveGamePanel.innerHTML = html`
     <div class="live-head">
       <span class="game-status">${game.statusLabel}</span>
       <span class="meta">${game.date} · ${game.time} · ${game.location}</span>
@@ -508,26 +648,23 @@ function renderLiveGame() {
 }
 
 function renderRankingList(rankings, compact = false) {
-  return rankings
-    .map(
-      (item) => `
+  return html`${rankings.map(
+    (item) => html`
         <li>
           <span class="rank-no">${item.rank}</span>
           <span class="rank-name">${item.name}</span>
           <strong>${item.value}</strong>
-          ${compact ? "" : `<small>${item.note}</small>`}
+          ${compact ? "" : html`<small>${item.note}</small>`}
         </li>
       `,
-    )
-    .join("");
+  )}`;
 }
 
 function renderRankingPanels() {
   const featuredGroups = data.rankings.slice(0, 2);
 
-  rankingPanel.innerHTML = featuredGroups
-    .map(
-      (group) => `
+  rankingPanel.innerHTML = html`${featuredGroups.map(
+    (group) => html`
         <section>
           <div>
             <span class="chip">${group.scope}</span>
@@ -536,10 +673,9 @@ function renderRankingPanels() {
           <ol class="ranking-list compact">${renderRankingList(group.players, true)}</ol>
         </section>
       `,
-    )
-    .join("");
+  )}`;
 
-  teamStandingsBoard.innerHTML = `
+  teamStandingsBoard.innerHTML = html`
     <div class="standings-table" aria-label="KBO 전체 팀 순위">
       <table>
         <thead>
@@ -555,15 +691,14 @@ function renderRankingPanels() {
           </tr>
         </thead>
         <tbody>
-          ${data.teamStandings.map(renderStandingRow).join("")}
+          ${data.teamStandings.map(renderStandingRow)}
         </tbody>
       </table>
     </div>
   `;
 
-  rankingBoard.innerHTML = data.rankings
-    .map(
-      (group) => `
+  rankingBoard.innerHTML = html`${data.rankings.map(
+    (group) => html`
         <article class="ranking-card">
           <div class="ranking-card-head">
             <span class="chip">${group.scope}</span>
@@ -572,13 +707,12 @@ function renderRankingPanels() {
           <ol class="ranking-list">${renderRankingList(group.players)}</ol>
         </article>
       `,
-    )
-    .join("");
+  )}`;
 }
 
 function renderStandingRow(team) {
-  return `
-    <tr class="${team.isHanwha ? "is-hanwha" : ""}">
+  return html`
+    <tr class="${raw(team.isHanwha ? "is-hanwha" : "")}">
       <td><span class="rank-pill">${team.rank}</span></td>
       <th scope="row">
         <span class="standing-team">
@@ -599,9 +733,8 @@ function renderStandingRow(team) {
 function renderPlayers(filter = "all") {
   const players = filter === "all" ? data.players : data.players.filter((player) => player.type === filter);
 
-  playerGrid.innerHTML = players
-    .map(
-      (player) => `
+  playerGrid.innerHTML = html`${players.map(
+    (player) => html`
         <article class="player-card">
           <div class="player-head">
             <span class="chip">${player.role}</span>
@@ -610,47 +743,18 @@ function renderPlayers(filter = "all") {
           <h3>${player.name}</h3>
           <p class="meta">${player.note}</p>
           <div class="stat-line">
-            ${player.stats
-              .map(
-                (stat) => `
+            ${player.stats.map(
+              (stat) => html`
                   <div>
                     <span>${stat.label}</span>
                     <strong>${stat.value}</strong>
                   </div>
                 `,
-              )
-              .join("")}
+            )}
           </div>
         </article>
       `,
-    )
-    .join("");
-}
-
-function renderFeed() {
-  const posts = [...getUserNotes(), ...data.posts];
-
-  feed.innerHTML = posts
-    .map(
-      (post) => `
-        <article>
-          <header>
-            <div>
-              <span class="chip">${escapeHtml(post.tag)}</span>
-              <strong>${escapeHtml(post.author)}</strong>
-            </div>
-            <span class="meta">${escapeHtml(post.time)}</span>
-          </header>
-          <p>${escapeHtml(post.body)}</p>
-          <div class="reaction-row">
-            <button type="button">중요 ${post.likes}</button>
-            <button type="button">체크 ${post.replies}</button>
-            ${post.id ? `<button type="button" class="note-delete" data-note-delete="${post.id}">삭제</button>` : ""}
-          </div>
-        </article>
-      `,
-    )
-    .join("");
+  )}`;
 }
 
 function renderMeta() {
@@ -672,8 +776,8 @@ function renderAll() {
   renderRankingPanels();
   renderGames(currentGameFilter());
   renderTickets();
+  renderTicketCalendar();
   renderPlayers(currentPlayerFilter());
-  renderFeed();
 }
 
 async function pollData() {
@@ -795,35 +899,32 @@ document.querySelectorAll("[data-player-filter]").forEach((button) => {
   });
 });
 
-document.querySelector("#postForm").addEventListener("submit", (event) => {
-  event.preventDefault();
-  const input = document.querySelector("#postInput");
-  const body = input.value.trim();
+ticketCalendarFilters?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-calendar-filter]");
 
-  if (!body) {
-    input.focus();
+  if (!button) {
     return;
   }
 
-  const notes = getUserNotes();
-  notes.unshift({
-    id: `note-${Date.now()}`,
-    tag: document.querySelector("#postTag").value,
-    author: "민섭이",
-    time: formatKstDateTime(new Date()),
-    body,
-    likes: 0,
-    replies: 0,
-  });
-  saveUserNotes(notes);
-
-  input.value = "";
-  renderFeed();
-  showToast("메모를 저장했어요.");
+  setActiveButton(ticketCalendarFilters.querySelectorAll("[data-calendar-filter]"), button);
+  renderTicketCalendar(button.dataset.calendarFilter);
 });
 
+function syncThemeColor(isDark) {
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) {
+    meta.setAttribute("content", isDark ? "#17120f" : "#f6f2ec");
+  }
+}
+
 themeToggle.addEventListener("click", () => {
-  document.documentElement.classList.toggle("dark");
+  const isDark = document.documentElement.classList.toggle("dark");
+  syncThemeColor(isDark);
+  try {
+    localStorage.setItem("eaglesTheme", isDark ? "dark" : "light");
+  } catch {
+    // localStorage 비활성 환경에서는 세션 한정으로만 적용된다.
+  }
 });
 
 window.addEventListener("beforeinstallprompt", (event) => {
@@ -966,7 +1067,7 @@ async function enableNotifications() {
 notifyButton?.addEventListener("click", enableNotifications);
 
 async function enableTicketReminder(gameKey) {
-  const game = data.games.find((item) => gameId(item) === gameKey);
+  const game = [...data.games, ...(data.ticketCalendar ?? [])].find((item) => gameId(item) === gameKey);
 
   if (!game || game.type !== "upcoming") {
     return;
@@ -982,6 +1083,7 @@ async function enableTicketReminder(gameKey) {
 
   renderGames(document.querySelector("[data-game-filter].active")?.dataset.gameFilter ?? "recent");
   renderTickets();
+  renderTicketCalendar();
   showToast(`${formatKstDateTime(new Date(reminder.remindAt))} 티켓 알림을 저장했습니다.`);
 
   if (!(await maybeShowTicketNotification(game, ticketing))) {
@@ -1018,7 +1120,16 @@ async function checkTicketReminders() {
   }
 
   if (changed) {
-    localStorage.setItem("eaglesTicketReminders", JSON.stringify(reminders));
+    // 루프 안 await(showNotification) 동안 사용자가 새 티켓 알림을 저장했을 수
+    // 있으므로, 들고 있던 옛 스냅샷을 통째로 덮어쓰지 않고 최신본을 다시 읽어
+    // notifiedAt 변경분만 병합한다(read-modify-write 경쟁 방지).
+    const latest = getTicketReminders();
+    for (const [key, reminder] of Object.entries(reminders)) {
+      if (reminder.notifiedAt && latest[key]) {
+        latest[key].notifiedAt = reminder.notifiedAt;
+      }
+    }
+    localStorage.setItem("eaglesTicketReminders", JSON.stringify(latest));
   }
 }
 
@@ -1043,16 +1154,6 @@ if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
       .catch(updateNotifyButton);
   });
 }
-
-document.addEventListener("click", (event) => {
-  const button = event.target.closest("[data-note-delete]");
-
-  if (!button) {
-    return;
-  }
-
-  deleteUserNote(button.dataset.noteDelete);
-});
 
 document.addEventListener("visibilitychange", () => {
   if (!document.hidden) {

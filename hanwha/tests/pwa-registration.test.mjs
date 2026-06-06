@@ -17,3 +17,30 @@ test("service worker handles GitHub Pages subpath notification clicks and period
   assert.match(serviceWorker, /self\.addEventListener\("periodicsync"/);
   assert.match(serviceWorker, /event\.tag === "refresh-data"/);
 });
+
+test("app shell and data loader include ticketing calendar", async () => {
+  const [script, serviceWorker] = await Promise.all([
+    readFile(new URL("../script.js", import.meta.url), "utf8"),
+    readFile(new URL("../service-worker.js", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(script, /ticketCalendar:\s*\[\]/);
+  assert.match(script, /ticketCalendar:\s*"\.\/data\/ticketing-calendar\.json"/);
+  assert.match(script, /fetchJson\(dataFiles\.ticketCalendar\)/);
+  assert.match(serviceWorker, /eagles-lounge-v19/);
+  assert.match(serviceWorker, /\.\/data\/ticketing-calendar\.json\?v=18/);
+});
+
+test("calendar tab exists with accessible controls", async () => {
+  const [index, script] = await Promise.all([
+    readFile(new URL("../index.html", import.meta.url), "utf8"),
+    readFile(new URL("../script.js", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(index, /data-view-target="calendar"[^>]*>예매 캘린더/);
+  assert.match(index, /id="calendar"[^>]*data-view-panel="calendar"/);
+  assert.match(index, /id="ticketCalendarFilters"/);
+  assert.match(index, /id="ticketCalendarList"/);
+  assert.match(script, /function renderTicketCalendar/);
+  assert.match(script, /\.\.\.data\.games,\s*\.\.\.\(data\.ticketCalendar \?\? \[\]\)/);
+});

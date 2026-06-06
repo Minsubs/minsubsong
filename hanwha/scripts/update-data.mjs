@@ -1,8 +1,14 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
-import { fetchKoreanScheduleMonth, mergeScheduleMonths, parseKoreanScheduleRows, scheduleMonthTargets } from "./kbo-schedule-api.mjs";
+import {
+  KBO_TEAM_IDS,
+  fetchKoreanScheduleMonth,
+  mergeScheduleMonths,
+  parseKoreanScheduleRows,
+  scheduleMonthTargets,
+} from "./kbo-schedule-api.mjs";
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const DATA_DIR = join(ROOT, "data");
@@ -88,6 +94,33 @@ const TICKET_PROVIDERS = {
     openDaysBefore: 7,
     openTime: "11:00",
   },
+  LG: {
+    provider: "NOL 티켓",
+    url: "https://tickets.interpark.com/contents/sports",
+    note: "LG 홈 예매",
+    openLabel: "LG 홈 예매 일정 기준",
+    openDaysBefore: 7,
+    openTime: "11:00",
+    openCaution: "구단 공지 기준 확인",
+  },
+  KT: {
+    provider: "티켓링크",
+    url: "https://www.ticketlink.co.kr/sports",
+    note: "KT 홈 예매",
+    openLabel: "KT 홈 예매 일정 기준",
+    openDaysBefore: 7,
+    openTime: "11:00",
+    openCaution: "구단 공지 기준 확인",
+  },
+  삼성: {
+    provider: "티켓링크",
+    url: "https://www.ticketlink.co.kr/sports",
+    note: "삼성 홈 예매",
+    openLabel: "삼성 홈 예매 일정 기준",
+    openDaysBefore: 7,
+    openTime: "11:00",
+    openCaution: "구단 공지 기준 확인",
+  },
 };
 
 const MAX_UPCOMING_GAMES = 10;
@@ -111,55 +144,225 @@ async function main() {
   await mkdir(CACHE_DIR, { recursive: true });
 
   const scheduleTargets = scheduleMonthTargets(kstParts.year, kstParts.month);
-  const [standingsHtml, schedulePayloads, scoreboardHtml, hittersHtml, pitchersHtml] = await Promise.all([
+  // allSettled 로 받아 한 소스가 죽어도 나머지는 갱신한다. 실패한 섹션은
+  // 해당 data/*.json 을 건드리지 않아 직전 스냅샷이 그대로 유지된다.
+  const [standingsR, scheduleR, scoreboardR, hittersR, pitchersR, allScheduleR] = await Promise.allSettled([
     fetchSource("standings", SOURCES.standings),
     Promise.all(scheduleTargets.map((target) => fetchScheduleMonth(target))),
     fetchSource("scoreboard", SOURCES.scoreboard),
     fetchSource("hitters", SOURCES.hitters),
     fetchSource("pitchers", SOURCES.pitchers),
+    collectAllTeamScheduleGames({ targets: scheduleTargets, fetchScheduleMonth }),
   ]);
 
-  const { standings, standing, teamStats } = parseStandings(standingsHtml);
-  const schedule = mergeScheduleMonths(schedulePayloads.map((payload) => parseKoreanScheduleRows(payload.rows)));
-  const scoreboard = parseScoreboard(scoreboardHtml);
-  const hitters = parseHitters(hittersHtml);
-  const pitchers = parsePitchers(pitchersHtml);
+  const standingsHtml = settledValue(standingsR, "standings");
+  const schedulePayloads = settledValue(scheduleR, "schedule");
+  const scoreboardHtml = settledValue(scoreboardR, "scoreboard");
+  const hittersHtml = settledValue(hittersR, "hitters");
+  const pitchersHtml = settledValue(pitchersR, "pitchers");
+  const allSchedule = settledValue(allScheduleR, "schedule-all");
 
-  if (!standing || !teamStats) {
-    throw new Error("한화 팀 순위 또는 팀 기록을 찾지 못했습니다.");
+  const { standings = [], standing = null, teamStats = null } =
+    safeParse("standings", () => parseStandings(standingsHtml), standingsHtml) ?? {};
+  const schedule = safeParse(
+    "schedule",
+    () => mergeScheduleMonths(schedulePayloads.map((payload) => parseKoreanScheduleRows(payload.rows))),
+    schedulePayloads,
+  );
+  const scoreboard = safeParse("scoreboard", () => parseScoreboard(scoreboardHtml), scoreboardHtml);
+  const hitters = safeParse("hitters", () => parseHitters(hittersHtml), hittersHtml);
+  const pitchers = safeParse("pitchers", () => parsePitchers(pitchersHtml), pitchersHtml);
+  // meta 는 항상 갱신(실행 시각). 데이터 변동이 없으면 CI 가 되돌린다.
+  await writeJson("meta.json", buildMeta());
+
+  let wrote = 0;
+  if (standing && teamStats) {
+    await writeJson("summary.json", buildSummary(standing, teamStats));
+    wrote += 1;
+  } else {
+    console.warn("skip summary.json: 팀 순위/기록 수집 실패 — 기존 스냅샷 유지");
+  }
+  if (standings.length) {
+    await writeJson("team-standings.json", buildTeamStandings(standings));
+    wrote += 1;
+  } else {
+    console.warn("skip team-standings.json: 순위 수집 실패 — 기존 스냅샷 유지");
+  }
+  if (schedule) {
+    // 스코어보드는 보강 데이터라 없으면 빈 배열로 일정만으로 빌드한다.
+    await writeJson("games.json", buildGames(schedule, scoreboard ?? []));
+    await writeJson("live-game.json", buildLiveGame(schedule, scoreboard ?? []));
+    wrote += 2;
+  } else {
+    console.warn("skip games.json/live-game.json: 일정 수집 실패 — 기존 스냅샷 유지");
+  }
+  if (hitters && pitchers) {
+    await writeJson("player-rankings.json", buildPlayerRankings(hitters, pitchers));
+    await writeJson("players.json", buildPlayerCards(hitters, pitchers));
+    wrote += 2;
+  } else {
+    console.warn("skip player-rankings.json/players.json: 선수 기록 수집 실패 — 기존 스냅샷 유지");
+  }
+  if (allSchedule) {
+    await writeJson("ticketing-calendar.json", buildTicketCalendar(allSchedule));
+    wrote += 1;
+  } else {
+    console.warn("skip ticketing-calendar.json: 전 구단 일정 수집 실패 — 기존 스냅샷 유지");
   }
 
-  await writeJson("meta.json", buildMeta());
-  await writeJson("summary.json", buildSummary(standing, teamStats));
-  await writeJson("team-standings.json", buildTeamStandings(standings));
-  await writeJson("games.json", buildGames(schedule, scoreboard));
-  await writeJson("live-game.json", buildLiveGame(schedule, scoreboard));
-  await writeJson("player-rankings.json", buildPlayerRankings(hitters, pitchers));
-  await writeJson("players.json", buildPlayerCards(hitters, pitchers));
+  if (wrote === 0) {
+    throw new Error("모든 KBO 소스 수집/파싱에 실패했습니다. 스냅샷을 갱신하지 못했습니다.");
+  }
 
-  console.log(`Updated KBO data snapshot at ${updatedAt}`);
+  console.log(`Updated KBO data snapshot at ${updatedAt} (sections written: ${wrote})`);
+}
+
+function settledValue(result, name) {
+  if (result.status === "fulfilled") {
+    return result.value;
+  }
+  console.warn(`source ${name} 수집 실패: ${result.reason?.message ?? result.reason}`);
+  return null;
+}
+
+function safeParse(name, fn, input) {
+  if (!input) {
+    return null;
+  }
+  try {
+    return fn();
+  } catch (error) {
+    console.warn(`parse ${name} 실패: ${error.message}`);
+    return null;
+  }
+}
+
+const FETCH_TIMEOUT_MS = 15000;
+const FETCH_ATTEMPTS = 3;
+
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+// 지수 백오프 재시도. KBO 서버가 응답을 흘리며 연결을 끊지 않아도
+// AbortSignal.timeout 으로 무한 대기를 막는다.
+async function withRetry(name, run) {
+  let lastError;
+  for (let attempt = 1; attempt <= FETCH_ATTEMPTS; attempt += 1) {
+    try {
+      return await run();
+    } catch (error) {
+      lastError = error;
+      if (attempt < FETCH_ATTEMPTS) {
+        await delay(attempt * 1000);
+      }
+    }
+  }
+  throw lastError;
 }
 
 async function fetchSource(name, url) {
-  const response = await fetch(url, {
-    headers: {
-      "user-agent": "Mozilla/5.0 (compatible; EaglesLoungeDataBot/1.0)",
-    },
+  const html = await withRetry(name, async () => {
+    const response = await fetch(url, {
+      headers: {
+        "user-agent": "Mozilla/5.0 (compatible; EaglesLoungeDataBot/1.0)",
+      },
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+    });
+
+    if (!response.ok) {
+      throw new Error(`${name} fetch failed: ${response.status}`);
+    }
+
+    return response.text();
   });
 
-  if (!response.ok) {
-    throw new Error(`${name} fetch failed: ${response.status}`);
-  }
-
-  const html = await response.text();
   await writeFile(join(CACHE_DIR, `${name}.html`), html);
   return html;
 }
 
-async function fetchScheduleMonth(target) {
-  const payload = await fetchKoreanScheduleMonth(target);
-  await writeFile(join(CACHE_DIR, `schedule-${target.seasonId}-${target.gameMonth}.json`), `${JSON.stringify(payload, null, 2)}\n`);
+async function fetchScheduleMonth(target, teamId = "HH") {
+  const tag = teamId;
+  const payload = await withRetry(`schedule-${tag}-${target.gameMonth}`, () =>
+    fetchKoreanScheduleMonth({ ...target, teamId }),
+  );
+  await writeFile(
+    join(CACHE_DIR, `schedule-${tag}-${target.seasonId}-${target.gameMonth}.json`),
+    `${JSON.stringify(payload, null, 2)}\n`,
+  );
   return payload;
+}
+
+async function collectAllTeamScheduleGames({ targets, teamIds = KBO_TEAM_IDS, fetchScheduleMonth: fetchMonth }) {
+  const requests = [];
+
+  for (const target of targets) {
+    for (const teamId of teamIds) {
+      requests.push({ target, teamId });
+    }
+  }
+
+  const results = await Promise.allSettled(requests.map(({ target, teamId }) => fetchMonth(target, teamId)));
+  const fulfilled = [];
+
+  results.forEach((result, index) => {
+    const { target, teamId } = requests[index];
+    if (result.status === "fulfilled") {
+      fulfilled.push(parseKoreanScheduleRows(result.value.rows, { teamFilter: null }));
+      return;
+    }
+
+    console.warn(`schedule-${teamId}-${target.gameMonth} 수집 실패: ${result.reason?.message ?? result.reason}`);
+  });
+
+  if (!fulfilled.length) {
+    throw new Error("전 구단 일정 수집에 모두 실패했습니다.");
+  }
+
+  return mergeScheduleMonths(fulfilled);
+}
+
+// 10구단 통합 예매 캘린더 — 전 구단 예정 경기를 예매 오픈 시각순으로 정렬한다.
+function buildTicketCalendar(allGames) {
+  return allGames
+    .filter((game) => game.type === "upcoming")
+    .map((game) => ({ ...game, ticketing: buildTicketing(game) }))
+    .sort(compareTicketOpen)
+    .map(({ rawTime, rawScore, ...game }) => game);
+}
+
+function compareTicketOpen(left, right) {
+  return (
+    Number(ticketOpenTimestamp(left)) - Number(ticketOpenTimestamp(right)) ||
+    compareMonthDay(left.date, right.date) ||
+    String(left.time).localeCompare(String(right.time))
+  );
+}
+
+function ticketOpenTimestamp(game) {
+  const ticketing = buildTicketing(game);
+  const gameDate = parseGameDate(game.date, game.rawTime ?? game.time);
+
+  if (!gameDate || !ticketing.openDaysBefore || !ticketing.openTime) {
+    return Number.POSITIVE_INFINITY;
+  }
+
+  const [hour, minute] = ticketing.openTime.split(":").map((part) => Number(part));
+  const openAt = new Date(gameDate);
+  openAt.setDate(openAt.getDate() - Number(ticketing.openDaysBefore));
+  openAt.setHours(hour, minute, 0, 0);
+  return openAt.getTime();
+}
+
+function parseGameDate(monthDay, timeText) {
+  const [, month, day] = String(monthDay).match(/^(\d{2})\.(\d{2})$/) ?? [];
+  const [, hour, minute] = String(timeText).match(/(\d{1,2}):(\d{2})/) ?? [];
+
+  if (!month || !day || !hour || !minute) {
+    return null;
+  }
+
+  return new Date(`${kstParts.year}-${month}-${day}T${hour.padStart(2, "0")}:${minute}:00+09:00`);
 }
 
 function parseStandings(html) {
@@ -185,52 +388,6 @@ function parseStandings(html) {
   }
 
   return { standings, standing, teamStats };
-}
-
-function parseSchedule(html) {
-  const games = [];
-  let currentDate = "";
-
-  for (const row of extractRows(html)) {
-    const cells = extractCells(row);
-    const dateCell = cells.find((cell) => cell.title === "DATE");
-
-    if (dateCell) {
-      currentDate = dateCell.text.slice(0, 5);
-    }
-
-    const time = cells.find((cell) => cell.className.includes("TIME"))?.text;
-    const location = cells.find((cell) => cell.className.includes("LOCATION"))?.text;
-    const gameCells = cells.filter((cell) => cell.title === "GAME");
-
-    if (!time || gameCells.length < 3) {
-      continue;
-    }
-
-    const away = gameCells[0].text;
-    const score = gameCells[1].text;
-    const home = gameCells[2].text;
-
-    if (away !== "HANWHA" && home !== "HANWHA") {
-      continue;
-    }
-
-    games.push({
-      type: score === ":" ? "upcoming" : "recent",
-      status: score === ":" ? "예정 경기" : "최근 결과",
-      date: currentDate,
-      time: localizeWeekday(time, currentDate),
-      rawTime: time,
-      location: TEAM_NAMES[location] ?? locationToKorean(location),
-      home: TEAM_NAMES[home] ?? home,
-      away: TEAM_NAMES[away] ?? away,
-      score: score === ":" ? "경기전" : resultLabel(away, home, score),
-      rawScore: score,
-      detail: score === ":" ? `${TEAM_NAMES[home] ?? home} 홈 경기` : `${locationToKorean(location)} 경기`,
-    });
-  }
-
-  return games;
 }
 
 function parseHitters(html) {
@@ -467,22 +624,49 @@ function buildLiveGame(schedule, scoreboard) {
     ? [todayScoreboard.awayScore, todayScoreboard.homeScore]
     : parseScore(todayGame.rawScore);
   const hasScore = awayScore !== null && homeScore !== null;
+  // 점수가 들어왔다는 것은 '경기 시작'을 뜻할 뿐 '종료'가 아니다.
+  // 종료 여부는 스코어보드 state(FINAL)로만 판정하고, 점수가 있으면서 종료가
+  // 아니면 진행 중(live)으로 본다. 예전에는 점수만 있으면 무조건 final 로
+  // 표기해 8회 진행 중 경기가 '경기 결과'로 잘못 보였다.
+  const isFinal = game.state === "FINAL";
+  const isLive = hasScore && !isFinal;
+
+  const awayName = TEAM_NAMES[game.away] ?? game.away;
+  const homeName = TEAM_NAMES[game.home] ?? game.home;
+
+  let status = "scheduled";
+  let statusLabel = "경기 예정";
+  if (isFinal) {
+    status = "final";
+    statusLabel = "경기 결과";
+  } else if (isLive) {
+    status = "live";
+    statusLabel = "경기 중";
+  }
+
+  let note;
+  if (isFinal) {
+    note = `${awayName} ${awayScore}:${homeScore} ${homeName}. KBO 스코어보드 기준 결과입니다.`;
+  } else if (isLive) {
+    const liveState = game.state ? `${game.state} ` : "";
+    note = `${awayName} ${awayScore}:${homeScore} ${homeName}. ${liveState}진행 중입니다.`;
+  } else {
+    note = `${todayGame.date} ${todayGame.rawTime} ${todayGame.away} vs ${todayGame.home}. 경기 시작 후 스코어가 갱신됩니다.`;
+  }
 
   return {
     date: todayGame?.date ?? todayKey,
     time: todayGame?.time ?? localizeWeekday(game.rawTime ?? "", todayKey),
     location: game.location ?? todayGame.location,
-    status: hasScore ? "final" : "scheduled",
-    statusLabel: hasScore ? "경기 결과" : "경기 예정",
-    state: game.state === "FINAL" ? "종료" : hasScore ? game.state : "스코어 대기",
-    inning: game.state === "FINAL" ? "최종" : hasScore ? game.state : "연동 대기",
-    awayTeam: TEAM_NAMES[game.away] ?? game.away,
-    homeTeam: TEAM_NAMES[game.home] ?? game.home,
+    status,
+    statusLabel,
+    state: isFinal ? "종료" : isLive ? game.state : "스코어 대기",
+    inning: isFinal ? "최종" : isLive ? game.state : "연동 대기",
+    awayTeam: awayName,
+    homeTeam: homeName,
     awayScore,
     homeScore,
-    note: hasScore
-      ? `${TEAM_NAMES[game.away] ?? game.away} ${awayScore}:${homeScore} ${TEAM_NAMES[game.home] ?? game.home}. KBO 스코어보드 기준 결과입니다.`
-      : `${todayGame.date} ${todayGame.rawTime} ${todayGame.away} vs ${todayGame.home}. 경기 시작 후 스코어가 갱신됩니다.`,
+    note,
     linescore: game.linescore ?? emptyLineScore(),
   };
 }
@@ -712,7 +896,38 @@ async function writeJson(fileName, data) {
   await writeFile(join(DATA_DIR, fileName), `${JSON.stringify(data, null, 2)}\n`);
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+// 직접 실행(node update-data.mjs)일 때만 네트워크 수집을 돈다.
+// 테스트에서 import 하면 순수 함수만 쓰고 main 은 실행되지 않는다.
+const isDirectRun = import.meta.url === pathToFileURL(process.argv[1] ?? "").href;
+if (isDirectRun) {
+  main().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+  });
+}
+
+export {
+  parseStandings,
+  parseScoreboard,
+  parseHitters,
+  parsePitchers,
+  buildSummary,
+  buildTeamStandings,
+  buildGames,
+  buildLiveGame,
+  buildPlayerRankings,
+  buildPlayerCards,
+  buildTicketCalendar,
+  collectAllTeamScheduleGames,
+  mergeScoreboardGame,
+  sameMatchup,
+  includesHanwha,
+  parseScore,
+  normalizeInningScore,
+  resultLabel,
+  streakCaption,
+  normalizeStreak,
+  compareMonthDay,
+  locationToKorean,
+  toEnglishTeam,
+};

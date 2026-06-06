@@ -1,6 +1,6 @@
 # 민섭이가 쓰려고 만든 한화이글스 앱
 
-민섭이가 한화이글스 경기 일정, 선수 기록, 팀 요약, 티켓팅 시간, 개인 메모를 빠르게 보려고 만든 정적 웹앱입니다.
+민섭이가 한화이글스 경기 일정, 선수 기록, 팀 요약, 티켓팅 시간을 빠르게 보려고 만든 정적 웹앱입니다.
 
 ## 실행
 
@@ -29,7 +29,7 @@ npm run serve
 - `manifest.webmanifest`: 앱 이름, 아이콘, 시작 URL
 - `service-worker.js`: 앱 셸과 JSON 데이터 캐시
 - `offline.html`: 오프라인 fallback 화면
-- 상단 탭 메뉴: 실시간, 경기, 티켓팅, 랭킹, 선수, 메모 화면 전환
+- 상단 탭 메뉴: 실시간, 경기, 티켓팅, 예매 캘린더, 랭킹, 선수 화면 전환
 - 상단 `알림 켜기`: 경기/티켓 알림 권한 요청
 - 경기 카드 `티켓 알림`: 홈팀 예매처 기준 티켓 알림 저장
 - 티켓 카드에는 예매 오픈 시각과 10분 전 알림 시각을 함께 표시합니다.
@@ -48,10 +48,8 @@ npm run serve
 - `data/live-game.json`: 메인 실시간 경기판
 - `data/player-rankings.json`: 메인 선수 랭킹
 - `data/games.json`: 경기 일정/결과
+- `data/ticketing-calendar.json`: 10구단 예매 오픈 캘린더
 - `data/players.json`: 선수 기록
-- `data/posts.json`: 초기 개인 메모
-
-등록한 메모는 `localStorage`(`eaglesNotes`)에 저장되어 새로고침해도 유지됩니다. 각 메모의 `삭제` 버튼으로 지울 수 있습니다.
 
 실제 데이터 연동 검토 내용은 `docs/DATA_INTEGRATION.md`에 정리되어 있습니다.
 

@@ -36,6 +36,17 @@
   - GitHub Pages 자동 배포
   - 앱이 열려 있을 때 클라이언트 폴링으로 최신 데이터 자동 반영
   - Periodic Background Sync best-effort
+- [x] Phase 8: 종합 감사 하드닝 (워크플로우 7차원 감사 → 확정 18건 수정)
+  - CI 배포 트리거(workflow_run), 진행중경기 오표기, fetch 복원력, SW 캐시 가드/scope
+  - escape-by-default 렌더(XSS), 테마 영속/theme-color, focus-visible, 다크 대비, 죽은코드 제거
+  - update-data 순수함수 export + 단위 테스트(14개), 브라우저 실동작 검증
+- [ ] Phase 9: 앱스토어 배포 (Apple App Store + Google Play, Capacitor)
+  - Phase 9-1: Capacitor 셸 스캐폴딩(iOS+Android), webDir 연결
+  - Phase 9-2: 네이티브 LocalNotifications로 티켓 알림 이관(앱 종료 상태에서도 발화)
+  - Phase 9-3: 앱 아이콘/스플래시(@capacitor/assets), 스토어 메타데이터, 개인정보처리방침
+  - Phase 9-4: iOS/Android 빌드 (휴먼게이트: Xcode.app + CocoaPods / JDK + Android SDK 설치 필요)
+  - Phase 9-5: 로컬 실기기 테스트
+  - Phase 9-6: 스토어 제출 체크리스트 (휴먼게이트: 개발자 계정 + 실제 제출)
 
 ## Phase 1 Handoff
 
@@ -462,3 +473,124 @@
   - `curl -i /data/games.json`: HTTP 200, 예정 10경기 확인
   - `curl -i /service-worker.js`: HTTP 200, `self.registration.scope`, `periodicsync`, `refresh-data` 확인
   - `curl -i /manifest.webmanifest`: HTTP 200, 민섭이 브랜딩과 icon 확인
+
+## Phase 8 Handoff — 종합 감사 하드닝 (2026-06-05)
+
+- 멀티에이전트 워크플로우로 7차원(클라이언트버그/데이터파이프라인/PWA·SW/보안XSS/접근성/CSS/테스트CI) 감사 후, 각 발견을 적대적 2-렌즈(실제 재현? + 고칠 가치?)로 검증해 **69건 중 18건 확정**. 확정분을 메인에서 직접 수정했다.
+- 수정한 18건(중복 제외 16 이슈):
+  - **CI(HIGH)**: `deploy-pages.yml`에 `workflow_run` 트리거 추가 — 봇 데이터 커밋이 기본 GITHUB_TOKEN이라 push 트리거를 못 깨워 **자동갱신이 사이트에 반영 안 되던 핵심 결함** 해소. 데이터 갱신 성공 시에만 배포하도록 job `if` 가드.
+  - **데이터(MED)**: `buildLiveGame`이 점수만 있으면 무조건 `final/경기 결과`로 표기 → 진행중 경기 오표기. `state==="FINAL"` 기준으로 final/live/scheduled 3분기로 수정.
+  - **데이터(MED)**: 모든 fetch에 타임아웃 없음 + `Promise.all`이라 1개 실패 시 전체 중단 → `AbortSignal.timeout(15s)` + 지수백오프 재시도(`withRetry`), `Promise.allSettled` + 섹션별 graceful skip(실패 섹션은 기존 스냅샷 유지), 전 섹션 실패시에만 throw.
+  - **PWA(MED)**: SW `networkFirst/cacheFirst`가 `response.ok` 검사 없이 `cache.put` → 404/리다이렉트 캐시 오염. `ok` 가드 추가.
+  - **PWA/UX(MED)**: 테마 토글 localStorage 미영속 → 새로고침마다 라이트 리셋. `eaglesTheme` 영속 + `index.html` `<head>` 인라인 스크립트로 FOUC-free 초기 적용 + `theme-color` 메타 동기화.
+  - **a11y(MED)**: `:focus-visible` 규칙 전무 → 전역 포커스 아웃라인 추가.
+  - **CSS(MED)**: 다크 테마에서 강조색 미재정의 → `:root.dark`에 밝은 `--orange/--orange-dark/--mint/--blue` 추가. 소형 텍스트(`.eyebrow`,`.line-score .total`)는 `--orange-dark`로 대비 확보.
+  - **보안(LOW)**: `escapeHtml`이 메모에만 적용 → KBO 외부데이터 렌더 경로 stored XSS. **escape-by-default 태그드 템플릿 `html`**`/`SafeHtml`/`raw` 도입해 모든 렌더 함수 전환(leaf 자동 이스케이프, 중첩 HTML은 SafeHtml로 통과).
+  - **데이터(LOW)**: 티켓 알림 `checkTicketReminders` read-modify-write 경쟁 → 쓰기 직전 최신본 재읽기 후 `notifiedAt`만 병합.
+  - **PWA(LOW)**: `notificationclick` URL 매칭이 하위경로 배포에서 실패 → `registration.scope` 기준 매칭.
+  - **PWA(LOW)**: `offline.html`이 `?v=14` 참조 → 전 파일 버전 통일.
+  - **a11y(LOW)**: 피드 `중요/체크`가 핸들러 없는 비기능 버튼 → 비대화형 `<span class="reaction">`으로 변경(삭제 버튼은 유지).
+  - **품질(LOW)**: 죽은 코드 `parseSchedule` 제거(`SOURCES.schedule`은 meta 출처목록에 쓰여 유지).
+  - **테스트(MED)**: `update-data.mjs` 순수함수 export + 직접실행 가드(`isDirectRun`) + `tests/update-data.test.mjs` 신규(파싱/분류 9개 테스트, buildLiveGame final/live/scheduled 회귀 포함).
+- **버전 bump**: 캐시 `eagles-lounge-v16→v17`, 에셋 `?v=15→?v=16`(index/offline/SW APP_SHELL 통일). `script.js` `dataFiles`는 원래 버전쿼리 없이 fetch하므로 그대로.
+- **검증 기록 (2026-06-05 KST)**:
+  - `npm run check` GREEN: 문법 4파일 + 테스트 **14/14**.
+  - `html`/`SafeHtml` 격리 런타임 테스트 5/5(이스케이프·중첩·배열·raw·coercion).
+  - `node scripts/update-data.mjs` 실제 KBO 수집 성공(`sections written: 6`), `data/*.json` 8개 문법 통과. live-game 재생성 후 `status:final/state:종료` 일관(이전 `state:TOP 8`인데 `final` 모순 해소). 오늘 경기: 한화 9:2 롯데(종료).
+  - 브라우저 실동작(로컬서버 :4179, Claude Preview): 콘솔 에러 0, `[object]`/`undefined` 누출 0, summary 4·standings 10(한화행 강조)·player 4·ranking 3·badge 14·feed 3·reaction span 6 렌더, 다크테마+theme-color 자동 적용.
+- **미커밋 상태**: Phase 8 변경 + `data/*.json` 재생성분이 워킹트리에 있음(브랜치 `claude/nostalgic-montalcini-58c815`). 사용자 지시 전까지 커밋/푸시 안 함.
+
+## Phase 9 Plan — 앱스토어 배포 (Apple App Store + Google Play, Capacitor)
+
+- **결정(2026-06-05)**: 타겟 = Apple+Google 둘 다 / 패키징 = Capacitor / 범위 = 제출 직전까지 구축(실제 제출은 휴먼게이트).
+- **현 PWA는 유지**: Capacitor는 기존 web 자산(`hanwha/`)을 네이티브 셸로 감쌀 뿐, GitHub Pages PWA 배포는 그대로 병행.
+- **툴체인 현황(2026-06-05 점검)**: node v26·npm 11·npm registry 접근 OK. 그러나 **전체 Xcode.app 없음(CommandLineTools만), CocoaPods 없음, JDK·Android SDK·adb 없음** → 네이티브 빌드/실기기 테스트 불가. 아래 휴먼게이트 선행 필요.
+- **휴먼게이트(사용자 직접)**:
+  - iOS: App Store에서 **Xcode.app** 설치 + `sudo xcode-select -s /Applications/Xcode.app` + **CocoaPods**(`brew install cocoapods`) + **Apple Developer Program $99/년**.
+  - Android: **JDK 17** + **Android Studio/SDK** 설치 + `ANDROID_HOME` 설정 + **Google Play 개발자 $25(1회)**.
+  - 실제 스토어 *제출*(서명·아카이브 업로드·메타데이터 입력·심사 제출).
+- **Apple 4.2 대응**: 단순 웹래퍼는 거부 위험 → 네이티브 LocalNotifications(티켓 알림) 등 네이티브 기능을 더해 minimum functionality 충족.
+- **세부 Phase**:
+  - 9-1 Capacitor 스캐폴딩: `@capacitor/core,cli,ios,android` 설치, `capacitor.config`(appId 예 `com.minsub.eagles`, webDir=`.`), `npx cap add ios/android`(툴체인 있을 때), npm 스크립트.
+  - 9-2 네이티브 알림: `@capacitor/local-notifications`로 티켓 오픈 10분전 알림을 네이티브 스케줄로 이관(앱 종료 상태에서도 발화 → 기존 서버푸시 한계 해소). 웹/네이티브 feature-detect 분기.
+  - 9-3 에셋·메타데이터: `@capacitor/assets`로 아이콘/스플래시 생성(소스 아이콘 필요), 스토어 설명(KR/EN)·키워드·스크린샷 계획, **개인정보처리방침**(앱은 개인정보 미수집·localStorage만 사용 → 단순).
+  - 9-4 빌드: iOS `npx cap sync ios` + Xcode 아카이브 / Android `gradlew assembleRelease`(휴먼게이트).
+  - 9-5 실기기 테스트.
+  - 9-6 제출 체크리스트: App Store Connect / Play Console 등록·심사 제출 런북.
+- **다음 세션 이어받기**: `PROGRESS.md` Phase 8/9 섹션 확인 → Phase 9 미완 항목부터. 9-1~9-3(에셋·메타데이터·런북)은 툴체인 없이도 repo-side로 진행 가능, 9-4~9-6은 휴먼게이트 선행.
+
+## 세션 핸드오프 (2026-06-05)
+
+- 이번 세션: **Phase 8(종합 감사 하드닝) 구현·검증 완료** + **Phase 9(앱스토어) 계획 수립**.
+- 사용자 결정: (1) 지금은 **커밋하지 않음**(변경은 워킹트리 `claude/nostalgic-montalcini-58c815`에 보존), (2) Phase B는 **툴체인 설치 런북 먼저** 방식.
+- **툴체인 설치 런북**: `hanwha/docs/APPSTORE_DEPLOY.md` 작성 완료. 사용자가 이 문서대로 Xcode.app + CocoaPods(iOS) / JDK17 + Android Studio·SDK(Android) + (선택) 개발자 계정을 설치하는 것이 다음 휴먼 액션.
+- 설치 완료 후 다음 세션: `docs/APPSTORE_DEPLOY.md` §4 검증 블록 실행 → 통과하면 Phase 9-1(Capacitor 스캐폴딩)부터 자동화 진행.
+- 환경 메모: Apple Silicon(arm64) macOS 26.5, Homebrew 5.x 설치됨, Node v26, 시스템 ruby 2.6(구버전이라 CocoaPods는 `brew install cocoapods` 권장).
+- 미커밋 변경 파일: `.github/workflows/deploy-pages.yml`, `hanwha/{index.html,offline.html,script.js,service-worker.js,styles.css,scripts/update-data.mjs,tests/update-data.test.mjs,PROGRESS.md,README.md?,docs/APPSTORE_DEPLOY.md}`, `hanwha/data/*.json`(재생성), 루트 `.claude/launch.json`(프리뷰용).
+
+## 메모 제거 + 이글스 리디자인 Handoff (2026-06-05)
+
+- 사용자 요청: 메모 메뉴 제거 + UI를 "한화이글스에 맞게" 트렌디하게 + 엠블럼 활용.
+- **메모(커뮤니티) 완전 제거**: nav 링크·view-tab·`#community` 섹션(index.html), JS(`getUserNotes/saveUserNotes/deleteUserNote/renderFeed`, postForm·note-delete 핸들러, `posts` 상태/로드, `NOTES_STORAGE_KEY`, `feed` dom ref), SW `APP_SHELL`의 posts.json, `data/posts.json` 파일까지 삭제. README도 정리. (잔여 참조 0 확인)
+- **리디자인 — 한화이글스 다크 프리미엄**:
+  - `styles.css` 토큰(:root/:root.dark) 재정의: 한화 오렌지(#ff5a0f/다크 #ff7a2d) + 딥 차콜/블랙, 그라데이션(`--grad-orange/--grad-ink`)·글래스(`--glass`)·라운드(`--radius*`)·글로우(`--shadow-orange`)·`--ring` 토큰 추가. 토큰 기반이라 전역 reskin.
+  - 파일 끝에 "v17 트렌디 레이어" 추가: body 오렌지 글로우 배경, 글래스 상단바, 방패형 브랜드마크(clip-path), 알약형 view-tab(활성 오렌지 글로우), 카드 라운드+호버 리프트, 요약 숫자 강조, 라이브 상태칩/순위 알약, 한화 행 그라데이션 강조, `.team-crest` 엠블럼 스타일. nav 가독성(라이트 글래스 위) 보정.
+  - **크레스트 엠블럼**: `script.js`에 `teamColors`(10개 구단 자체 색, 공식 로고 아님) 추가, `renderTeamBadge`를 SVG 방패형 크레스트(베이스+상단 하이라이트+모노그램)로 교체. `teamInitials` 10개 팀으로 확장. 기존 `.team-badge`→`.team-crest`.
+- **버전 bump**: 캐시 `v17→v18`, 에셋 `?v=16→?v=17`(index/offline/SW), `DATA_VERSION "v=15"→"v=17"`(정렬).
+- **검증 (브라우저, Claude Preview :4179)**:
+  - `npm run check` 14/14 ✅, 문법 OK, 버전 일관(`?v=17`/`v18`/DATA `v=17`), posts.json 참조 0.
+  - 메모 탭/패널 0, 크레스트 14개 SVG 렌더(라이브 2·순위 10 포함), 구 `.team-badge` 0, 콘솔 에러 0, `[object]` 누출 0.
+  - 다크/라이트 모두 정상 렌더 확인(스크린샷). 라이브 패널·순위표·티켓 카드·랭킹 eyebrow/순위알약·한화행 강조 OK.
+  - 주의: CSS는 `?v=17`로 캐시되므로, 추가 CSS 수정 시 브라우저 강제 새로고침 또는 버전 bump 필요(이번 nav 보정도 캐시버스터로 검증).
+- 미커밋 유지(워킹트리). 추가 변경 파일: `hanwha/README.md`, `hanwha/data/posts.json` 삭제.
+
+## 수익형 피벗 + Phase 1(10구단 확장) Handoff (2026-06-06)
+
+### 결정 — 수익형 제품 피벗
+- 1인용 앱 → **수익형**으로 전환하기로 함. 방향 = **"KBO 티켓팅 도우미"(한화 단일 → 전 10구단)**.
+- 병렬 워크플로우(5차원: 시장/법/수요/수익/MVP)로 사업계획 도출. 결론 = **조건부 GO("큰돈"이 아니라 저비용 검증 사이드 프로젝트로 기대치 조정")**.
+  - 포지셔닝: "10구단·3예매처로 흩어진 예매 오픈 일정을 모아, 앱 꺼놔도 예매 직전에 콕 알려주는 **합법** 알림 비서." (네이버·KBO앱과 스코어/순위 정면승부 금지.)
+  - 수익: 제휴 커미션(쿠팡파트너스·굿즈) 1순위 → 광고 보조 → 시즌패스 구독(리텐션 후) → B2B/지역스폰서(중장기). MAU 수천~수만 전엔 용돈 수준(솔직히).
+  - 검증 우선: 돈(네이티브 앱·푸시 서버) 쓰기 전 **무료 PWA로 10구단 확장해 알림 허용률·제휴 클릭을 싸게 검증**. 지표 안 나오면 개인용 복귀.
+
+### 🔴 착수 전 필수 (Phase 0 — 휴먼게이트, 아직 안 함)
+- **`ticketlink-macro/`(안티봇 우회 자동예매 매크로)를 제품 repo·git 히스토리에서 분리/폐기.** 같은 트리에 있으면 "매크로 부정예매 도구" 오인 + ToS/법 리스크(공연법 매크로 처벌 2024.3.22 시행).
+- **🔴 긴급: 그 매크로 `.env` 평문 ID/PW가 과거 커밋(a8e494e, dd2b6fd)에 노출 → 해당 계정 비밀번호 즉시 교체** (수익화와 무관하게 지금).
+- **취소표 자동 감지 = 영구 NO**(불법). 예매처 *공식* 취소표대기/예매대기 알림으로 '연결·가이드'만. 카피도 "잡아드림"❌ → "공식 알림 설정 도와드림"✅.
+
+### Phase 1 (10구단 확장) — 부분 완료 / 진행 중
+**완료(검증됨, 비파괴적):**
+- `ticketProviders`(script.js)·`TICKET_PROVIDERS`(update-data.mjs)에 **LG·KT·삼성 추가 → 10구단 완성**. 신규 3팀은 추정 규칙(D-7 11:00) + `openCaution:"구단 공지 기준 확인"` 디스클레이머.
+- `scripts/kbo-schedule-api.mjs` **전 구단 지원으로 일반화(하위 호환)**: `fetchKoreanScheduleMonth({teamId="HH"})` 파라미터화(빈 값이면 teamId 생략), `parseKoreanScheduleRows(rows,{teamFilter="한화"})` 옵션화, `resultLabel(matchup, perspective)` 중립 스코어 지원, 미사용 `includesHanwha` 제거. **기본값이 "한화"라 기존 동작/테스트 14/14 그대로 통과.**
+- `scripts/update-data.mjs`: 전 구단 일정 수집(allSettled에 추가) + `buildTicketCalendar()` + `ticketing-calendar.json` 쓰기 배선(실패 시 graceful skip). `fetchScheduleMonth(target, teamId)` 파라미터화.
+- `npm run check` 14/14 통과, 문법 OK, 기존 6개 섹션 정상 재생성(앱 안 깨짐).
+
+**⚠️ 막힌 지점 (다음 세션 1순위):**
+- **전 구단 fetch가 `teamId` 생략 시 KBO API가 HTTP 500 반환** → `ticketing-calendar.json` 미생성(graceful skip됨).
+- **수정 방향**: teamId 생략 대신 **10개 구단 teamId를 각각 호출해 merge**. KBO 팀코드: 한화 HH, 두산 OB, LG LG, SSG SK, 키움 WO, KIA HT, 삼성 SS, 롯데 LT, NC NC, KT KT. `scheduleTargets × 10팀` 호출 → `parseKoreanScheduleRows(rows, {teamFilter:null})`(또는 팀별) → `mergeScheduleMonths`로 중복제거(이미 date+time+away+home 키로 dedupe). 호출 수 증가 주의(2개월×10팀=20콜) → withRetry/allSettled로 견고화.
+
+**남은 작업 (클라이언트 — 아직 안 함):**
+1. `ticketing-calendar.json`을 `dataFiles`·`loadData`·`data` 상태·SW `APP_SHELL`에 배선.
+2. **"예매 캘린더" 탭 신설**: nav 링크 + view-tab 버튼 + `data-view-panel="calendar"` 섹션(index.html).
+3. `renderTicketCalendar()`: 전 구단 예정경기를 **예매 오픈 시각순 정렬**, 구단 크레스트 + "away vs home" + 예매처(getTicketing) + 예매 오픈 시각(getTicketOpenInfo) + 10분전 알림 버튼. **구단 필터**(전체+구단별), (선택) 구단 즐겨찾기 localStorage.
+4. **`enableTicketReminder` 수정**: 현재 `data.games`에서만 경기 조회 → 캘린더 경기도 찾도록 `[...data.games, ...(data.ticketCalendar||[])]`로 확장(안 하면 캘린더 알림 버튼 무동작).
+5. 버전 bump(캐시 v18→v19, `?v=17→?v=18`, DATA_VERSION 정렬) + `npm run check` + 브라우저 검증(프리뷰 :4179, CSS 캐시 주의).
+
+### 현재 미커밋 상태 (워킹트리, 커밋 안 함)
+- 변경: `.github/workflows/deploy-pages.yml`, `hanwha/{index.html,offline.html,script.js,service-worker.js,styles.css,scripts/update-data.mjs,scripts/kbo-schedule-api.mjs,README.md,PROGRESS.md}`, `hanwha/data/*.json`(재생성), `hanwha/data/posts.json` 삭제.
+- 신규(untracked): `hanwha/docs/APPSTORE_DEPLOY.md`, `hanwha/tests/update-data.test.mjs`, 루트 `.claude/`(launch.json).
+- 누적 미커밋 = Phase 8(하드닝) + 메모제거/리디자인 + Phase 1 부분. 한 번에 정리 커밋하거나 단계별 분리 커밋 모두 가능. 커밋/PR은 사용자 지시 대기.
+
+## Phase 1 완료 + 검증 Handoff (2026-06-06)
+
+- **Phase 1(10구단 확장) 완료.** 직전 핸드오프의 "막힌 지점(teamId 생략 500)"이 해결됨 — Codex 세션이 서버+클라이언트 구현을 끝냈고, 이번 세션에서 브라우저 검증까지 완료.
+- 구현 내용(전부 on-disk·미커밋):
+  - 서버: `kbo-schedule-api.mjs`에 `KBO_TEAM_IDS`(10팀 코드 HH/OB/LG/SK/WO/HT/SS/LT/NC/KT) export. `update-data.mjs`에 `collectAllTeamScheduleGames`(**팀별 teamId로 각각 호출 후 merge** — 500 우회), `buildTicketCalendar`(예정경기 + `buildTicketing` 첨부 + **예매 오픈시각순 정렬** + rawTime/rawScore 제거), `ticketing-calendar.json` 생성(현재 215경기).
+  - 클라이언트: `data.ticketCalendar`/`dataFiles`/`loadData`/SW `APP_SHELL` 배선, "예매 캘린더" 탭(nav+view-tab+섹션), `renderTicketCalendar`(구단 필터 전체+10팀, 크레스트, 예매처, 오픈시각, 10분전 알림), 필터 클릭 핸들러, `enableTicketReminder`를 `[...data.games, ...data.ticketCalendar]`로 확장(캘린더 경기 알림 동작).
+  - 버전: 캐시 `v19`, 에셋 `?v=18`, `DATA_VERSION "v=18"` 정합.
+- **검증 (2026-06-06)**:
+  - `npm run check` **20/20** 통과(신규: collectAllTeamScheduleGames 팀별호출·buildTicketCalendar 정렬/ticketing/rawTime제거·KBO_TEAM_IDS·teamFilter null·앱셸/로더 캘린더 포함·캘린더 탭 접근성).
+  - `node scripts/update-data.mjs` 성공 → `ticketing-calendar.json` 215경기 생성(500 해결 확인).
+  - 브라우저(프리뷰 :4179): 예매 캘린더 탭 활성, 215경기 카드 + 필터 11개(전체+10팀) + 크레스트 430 + 알림버튼 215 렌더, 콘솔 에러 0, `[object]` 누출 0. 한화 필터 → 43경기(전부 한화). 오픈시각순 정렬·예매처·10분전 알림 표시 확인.
+- **다음(Phase 2 이후, 이번 범위 아님)**: 수요 검증(알림 허용률·제휴 클릭) → 지표 나오면 Capacitor 네이티브 푸시. + Phase 0(매크로 격리·비번 교체)는 상업화 전 선결.
+- 신규 미커밋 파일 추가: `hanwha/data/ticketing-calendar.json`, `hanwha/scripts/kbo-schedule-api.mjs`(KBO_TEAM_IDS), 테스트 확장(`tests/update-data.test.mjs`).

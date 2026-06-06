@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { mergeScheduleMonths, parseKoreanScheduleRows } from "../scripts/kbo-schedule-api.mjs";
+import { KBO_TEAM_IDS, mergeScheduleMonths, parseKoreanScheduleRows } from "../scripts/kbo-schedule-api.mjs";
 
 const completedGameRows = [
   {
@@ -84,5 +84,35 @@ test("mergeScheduleMonths preserves order and removes duplicate games from overl
   assert.deepEqual(
     merged.map((game) => `${game.date}|${game.rawTime}|${game.away}|${game.home}`),
     ["06.02|18:30|한화|두산", "07.01|18:30|KT|한화"],
+  );
+});
+
+test("KBO_TEAM_IDS lists every ticket calendar team code", () => {
+  assert.deepEqual(KBO_TEAM_IDS, ["HH", "OB", "LG", "SK", "WO", "HT", "SS", "LT", "NC", "KT"]);
+});
+
+test("parseKoreanScheduleRows returns neutral all-team games when teamFilter is null", () => {
+  const rows = [
+    ...upcomingGameRows,
+    {
+      row: [
+        { Text: "07.02(목)", Class: "day" },
+        { Text: "<b>18:30</b>", Class: "time" },
+        { Text: "<span>LG</span><em><span>vs</span></em><span>두산</span>", Class: "play" },
+        { Text: "", Class: "relay" },
+        { Text: "" },
+        { Text: "" },
+        { Text: "" },
+        { Text: "잠실" },
+        { Text: "-" },
+      ],
+    },
+  ];
+
+  const games = parseKoreanScheduleRows(rows, { teamFilter: null });
+
+  assert.deepEqual(
+    games.map((game) => `${game.date}|${game.away}|${game.home}|${game.score}`),
+    ["07.01|KT|한화|경기전", "07.02|LG|두산|경기전"],
   );
 });
