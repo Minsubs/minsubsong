@@ -17,5 +17,6 @@
 - 주요 문서:
   - `hanwha/README.md`
   - `hanwha/PROGRESS.md`
+  - `hanwha/HANDOFF.md`
   - `hanwha/docs/DATA_INTEGRATION.md`
   - `hanwha/docs/APPSTORE_DEPLOY.md`

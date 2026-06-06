@@ -23,6 +23,8 @@
 - [x] `ticketlink-macro/`를 제품 worktree 밖으로 분리
 - [x] `검증` 탭과 로컬 수요 신호 집계 추가
 - [x] README/진행상황/데이터/앱배포 문서와 앱 메타 카피를 `KBO 티켓팅 도우미` 기준으로 정리
+- [x] 취소표 관심 경기 알림을 Phase 3 후보 범위로 문서화
+- [x] 다음 세션용 `HANDOFF.md` 작성
 - [ ] 과거 macro 커밋 히스토리 rewrite 여부 결정
 - [ ] 노출 가능성이 있는 계정 비밀번호 사용자 직접 교체
 - [ ] 수요 검증 운영 루틴 정의
@@ -33,7 +35,7 @@
 
 - `ticketlink-macro/`는 제품 worktree 밖으로 이동했다.
 - 보존 위치: `/Users/minsub/Documents/한화/_separated/ticketlink-macro-20260606-203301`
-- 현재 제품 worktree에는 `ticketlink-macro/*` tracked deletion이 남아 있다.
+- 현재 제품 worktree의 `ticketlink-macro/*` tracked deletion은 `main`에 커밋/머지되어 있다.
 - 현재 worktree와 분리 폴더에는 실제 `.env`가 없고 `.env.example`만 확인했다.
 - 과거 커밋 `dd2b6fd`, `d597970`에는 macro 이력이 남아 있다.
 - 과거 노출 가능성이 있는 계정 비밀번호는 사용자가 직접 교체해야 한다.
@@ -116,6 +118,14 @@
 ```bash
 npm run check
 # 22/22 pass
+```
+
+## 다음 세션 시작 지시
+
+```text
+/Users/minsub/Documents/한화에서 시작.
+hanwha/HANDOFF.md와 hanwha/PROGRESS.md를 읽고 다음 미완 항목으로 진행해.
+과거 구현 히스토리는 handoff에 적힌 내용만 신뢰해.
 ```
 
 ## 다음 작업 후보
