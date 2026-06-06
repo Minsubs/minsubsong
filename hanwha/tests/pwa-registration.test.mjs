@@ -27,7 +27,7 @@ test("app shell and data loader include ticketing calendar", async () => {
   assert.match(script, /ticketCalendar:\s*\[\]/);
   assert.match(script, /ticketCalendar:\s*"\.\/data\/ticketing-calendar\.json"/);
   assert.match(script, /fetchJson\(dataFiles\.ticketCalendar\)/);
-  assert.match(serviceWorker, /eagles-lounge-v19/);
+  assert.match(serviceWorker, /eagles-lounge-v21/);
   assert.match(serviceWorker, /\.\/data\/ticketing-calendar\.json\?v=18/);
 });
 
@@ -43,4 +43,26 @@ test("calendar tab exists with accessible controls", async () => {
   assert.match(index, /id="ticketCalendarList"/);
   assert.match(script, /function renderTicketCalendar/);
   assert.match(script, /\.\.\.data\.games,\s*\.\.\.\(data\.ticketCalendar \?\? \[\]\)/);
+});
+
+test("demand validation tab exists with local-only controls", async () => {
+  const index = await readFile(new URL("../index.html", import.meta.url), "utf8");
+
+  assert.match(index, /data-view-target="validation"[^>]*>검증/);
+  assert.match(index, /id="validation"[^>]*data-view-panel="validation"/);
+  assert.match(index, /id="demandSignalBoard"/);
+  assert.match(index, /id="demandSignalEvents"/);
+  assert.match(index, /id="exportDemandSignals"/);
+  assert.match(index, /id="resetDemandSignals"/);
+});
+
+test("demand validation signals are stored locally and wired to ticket actions", async () => {
+  const script = await readFile(new URL("../script.js", import.meta.url), "utf8");
+
+  assert.match(script, /DEMAND_SIGNALS_KEY\s*=\s*"eaglesDemandSignals"/);
+  assert.match(script, /function trackDemandSignal/);
+  assert.match(script, /function renderDemandSignals/);
+  assert.match(script, /data-demand-action="provider-click"/);
+  assert.match(script, /trackDemandSignal\("ticket_reminder_saved"/);
+  assert.match(script, /trackDemandSignal\("calendar_filter_selected"/);
 });

@@ -1,7 +1,7 @@
 {
-  "name": "민섭이가 쓰려고 만든 한화이글스 앱",
-  "short_name": "민섭이 한화앱",
-  "description": "민섭이가 보려고 모아둔 한화이글스 경기, 랭킹, 티켓 체크 앱",
+  "name": "KBO 티켓팅 도우미",
+  "short_name": "KBO 티켓",
+  "description": "KBO 10구단 예매 캘린더와 티켓 알림 수요 검증 PWA",
   "lang": "ko-KR",
   "start_url": "./index.html",
   "scope": "./",
@@ -20,14 +20,14 @@
   ],
   "shortcuts": [
     {
-      "name": "실시간 경기",
-      "short_name": "실시간",
-      "url": "./index.html#live"
+      "name": "예매 캘린더",
+      "short_name": "캘린더",
+      "url": "./index.html#calendar"
     },
     {
-      "name": "선수 랭킹",
-      "short_name": "랭킹",
-      "url": "./index.html#rankings"
+      "name": "수요 검증",
+      "short_name": "검증",
+      "url": "./index.html#validation"
     }
   ]
 }
