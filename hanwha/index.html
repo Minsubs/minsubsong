@@ -4,6 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#17120f" />
+    <script>
+      // 저장된/시스템 테마를 첫 페인트 전에 적용해 FOUC 와 라이트 리셋을 막는다.
+      (function () {
+        try {
+          var t = localStorage.getItem("eaglesTheme");
+          if (!t) {
+            t = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          }
+          if (t === "dark") {
+            document.documentElement.classList.add("dark");
+          }
+          var meta = document.querySelector('meta[name="theme-color"]');
+          if (meta) {
+            meta.setAttribute("content", t === "dark" ? "#17120f" : "#f6f2ec");
+          }
+        } catch (e) {}
+      })();
+    </script>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="민섭이 한화이글스 앱" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -17,7 +35,7 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=15" />
+    <link rel="stylesheet" href="./styles.css?v=18" />
   </head>
   <body>
     <header class="topbar">
@@ -32,9 +50,9 @@
         <a href="#live" data-view-target="live">실시간</a>
         <a href="#games" data-view-target="games">경기</a>
         <a href="#tickets" data-view-target="tickets">티켓팅</a>
+        <a href="#calendar" data-view-target="calendar">예매 캘린더</a>
         <a href="#rankings" data-view-target="rankings">랭킹</a>
         <a href="#players" data-view-target="players">선수</a>
-        <a href="#community" data-view-target="community">메모</a>
       </nav>
       <div class="top-actions">
         <button class="notify-button" id="notifyButton" type="button" hidden>알림 켜기</button>
@@ -49,9 +67,9 @@
       <button class="active" type="button" data-view-target="live" aria-controls="live" role="tab">실시간</button>
       <button type="button" data-view-target="games" aria-controls="games" role="tab">경기</button>
       <button type="button" data-view-target="tickets" aria-controls="tickets" role="tab">티켓팅</button>
+      <button type="button" data-view-target="calendar" aria-controls="calendar" role="tab">예매 캘린더</button>
       <button type="button" data-view-target="rankings" aria-controls="rankings" role="tab">랭킹</button>
       <button type="button" data-view-target="players" aria-controls="players" role="tab">선수</button>
-      <button type="button" data-view-target="community" aria-controls="community" role="tab">메모</button>
     </nav>
 
     <main id="top">
@@ -127,6 +145,17 @@
         <div class="ticket-game-list" id="ticketGameList"></div>
       </section>
 
+      <section class="section-grid" id="calendar" data-view-panel="calendar">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Ticket Calendar</p>
+            <h2>10구단 예매 캘린더</h2>
+          </div>
+          <div class="segmented calendar-filters" id="ticketCalendarFilters" role="tablist" aria-label="예매 캘린더 구단 필터"></div>
+        </div>
+        <div class="ticket-calendar-list" id="ticketCalendarList"></div>
+      </section>
+
       <section class="section-grid muted-band" id="rankings" data-view-panel="rankings">
         <div class="section-heading">
           <div>
@@ -169,26 +198,6 @@
         <div class="player-grid" id="playerGrid"></div>
       </section>
 
-      <section class="community-layout" id="community" data-view-panel="community">
-        <div class="section-heading stacked">
-          <p class="eyebrow">My Notes</p>
-          <h2>민섭이 한화 메모장</h2>
-        </div>
-        <form class="post-box" id="postForm">
-          <label for="postInput">민섭이 메모</label>
-          <textarea id="postInput" rows="4" placeholder="오늘 민섭이가 체크할 경기 포인트를 남겨두세요."></textarea>
-          <div class="post-actions">
-            <select id="postTag" aria-label="게시글 태그">
-              <option>경기메모</option>
-              <option>선수체크</option>
-              <option>티켓준비</option>
-              <option>직관노트</option>
-            </select>
-            <button type="submit">저장</button>
-          </div>
-        </form>
-        <div class="feed" id="feed"></div>
-      </section>
     </main>
 
     <footer class="footer">
@@ -200,6 +209,6 @@
       </p>
     </footer>
 
-    <script src="./script.js?v=15"></script>
+    <script src="./script.js?v=18"></script>
   </body>
 </html>

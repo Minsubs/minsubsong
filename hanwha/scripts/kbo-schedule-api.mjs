@@ -1,15 +1,20 @@
 export const KBO_SCHEDULE_API_URL = "https://www.koreabaseball.com/ws/Schedule.asmx/GetScheduleList";
+export const KBO_TEAM_IDS = ["HH", "OB", "LG", "SK", "WO", "HT", "SS", "LT", "NC", "KT"];
 
 const KBO_SCHEDULE_PAGE_URL = "https://www.koreabaseball.com/Schedule/Schedule.aspx";
 
-export async function fetchKoreanScheduleMonth({ seasonId, gameMonth, fetchImpl = fetch }) {
+export async function fetchKoreanScheduleMonth({ seasonId, gameMonth, teamId = "HH", fetchImpl = fetch }) {
   const body = new URLSearchParams({
     leId: "1",
     srIdList: "0,9,6",
     seasonId: String(seasonId),
     gameMonth: String(gameMonth).padStart(2, "0"),
-    teamId: "HH",
   });
+
+  // teamId 가 비면(전 구단 수집) 파라미터를 빼서 해당 월 모든 경기를 받는다.
+  if (teamId) {
+    body.set("teamId", teamId);
+  }
 
   const response = await fetchImpl(KBO_SCHEDULE_API_URL, {
     method: "POST",
@@ -30,7 +35,9 @@ export async function fetchKoreanScheduleMonth({ seasonId, gameMonth, fetchImpl 
   return response.json();
 }
 
-export function parseKoreanScheduleRows(rows) {
+export function parseKoreanScheduleRows(rows, options = {}) {
+  // teamFilter 기본 "한화"(기존 동작 유지). null/"" 이면 전 구단 경기를 모두 반환.
+  const { teamFilter = "한화" } = options;
   const games = [];
 
   for (const entry of rows ?? []) {
@@ -40,7 +47,10 @@ export function parseKoreanScheduleRows(rows) {
     const matchup = parseMatchup(cells[2]?.Text);
     const location = cleanText(cells[7]?.Text);
 
-    if (!date || !rawTime || !matchup || !location || !includesHanwha(matchup)) {
+    if (!date || !rawTime || !matchup || !location) {
+      continue;
+    }
+    if (teamFilter && !matchupIncludesTeam(matchup, teamFilter)) {
       continue;
     }
 
@@ -54,7 +64,7 @@ export function parseKoreanScheduleRows(rows) {
       location,
       home: matchup.home,
       away: matchup.away,
-      score: isUpcoming ? "경기전" : resultLabel(matchup),
+      score: isUpcoming ? "경기전" : resultLabel(matchup, teamFilter),
       rawScore: matchup.rawScore,
       detail: isUpcoming ? `${matchup.home} 홈 경기` : `${location} 경기`,
     });
@@ -126,15 +136,19 @@ function parseScorePart(value) {
   return Number.isFinite(score) ? score : null;
 }
 
-function resultLabel(matchup) {
-  const hanwhaScore = matchup.away === "한화" ? matchup.awayScore : matchup.homeScore;
-  const opponentScore = matchup.away === "한화" ? matchup.homeScore : matchup.awayScore;
-  const result = hanwhaScore > opponentScore ? "승" : hanwhaScore < opponentScore ? "패" : "무";
-  return `${result} ${hanwhaScore}:${opponentScore}`;
+function resultLabel(matchup, perspective = "한화") {
+  // 관점 팀이 경기에 없으면(전 구단 수집) 중립 스코어로 표기한다.
+  if (perspective !== matchup.away && perspective !== matchup.home) {
+    return `${matchup.awayScore}:${matchup.homeScore}`;
+  }
+  const teamScore = matchup.away === perspective ? matchup.awayScore : matchup.homeScore;
+  const opponentScore = matchup.away === perspective ? matchup.homeScore : matchup.awayScore;
+  const result = teamScore > opponentScore ? "승" : teamScore < opponentScore ? "패" : "무";
+  return `${result} ${teamScore}:${opponentScore}`;
 }
 
-function includesHanwha(matchup) {
-  return matchup.away === "한화" || matchup.home === "한화";
+function matchupIncludesTeam(matchup, team) {
+  return matchup.away === team || matchup.home === team;
 }
 
 function normalizeTeam(team) {

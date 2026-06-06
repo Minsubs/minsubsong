@@ -1,21 +1,21 @@
-const CACHE_NAME = "eagles-lounge-v16";
+const CACHE_NAME = "eagles-lounge-v19";
 const APP_SHELL = [
   "./",
   "./index.html",
   "./offline.html",
-  "./styles.css?v=15",
-  "./script.js?v=15",
+  "./styles.css?v=18",
+  "./script.js?v=18",
   "./manifest.webmanifest",
   "./assets/app-icon.svg",
   "./assets/hero-stadium.png",
-  "./data/meta.json?v=15",
-  "./data/summary.json?v=15",
-  "./data/team-standings.json?v=15",
-  "./data/live-game.json?v=15",
-  "./data/player-rankings.json?v=15",
-  "./data/games.json?v=15",
-  "./data/players.json?v=15",
-  "./data/posts.json?v=15",
+  "./data/meta.json?v=18",
+  "./data/summary.json?v=18",
+  "./data/team-standings.json?v=18",
+  "./data/live-game.json?v=18",
+  "./data/player-rankings.json?v=18",
+  "./data/games.json?v=18",
+  "./data/ticketing-calendar.json?v=18",
+  "./data/players.json?v=18",
 ];
 
 self.addEventListener("install", (event) => {
@@ -58,7 +58,11 @@ async function networkFirst(request, fallback = null) {
 
   try {
     const response = await fetch(request);
-    cache.put(request, response.clone());
+    // 200 류 정상 응답만 캐시한다. 404/500/리다이렉트(점검 페이지 등)가
+    // 영구히 캐시에 박혀 잘못된 콘텐츠를 서빙하는 것을 막는다.
+    if (response && response.ok) {
+      cache.put(request, response.clone());
+    }
     return response;
   } catch {
     const cached = await cache.match(request);
@@ -80,7 +84,9 @@ async function cacheFirst(request) {
   }
 
   const response = await fetch(request);
-  cache.put(request, response.clone());
+  if (response && response.ok) {
+    cache.put(request, response.clone());
+  }
   return response;
 }
 
@@ -92,7 +98,11 @@ self.addEventListener("notificationclick", (event) => {
     clients
       .matchAll({ type: "window", includeUncontrolled: true })
       .then((clientList) => {
-        const existingClient = clientList.find((client) => client.url.includes("/index.html"));
+        // 하위경로(/minsubsong/) 배포에서는 진입 URL에 index.html 이 없을 수 있으므로
+        // 등록 scope 기준으로 기존 창을 찾는다.
+        const scope = self.registration.scope;
+        const existingClient =
+          clientList.find((client) => client.url.startsWith(scope)) ?? clientList[0];
 
         if (existingClient) {
           existingClient.focus();

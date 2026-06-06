@@ -1,9 +1,15 @@
 name: Deploy hanwha app to GitHub Pages
 
 on:
-  # 코드 push 또는 자동 데이터 갱신 커밋이 올라오면 배포한다.
+  # 코드 push 가 올라오면 배포한다.
   push:
     branches: [main, master]
+  # 데이터 자동 갱신 워크플로우가 끝나면 배포한다.
+  # (기본 GITHUB_TOKEN 으로 만든 봇 push 는 push 트리거를 발화시키지 못하므로
+  #  workflow_run 으로 명시적으로 이어붙인다.)
+  workflow_run:
+    workflows: ["Update KBO data (hanwha)"]
+    types: [completed]
   workflow_dispatch: {}
 
 permissions:
@@ -18,6 +24,9 @@ concurrency:
 
 jobs:
   deploy:
+    # workflow_run 으로 트리거된 경우엔 데이터 갱신이 성공했을 때만 배포한다.
+    # push / 수동 실행은 항상 배포한다.
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     environment:
       name: github-pages

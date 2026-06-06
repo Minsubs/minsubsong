@@ -1,29 +1,65 @@
 :root {
   color-scheme: light;
-  --bg: #f6f2ec;
-  --surface: #fffaf3;
+  /* 한화이글스 브랜드: 오렌지 + 차콜/블랙. 라이트 모드는 따뜻한 오프화이트. */
+  --bg: #f3efe8;
+  --surface: #ffffff;
   --surface-strong: #ffffff;
-  --text: #211b16;
-  --muted: #756a61;
-  --line: #dfd4c7;
-  --orange: #f15a24;
-  --orange-dark: #b33618;
-  --black: #17120f;
+  --surface-2: #faf6f0;
+  --text: #181210;
+  --muted: #6e6157;
+  --line: #e7ddcf;
+  --orange: #ff5a0f;
+  --orange-dark: #c23e00;
+  --orange-bright: #ff7a1a;
+  --black: #14100d;
+  --ink: #14100d;
   --gold: #f6b73c;
-  --mint: #1b8a6b;
-  --blue: #315c83;
-  --shadow: 0 18px 50px rgba(43, 31, 20, 0.14);
+  --mint: #138a66;
+  --blue: #2c5a86;
+  --grad-orange: linear-gradient(135deg, #ff7d1f 0%, #f24a0a 52%, #d83e00 100%);
+  --grad-ink: linear-gradient(165deg, #221a15 0%, #14100d 100%);
+  --shadow: 0 18px 46px rgba(40, 26, 14, 0.14);
+  --shadow-soft: 0 8px 22px rgba(40, 26, 14, 0.1);
+  --shadow-orange: 0 16px 38px rgba(242, 74, 10, 0.3);
+  --radius: 18px;
+  --radius-lg: 26px;
+  --radius-pill: 999px;
+  --glass: rgba(255, 255, 255, 0.74);
+  --glass-border: rgba(255, 255, 255, 0.7);
+  --ring: rgba(242, 74, 10, 0.42);
+  --on-orange: #fff;
 }
 
 :root.dark {
   color-scheme: dark;
-  --bg: #12100e;
-  --surface: #1d1814;
-  --surface-strong: #27201a;
-  --text: #f8efe3;
-  --muted: #c7b7a7;
-  --line: #3a3028;
-  --shadow: 0 18px 50px rgba(0, 0, 0, 0.32);
+  /* 다크 = 이글스 블랙. 깊은 차콜 + 오렌지 네온. */
+  --bg: #0e0b09;
+  --surface: #181310;
+  --surface-strong: #221a15;
+  --surface-2: #15110e;
+  --text: #f7efe6;
+  --muted: #b6a695;
+  --line: #34291f;
+  --orange: #ff7a2d;
+  --orange-dark: #ff9d5c;
+  --orange-bright: #ff8a3d;
+  --gold: #f6c14e;
+  --mint: #3fbf97;
+  --blue: #7aa6d6;
+  --grad-ink: linear-gradient(165deg, #1c1611 0%, #0e0b09 100%);
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  --shadow-soft: 0 10px 28px rgba(0, 0, 0, 0.45);
+  --shadow-orange: 0 18px 42px rgba(255, 92, 20, 0.34);
+  --glass: rgba(26, 20, 16, 0.62);
+  --glass-border: rgba(255, 138, 61, 0.2);
+  --ring: rgba(255, 122, 45, 0.55);
+}
+
+/* 키보드 포커스 가시성. 탭 네비게이션이 주 상호작용이라 필수. */
+:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
+  border-radius: inherit;
 }
 
 * {
@@ -449,7 +485,7 @@ textarea {
 }
 
 .line-score .total {
-  color: var(--orange);
+  color: var(--orange-dark);
   font-weight: 900;
 }
 
@@ -598,7 +634,7 @@ textarea {
 
 .eyebrow {
   margin: 0 0 10px;
-  color: var(--orange);
+  color: var(--orange-dark);
   font-weight: 900;
   text-transform: uppercase;
 }
@@ -862,7 +898,8 @@ textarea {
   gap: 14px;
 }
 
-.ticket-game-list {
+.ticket-game-list,
+.ticket-calendar-list {
   display: grid;
   gap: 14px;
 }
@@ -878,6 +915,22 @@ textarea {
 
 .ticket-game-card {
   grid-template-columns: 116px minmax(0, 1fr) minmax(76px, auto);
+}
+
+.calendar-game-card {
+  grid-template-columns: 116px minmax(0, 1fr) minmax(116px, auto);
+}
+
+.calendar-game-card .matchup strong {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.calendar-filters {
+  max-width: min(100%, 720px);
+  overflow-x: auto;
 }
 
 .game-card time,
@@ -1118,12 +1171,20 @@ textarea {
   margin-top: 14px;
 }
 
-.reaction-row button {
+.reaction-row button,
+.reaction-row .reaction {
+  display: inline-flex;
+  align-items: center;
   min-height: 34px;
+  padding: 0 14px;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--surface);
   color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.reaction-row button {
   cursor: pointer;
 }
 
@@ -1301,4 +1362,206 @@ textarea {
   .player-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* ===========================================================================
+   v17 리디자인 — 한화이글스 브랜드 / 트렌디 다크 프리미엄
+   토큰(:root)은 위에서 재정의됨. 아래는 컴포넌트 마감 레이어.
+   =========================================================================== */
+
+body {
+  background:
+    radial-gradient(1100px 560px at 100% -8%, color-mix(in srgb, var(--orange) 18%, transparent), transparent 62%),
+    radial-gradient(900px 520px at -12% 2%, color-mix(in srgb, var(--blue) 12%, transparent), transparent 60%),
+    var(--bg);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.02em;
+}
+h2 {
+  font-weight: 900;
+}
+
+/* eyebrow: 오렌지 라벨 + 리딩 바 */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+}
+.eyebrow::before {
+  content: "";
+  width: 20px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--grad-orange);
+}
+
+/* 상단바: 글래스 */
+.topbar {
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  backdrop-filter: blur(20px) saturate(150%);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+/* 브랜드 마크 → 방패형 크레스트 */
+.brand-mark {
+  background: var(--grad-orange);
+  color: #fff;
+  font-weight: 900;
+  clip-path: polygon(50% 0, 100% 16%, 100% 64%, 50% 100%, 0 64%, 0 16%);
+  border-radius: 4px;
+  box-shadow: var(--shadow-orange);
+}
+
+/* 메뉴 가독성 + 호버 */
+.nav a {
+  border-radius: var(--radius-pill);
+  color: var(--text);
+  opacity: 0.78;
+  font-weight: 700;
+  transition: color 0.15s ease, opacity 0.15s ease;
+}
+.nav a:hover {
+  color: var(--orange);
+  opacity: 1;
+}
+
+/* 화면 탭: 알약 + 활성 오렌지 글로우 */
+.view-tabs button {
+  border-radius: var(--radius-pill);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+.view-tabs button.active {
+  background: var(--grad-orange);
+  color: var(--on-orange);
+  border-color: transparent;
+  box-shadow: var(--shadow-orange);
+}
+
+/* 카드 공통: 둥근 모서리 + 소프트 섀도 + 호버 리프트 */
+.snapshot article,
+.featured-game,
+.game-card,
+.player-card,
+.ranking-card,
+.ticket-game-card,
+.live-panel,
+.ranking-panel,
+.standings-table,
+.line-score {
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+}
+.game-card,
+.player-card,
+.ranking-card,
+.ticket-game-card,
+.snapshot article {
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+.game-card:hover,
+.player-card:hover,
+.ranking-card:hover,
+.ticket-game-card:hover,
+.snapshot article:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+}
+
+/* 요약 보드 숫자 강조 */
+.snapshot article strong {
+  color: var(--orange);
+  font-weight: 900;
+  font-size: clamp(1.6rem, 4.4vw, 2.3rem);
+  line-height: 1.05;
+}
+
+/* 라이브 패널 + 상태 칩 */
+.live-panel {
+  border: 1px solid var(--glass-border);
+}
+.game-status {
+  display: inline-block;
+  background: var(--grad-orange);
+  color: var(--on-orange);
+  border-radius: var(--radius-pill);
+  padding: 4px 13px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  box-shadow: var(--shadow-orange);
+}
+.live-team b,
+.score {
+  color: var(--orange);
+}
+
+/* 칩 */
+.chip {
+  background: color-mix(in srgb, var(--orange) 14%, transparent);
+  color: var(--orange-dark);
+  border-radius: var(--radius-pill);
+  font-weight: 800;
+}
+
+/* 액션 버튼 */
+.primary-action {
+  background: var(--grad-orange);
+  color: var(--on-orange);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-orange);
+  font-weight: 800;
+}
+.secondary-action {
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--glass-border);
+}
+
+/* 순위표 한화 행 강조 + 순위 알약 */
+.standings-table tbody tr.is-hanwha {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--orange) 22%, transparent),
+    color-mix(in srgb, var(--orange) 6%, transparent)
+  );
+}
+.rank-pill {
+  background: var(--grad-orange);
+  color: var(--on-orange);
+  border-radius: var(--radius-pill);
+  font-weight: 800;
+}
+
+/* ── 팀 크레스트 엠블럼 ── */
+.team-crest {
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 43px;
+  flex: none;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.28));
+}
+.team-crest svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.team-crest.is-eagles {
+  filter: drop-shadow(0 5px 14px color-mix(in srgb, var(--orange) 55%, transparent));
+}
+.live-team .team-crest {
+  width: 54px;
+  height: 61px;
+}
+.standing-team .team-crest {
+  width: 30px;
+  height: 34px;
 }
