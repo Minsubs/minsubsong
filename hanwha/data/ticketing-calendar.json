@@ -229,26 +229,6 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "06.06",
-    "time": "토 14:00",
-    "location": "문학",
-    "home": "SSG",
-    "away": "KT",
-    "score": "경기전",
-    "detail": "SSG 홈 경기",
-    "ticketing": {
-      "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
-      "note": "SSG 홈 예매",
-      "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
-      "openTime": "11:00",
-      "venueType": "원정"
-    }
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
     "date": "06.07",
     "time": "일 17:00",
     "location": "문학",
