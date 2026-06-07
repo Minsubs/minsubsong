@@ -15,20 +15,6 @@
   },
   {
     "rank": "2",
-    "team": "KT",
-    "games": "58",
-    "wins": "34",
-    "losses": "23",
-    "draws": "1",
-    "pct": "0.596",
-    "gamesBehind": "1.5",
-    "streak": "W1",
-    "home": "16-13-0",
-    "away": "18-10-1",
-    "isHanwha": false
-  },
-  {
-    "rank": "3",
     "team": "삼성",
     "games": "57",
     "wins": "33",
@@ -39,6 +25,20 @@
     "streak": "W1",
     "home": "16-13-1",
     "away": "17-10-0",
+    "isHanwha": false
+  },
+  {
+    "rank": "3",
+    "team": "KT",
+    "games": "59",
+    "wins": "34",
+    "losses": "24",
+    "draws": "1",
+    "pct": "0.586",
+    "gamesBehind": "2.0",
+    "streak": "L1",
+    "home": "16-13-0",
+    "away": "18-11-1",
     "isHanwha": false
   },
   {
@@ -85,6 +85,20 @@
   },
   {
     "rank": "7",
+    "team": "SSG",
+    "games": "59",
+    "wins": "26",
+    "losses": "32",
+    "draws": "1",
+    "pct": "0.448",
+    "gamesBehind": "10.0",
+    "streak": "W1",
+    "home": "14-15-1",
+    "away": "12-17-0",
+    "isHanwha": false
+  },
+  {
+    "rank": "8",
     "team": "NC",
     "games": "57",
     "wins": "25",
@@ -95,20 +109,6 @@
     "streak": "W1",
     "home": "13-15-0",
     "away": "12-16-1",
-    "isHanwha": false
-  },
-  {
-    "rank": "8",
-    "team": "SSG",
-    "games": "58",
-    "wins": "25",
-    "losses": "32",
-    "draws": "1",
-    "pct": "0.439",
-    "gamesBehind": "10.5",
-    "streak": "L1",
-    "home": "13-15-1",
-    "away": "12-17-0",
     "isHanwha": false
   },
   {
