@@ -2,27 +2,6 @@
   {
     "type": "recent",
     "status": "최근 결과",
-    "date": "06.05",
-    "time": "금 18:30",
-    "location": "사직",
-    "home": "롯데",
-    "away": "한화",
-    "score": "승 9:2",
-    "detail": "사직 경기",
-    "ticketing": {
-      "provider": "롯데 자이언츠",
-      "url": "https://ticket.giantsclub.com/",
-      "note": "롯데 홈 예매",
-      "openLabel": "롯데 홈 예매 일정 기준",
-      "openDaysBefore": 14,
-      "openTime": "14:00",
-      "openCaution": "구단 앱 공지 기준 확인",
-      "venueType": "원정"
-    }
-  },
-  {
-    "type": "recent",
-    "status": "최근 결과",
     "date": "06.06",
     "time": "토 17:00",
     "location": "사직",
@@ -63,15 +42,15 @@
     }
   },
   {
-    "type": "upcoming",
-    "status": "예정 경기",
+    "type": "recent",
+    "status": "최근 결과",
     "date": "06.09",
     "time": "화 18:30",
     "location": "대전",
     "home": "한화",
     "away": "KIA",
-    "score": "경기전",
-    "detail": "한화 홈 경기",
+    "score": "패 1:6",
+    "detail": "대전 경기",
     "ticketing": {
       "provider": "티켓링크",
       "url": "https://www.ticketlink.co.kr/sports/137/63",
@@ -247,6 +226,26 @@
     "status": "예정 경기",
     "date": "06.19",
     "time": "금 18:30",
+    "location": "대전",
+    "home": "한화",
+    "away": "삼성",
+    "score": "경기전",
+    "detail": "한화 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports/137/63",
+      "note": "한화 홈 예매",
+      "openLabel": "홈경기 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "venueType": "홈"
+    }
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "06.20",
+    "time": "토 17:00",
     "location": "대전",
     "home": "한화",
     "away": "삼성",

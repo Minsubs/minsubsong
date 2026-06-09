@@ -2,50 +2,50 @@
   "date": "06.09",
   "time": "화 18:30",
   "location": "대전",
-  "status": "scheduled",
-  "statusLabel": "경기 예정",
-  "state": "스코어 대기",
-  "inning": "연동 대기",
+  "status": "live",
+  "statusLabel": "경기 중",
+  "state": "BOT 7",
+  "inning": "BOT 7",
   "awayTeam": "KIA",
   "homeTeam": "한화",
-  "awayScore": null,
-  "homeScore": null,
-  "note": "06.09 18:30 KIA vs 한화. 경기 시작 후 스코어가 갱신됩니다.",
+  "awayScore": 6,
+  "homeScore": 1,
+  "note": "KIA 6:1 한화. BOT 7 진행 중입니다.",
   "linescore": [
     {
       "inning": "1",
-      "away": null,
-      "home": null
+      "away": 1,
+      "home": 0
     },
     {
       "inning": "2",
-      "away": null,
-      "home": null
+      "away": 2,
+      "home": 0
     },
     {
       "inning": "3",
-      "away": null,
-      "home": null
+      "away": 0,
+      "home": 1
     },
     {
       "inning": "4",
-      "away": null,
-      "home": null
+      "away": 3,
+      "home": 0
     },
     {
       "inning": "5",
-      "away": null,
-      "home": null
+      "away": 0,
+      "home": 0
     },
     {
       "inning": "6",
-      "away": null,
-      "home": null
+      "away": 0,
+      "home": 0
     },
     {
       "inning": "7",
-      "away": null,
-      "home": null
+      "away": 0,
+      "home": 0
     },
     {
       "inning": "8",
