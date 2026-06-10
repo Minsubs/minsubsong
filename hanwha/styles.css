@@ -1,58 +1,104 @@
 :root {
   color-scheme: light;
-  /* 한화이글스 브랜드: 오렌지 + 차콜/블랙. 라이트 모드는 따뜻한 오프화이트. */
-  --bg: #f3efe8;
+  /* "Daylight" — 라이트 모드: 밝은 모노톤 + 일렉트릭 블루 포인트 (벤토 대시보드). */
+  --bg: #eeeee8;
   --surface: #ffffff;
   --surface-strong: #ffffff;
-  --surface-2: #faf6f0;
-  --text: #181210;
-  --muted: #6e6157;
-  --line: #e7ddcf;
-  --orange: #ff5a0f;
-  --orange-dark: #c23e00;
-  --orange-bright: #ff7a1a;
-  --black: #14100d;
-  --ink: #14100d;
-  --gold: #f6b73c;
-  --mint: #138a66;
-  --blue: #2c5a86;
-  --grad-orange: linear-gradient(135deg, #ff7d1f 0%, #f24a0a 52%, #d83e00 100%);
-  --grad-ink: linear-gradient(165deg, #221a15 0%, #14100d 100%);
-  --shadow: 0 18px 46px rgba(40, 26, 14, 0.14);
-  --shadow-soft: 0 8px 22px rgba(40, 26, 14, 0.1);
-  --shadow-orange: 0 16px 38px rgba(242, 74, 10, 0.3);
+  --surface-2: #f6f6f1;
+  --text: #14151a;
+  --muted: #6b6e76;
+  --line: #e4e4dd;
+
+  /* 시맨틱 액센트 */
+  --accent: #2f6bff;
+  --accent-strong: #1e40af;
+  --accent-2: #2f6bff;
+  --pos: #16a34a;
+  --pos-strong: #15803d;
+  --live: #e0322e;
+  --on-accent: #ffffff;
+
+  /* 점보트론 스코어보드 — 라이트/다크 공통으로 어둡게 (스타디움 전광판 톤) */
+  --board: #0f1116;
+  --board-2: #181b22;
+  --board-text: #f4f6fb;
+  --board-accent: #c8ff45;
+
+  --grad-accent: linear-gradient(135deg, #2f6bff 0%, #2f6bff 100%);
+  --glow: 0 12px 28px rgba(47, 107, 255, 0.22);
+  --shadow: 0 18px 46px rgba(20, 21, 26, 0.1);
+  --shadow-soft: 0 8px 22px rgba(20, 21, 26, 0.07);
+
   --radius: 18px;
-  --radius-lg: 26px;
+  --radius-lg: 24px;
   --radius-pill: 999px;
-  --glass: rgba(255, 255, 255, 0.74);
-  --glass-border: rgba(255, 255, 255, 0.7);
-  --ring: rgba(242, 74, 10, 0.42);
-  --on-orange: #fff;
+  --glass: rgba(255, 255, 255, 0.82);
+  --glass-border: #e4e4dd;
+  --ring: rgba(47, 107, 255, 0.45);
+
+  --font-display: "Space Grotesk", "Noto Sans KR", system-ui, sans-serif;
+
+  /* 레거시 토큰 별칭 — 기존 CSS의 --orange/--black 참조를 신 팔레트로 리매핑 */
+  --orange: var(--accent);
+  --orange-dark: var(--accent-strong);
+  --orange-bright: var(--accent);
+  --on-orange: var(--on-accent);
+  --grad-orange: var(--grad-accent);
+  --shadow-orange: var(--glow);
+  --black: #14151a;
+  --ink: #14151a;
+  --gold: #f6b73c;
+  --mint: var(--pos);
+  --blue: var(--accent-2);
+  --grad-ink: linear-gradient(165deg, #1c1f27 0%, #0f1116 100%);
 }
 
 :root.dark {
   color-scheme: dark;
-  /* 다크 = 이글스 블랙. 깊은 차콜 + 오렌지 네온. */
-  --bg: #0e0b09;
-  --surface: #181310;
-  --surface-strong: #221a15;
-  --surface-2: #15110e;
-  --text: #f7efe6;
-  --muted: #b6a695;
-  --line: #34291f;
-  --orange: #ff7a2d;
-  --orange-dark: #ff9d5c;
-  --orange-bright: #ff8a3d;
-  --gold: #f6c14e;
-  --mint: #3fbf97;
-  --blue: #7aa6d6;
-  --grad-ink: linear-gradient(165deg, #1c1611 0%, #0e0b09 100%);
+  /* "Night Game" — 다크 모드: 다크 베이스 + 라임/시안 네온. 스코어·긴박감 강조. */
+  --bg: #0a0b0e;
+  --surface: #14161c;
+  --surface-strong: #1c1f27;
+  --surface-2: #101217;
+  --text: #edeff3;
+  --muted: #888e99;
+  --line: #262a33;
+
+  --accent: #c8ff45;
+  --accent-strong: #c8ff45;
+  --accent-2: #19e3ff;
+  --pos: #c8ff45;
+  --pos-strong: #a6e635;
+  --live: #ff4d67;
+  --on-accent: #0a0b0e;
+
+  --board: #05060a;
+  --board-2: #0c0d11;
+  --board-text: #f4f6fb;
+  --board-accent: #c8ff45;
+
+  --grad-accent: linear-gradient(135deg, #c8ff45 0%, #19e3ff 100%);
+  --glow: 0 0 24px rgba(200, 255, 69, 0.28);
   --shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
   --shadow-soft: 0 10px 28px rgba(0, 0, 0, 0.45);
-  --shadow-orange: 0 18px 42px rgba(255, 92, 20, 0.34);
-  --glass: rgba(26, 20, 16, 0.62);
-  --glass-border: rgba(255, 138, 61, 0.2);
-  --ring: rgba(255, 122, 45, 0.55);
+
+  --glass: rgba(16, 18, 23, 0.72);
+  --glass-border: rgba(200, 255, 69, 0.16);
+  --ring: rgba(200, 255, 69, 0.5);
+
+  /* 레거시 별칭 */
+  --orange: var(--accent);
+  --orange-dark: var(--accent-strong);
+  --orange-bright: var(--accent);
+  --on-orange: var(--on-accent);
+  --grad-orange: var(--grad-accent);
+  --shadow-orange: var(--glow);
+  --black: #05060a;
+  --ink: #05060a;
+  --gold: #f6c14e;
+  --mint: var(--pos);
+  --blue: var(--accent-2);
+  --grad-ink: linear-gradient(165deg, #0c0d11 0%, #05060a 100%);
 }
 
 /* 키보드 포커스 가시성. 탭 네비게이션이 주 상호작용이라 필수. */
@@ -111,17 +157,6 @@ textarea {
   align-items: center;
   gap: 12px;
   min-width: 0;
-}
-
-.brand-mark {
-  display: grid;
-  place-items: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: var(--orange);
-  color: #fff;
-  font-weight: 900;
 }
 
 .team-badge {
@@ -1469,8 +1504,8 @@ textarea {
 
 body {
   background:
-    radial-gradient(1100px 560px at 100% -8%, color-mix(in srgb, var(--orange) 18%, transparent), transparent 62%),
-    radial-gradient(900px 520px at -12% 2%, color-mix(in srgb, var(--blue) 12%, transparent), transparent 60%),
+    radial-gradient(1100px 560px at 100% -8%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 60%),
+    radial-gradient(900px 520px at -12% 2%, color-mix(in srgb, var(--accent-2) 7%, transparent), transparent 58%),
     var(--bg);
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
@@ -1508,16 +1543,6 @@ h2 {
   -webkit-backdrop-filter: blur(20px) saturate(150%);
   backdrop-filter: blur(20px) saturate(150%);
   border-bottom: 1px solid var(--glass-border);
-}
-
-/* 브랜드 마크 → 방패형 크레스트 */
-.brand-mark {
-  background: var(--grad-orange);
-  color: #fff;
-  font-weight: 900;
-  clip-path: polygon(50% 0, 100% 16%, 100% 64%, 50% 100%, 0 64%, 0 16%);
-  border-radius: 4px;
-  box-shadow: var(--shadow-orange);
 }
 
 /* 메뉴 가독성 + 호버 */
@@ -1642,10 +1667,10 @@ h2 {
 .team-crest {
   display: inline-grid;
   place-items: center;
-  width: 38px;
-  height: 43px;
+  width: 40px;
+  height: 40px;
   flex: none;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.28));
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
 }
 .team-crest svg {
   display: block;
@@ -1656,10 +1681,281 @@ h2 {
   filter: drop-shadow(0 5px 14px color-mix(in srgb, var(--orange) 55%, transparent));
 }
 .live-team .team-crest {
-  width: 54px;
-  height: 61px;
+  width: 52px;
+  height: 52px;
 }
 .standing-team .team-crest {
-  width: 30px;
+  width: 32px;
+  height: 32px;
+}
+
+/* ===========================================================================
+   v20 리디자인 — "Night Game" 다크 네온 / "Daylight" 라이트 벤토
+   토큰은 :root/:root.dark 에서 교체됨. 이 레이어는 컴포넌트 마감.
+   [Phase 2] 코어 크롬: topbar · nav · view-tabs · hero · snapshot.
+   =========================================================================== */
+
+/* 디스플레이 숫자 — 스코어/스탯 강조 */
+.snapshot article strong,
+.demand-signal-board article strong,
+.live-team b,
+.score,
+.stat-line strong,
+.rank-no,
+.rank-pill,
+.number {
+  font-family: var(--font-display);
+  font-feature-settings: "tnum" 1;
+  letter-spacing: -0.01em;
+}
+
+/* ── 상단바: 모드 공통 글래스 + 토큰 텍스트(라이트 대비 버그 수정) ── */
+.topbar {
+  color: var(--text);
+  border-bottom: 1px solid var(--line);
+}
+.brand strong {
+  color: var(--text);
+}
+.brand small {
+  color: var(--muted);
+}
+
+.icon-button {
+  border-color: var(--line);
+  background: var(--surface);
+  color: var(--text);
+}
+.icon-button:hover {
+  border-color: var(--accent);
+  color: var(--accent-strong);
+}
+
+.notify-button {
+  border-color: var(--line);
+  background: var(--surface);
+  color: var(--text);
+  white-space: nowrap;
+}
+.notify-button.is-on {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  color: var(--accent-strong);
+}
+.install-button {
+  border-color: transparent;
+  background: var(--grad-accent);
+  color: var(--on-accent);
+  box-shadow: var(--glow);
+}
+
+/* ── 네비 활성 ── */
+.nav a.active,
+.nav a[aria-current] {
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--accent-strong);
+  opacity: 1;
+}
+
+/* ── 화면 탭 ── */
+.view-tabs {
+  border-bottom: 1px solid var(--line);
+}
+.view-tabs button {
+  font-weight: 700;
+  color: var(--muted);
+}
+.view-tabs button:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+/* ── 히어로: 풀블리드 사진 제거 → 깔끔 패널, 타이틀 먼저 ── */
+.hero {
+  min-height: auto;
+  padding: clamp(28px, 4vw, 48px) clamp(20px, 5vw, 64px) clamp(18px, 3vw, 30px);
+}
+.hero > img,
+.hero-overlay {
+  display: none;
+}
+.hero-content {
+  order: -1;
+  color: var(--text);
+}
+.hero h1 {
+  color: var(--text);
+}
+.hero-copy {
+  color: var(--muted);
+}
+.secondary-action {
+  border-color: var(--line);
+  background: var(--surface);
+  color: var(--text);
+}
+.shop-links a {
+  border-color: var(--line);
+  background: var(--surface);
+  color: var(--text);
+}
+.shop-links a:hover {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--accent-strong);
+}
+
+/* 히어로 내 라이브/랭킹 패널 카드화 */
+.live-panel,
+.ranking-panel section {
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+/* ── 스냅샷: 벤토 스탯 카드 ── */
+.snapshot {
+  margin: 10px auto 0;
+  gap: 12px;
+  background: transparent;
+  border: 0;
+  overflow: visible;
+  box-shadow: none;
+}
+.snapshot article {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.snapshot article strong {
+  color: var(--accent-2);
+}
+
+/* ===========================================================================
+   [Phase 3] v21 모바일/반응형 + 바텀탭 + 내구단 칩
+   토큰만 사용. 라이트/다크 모두 동작. 기존 규칙은 재작성하지 않고 추가만.
+   =========================================================================== */
+
+/* ── 바텀 내비게이션 (모바일 전용, 기본 숨김 → 모바일 분기에서 노출) ── */
+.bottom-nav {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+  width: 100%;
+  flex-direction: row;
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  backdrop-filter: blur(18px) saturate(150%);
+  border-top: 1px solid var(--line);
+  padding: 8px 0 calc(8px + env(safe-area-inset-bottom));
+}
+
+.bottom-nav a {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-width: 0;
+  padding: 2px 4px;
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.bottom-nav a.active,
+.bottom-nav a[aria-current] {
+  color: var(--accent);
+}
+
+.bottom-nav svg {
+  width: 23px;
+  height: 23px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.bottom-nav circle {
+  fill: currentColor;
+  stroke: none;
+}
+
+/* ── 반응형 분기: 데스크톱 vs 모바일 ── */
+@media (min-width: 920px) {
+  .bottom-nav {
+    display: none;
+  }
+}
+
+@media (max-width: 919px) {
+  .bottom-nav {
+    display: flex;
+  }
+  .view-tabs {
+    display: none;
+  }
+  /* 본문이 고정 바텀탭에 가리지 않게 하단 패딩 확보 */
+  main#top {
+    padding-bottom: calc(76px + env(safe-area-inset-bottom));
+  }
+}
+
+/* ── 내 구단 칩 (select#teamSelect) : 알약 셀렉트 ── */
+.team-chip {
   height: 34px;
+  max-width: 168px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 700;
+  font-size: 12.5px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  text-overflow: ellipsis;
+}
+.team-chip:hover {
+  border-color: var(--accent);
+}
+
+@media (max-width: 619px) {
+  .team-chip {
+    max-width: 116px;
+  }
+}
+
+/* ── 내 구단 강조: .is-myteam (기존 .is-hanwha/.is-eagles 와 별개로 추가) ── */
+.standings-table tbody tr.is-myteam {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--accent) 22%, transparent),
+    color-mix(in srgb, var(--accent) 6%, transparent)
+  );
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+.standings-table tbody tr.is-myteam .rank-pill {
+  background: var(--grad-accent);
+  color: var(--on-accent);
+}
+.team-crest.is-myteam {
+  filter: drop-shadow(var(--glow));
+}
+
+/* ── 모바일 단일 컬럼 폴리시: 병합 탭(예매·더보기) 섹션 상하 간격 축소 ── */
+@media (max-width: 919px) {
+  /* 같은 패널 안에 두 섹션이 동시 노출될 때 위쪽 섹션 하단 여백을 줄여 과한 공백 방지 */
+  [data-view-panel="tickets"].section-grid + [data-view-panel="tickets"].section-grid,
+  [data-view-panel="more"].section-grid + [data-view-panel="more"].section-grid {
+    padding-top: 0;
+  }
 }

@@ -123,7 +123,9 @@ const TICKET_PROVIDERS = {
   },
 };
 
-const MAX_UPCOMING_GAMES = 10;
+// 전 구단 경기 보드 날짜 창(일). 최근 결과는 과거 RECENT, 예정은 향후 UPCOMING.
+const RECENT_WINDOW_DAYS = 7;
+const UPCOMING_WINDOW_DAYS = 14;
 
 const now = new Date();
 const kstFormatter = new Intl.DateTimeFormat("en-CA", {
@@ -188,16 +190,30 @@ async function main() {
   } else {
     console.warn("skip team-standings.json: 순위 수집 실패 — 기존 스냅샷 유지");
   }
-  if (schedule) {
+  if (schedule || allSchedule) {
     // 스코어보드는 보강 데이터라 없으면 빈 배열로 일정만으로 빌드한다.
-    await writeJson("games.json", buildGames(schedule, scoreboard ?? []));
-    await writeJson("live-game.json", buildLiveGame(schedule, scoreboard ?? []));
-    wrote += 2;
+    // games.json 은 전 구단(allSchedule) 기준. 전 구단 수집이 실패하면 한화
+    // 일정(schedule)으로 폴백해 최소한 한화 경기는 유지한다.
+    const gamesSchedule = allSchedule ?? schedule;
+    if (gamesSchedule) {
+      await writeJson("games.json", buildGames(gamesSchedule, scoreboard ?? []));
+      wrote += 1;
+    }
+    // live-game.json 은 오늘(KST) 전 구단 경기 배열(새 계약 shape).
+    // allSchedule 수집 실패 시에만 기존 한화 일정 기반 단일 경기 객체로
+    // 폴백한다(레거시 shape — UI 가 방어적으로 허용).
+    if (allSchedule) {
+      await writeJson("live-game.json", buildLiveGames(allSchedule, scoreboard ?? []));
+      wrote += 1;
+    } else if (schedule) {
+      await writeJson("live-game.json", await buildLiveGame(schedule, scoreboard ?? []));
+      wrote += 1;
+    }
   } else {
     console.warn("skip games.json/live-game.json: 일정 수집 실패 — 기존 스냅샷 유지");
   }
   if (hitters && pitchers) {
-    await writeJson("player-rankings.json", buildPlayerRankings(hitters, pitchers));
+    await writeJson("player-rankings.json", buildLeagueLeaderRankings(hitters, pitchers));
     await writeJson("players.json", buildPlayerCards(hitters, pitchers));
     wrote += 2;
   } else {
@@ -390,8 +406,9 @@ function parseStandings(html) {
   return { standings, standing, teamStats };
 }
 
+// 전 구단 타자 행을 그대로 보존한다(한화 전용 필터 제거 — 리그 기록으로 전환).
 function parseHitters(html) {
-  return parsePlayerRows(html).filter((player) => player.team === "한화").map((player) => ({
+  return parsePlayerRows(html).map((player) => ({
     rank: Number(player.rank),
     name: player.name,
     team: player.team,
@@ -402,8 +419,9 @@ function parseHitters(html) {
   }));
 }
 
+// 전 구단 투수 행을 그대로 보존한다(한화 전용 필터 제거 — 리그 기록으로 전환).
 function parsePitchers(html) {
-  return parsePlayerRows(html).filter((player) => player.team === "한화").map((player) => ({
+  return parsePlayerRows(html).map((player) => ({
     rank: Number(player.rank),
     name: player.name,
     team: player.team,
@@ -586,15 +604,52 @@ function buildTeamStandings(standings) {
   }));
 }
 
+// 전 구단 경기 보드. allSchedule(teamFilter:null) 을 그대로 받아 한화로 제한하지
+// 않는다. 크기 과대 방지를 위해 최근 결과는 최근 RECENT_WINDOW_DAYS 일,
+// 예정은 향후 UPCOMING_WINDOW_DAYS 일로 날짜 창으로만 자른다(팀 수 제한 없음).
 function buildGames(schedule, scoreboard) {
-  const recent = schedule.filter((game) => game.type === "recent").slice(-3);
-  const upcoming = schedule
-    .filter((game) => game.type === "upcoming" && compareMonthDay(game.date, todayKey) >= 0)
-    .slice(0, MAX_UPCOMING_GAMES);
+  const recent = schedule.filter(
+    (game) => game.type === "recent" && withinPastDays(game.date, RECENT_WINDOW_DAYS),
+  );
+  const upcoming = schedule.filter(
+    (game) =>
+      game.type === "upcoming" &&
+      compareMonthDay(game.date, todayKey) >= 0 &&
+      withinFutureDays(game.date, UPCOMING_WINDOW_DAYS),
+  );
   return [...recent, ...upcoming]
-    .map((game) => mergeScoreboardGame(game, scoreboard))
+    // 스코어보드 보강은 한화 관점(승/패/무)으로 계산하므로 한화 경기에만 적용한다.
+    // 다른 팀 경기는 파서가 만든 중립 스코어(awayScore:homeScore)를 그대로 둔다.
+    .map((game) => (includesHanwha(toEnglishMatchup(game)) ? mergeScoreboardGame(game, scoreboard) : game))
     .map((game) => ({ ...game, ticketing: buildTicketing(game) }))
     .map(({ rawTime, rawScore, ...game }) => game);
+}
+
+// schedule 의 home/away 는 한국어. includesHanwha/mergeScoreboardGame 은 영문
+// 'HANWHA' 기준이므로 한화 포함 여부 판정을 위해 영문 팀명으로 환산해 본다.
+function toEnglishMatchup(game) {
+  return { ...game, away: toEnglishTeam(game.away), home: toEnglishTeam(game.home) };
+}
+
+function withinPastDays(date, days) {
+  const diff = daysFromToday(date);
+  return diff !== null && diff <= 0 && diff >= -days;
+}
+
+function withinFutureDays(date, days) {
+  const diff = daysFromToday(date);
+  return diff !== null && diff >= 0 && diff <= days;
+}
+
+// 경기 월.일과 오늘(KST) 사이의 일수 차이(미래는 양수). 시즌이 연말연초를
+// 넘기는 경우는 KBO 정규시즌(3~10월)에서 발생하지 않아 단순 비교로 충분하다.
+function daysFromToday(monthDay) {
+  const gameDate = parseGameDate(monthDay, "12:00");
+  if (!gameDate) {
+    return null;
+  }
+  const todayDate = new Date(`${kstDate}T12:00:00+09:00`);
+  return Math.round((gameDate.getTime() - todayDate.getTime()) / 86400000);
 }
 
 function buildTicketing(game) {
@@ -611,6 +666,23 @@ function buildTicketing(game) {
   };
 }
 
+// 전 구단 오늘(KST) 경기 배열 — data/live-game.json 의 새 계약 shape.
+// allSchedule(teamFilter:null) 에서 오늘 날짜 경기만 추출해 시간순으로 정렬하고,
+// 스코어보드 matchup 매칭에 성공한 경기만 스코어/이닝/상태/라인스코어를 채운다.
+// 매칭 실패 시 일정 기반 중립 상태(경기 예정). 오늘 경기가 없으면 빈 배열 [].
+function buildLiveGames(allSchedule, scoreboard) {
+  return allSchedule
+    .filter((game) => game.date === todayKey)
+    .sort(
+      (left, right) =>
+        String(left.rawTime ?? left.time ?? "").localeCompare(String(right.rawTime ?? right.time ?? "")) ||
+        String(left.home).localeCompare(String(right.home)),
+    )
+    .map((game) => buildLiveGameEntry(game, scoreboard.find((item) => sameMatchup(item, game)) ?? null));
+}
+
+// 레거시 단일 경기 빌더 — 전 구단 일정(allSchedule) 수집 실패 시 한화 일정
+// 기반 폴백 전용. UI 는 레거시 단일 객체도 방어적으로 허용한다.
 function buildLiveGame(schedule, scoreboard) {
   const todayGame = schedule.find((game) => game.date === todayKey) ?? schedule.find((game) => game.type === "upcoming") ?? schedule.at(-1);
   const todayScoreboard = scoreboard.find((game) => includesHanwha(game) && sameMatchup(game, todayGame));
@@ -619,9 +691,15 @@ function buildLiveGame(schedule, scoreboard) {
     return readExistingJson("live-game.json");
   }
 
-  const game = todayScoreboard ?? todayGame;
-  const [awayScore, homeScore] = todayScoreboard
-    ? [todayScoreboard.awayScore, todayScoreboard.homeScore]
+  return buildLiveGameEntry(todayGame, todayScoreboard ?? null);
+}
+
+// 단일 경기 계약 shape 생성(팀 무관). 스코어보드 매칭 결과가 없으면 일정
+// 정보만으로 '경기 예정' 상태를 만든다.
+function buildLiveGameEntry(todayGame, scoreboardGame) {
+  const game = scoreboardGame ?? todayGame;
+  const [awayScore, homeScore] = scoreboardGame
+    ? [scoreboardGame.awayScore, scoreboardGame.homeScore]
     : parseScore(todayGame.rawScore);
   const hasScore = awayScore !== null && homeScore !== null;
   // 점수가 들어왔다는 것은 '경기 시작'을 뜻할 뿐 '종료'가 아니다.
@@ -631,6 +709,7 @@ function buildLiveGame(schedule, scoreboard) {
   const isFinal = game.state === "FINAL";
   const isLive = hasScore && !isFinal;
 
+  // 스코어보드는 영문 팀명(HANWHA 등) → 한국어 환산, 일정은 이미 한국어라 그대로.
   const awayName = TEAM_NAMES[game.away] ?? game.away;
   const homeName = TEAM_NAMES[game.home] ?? game.home;
 
@@ -655,9 +734,10 @@ function buildLiveGame(schedule, scoreboard) {
   }
 
   return {
-    date: todayGame?.date ?? todayKey,
-    time: todayGame?.time ?? localizeWeekday(game.rawTime ?? "", todayKey),
-    location: game.location ?? todayGame.location,
+    date: todayGame.date,
+    time: todayGame.time ?? localizeWeekday(game.rawTime ?? "", todayGame.date),
+    // 스코어보드 location 은 파싱 실패 시 빈 문자열일 수 있어 || 로 일정 값 폴백.
+    location: scoreboardGame?.location || todayGame.location,
     status,
     statusLabel,
     state: isFinal ? "종료" : isLive ? game.state : "스코어 대기",
@@ -671,84 +751,106 @@ function buildLiveGame(schedule, scoreboard) {
   };
 }
 
-function buildPlayerRankings(hitters, pitchers) {
-  const topHitters = hitters.slice(0, 3);
-  const topPitchers = pitchers.slice(0, 3);
-  const powerHitters = [...hitters]
+// 리그 전체 리더 보드 — 타율 top3 / 홈런 top3 / 평균자책(오름차순) top3.
+// 각 그룹은 리그 전체 범위이며, 한화 전용 그룹은 더 이상 만들지 않는다.
+function buildLeagueLeaderRankings(hitters, pitchers) {
+  const topAvg = [...hitters]
+    .filter((player) => isFiniteStat(player.avg))
+    .sort((a, b) => Number(b.avg) - Number(a.avg))
+    .slice(0, 3);
+  const topHomeRuns = [...hitters]
+    .filter((player) => isFiniteStat(player.homeRuns))
     .sort((a, b) => Number(b.homeRuns) - Number(a.homeRuns))
-    .slice(0, 3)
-    .map((player, index) => ({
-      rank: index + 1,
-      name: player.name,
-      value: `${player.homeRuns} HR`,
-      note: `${player.rbi}타점`,
-    }));
+    .slice(0, 3);
+  const topEra = [...pitchers]
+    .filter((player) => isFiniteStat(player.era))
+    .sort((a, b) => Number(a.era) - Number(b.era))
+    .slice(0, 3);
 
   return [
     {
-      id: "batting-average",
-      title: "타율 리그 순위",
-      scope: "타자",
-      players: topHitters.map((player) => ({
-        rank: player.rank,
+      id: "league-avg",
+      title: "리그 타율",
+      scope: "리그 전체",
+      players: topAvg.map((player, index) => ({
+        rank: index + 1,
         name: player.name,
+        team: player.team,
         value: player.avg,
-        note: `리그 ${player.rank}위`,
+        note: player.team,
       })),
     },
     {
-      id: "pitching-era",
-      title: "평균자책 리그 순위",
-      scope: "투수",
-      players: topPitchers.map((player) => ({
-        rank: player.rank,
+      id: "league-hr",
+      title: "리그 홈런",
+      scope: "리그 전체",
+      players: topHomeRuns.map((player, index) => ({
+        rank: index + 1,
         name: player.name,
-        value: player.era,
-        note: `${player.wins}승 ${player.losses}패 · WHIP ${player.whip}`,
+        team: player.team,
+        value: `${player.homeRuns} HR`,
+        note: player.team,
       })),
     },
     {
-      id: "team-power",
-      title: "한화 장타 지표",
-      scope: "팀 내부",
-      players: powerHitters,
+      id: "league-era",
+      title: "리그 평균자책",
+      scope: "리그 전체",
+      players: topEra.map((player, index) => ({
+        rank: index + 1,
+        name: player.name,
+        team: player.team,
+        value: player.era,
+        note: player.team,
+      })),
     },
   ];
 }
 
+// 리그 주요 선수 카드 — 타율 상위 타자 4명 + 평균자책 상위 투수 4명(총 ~8장).
 function buildPlayerCards(hitters, pitchers) {
-  const hitterCards = hitters.slice(0, 3).map((player) => ({
+  const topAvg = [...hitters]
+    .filter((player) => isFiniteStat(player.avg))
+    .sort((a, b) => Number(b.avg) - Number(a.avg))
+    .slice(0, 4);
+  const topEra = [...pitchers]
+    .filter((player) => isFiniteStat(player.era))
+    .sort((a, b) => Number(a.era) - Number(b.era))
+    .slice(0, 4);
+
+  const hitterCards = topAvg.map((player, index) => ({
     type: "hitter",
-    number: player.rank,
+    number: index + 1,
     name: player.name,
+    team: player.team,
     role: "타자",
     stats: [
       { label: "AVG", value: player.avg },
       { label: "HR", value: player.homeRuns },
       { label: "RBI", value: player.rbi },
     ],
-    note: `KBO 타율 ${player.rank}위`,
+    note: `리그 타율 ${index + 1}위`,
   }));
 
-  const pitcher = pitchers[0];
-  const pitcherCards = pitcher
-    ? [
-        {
-          type: "pitcher",
-          number: pitcher.rank,
-          name: pitcher.name,
-          role: "투수",
-          stats: [
-            { label: "ERA", value: pitcher.era },
-            { label: "W-L", value: `${pitcher.wins}-${pitcher.losses}` },
-            { label: "WHIP", value: pitcher.whip },
-          ],
-          note: `KBO 평균자책 ${pitcher.rank}위`,
-        },
-      ]
-    : [];
+  const pitcherCards = topEra.map((player, index) => ({
+    type: "pitcher",
+    number: index + 1,
+    name: player.name,
+    team: player.team,
+    role: "투수",
+    stats: [
+      { label: "ERA", value: player.era },
+      { label: "W-L", value: `${player.wins}-${player.losses}` },
+      { label: "WHIP", value: player.whip },
+    ],
+    note: `리그 평균자책 ${index + 1}위`,
+  }));
 
   return [...hitterCards, ...pitcherCards];
+}
+
+function isFiniteStat(value) {
+  return value !== undefined && value !== null && value !== "" && Number.isFinite(Number(value));
 }
 
 function extractRows(html) {
@@ -915,7 +1017,8 @@ export {
   buildTeamStandings,
   buildGames,
   buildLiveGame,
-  buildPlayerRankings,
+  buildLiveGames,
+  buildLeagueLeaderRankings,
   buildPlayerCards,
   buildTicketCalendar,
   collectAllTeamScheduleGames,

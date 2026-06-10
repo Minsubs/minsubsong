@@ -27,29 +27,31 @@ test("app shell and data loader include ticketing calendar", async () => {
   assert.match(script, /ticketCalendar:\s*\[\]/);
   assert.match(script, /ticketCalendar:\s*"\.\/data\/ticketing-calendar\.json"/);
   assert.match(script, /fetchJson\(dataFiles\.ticketCalendar\)/);
-  assert.match(serviceWorker, /eagles-lounge-v21/);
-  assert.match(serviceWorker, /\.\/data\/ticketing-calendar\.json\?v=18/);
+  assert.match(serviceWorker, /eagles-lounge-v22/);
+  assert.match(serviceWorker, /\.\/data\/ticketing-calendar\.json\?v=19/);
 });
 
-test("calendar tab exists with accessible controls", async () => {
+test("calendar controls accessible under the 예매 (tickets) tab", async () => {
   const [index, script] = await Promise.all([
     readFile(new URL("../index.html", import.meta.url), "utf8"),
     readFile(new URL("../script.js", import.meta.url), "utf8"),
   ]);
 
-  assert.match(index, /data-view-target="calendar"[^>]*>예매 캘린더/);
-  assert.match(index, /id="calendar"[^>]*data-view-panel="calendar"/);
+  // 캘린더는 5탭 IA 에서 "예매" 탭(tickets)으로 통합됨.
+  assert.match(index, /data-view-target="tickets"[^>]*>예매/);
+  assert.match(index, /id="calendar"[^>]*data-view-panel="tickets"/);
   assert.match(index, /id="ticketCalendarFilters"/);
   assert.match(index, /id="ticketCalendarList"/);
   assert.match(script, /function renderTicketCalendar/);
   assert.match(script, /\.\.\.data\.games,\s*\.\.\.\(data\.ticketCalendar \?\? \[\]\)/);
 });
 
-test("demand validation tab exists with local-only controls", async () => {
+test("demand validation controls accessible under the 더보기 (more) tab", async () => {
   const index = await readFile(new URL("../index.html", import.meta.url), "utf8");
 
-  assert.match(index, /data-view-target="validation"[^>]*>검증/);
-  assert.match(index, /id="validation"[^>]*data-view-panel="validation"/);
+  // 수요 검증은 5탭 IA 에서 "더보기" 탭(more)으로 통합됨.
+  assert.match(index, /data-view-target="more"[^>]*>더보기/);
+  assert.match(index, /id="validation"[^>]*data-view-panel="more"/);
   assert.match(index, /id="demandSignalBoard"/);
   assert.match(index, /id="demandSignalEvents"/);
   assert.match(index, /id="exportDemandSignals"/);

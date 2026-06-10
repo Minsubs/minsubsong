@@ -1,21 +1,21 @@
-const CACHE_NAME = "eagles-lounge-v21";
+const CACHE_NAME = "eagles-lounge-v22";
 const APP_SHELL = [
   "./",
   "./index.html",
   "./offline.html",
-  "./styles.css?v=19",
-  "./script.js?v=19",
+  "./styles.css?v=20",
+  "./script.js?v=20",
   "./manifest.webmanifest",
   "./assets/app-icon.svg",
   "./assets/hero-stadium.png",
-  "./data/meta.json?v=18",
-  "./data/summary.json?v=18",
-  "./data/team-standings.json?v=18",
-  "./data/live-game.json?v=18",
-  "./data/player-rankings.json?v=18",
-  "./data/games.json?v=18",
-  "./data/ticketing-calendar.json?v=18",
-  "./data/players.json?v=18",
+  "./data/meta.json?v=19",
+  "./data/summary.json?v=19",
+  "./data/team-standings.json?v=19",
+  "./data/live-game.json?v=19",
+  "./data/player-rankings.json?v=19",
+  "./data/games.json?v=19",
+  "./data/ticketing-calendar.json?v=19",
+  "./data/players.json?v=19",
 ];
 
 self.addEventListener("install", (event) => {

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#17120f" />
+    <meta name="theme-color" content="#0a0b0e" />
     <script>
       // 저장된/시스템 테마를 첫 페인트 전에 적용해 FOUC 와 라이트 리셋을 막는다.
       (function () {
@@ -17,7 +17,7 @@
           }
           var meta = document.querySelector('meta[name="theme-color"]');
           if (meta) {
-            meta.setAttribute("content", t === "dark" ? "#17120f" : "#f6f2ec");
+            meta.setAttribute("content", t === "dark" ? "#0a0b0e" : "#eeeee8");
           }
         } catch (e) {}
       })();
@@ -32,30 +32,28 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=19" />
+    <link rel="stylesheet" href="./styles.css?v=20" />
   </head>
   <body>
     <header class="topbar">
-      <a class="brand" href="#live" data-view-target="live" aria-label="KBO 티켓팅 도우미 홈">
-        <span class="brand-mark">E</span>
+      <a class="brand" href="#home" data-view-target="home" aria-label="KBO 티켓팅 도우미 홈">
         <span>
           <strong>KBO 티켓팅 도우미</strong>
           <small>10구단 예매 캘린더 · 알림 체크</small>
         </span>
       </a>
       <nav class="nav" aria-label="주요 메뉴">
-        <a href="#live" data-view-target="live">실시간</a>
-        <a href="#games" data-view-target="games">경기</a>
-        <a href="#tickets" data-view-target="tickets">티켓팅</a>
-        <a href="#calendar" data-view-target="calendar">예매 캘린더</a>
-        <a href="#rankings" data-view-target="rankings">랭킹</a>
-        <a href="#players" data-view-target="players">선수</a>
-        <a href="#validation" data-view-target="validation">검증</a>
+        <a href="#home" data-view-target="home">홈</a>
+        <a href="#tickets" data-view-target="tickets">예매</a>
+        <a href="#schedule" data-view-target="schedule">일정·결과</a>
+        <a href="#standings" data-view-target="standings">순위</a>
+        <a href="#more" data-view-target="more">더보기</a>
       </nav>
       <div class="top-actions">
+        <select class="team-chip" id="teamSelect" aria-label="내 구단 선택"></select>
         <button class="notify-button" id="notifyButton" type="button" hidden>알림 켜기</button>
         <button class="install-button" id="installApp" type="button" hidden>앱 설치</button>
         <button class="icon-button" id="themeToggle" type="button" aria-label="테마 전환" title="테마 전환">
@@ -65,17 +63,15 @@
     </header>
 
     <nav class="view-tabs" aria-label="화면 탭" role="tablist">
-      <button class="active" type="button" data-view-target="live" aria-controls="live" role="tab">실시간</button>
-      <button type="button" data-view-target="games" aria-controls="games" role="tab">경기</button>
-      <button type="button" data-view-target="tickets" aria-controls="tickets" role="tab">티켓팅</button>
-      <button type="button" data-view-target="calendar" aria-controls="calendar" role="tab">예매 캘린더</button>
-      <button type="button" data-view-target="rankings" aria-controls="rankings" role="tab">랭킹</button>
-      <button type="button" data-view-target="players" aria-controls="players" role="tab">선수</button>
-      <button type="button" data-view-target="validation" aria-controls="validation" role="tab">검증</button>
+      <button class="active" type="button" data-view-target="home" aria-controls="home" role="tab">홈</button>
+      <button type="button" data-view-target="tickets" aria-controls="tickets" role="tab">예매</button>
+      <button type="button" data-view-target="schedule" aria-controls="schedule" role="tab">일정·결과</button>
+      <button type="button" data-view-target="standings" aria-controls="standings" role="tab">순위</button>
+      <button type="button" data-view-target="more" aria-controls="more" role="tab">더보기</button>
     </nav>
 
     <main id="top">
-      <section class="hero dashboard-hero" id="live" aria-labelledby="heroTitle" data-view-panel="live">
+      <section class="hero dashboard-hero" id="live" aria-labelledby="heroTitle" data-view-panel="home">
         <img src="./assets/hero-stadium.png" alt="야간 야구장과 응원석" />
         <div class="hero-overlay"></div>
         <div class="hero-dashboard" aria-label="실시간 경기와 선수 랭킹">
@@ -91,29 +87,25 @@
             10구단 예매 오픈 일정과 예매처를 모아 보고, 티켓팅 직전 알림 수요를 검증합니다.
           </p>
           <div class="hero-actions">
-            <a class="primary-action" href="#calendar" data-view-target="calendar">예매 캘린더</a>
-            <a class="secondary-action" href="#validation" data-view-target="validation">수요 검증</a>
-          </div>
-          <div class="shop-links" aria-label="굿즈 쇼핑몰 바로가기">
-            <a href="https://spyder.co.kr/eagles_index.html" target="_blank" rel="noopener">스파이더 한화이글스</a>
-            <a href="https://www.eaglesshop.co.kr/" target="_blank" rel="noopener">형지 한화이글스샵</a>
+            <a class="primary-action" href="#tickets" data-view-target="tickets">예매 캘린더</a>
+            <a class="secondary-action" href="#more" data-view-target="more">수요 검증</a>
           </div>
         </div>
       </section>
 
-      <section class="snapshot" id="summaryBoard" aria-label="팀 요약" data-view-panel="live">
+      <section class="snapshot" id="summaryBoard" aria-label="팀 요약" data-view-panel="home">
         <article>
           <span>순위</span>
           <strong>로딩</strong>
           <small>데이터 확인 중</small>
         </article>
         <article>
-          <span>팀 타율</span>
+          <span>승-패</span>
           <strong>로딩</strong>
           <small>데이터 확인 중</small>
         </article>
         <article>
-          <span>홈런</span>
+          <span>승률</span>
           <strong>로딩</strong>
           <small>데이터 확인 중</small>
         </article>
@@ -124,7 +116,7 @@
         </article>
       </section>
 
-      <section class="section-grid" id="games" data-view-panel="games">
+      <section class="section-grid" id="games" data-view-panel="schedule">
         <div class="section-heading">
           <div>
             <p class="eyebrow">Game Center</p>
@@ -147,7 +139,7 @@
         <div class="ticket-game-list" id="ticketGameList"></div>
       </section>
 
-      <section class="section-grid" id="calendar" data-view-panel="calendar">
+      <section class="section-grid" id="calendar" data-view-panel="tickets">
         <div class="section-heading">
           <div>
             <p class="eyebrow">Ticket Calendar</p>
@@ -158,11 +150,11 @@
         <div class="ticket-calendar-list" id="ticketCalendarList"></div>
       </section>
 
-      <section class="section-grid muted-band" id="rankings" data-view-panel="rankings">
+      <section class="section-grid muted-band" id="rankings" data-view-panel="standings">
         <div class="section-heading">
           <div>
             <p class="eyebrow">Rankings</p>
-            <h2>KBO 전체 순위와 한화 선수</h2>
+            <h2>KBO 순위와 리그 기록</h2>
           </div>
         </div>
         <div class="ranking-subsection">
@@ -177,19 +169,19 @@
         <div class="ranking-subsection">
           <div class="section-heading compact">
             <div>
-              <p class="eyebrow">Hanwha Players</p>
-              <h3>한화 선수 순위</h3>
+              <p class="eyebrow">League Leaders</p>
+              <h3>리그 기록 리더</h3>
             </div>
           </div>
           <div class="ranking-board" id="rankingBoard"></div>
         </div>
       </section>
 
-      <section class="section-grid" id="players" data-view-panel="players">
+      <section class="section-grid" id="players" data-view-panel="more">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Player Stats</p>
-            <h2>선수 기록 보드</h2>
+            <p class="eyebrow">League Players</p>
+            <h2>리그 주요 선수</h2>
           </div>
           <div class="segmented" role="tablist" aria-label="선수 기록 필터">
             <button class="active" type="button" data-player-filter="all">전체</button>
@@ -200,7 +192,7 @@
         <div class="player-grid" id="playerGrid"></div>
       </section>
 
-      <section class="section-grid muted-band" id="validation" data-view-panel="validation">
+      <section class="section-grid muted-band" id="validation" data-view-panel="more">
         <div class="section-heading">
           <div>
             <p class="eyebrow">Demand Check</p>
@@ -217,6 +209,14 @@
 
     </main>
 
+    <nav class="bottom-nav" aria-label="모바일 메뉴">
+      <a href="#home" data-view-target="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg><span>홈</span></a>
+      <a href="#tickets" data-view-target="tickets"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16v3a2 2 0 0 0 0 4v1H4v-1a2 2 0 0 0 0-4z"/></svg><span>예매</span></a>
+      <a href="#schedule" data-view-target="schedule"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/></svg><span>일정</span></a>
+      <a href="#standings" data-view-target="standings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V11M12 20V4M19 20V14"/></svg><span>순위</span></a>
+      <a href="#more" data-view-target="more"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="18" cy="12" r="1.4"/></svg><span>더보기</span></a>
+    </nav>
+
     <footer class="footer">
       <p id="dataUpdated">데이터 기준: 확인 중. MVP용 정적 데이터이며 실제 서비스에서는 자동 연동 대상으로 분리 예정.</p>
       <p>
@@ -226,6 +226,6 @@
       </p>
     </footer>
 
-    <script src="./script.js?v=19"></script>
+    <script src="./script.js?v=20"></script>
   </body>
 </html>

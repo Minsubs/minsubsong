@@ -1,71 +1,141 @@
 [
   {
     "type": "hitter",
-    "number": 6,
-    "name": "강백호",
+    "number": 1,
+    "name": "최원준",
+    "team": "KT",
     "role": "타자",
     "stats": [
       {
         "label": "AVG",
-        "value": "0.332"
+        "value": "0.385"
       },
       {
         "label": "HR",
-        "value": "12"
+        "value": "5"
       },
       {
         "label": "RBI",
-        "value": "61"
+        "value": "37"
       }
     ],
-    "note": "KBO 타율 6위"
+    "note": "리그 타율 1위"
   },
   {
     "type": "hitter",
-    "number": 7,
-    "name": "페라자",
+    "number": 2,
+    "name": "이우성",
+    "team": "NC",
     "role": "타자",
     "stats": [
       {
         "label": "AVG",
-        "value": "0.330"
+        "value": "0.361"
       },
       {
         "label": "HR",
-        "value": "13"
+        "value": "4"
       },
       {
         "label": "RBI",
-        "value": "40"
+        "value": "26"
       }
     ],
-    "note": "KBO 타율 7위"
+    "note": "리그 타율 2위"
   },
   {
     "type": "hitter",
-    "number": 19,
-    "name": "문현빈",
+    "number": 3,
+    "name": "박성한",
+    "team": "SSG",
     "role": "타자",
     "stats": [
       {
         "label": "AVG",
-        "value": "0.290"
+        "value": "0.356"
       },
       {
         "label": "HR",
-        "value": "8"
+        "value": "3"
       },
       {
         "label": "RBI",
-        "value": "40"
+        "value": "32"
       }
     ],
-    "note": "KBO 타율 19위"
+    "note": "리그 타율 3위"
+  },
+  {
+    "type": "hitter",
+    "number": 4,
+    "name": "오스틴",
+    "team": "LG",
+    "role": "타자",
+    "stats": [
+      {
+        "label": "AVG",
+        "value": "0.343"
+      },
+      {
+        "label": "HR",
+        "value": "19"
+      },
+      {
+        "label": "RBI",
+        "value": "55"
+      }
+    ],
+    "note": "리그 타율 4위"
+  },
+  {
+    "type": "pitcher",
+    "number": 1,
+    "name": "올러",
+    "team": "KIA",
+    "role": "투수",
+    "stats": [
+      {
+        "label": "ERA",
+        "value": "2.39"
+      },
+      {
+        "label": "W-L",
+        "value": "7-4"
+      },
+      {
+        "label": "WHIP",
+        "value": "0.93"
+      }
+    ],
+    "note": "리그 평균자책 1위"
+  },
+  {
+    "type": "pitcher",
+    "number": 2,
+    "name": "후라도",
+    "team": "삼성",
+    "role": "투수",
+    "stats": [
+      {
+        "label": "ERA",
+        "value": "2.61"
+      },
+      {
+        "label": "W-L",
+        "value": "3-1"
+      },
+      {
+        "label": "WHIP",
+        "value": "1.17"
+      }
+    ],
+    "note": "리그 평균자책 2위"
   },
   {
     "type": "pitcher",
     "number": 3,
     "name": "류현진",
+    "team": "한화",
     "role": "투수",
     "stats": [
       {
@@ -81,6 +151,28 @@
         "value": "1.01"
       }
     ],
-    "note": "KBO 평균자책 3위"
+    "note": "리그 평균자책 3위"
+  },
+  {
+    "type": "pitcher",
+    "number": 4,
+    "name": "알칸타라",
+    "team": "키움",
+    "role": "투수",
+    "stats": [
+      {
+        "label": "ERA",
+        "value": "3.12"
+      },
+      {
+        "label": "W-L",
+        "value": "6-4"
+      },
+      {
+        "label": "WHIP",
+        "value": "1.15"
+      }
+    ],
+    "note": "리그 평균자책 4위"
   }
 ]
