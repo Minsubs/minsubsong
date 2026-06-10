@@ -2,7 +2,7 @@ let data = {
   meta: {},
   summary: [],
   teamStandings: [],
-  liveGame: {},
+  liveGame: [],
   rankings: [],
   games: [],
   ticketCalendar: [],
@@ -21,24 +21,26 @@ const dataFiles = {
 };
 
 const MAX_UPCOMING_GAMES = 10;
-const DATA_VERSION = "v=18";
+const DATA_VERSION = "v=19";
 const TICKET_REMINDER_MINUTES = 10;
-const DEFAULT_VIEW = "live";
+const DEFAULT_VIEW = "home";
 const POLL_INTERVAL_MS = 5 * 60 * 1000;
 const DEMAND_SIGNALS_KEY = "eaglesDemandSignals";
 const DEMAND_EVENT_LIMIT = 12;
+const SELECTED_TEAM_KEY = "selectedTeam";
+const DEFAULT_TEAM = "한화";
 
 const teamInitials = {
-  한화: "E",
+  한화: "한화",
   LG: "LG",
   SSG: "SSG",
-  두산: "D",
-  KIA: "K",
-  삼성: "S",
-  롯데: "L",
+  두산: "두산",
+  KIA: "기아",
+  삼성: "삼성",
+  롯데: "롯데",
   KT: "KT",
   NC: "NC",
-  키움: "H",
+  키움: "키움",
 };
 
 // 구단 크레스트(엠블럼) 색상. 공식 로고가 아닌 자체 방패형 엠블럼용 팀 컬러.
@@ -54,6 +56,29 @@ const teamColors = {
   NC: { base: "#1d467f", edge: "#0f2c54", ink: "#f0d08a" },
   키움: { base: "#641a2e", edge: "#3c0a18", ink: "#ffffff" },
 };
+
+function readSelectedTeam() {
+  try {
+    const stored = localStorage.getItem(SELECTED_TEAM_KEY);
+    return stored && teamColors[stored] ? stored : DEFAULT_TEAM;
+  } catch {
+    return DEFAULT_TEAM;
+  }
+}
+
+let selectedTeam = readSelectedTeam();
+
+function setSelectedTeam(team) {
+  if (!teamColors[team]) {
+    return;
+  }
+  selectedTeam = team;
+  try {
+    localStorage.setItem(SELECTED_TEAM_KEY, team);
+  } catch {
+    // localStorage 비활성 환경에서는 세션 한정으로만 적용된다.
+  }
+}
 
 const ticketProviders = {
   한화: {
@@ -148,6 +173,7 @@ const demandSignalBoard = document.querySelector("#demandSignalBoard");
 const demandSignalEvents = document.querySelector("#demandSignalEvents");
 const exportDemandSignals = document.querySelector("#exportDemandSignals");
 const resetDemandSignals = document.querySelector("#resetDemandSignals");
+const teamSelect = document.querySelector("#teamSelect");
 const themeToggle = document.querySelector("#themeToggle");
 const installApp = document.querySelector("#installApp");
 const notifyButton = document.querySelector("#notifyButton");
@@ -234,8 +260,24 @@ async function loadData() {
   data = { meta, summary, teamStandings, liveGame, rankings, games, ticketCalendar, players };
 }
 
+function summaryCardsForSelectedTeam() {
+  const row = (data.teamStandings ?? []).find((team) => team.team === selectedTeam);
+  if (!row) {
+    return null;
+  }
+  const totalTeams = data.teamStandings.length;
+  return [
+    { label: "순위", value: `${row.rank}위`, caption: `${totalTeams}팀 중` },
+    { label: "승-패", value: `${row.wins}-${row.losses}`, caption: `무 ${row.draws}` },
+    { label: "승률", value: row.pct, caption: `${selectedTeam} 시즌` },
+    { label: "최근 흐름", value: row.streak, caption: `${selectedTeam} 기준` },
+  ];
+}
+
 function renderSummary() {
-  summaryBoard.innerHTML = html`${data.summary.map(
+  // 내 구단 행에서 4카드 파생, 없으면 기존 한화 고정 summary 로 폴백.
+  const cards = summaryCardsForSelectedTeam() ?? data.summary;
+  summaryBoard.innerHTML = html`${cards.map(
     (item) => html`
         <article>
           <span>${item.label}</span>
@@ -247,11 +289,13 @@ function renderSummary() {
 }
 
 function renderGames(filter = "recent") {
-  const games = filter === "all" ? data.games.filter((game) => game.type !== "upcoming") : data.games.filter((game) => game.type === filter);
-  const featured = games[0] ?? data.games.find((game) => game.type !== "upcoming");
+  // 전구단 games 를 내 구단(홈/원정)으로 먼저 필터.
+  const teamGames = data.games.filter((game) => game.home === selectedTeam || game.away === selectedTeam);
+  const games = filter === "all" ? teamGames.filter((game) => game.type !== "upcoming") : teamGames.filter((game) => game.type === filter);
+  const featured = games[0] ?? teamGames.find((game) => game.type !== "upcoming");
 
   if (!featured) {
-    featuredGame.innerHTML = `<p class="meta">경기 데이터가 없습니다.</p>`;
+    featuredGame.innerHTML = `<p class="meta">${selectedTeam} 경기 데이터가 없습니다.</p>`;
     gameList.innerHTML = "";
     return;
   }
@@ -326,7 +370,12 @@ function calendarTeams() {
 }
 
 function currentCalendarFilter() {
-  return document.querySelector("[data-calendar-filter].active")?.dataset.calendarFilter ?? "all";
+  const active = document.querySelector("[data-calendar-filter].active")?.dataset.calendarFilter;
+  if (active) {
+    return active;
+  }
+  // 초기 렌더: 선택 팀이 캘린더에 등장하면 그 팀을 기본 필터로, 아니면 전체.
+  return calendarTeams().includes(selectedTeam) ? selectedTeam : "all";
 }
 
 function renderTicketCalendar(filter = currentCalendarFilter()) {
@@ -378,26 +427,26 @@ function renderTicketCalendar(filter = currentCalendarFilter()) {
 function renderTeamBadge(team) {
   const initial = teamInitials[team] ?? String(team).slice(0, 2).toUpperCase();
   const color = teamColors[team] ?? { base: "#4a4a4a", edge: "#262626", ink: "#ffffff" };
-  const eagles = team === "한화" ? " is-eagles" : "";
-  const fontSize = initial.length >= 3 ? 11.5 : initial.length === 2 ? 14.5 : 19;
-  return html`<span class="team-crest${raw(eagles)}" aria-hidden="true">
-      <svg viewBox="0 0 44 50" role="img">
-        <path
-          d="M22 1.5 L41 8 L41 26.5 C41 37.6 32.4 44.8 22 48.6 C11.6 44.8 3 37.6 3 26.5 L3 8 Z"
+  const myTeam = team === selectedTeam ? " is-myteam" : "";
+  const fontSize = initial.length >= 3 ? 12.5 : initial.length === 2 ? 15.5 : 20;
+  return html`<span class="team-crest${raw(myTeam)}" aria-hidden="true">
+      <svg viewBox="0 0 48 48" role="img">
+        <rect
+          x="2.5"
+          y="2.5"
+          width="43"
+          height="43"
+          rx="15"
+          ry="15"
           fill="${raw(color.base)}"
           stroke="${raw(color.edge)}"
-          stroke-width="2.4"
-          stroke-linejoin="round"
-        />
-        <path
-          d="M22 1.5 L41 8 L41 19 C41 19 33 23 22 23 C11 23 3 19 3 19 L3 8 Z"
-          fill="#ffffff"
-          fill-opacity="0.16"
+          stroke-width="2"
         />
         <text
-          x="22"
-          y="31.5"
+          x="24"
+          y="24.5"
           text-anchor="middle"
+          dominant-baseline="central"
           font-family="'Noto Sans KR', sans-serif"
           font-size="${raw(fontSize)}"
           font-weight="900"
@@ -593,7 +642,7 @@ function getTicketing(game) {
 
   return {
     ...provider,
-    venueType: game.home === "한화" ? "홈" : "원정",
+    venueType: game.home === selectedTeam ? "홈" : "원정",
     status: game.type === "upcoming" ? "예매 확인" : "예매 종료",
     openLabel: provider.openLabel ?? "홈팀 예매 일정 기준",
   };
@@ -759,8 +808,84 @@ function renderLineScore(game, linescore) {
   `;
 }
 
+function selectedTeamGames() {
+  // 전구단 games + 캘린더 예정 경기 중 selectedTeam 이 홈/원정인 경기.
+  const all = [...(data.games ?? []), ...(data.ticketCalendar ?? [])];
+  return all.filter((game) => game.home === selectedTeam || game.away === selectedTeam);
+}
+
+function representativeGame() {
+  // 오늘 경기 > 가장 가까운 예정 > 가장 최근 결과 순.
+  const now = new Date();
+  const todayKey = formatKstDateTime(now).slice(0, 5); // "MM.DD"
+  const games = selectedTeamGames().map((game) => ({ game, at: parseKstDate(game.date, game.time) }));
+
+  const today = games.find(({ at }) => at && formatKstDateTime(at).slice(0, 5) === todayKey);
+  if (today) {
+    return today.game;
+  }
+  const upcoming = games
+    .filter(({ game, at }) => game.type === "upcoming" && at && at.getTime() >= now.getTime())
+    .sort((a, b) => a.at - b.at)[0];
+  if (upcoming) {
+    return upcoming.game;
+  }
+  const recent = games
+    .filter(({ game }) => game.type !== "upcoming")
+    .sort((a, b) => (b.at?.getTime() ?? 0) - (a.at?.getTime() ?? 0))[0];
+  return recent?.game ?? null;
+}
+
+function normalizedLiveGames() {
+  // live-game.json 신규 shape(배열) 기본, 레거시 단일 객체도 방어적으로 허용.
+  if (Array.isArray(data.liveGame)) {
+    return data.liveGame;
+  }
+  return data.liveGame && (data.liveGame.homeTeam || data.liveGame.awayTeam) ? [data.liveGame] : [];
+}
+
+function selectedLiveGame() {
+  // 오늘 경기 배열에서 selectedTeam 이 홈/원정인 경기를 찾는다.
+  return normalizedLiveGames().find((game) => game.homeTeam === selectedTeam || game.awayTeam === selectedTeam) ?? null;
+}
+
+function liveGameFromCalendar(game) {
+  // games/캘린더 shape → liveGame 카드용 정규화. 라인스코어는 없으므로 생략.
+  const isHome = game.home === selectedTeam;
+  return {
+    date: game.date,
+    time: game.time,
+    location: game.location,
+    statusLabel: game.type === "upcoming" ? "다음 경기" : "최근 경기",
+    state: isHome ? "홈" : "원정",
+    inning: game.status,
+    awayTeam: game.away,
+    homeTeam: game.home,
+    awayScore: null,
+    homeScore: null,
+    note: `${game.score} · ${game.detail}`,
+    linescore: [],
+  };
+}
+
 function renderLiveGame() {
-  const game = data.liveGame;
+  // 오늘 경기 배열에서 selectedTeam 경기를 찾고, 없으면 대표 경기로 대체.
+  let game = selectedLiveGame();
+  if (!game) {
+    const rep = representativeGame();
+    if (rep) {
+      game = liveGameFromCalendar(rep);
+    }
+  }
+
+  if (!game) {
+    liveGamePanel.innerHTML = html`
+      <span class="game-status">경기 없음</span>
+      <p class="meta">${selectedTeam} 경기 데이터가 없습니다.</p>
+    `;
+    return;
+  }
+
   const linescore = game.linescore ?? [];
 
   liveGamePanel.innerHTML = html`
@@ -800,16 +925,19 @@ function renderLiveGame() {
 }
 
 function renderRankingList(rankings, compact = false) {
-  return html`${rankings.map(
-    (item) => html`
+  return html`${rankings.map((item) => {
+    // team 과 note 를 합치되, note 가 비었거나 team 과 같으면 중복/빈 구분자를 피한다.
+    const extra = !compact && item.note && item.note !== item.team ? item.note : "";
+    const meta = [item.team, extra].filter(Boolean).join(" · ");
+    return html`
         <li>
           <span class="rank-no">${item.rank}</span>
           <span class="rank-name">${item.name}</span>
           <strong>${item.value}</strong>
-          ${compact ? "" : html`<small>${item.note}</small>`}
+          ${meta ? html`<small>${meta}</small>` : ""}
         </li>
-      `,
-  )}`;
+      `;
+  })}`;
 }
 
 function renderRankingPanels() {
@@ -864,7 +992,7 @@ function renderRankingPanels() {
 
 function renderStandingRow(team) {
   return html`
-    <tr class="${raw(team.isHanwha ? "is-hanwha" : "")}">
+    <tr class="${raw(team.team === selectedTeam ? "is-myteam" : "")}">
       <td><span class="rank-pill">${team.rank}</span></td>
       <th scope="row">
         <span class="standing-team">
@@ -893,7 +1021,7 @@ function renderPlayers(filter = "all") {
             <span class="number">${player.number}</span>
           </div>
           <h3>${player.name}</h3>
-          <p class="meta">${player.note}</p>
+          <p class="meta">${player.team ? html`${player.team} · ` : ""}${player.note}</p>
           <div class="stat-line">
             ${player.stats.map(
               (stat) => html`
@@ -919,6 +1047,27 @@ function currentGameFilter() {
 
 function currentPlayerFilter() {
   return document.querySelector("[data-player-filter].active")?.dataset.playerFilter ?? "all";
+}
+
+function populateTeamSelect() {
+  if (!teamSelect) {
+    return;
+  }
+
+  teamSelect.innerHTML = html`${Object.keys(teamColors).map(
+    (team) => html`<option value="${team}">${team}</option>`,
+  )}`;
+  teamSelect.value = selectedTeam;
+}
+
+function refreshSelectedTeamViews() {
+  // 내 구단 변경에 영향받는 섹션 재렌더: 요약/순위표/캘린더/순위패널 + 라이브/경기.
+  renderSummary();
+  renderRankingPanels();
+  renderTicketCalendar();
+  renderLiveGame();
+  renderGames(currentGameFilter());
+  renderTickets();
 }
 
 function renderAll() {
@@ -1064,13 +1213,23 @@ ticketCalendarFilters?.addEventListener("click", (event) => {
   renderTicketCalendar(button.dataset.calendarFilter);
 });
 
+teamSelect?.addEventListener("change", () => {
+  setSelectedTeam(teamSelect.value);
+  trackDemandSignal("team_selected", { team: selectedTeam });
+  // 활성 캘린더 필터 버튼을 비워, 다음 렌더가 새 선택 팀으로 기본 필터를 잡게 한다.
+  ticketCalendarFilters?.querySelectorAll("[data-calendar-filter].active").forEach((button) => {
+    button.classList.remove("active");
+  });
+  refreshSelectedTeamViews();
+});
+
 exportDemandSignals?.addEventListener("click", exportDemandSignalSnapshot);
 resetDemandSignals?.addEventListener("click", resetDemandSignalSnapshot);
 
 function syncThemeColor(isDark) {
   const meta = document.querySelector('meta[name="theme-color"]');
   if (meta) {
-    meta.setAttribute("content", isDark ? "#17120f" : "#f6f2ec");
+    meta.setAttribute("content", isDark ? "#0a0b0e" : "#eeeee8");
   }
 }
 
@@ -1141,10 +1300,10 @@ function trackNotificationPermission(permission, source) {
 }
 
 function buildGameNotification() {
-  const game = data.liveGame ?? {};
+  const game = selectedLiveGame() ?? {};
   const awayScore = scoreValue(game.awayScore);
   const homeScore = scoreValue(game.homeScore);
-  const matchup = game.awayTeam && game.homeTeam ? `${game.awayTeam} ${awayScore}:${homeScore} ${game.homeTeam}` : "한화 경기";
+  const matchup = game.awayTeam && game.homeTeam ? `${game.awayTeam} ${awayScore}:${homeScore} ${game.homeTeam}` : `${selectedTeam} 경기`;
   const schedule = [game.date, game.time, game.location].filter(Boolean).join(" · ");
 
   return {
@@ -1337,6 +1496,7 @@ document.addEventListener("visibilitychange", () => {
 });
 
 updateNotifyButton();
+populateTeamSelect();
 setActiveView(viewFromHash(), false);
 loadData()
   .then(() => {

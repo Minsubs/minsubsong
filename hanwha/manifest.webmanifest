@@ -7,8 +7,8 @@
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#17120f",
-  "theme_color": "#17120f",
+  "background_color": "#0a0b0e",
+  "theme_color": "#0a0b0e",
   "categories": ["sports", "news", "utilities"],
   "icons": [
     {

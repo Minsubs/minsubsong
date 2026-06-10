@@ -25,11 +25,16 @@
 - [x] README/진행상황/데이터/앱배포 문서와 앱 메타 카피를 `KBO 티켓팅 도우미` 기준으로 정리
 - [x] 취소표 관심 경기 알림을 Phase 3 후보 범위로 문서화
 - [x] 다음 세션용 `HANDOFF.md` 작성
+- [x] v20 전면 리디자인 (다크 "Night Game" 라임/시안 · 라이트 "Daylight" 블루)
+- [x] 5탭 IA 재구조 (홈·예매·일정·결과·순위·더보기) + 모바일 바텀탭
+- [x] "내 구단" 선택(`selectedTeam`) — 10구단 개인화 (요약/라이브/일정/순위/캘린더)
+- [x] 전구단 데이터 전환 (games.json 10팀, 리그 리더 타율/홈런/ERA 실데이터)
 - [ ] 과거 macro 커밋 히스토리 rewrite 여부 결정
 - [ ] 노출 가능성이 있는 계정 비밀번호 사용자 직접 교체
 - [ ] 수요 검증 운영 루틴 정의
 - [ ] 취소표 관심 경기 알림의 예매처별 허용 범위/데이터 접근 방식 조사
 - [ ] 지표 기반 네이티브 알림/제휴/스토어 확장 여부 결정
+- [x] live-game.json 전구단화 (오늘의 KBO 전 경기 배열 + selectedTeam 선택, 레거시 단일 객체 방어 유지)
 
 ## Phase 0 — Macro 분리
 
@@ -50,7 +55,7 @@
   - `buildTicketCalendar()`가 예정 경기만 추출하고 `ticketing` metadata를 붙인다.
   - public JSON에서 `rawTime`, `rawScore`를 제거한다.
 - `data/ticketing-calendar.json`
-  - 최신 검증 기준 214경기
+  - 스냅샷 갱신(`refresh KBO snapshot`)으로 경기 수는 시점마다 변동 (2026-06-10 확인 기준 200경기, 모두 예정 경기)
   - 10개 홈팀 포함
   - 예매 오픈 시각순 정렬
 - 앱
@@ -113,11 +118,21 @@
   - `.omo/ulw-loop/evidence/docs-commercial-browser.md`
   - `.omo/ulw-loop/evidence/docs-commercial-brand.png`
 
+## Phase 4 — v20 리디자인 + 10구단 전환 (2026-06-10)
+
+- 디자인: 다크 "Night Game"(`#0a0b0e` + 라임 `#c8ff45`/시안 `#19e3ff`) / 라이트 "Daylight"(`#eeeee8` + 블루 `#2f6bff`). 토큰은 `:root`/`:root.dark` 교체 + 레거시 별칭(`--orange`→`--accent`) 리매핑. 마감 레이어는 styles.css 끝의 v20/v21 주석 블록.
+- 팀 엠블럼: 방패 → 스쿼클(rect rx15) + 한글 풀네임 이니셜(한화·두산·기아…). 구단 브랜드색은 `teamColors` 유지.
+- IA: 7탭 → 5탭 (home/tickets/schedule/standings/more). 섹션은 `data-view-panel` 그룹핑(예매=티켓팅+캘린더, 더보기=선수+검증). 모바일(≤919px) 바텀탭 고정/뷰탭 숨김.
+- 내 구단: `selectedTeam`(localStorage) + `#teamSelect` 칩. `is-eagles`/`is-hanwha` → `is-myteam`. 요약보드는 `teamStandings`에서 파생(순위/승-패/승률/흐름), 라이브 패널은 selectedTeam 대표 경기 폴백, 일정은 selectedTeam 필터.
+- 데이터: `update-data.mjs` 한화 필터 제거 → `player-rankings.json`(리그 타율/홈런/ERA top3, 전구단) · `players.json`(리그 주요 8인) · `games.json`(10팀, 최근7일+향후14일) · `live-game.json`(오늘의 KBO 전 경기 배열, `buildLiveGames` + 스코어보드 매칭, 실패 시 한화 단일 폴백).
+- PWA: CACHE v22, 자산 `?v=20`, 데이터 `?v=19`(shape 변경 캐시버스트), theme-color `#0a0b0e`/`#eeeee8`.
+- 검증 증거: `npm run check` 30/30 pass (테스트 8개 신규/갱신 포함). 브라우저 실검증 — 모바일(390)/데스크톱(1280) × 다크/라이트, 내 구단 한화↔LG↔두산↔키움↔SSG 전환 시 홈 요약/라이브(실스코어)/일정/순위 강조 변경 확인, 콘솔 에러 없음.
+
 최신 전체 회귀:
 
 ```bash
 npm run check
-# 22/22 pass
+# 30/30 pass
 ```
 
 ## 다음 세션 시작 지시
