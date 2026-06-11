@@ -8,7 +8,7 @@
     "stats": [
       {
         "label": "AVG",
-        "value": "0.385"
+        "value": "0.382"
       },
       {
         "label": "HR",
@@ -30,7 +30,7 @@
     "stats": [
       {
         "label": "AVG",
-        "value": "0.361"
+        "value": "0.359"
       },
       {
         "label": "HR",
@@ -52,7 +52,7 @@
     "stats": [
       {
         "label": "AVG",
-        "value": "0.356"
+        "value": "0.355"
       },
       {
         "label": "HR",
@@ -74,7 +74,7 @@
     "stats": [
       {
         "label": "AVG",
-        "value": "0.343"
+        "value": "0.349"
       },
       {
         "label": "HR",
@@ -82,7 +82,7 @@
       },
       {
         "label": "RBI",
-        "value": "55"
+        "value": "58"
       }
     ],
     "note": "리그 타율 4위"
@@ -90,28 +90,6 @@
   {
     "type": "pitcher",
     "number": 1,
-    "name": "올러",
-    "team": "KIA",
-    "role": "투수",
-    "stats": [
-      {
-        "label": "ERA",
-        "value": "2.39"
-      },
-      {
-        "label": "W-L",
-        "value": "7-4"
-      },
-      {
-        "label": "WHIP",
-        "value": "0.93"
-      }
-    ],
-    "note": "리그 평균자책 1위"
-  },
-  {
-    "type": "pitcher",
-    "number": 2,
     "name": "후라도",
     "team": "삼성",
     "role": "투수",
@@ -129,6 +107,28 @@
         "value": "1.17"
       }
     ],
+    "note": "리그 평균자책 1위"
+  },
+  {
+    "type": "pitcher",
+    "number": 2,
+    "name": "올러",
+    "team": "KIA",
+    "role": "투수",
+    "stats": [
+      {
+        "label": "ERA",
+        "value": "2.66"
+      },
+      {
+        "label": "W-L",
+        "value": "7-5"
+      },
+      {
+        "label": "WHIP",
+        "value": "0.95"
+      }
+    ],
     "note": "리그 평균자책 2위"
   },
   {
@@ -140,15 +140,15 @@
     "stats": [
       {
         "label": "ERA",
-        "value": "2.97"
+        "value": "2.84"
       },
       {
         "label": "W-L",
-        "value": "7-2"
+        "value": "8-2"
       },
       {
         "label": "WHIP",
-        "value": "1.01"
+        "value": "1.03"
       }
     ],
     "note": "리그 평균자책 3위"
