@@ -58,6 +58,39 @@ test("demand validation controls accessible under the 더보기 (more) tab", asy
   assert.match(index, /id="resetDemandSignals"/);
 });
 
+test("cancel ticket concierge stays within compliant scope", async () => {
+  const [index, script] = await Promise.all([
+    readFile(new URL("../index.html", import.meta.url), "utf8"),
+    readFile(new URL("../script.js", import.meta.url), "utf8"),
+  ]);
+
+  // 취소표 컨시어지 섹션은 예매(tickets) 탭 안에 있어야 한다.
+  assert.match(index, /id="cancel-watch"[^>]*data-view-panel="tickets"/);
+  assert.match(index, /id="cancelWatchList"/);
+  // 소개문에 "자동 감시 아님" 고지가 있어야 한다.
+  assert.match(index, /class="meta cancel-watch-intro"[\s\S]*?실시간으로 감시하지 않/);
+
+  // 로컬 저장 키 / 수요 신호 / 예매처별 대기 서비스 메타.
+  assert.match(script, /"cancelWatchGames"/);
+  assert.match(script, /cancel_watch_saved/);
+  assert.match(script, /cancelWaiting/);
+
+  // 컴플라이언스 가드: script.js 의 모든 fetch( 호출은
+  // fetchJson 내부의 `${path}... 템플릿이거나 "./data 직접 경로만 허용.
+  // (예매처 도메인 자동 조회/폴링 금지 — CANCEL_TICKET_ALERT_RESEARCH.md 6절)
+  const fetchCalls = [...script.matchAll(/\bfetch\(\s*([^)\n]*)/g)];
+  assert.ok(fetchCalls.length > 0, "fetch( 사용처가 최소 1곳(fetchJson) 있어야 함");
+  for (const [whole, arg] of fetchCalls) {
+    assert.match(
+      arg,
+      /^(`\$\{path\}|"\.\/data)/,
+      `허용되지 않은 fetch 사용처: ${whole}`,
+    );
+  }
+  // 예매처 도메인이 fetch 대상이 되지 않도록 이중 가드.
+  assert.doesNotMatch(script, /fetch\([^)]*(ticketlink|interpark|nolticket|giantsclub|ncdinos|ssglanders)/i);
+});
+
 test("demand validation signals are stored locally and wired to ticket actions", async () => {
   const script = await readFile(new URL("../script.js", import.meta.url), "utf8");
 

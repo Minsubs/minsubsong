@@ -29,6 +29,17 @@ const DEMAND_SIGNALS_KEY = "eaglesDemandSignals";
 const DEMAND_EVENT_LIMIT = 12;
 const SELECTED_TEAM_KEY = "selectedTeam";
 const DEFAULT_TEAM = "한화";
+const CANCEL_WATCH_KEY = "cancelWatchGames";
+// 취소표 확인 리마인더 슬롯 — 경기 전날 21:00, 경기 당일 11:00 (각 1회).
+const CANCEL_WATCH_SLOTS = [
+  { id: "eve-2100", offsetDays: -1, time: "21:00" },
+  { id: "day-1100", offsetDays: 0, time: "11:00" },
+];
+const CANCEL_STATUS_CLASS = {
+  official: "is-official",
+  manual: "is-manual",
+  "link-only": "is-link-only",
+};
 
 const teamInitials = {
   한화: "한화",
@@ -80,6 +91,26 @@ function setSelectedTeam(team) {
   }
 }
 
+// 예매처별 취소표/예매대기 서비스 메타 (컨시어지형 — 자동 잔여석 감시 없음).
+const cancelWaitingTicketlink = {
+  status: "official",
+  label: "공식 취소표 대기 지원",
+  guideUrl: "https://www.ticketlink.co.kr/help/guide/waitingGuide",
+};
+const cancelWaitingInterpark = {
+  status: "official",
+  label: "공식 예매대기 지원",
+  guideUrl: "https://ticket.interpark.com/TiKi/Info/BookingGuide.asp?Url=guide_13.html",
+};
+const cancelWaitingManual = {
+  status: "manual",
+  label: "공식 대기 서비스 확인 안 됨 · 직접 확인",
+};
+const cancelWaitingLinkOnly = {
+  status: "link-only",
+  label: "공식 링크만 지원",
+};
+
 const ticketProviders = {
   한화: {
     provider: "티켓링크",
@@ -87,6 +118,7 @@ const ticketProviders = {
     note: "한화 홈 예매",
     openDaysBefore: 7,
     openTime: "11:00",
+    cancelWaiting: cancelWaitingTicketlink,
   },
   SSG: {
     provider: "SSG 티켓",
@@ -94,6 +126,7 @@ const ticketProviders = {
     note: "SSG 홈 예매",
     openDaysBefore: 5,
     openTime: "11:00",
+    cancelWaiting: cancelWaitingManual,
   },
   NC: {
     provider: "NC 다이노스",
@@ -101,6 +134,7 @@ const ticketProviders = {
     note: "NC 홈 예매",
     openDaysBefore: 7,
     openTime: "11:00",
+    cancelWaiting: cancelWaitingManual,
   },
   두산: {
     provider: "NOL 티켓",
@@ -109,6 +143,7 @@ const ticketProviders = {
     openDaysBefore: 7,
     openTime: "11:00",
     earlyOpenLabel: "베어스클럽 10:00",
+    cancelWaiting: cancelWaitingInterpark,
   },
   롯데: {
     provider: "롯데 자이언츠",
@@ -117,6 +152,7 @@ const ticketProviders = {
     openDaysBefore: 14,
     openTime: "14:00",
     openCaution: "구단 앱 공지 기준 확인",
+    cancelWaiting: cancelWaitingLinkOnly,
   },
   KIA: {
     provider: "티켓링크",
@@ -124,6 +160,7 @@ const ticketProviders = {
     note: "KIA 홈 예매",
     openDaysBefore: 7,
     openTime: "11:00",
+    cancelWaiting: cancelWaitingTicketlink,
   },
   키움: {
     provider: "NOL 티켓",
@@ -131,6 +168,7 @@ const ticketProviders = {
     note: "키움 홈 예매",
     openDaysBefore: 7,
     openTime: "11:00",
+    cancelWaiting: cancelWaitingInterpark,
   },
   LG: {
     provider: "NOL 티켓",
@@ -139,6 +177,7 @@ const ticketProviders = {
     openDaysBefore: 7,
     openTime: "11:00",
     openCaution: "구단 공지 기준 확인",
+    cancelWaiting: cancelWaitingInterpark,
   },
   KT: {
     provider: "티켓링크",
@@ -147,6 +186,7 @@ const ticketProviders = {
     openDaysBefore: 7,
     openTime: "11:00",
     openCaution: "구단 공지 기준 확인",
+    cancelWaiting: cancelWaitingTicketlink,
   },
   삼성: {
     provider: "티켓링크",
@@ -155,6 +195,7 @@ const ticketProviders = {
     openDaysBefore: 7,
     openTime: "11:00",
     openCaution: "구단 공지 기준 확인",
+    cancelWaiting: cancelWaitingTicketlink,
   },
 };
 
@@ -168,6 +209,7 @@ const featuredGame = document.querySelector("#featuredGame");
 const ticketGameList = document.querySelector("#ticketGameList");
 const ticketCalendarFilters = document.querySelector("#ticketCalendarFilters");
 const ticketCalendarList = document.querySelector("#ticketCalendarList");
+const cancelWatchList = document.querySelector("#cancelWatchList");
 const playerGrid = document.querySelector("#playerGrid");
 const demandSignalBoard = document.querySelector("#demandSignalBoard");
 const demandSignalEvents = document.querySelector("#demandSignalEvents");
@@ -468,6 +510,90 @@ function getTicketReminders() {
   }
 }
 
+// ----- 취소표 컨시어지 (자동 잔여석 감시 없음 — 확인 리마인더 + 공식 대기 서비스 안내만) -----
+
+function getCancelWatchGames() {
+  try {
+    const stored = JSON.parse(localStorage.getItem(CANCEL_WATCH_KEY) ?? "{}");
+    return stored && typeof stored === "object" && !Array.isArray(stored) ? stored : {};
+  } catch {
+    return {};
+  }
+}
+
+function saveCancelWatchGames(watches) {
+  try {
+    localStorage.setItem(CANCEL_WATCH_KEY, JSON.stringify(watches));
+  } catch {
+    // localStorage 비활성 환경에서는 세션 한정으로만 동작한다.
+  }
+}
+
+function toggleCancelWatch(game) {
+  const key = gameId(game);
+  const watches = getCancelWatchGames();
+
+  if (watches[key]) {
+    delete watches[key];
+    saveCancelWatchGames(watches);
+    return { key, saved: false };
+  }
+
+  const ticketing = getTicketing(game);
+  watches[key] = {
+    away: game.away,
+    home: game.home,
+    date: game.date,
+    time: game.time,
+    location: game.location,
+    provider: ticketing.provider,
+    url: ticketing.url,
+    savedAt: new Date().toISOString(),
+    firedReminders: [],
+  };
+  saveCancelWatchGames(watches);
+  return { key, saved: true };
+}
+
+function removeCancelWatch(key) {
+  const watches = getCancelWatchGames();
+
+  if (!watches[key]) {
+    return null;
+  }
+
+  const removed = watches[key];
+  delete watches[key];
+  saveCancelWatchGames(watches);
+  return removed;
+}
+
+function pruneCancelWatchGames() {
+  // 지난 경기(오늘 이전 날짜)는 자동 정리한다. 당일 경기는 유지.
+  const watches = getCancelWatchGames();
+  const now = Date.now();
+  let changed = false;
+
+  for (const [key, entry] of Object.entries(watches)) {
+    const endOfGameDay = parseKstDate(entry.date, "23:59");
+
+    if (endOfGameDay && endOfGameDay.getTime() < now) {
+      delete watches[key];
+      changed = true;
+    }
+  }
+
+  if (changed) {
+    saveCancelWatchGames(watches);
+  }
+
+  return watches;
+}
+
+function cancelWaitingMeta(homeTeam) {
+  return ticketProviders[homeTeam]?.cancelWaiting ?? cancelWaitingManual;
+}
+
 function emptyDemandSignals(now = new Date()) {
   const timestamp = now.toISOString();
 
@@ -723,6 +849,7 @@ function renderTicketInfo(game, featured = false) {
   const alertLabel = reminderOn ? "알림 설정됨" : openInfo.canRemind ? "10분 전 알림" : openInfo.isOpen ? "오픈됨" : "시간 확인";
   const ticketStatus = isUpcoming ? (openInfo.isOpen ? "예매 중" : "오픈 전") : "예매 종료";
   const canClickReminder = isUpcoming && (reminderOn || openInfo.canRemind);
+  const watchOn = isUpcoming && Boolean(getCancelWatchGames()[gameId(game)]);
 
   return html`
     <div class="ticket-strip ${raw(featured ? "featured" : "")}">
@@ -745,9 +872,94 @@ function renderTicketInfo(game, featured = false) {
         <button class="${raw(reminderOn ? "is-on" : "")}" type="button" data-ticket-alert="${gameId(game)}" ${raw(canClickReminder ? "" : "disabled")}>
           ${isUpcoming ? alertLabel : "종료"}
         </button>
+        ${isUpcoming
+          ? html`<button
+              class="cancel-watch-toggle ${raw(watchOn ? "is-on" : "")}"
+              type="button"
+              data-cancel-watch="${gameId(game)}"
+            >${watchOn ? "관심 중" : "취소표 관심"}</button>`
+          : ""}
       </div>
     </div>
   `;
+}
+
+function renderCancelWatch() {
+  if (!cancelWatchList) {
+    return;
+  }
+
+  const watches = pruneCancelWatchGames();
+  const entries = Object.entries(watches).sort((a, b) => {
+    const aAt = parseKstDate(a[1].date, a[1].time)?.getTime() ?? Number.MAX_SAFE_INTEGER;
+    const bAt = parseKstDate(b[1].date, b[1].time)?.getTime() ?? Number.MAX_SAFE_INTEGER;
+    return aAt - bAt;
+  });
+
+  if (!entries.length) {
+    cancelWatchList.innerHTML = `<p class="meta">저장한 관심 경기가 없습니다. 예매 캘린더에서 '취소표 관심'을 눌러 추가하세요.</p>`;
+    return;
+  }
+
+  cancelWatchList.innerHTML = html`${entries.map(([key, entry]) => {
+    const waiting = cancelWaitingMeta(entry.home);
+    const statusClass = CANCEL_STATUS_CLASS[waiting.status] ?? "is-manual";
+
+    return html`
+      <article class="game-card cancel-watch-card">
+        <time>${entry.date}<br />${entry.time}</time>
+        <div class="matchup">
+          <strong>${entry.away} vs ${entry.home}</strong>
+          <span class="meta">${entry.location} · ${entry.provider}</span>
+          <span class="cancel-status ${raw(statusClass)}">${waiting.label}</span>
+        </div>
+        <div class="ticket-actions">
+          ${waiting.status === "official" && waiting.guideUrl
+            ? html`<a
+                href="${waiting.guideUrl}"
+                target="_blank"
+                rel="noopener"
+                data-cancel-guide="${key}"
+                data-demand-team="${entry.home}"
+                data-demand-provider="${entry.provider}"
+              >대기 서비스 안내</a>`
+            : ""}
+          <a
+            href="${entry.url}"
+            target="_blank"
+            rel="noopener"
+            data-cancel-provider="${key}"
+            data-demand-team="${entry.home}"
+            data-demand-provider="${entry.provider}"
+          >예매처 열기</a>
+          <button type="button" data-cancel-remove="${key}">해제</button>
+        </div>
+      </article>
+    `;
+  })}`;
+}
+
+function handleCancelWatchToggle(gameKey) {
+  const game = [...(data.games ?? []), ...(data.ticketCalendar ?? [])].find((item) => gameId(item) === gameKey);
+
+  if (!game) {
+    return;
+  }
+
+  const ticketing = getTicketing(game);
+  const result = toggleCancelWatch(game);
+
+  if (result.saved) {
+    trackDemandSignal("cancel_watch_saved", { team: game.home, provider: ticketing.provider });
+    showToast("취소표 관심 경기로 저장했어요 · 전날 21시/당일 11시 확인 리마인더 (잔여석 보장 없음)");
+  } else {
+    trackDemandSignal("cancel_watch_removed", { team: game.home, provider: ticketing.provider });
+    showToast("취소표 관심을 해제했습니다.");
+  }
+
+  renderTickets();
+  renderTicketCalendar();
+  renderCancelWatch();
 }
 
 function showToast(message) {
@@ -1078,6 +1290,7 @@ function renderAll() {
   renderGames(currentGameFilter());
   renderTickets();
   renderTicketCalendar();
+  renderCancelWatch();
   renderPlayers(currentPlayerFilter());
   renderDemandSignals();
 }
@@ -1458,6 +1671,84 @@ async function checkTicketReminders() {
   }
 }
 
+function cancelWatchSlotTime(entry, slot) {
+  // KST 고정 오프셋(+09:00, DST 없음)이라 24시간 단위 이동으로 전날 슬롯을 구해도 안전하다.
+  const base = parseKstDate(entry.date, slot.time);
+  return base ? new Date(base.getTime() + slot.offsetDays * 24 * 60 * 60 * 1000) : null;
+}
+
+async function checkCancelWatchReminders() {
+  // 확인 리마인더만 — 예매처 조회/폴링 없음 (외부 fetch 금지).
+  const watches = getCancelWatchGames();
+  const now = Date.now();
+  const fired = [];
+
+  for (const [key, entry] of Object.entries(watches)) {
+    const firedReminders = Array.isArray(entry.firedReminders) ? entry.firedReminders : [];
+    const gameStart = parseKstDate(entry.date, entry.time) ?? parseKstDate(entry.date, "23:59");
+
+    if (!gameStart || gameStart.getTime() <= now) {
+      // 경기 시작 후에는 확인 리마인더 의미가 없다. 지난 경기는 renderCancelWatch 가 정리.
+      continue;
+    }
+
+    for (const slot of CANCEL_WATCH_SLOTS) {
+      if (firedReminders.includes(slot.id)) {
+        continue;
+      }
+
+      const slotAt = cancelWatchSlotTime(entry, slot);
+
+      if (!slotAt || slotAt.getTime() > now) {
+        continue;
+      }
+
+      firedReminders.push(slot.id);
+      fired.push([key, slot.id]);
+
+      const title = `취소표 확인 타임 · ${entry.away} vs ${entry.home}`;
+      const body = `${entry.date} ${entry.time} ${entry.location} · ${entry.provider} 예매처에서 직접 확인 (잔여석 보장 없음)`;
+
+      if (notificationSupported() && Notification.permission === "granted") {
+        const registration = await navigator.serviceWorker.ready;
+        await registration.showNotification(title, {
+          body,
+          icon: "./assets/app-icon.svg",
+          badge: "./assets/app-icon.svg",
+          tag: `cancel-watch-${key}-${slot.id}`,
+          data: {
+            url: entry.url,
+          },
+        });
+      } else {
+        showToast(`${title} · 예매처에서 직접 확인 (잔여석 보장 없음)`);
+      }
+    }
+  }
+
+  if (fired.length) {
+    // await(showNotification) 동안 토글이 일어났을 수 있으므로 최신본을 다시 읽어
+    // 발송한 슬롯만 병합한다(read-modify-write 경쟁 방지 — 티켓 리마인더와 동일 패턴).
+    const latest = getCancelWatchGames();
+
+    for (const [key, slotId] of fired) {
+      if (!latest[key]) {
+        continue;
+      }
+
+      if (!Array.isArray(latest[key].firedReminders)) {
+        latest[key].firedReminders = [];
+      }
+
+      if (!latest[key].firedReminders.includes(slotId)) {
+        latest[key].firedReminders.push(slotId);
+      }
+    }
+
+    saveCancelWatchGames(latest);
+  }
+}
+
 document.addEventListener("click", (event) => {
   const providerLink = event.target.closest('[data-demand-action="provider-click"]');
   if (providerLink) {
@@ -1466,6 +1757,44 @@ document.addEventListener("click", (event) => {
       provider: providerLink.dataset.demandProvider,
       source: providerLink.dataset.demandSource,
     });
+  }
+
+  const guideLink = event.target.closest("[data-cancel-guide]");
+  if (guideLink) {
+    trackDemandSignal("cancel_watch_guide_click", {
+      team: guideLink.dataset.demandTeam,
+      provider: guideLink.dataset.demandProvider,
+    });
+    return;
+  }
+
+  const cancelProviderLink = event.target.closest("[data-cancel-provider]");
+  if (cancelProviderLink) {
+    trackDemandSignal("cancel_watch_provider_click", {
+      team: cancelProviderLink.dataset.demandTeam,
+      provider: cancelProviderLink.dataset.demandProvider,
+    });
+    return;
+  }
+
+  const removeButton = event.target.closest("[data-cancel-remove]");
+  if (removeButton) {
+    const removed = removeCancelWatch(removeButton.dataset.cancelRemove);
+
+    if (removed) {
+      trackDemandSignal("cancel_watch_removed", { team: removed.home, provider: removed.provider });
+      showToast("취소표 관심을 해제했습니다.");
+      renderTickets();
+      renderTicketCalendar();
+      renderCancelWatch();
+    }
+    return;
+  }
+
+  const watchToggle = event.target.closest("[data-cancel-watch]");
+  if (watchToggle) {
+    handleCancelWatchToggle(watchToggle.dataset.cancelWatch);
+    return;
   }
 
   const button = event.target.closest("[data-ticket-alert]");
@@ -1504,6 +1833,10 @@ loadData()
     renderAll();
   })
   .catch(renderDataError);
+// 취소표 컨시어지 목록은 localStorage 만 사용하므로 데이터 로드와 무관하게 즉시 렌더한다.
+renderCancelWatch();
 window.setInterval(checkTicketReminders, 30 * 1000);
 checkTicketReminders();
+window.setInterval(checkCancelWatchReminders, 30 * 1000);
+checkCancelWatchReminders();
 window.setInterval(pollData, POLL_INTERVAL_MS);
