@@ -129,7 +129,13 @@
         </div>
       </section>
 
-      <section class="section-grid" id="tickets" data-view-panel="tickets">
+      <nav class="tickets-subnav" data-view-panel="tickets" aria-label="예매 하위 메뉴" role="tablist">
+        <button class="active" type="button" data-tickets-tab="calendar" role="tab" aria-selected="true">캘린더</button>
+        <button type="button" data-tickets-tab="info" role="tab" aria-selected="false">티켓팅</button>
+        <button type="button" data-tickets-tab="cancel" role="tab" aria-selected="false">취소표</button>
+      </nav>
+
+      <section class="section-grid" id="tickets" data-view-panel="tickets" data-tickets-tab="info">
         <div class="section-heading">
           <div>
             <p class="eyebrow">Ticketing</p>
@@ -139,7 +145,7 @@
         <div class="ticket-game-list" id="ticketGameList"></div>
       </section>
 
-      <section class="section-grid" id="cancel-watch" data-view-panel="tickets">
+      <section class="section-grid" id="cancel-watch" data-view-panel="tickets" data-tickets-tab="cancel">
         <div class="section-heading">
           <div>
             <p class="eyebrow">Cancel Ticket Concierge</p>
@@ -153,7 +159,7 @@
         <div class="cancel-watch-list" id="cancelWatchList"></div>
       </section>
 
-      <section class="section-grid" id="calendar" data-view-panel="tickets">
+      <section class="section-grid" id="calendar" data-view-panel="tickets" data-tickets-tab="calendar">
         <div class="section-heading">
           <div>
             <p class="eyebrow">Ticket Calendar</p>

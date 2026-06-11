@@ -1400,6 +1400,30 @@ window.addEventListener("popstate", () => {
   setActiveView(viewFromHash(), false);
 });
 
+// 예매 탭 하위 탭(캘린더/티켓팅/취소표) — 메인 라우팅의 hidden 과 독립된 클래스 레이어.
+const TICKETS_DEFAULT_TAB = "calendar";
+
+function applyTicketsSubTab(tab) {
+  document.querySelectorAll("[data-tickets-tab]").forEach((el) => {
+    const match = el.dataset.ticketsTab === tab;
+    if (el.tagName === "BUTTON") {
+      el.classList.toggle("active", match);
+      el.setAttribute("aria-selected", String(match));
+    } else {
+      el.classList.toggle("is-subhidden", !match);
+    }
+  });
+}
+
+document.querySelectorAll(".tickets-subnav [data-tickets-tab]").forEach((button) => {
+  button.addEventListener("click", () => {
+    applyTicketsSubTab(button.dataset.ticketsTab);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+});
+
+applyTicketsSubTab(TICKETS_DEFAULT_TAB);
+
 document.querySelectorAll("[data-game-filter]").forEach((button) => {
   button.addEventListener("click", () => {
     setActiveButton(document.querySelectorAll("[data-game-filter]"), button);
