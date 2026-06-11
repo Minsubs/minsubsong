@@ -27,8 +27,23 @@ test("app shell and data loader include ticketing calendar", async () => {
   assert.match(script, /ticketCalendar:\s*\[\]/);
   assert.match(script, /ticketCalendar:\s*"\.\/data\/ticketing-calendar\.json"/);
   assert.match(script, /fetchJson\(dataFiles\.ticketCalendar\)/);
-  assert.match(serviceWorker, /eagles-lounge-v22/);
+  assert.match(serviceWorker, /eagles-lounge-v23/);
   assert.match(serviceWorker, /\.\/data\/ticketing-calendar\.json\?v=19/);
+});
+
+test("index.html and service worker reference the same css/js asset versions", async () => {
+  const [index, serviceWorker] = await Promise.all([
+    readFile(new URL("../index.html", import.meta.url), "utf8"),
+    readFile(new URL("../service-worker.js", import.meta.url), "utf8"),
+  ]);
+
+  // CSS/JS 변경 시 ?v 와 SW precache 가 함께 bump 되지 않으면 서비스워커가
+  // cacheFirst 로 옛 에셋을 계속 서빙한다(스타일/스크립트 깨짐). 버전 드리프트 회귀 가드.
+  const styleV = index.match(/styles\.css\?v=(\d+)/)?.[1];
+  const scriptV = index.match(/script\.js\?v=(\d+)/)?.[1];
+  assert.ok(styleV && scriptV, "index.html 은 styles.css/script.js 에 ?v 버전을 달아야 함");
+  assert.match(serviceWorker, new RegExp(`styles\\.css\\?v=${styleV}\\b`), "SW precache styles.css 버전이 index.html 과 일치해야 함");
+  assert.match(serviceWorker, new RegExp(`script\\.js\\?v=${scriptV}\\b`), "SW precache script.js 버전이 index.html 과 일치해야 함");
 });
 
 test("calendar controls accessible under the 예매 (tickets) tab", async () => {
