@@ -1,8 +1,8 @@
 [
   {
     "label": "순위",
-    "value": "5위",
-    "caption": "31승 28패"
+    "value": "4위",
+    "caption": "32승 28패"
   },
   {
     "label": "팀 타율",
@@ -16,7 +16,7 @@
   },
   {
     "label": "최근 흐름",
-    "value": "W1",
-    "caption": "1연승"
+    "value": "W2",
+    "caption": "2연승"
   }
 ]
