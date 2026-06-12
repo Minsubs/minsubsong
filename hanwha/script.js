@@ -207,6 +207,7 @@ const teamStandingsBoard = document.querySelector("#teamStandingsBoard");
 const gameList = document.querySelector("#gameList");
 const featuredGame = document.querySelector("#featuredGame");
 const ticketGameList = document.querySelector("#ticketGameList");
+const ticketOpenCard = document.querySelector("#ticketOpenCard");
 const ticketCalendarFilters = document.querySelector("#ticketCalendarFilters");
 const ticketCalendarList = document.querySelector("#ticketCalendarList");
 const cancelWatchList = document.querySelector("#cancelWatchList");
@@ -665,10 +666,15 @@ function topDemandEntry(bucket) {
 
 function demandMetricCards(signals) {
   const permissionTotal = Object.values(signals.permissionResults).reduce((sum, count) => sum + count, 0);
+  // 취소표(cancel_watch_*) 신호를 누락 없이 합산해 한 카드로 노출.
+  const cancelWatchTotal = Object.entries(signals.eventCounts)
+    .filter(([name]) => name.startsWith("cancel_watch_"))
+    .reduce((sum, [, count]) => sum + count, 0);
   const metrics = [
     ["알림 저장", signals.eventCounts.ticket_reminder_saved ?? 0, topDemandEntry(signals.teams)],
     ["예매처 클릭", signals.eventCounts.provider_click ?? 0, topDemandEntry(signals.providers)],
     ["구단 필터", signals.eventCounts.calendar_filter_selected ?? 0, topDemandEntry(signals.teams)],
+    ["취소표 관심", cancelWatchTotal, topDemandEntry(signals.providers)],
     ["알림 권한", permissionTotal, topDemandEntry(signals.permissionResults)],
   ];
 
@@ -689,7 +695,10 @@ function renderDemandSignals() {
   }
 
   const signals = readDemandSignals();
-  demandSignalBoard.innerHTML = demandMetricCards(signals);
+  demandSignalBoard.innerHTML = html`
+    ${demandMetricCards(signals)}
+    <p class="demand-scope-note">이 수치는 현재 기기 기준 · 전체 합산은 백엔드 도입(다음 단계) 후 제공</p>
+  `;
   demandSignalEvents.innerHTML = html`
     <div class="section-heading compact">
       <div>
@@ -882,6 +891,147 @@ function renderTicketInfo(game, featured = false) {
       </div>
     </div>
   `;
+}
+
+// 홈 카운트다운 카드 — 다음 예매 오픈이 가장 가까운 내 구단 경기 1개.
+let ticketOpenCountdownTimer = null;
+let ticketOpenCountdownTarget = null;
+
+function pickNextTicketOpenGame() {
+  // selectedTeam 이 홈/원정으로 참여하는 다가오는(upcoming) 경기 중,
+  // 예매 오픈 시각이 아직 안 열렸으면 우선, 그 안에서 가장 가까운 1개.
+  const now = Date.now();
+  const candidates = selectedTeamGames()
+    .filter((game) => game.type === "upcoming")
+    .map((game) => {
+      const ticketing = getTicketing(game);
+      const openInfo = getTicketOpenInfo(game, ticketing);
+      return { game, ticketing, openInfo };
+    })
+    .filter(({ openInfo }) => openInfo.openAt instanceof Date);
+
+  // 아직 안 열린 경기 우선(오픈 임박 순), 없으면 이미 열린 경기 중 오픈 최신 순.
+  const upcoming = candidates
+    .filter(({ openInfo }) => !openInfo.isOpen)
+    .sort((a, b) => a.openInfo.openAt - b.openInfo.openAt)[0];
+  if (upcoming) {
+    return upcoming;
+  }
+  return candidates
+    .filter(({ openInfo }) => openInfo.isOpen && openInfo.openAt.getTime() <= now)
+    .sort((a, b) => b.openInfo.openAt - a.openInfo.openAt)[0] ?? null;
+}
+
+function formatCountdown(ms) {
+  const total = Math.max(0, Math.floor(ms / 1000));
+  const days = Math.floor(total / 86400);
+  const hh = String(Math.floor((total % 86400) / 3600)).padStart(2, "0");
+  const mm = String(Math.floor((total % 3600) / 60)).padStart(2, "0");
+  const ss = String(total % 60).padStart(2, "0");
+  return { days, clock: `${hh}:${mm}:${ss}` };
+}
+
+function tickTicketOpenCountdown() {
+  if (!ticketOpenCard || !ticketOpenCountdownTarget) {
+    return;
+  }
+
+  const el = ticketOpenCard.querySelector(".toc-countdown");
+  if (!el) {
+    return;
+  }
+
+  const remain = ticketOpenCountdownTarget.getTime() - Date.now();
+  if (remain <= 0) {
+    // 오픈 시각 도달 → 상태 전환 위해 카드 재렌더(인터벌 자동 정리).
+    renderTicketOpenCard();
+    return;
+  }
+
+  const { days, clock } = formatCountdown(remain);
+  el.textContent = days > 0 ? `D-${days} · ${clock}` : clock;
+
+  // 오픈 ≤ 1시간이면 임박 강조(임계점을 카운트다운 도중 넘으면 켜진다).
+  const soon = remain <= 60 * 60 * 1000;
+  el.classList.toggle("is-soon", soon);
+  ticketOpenCard.classList.toggle("is-soon", soon);
+}
+
+function stopTicketOpenCountdown() {
+  if (ticketOpenCountdownTimer) {
+    window.clearInterval(ticketOpenCountdownTimer);
+    ticketOpenCountdownTimer = null;
+  }
+}
+
+function startTicketOpenCountdown(target) {
+  stopTicketOpenCountdown();
+  ticketOpenCountdownTarget = target;
+  if (!target || document.hidden) {
+    return;
+  }
+  tickTicketOpenCountdown();
+  ticketOpenCountdownTimer = window.setInterval(tickTicketOpenCountdown, 1000);
+}
+
+function renderTicketOpenCard() {
+  if (!ticketOpenCard) {
+    return;
+  }
+
+  stopTicketOpenCountdown();
+  ticketOpenCountdownTarget = null;
+
+  const pick = pickNextTicketOpenGame();
+
+  if (!pick) {
+    ticketOpenCard.classList.remove("is-soon", "toc-open");
+    ticketOpenCard.innerHTML = html`
+      <div class="toc-empty">
+        <span class="toc-eyebrow">다음 예매 오픈</span>
+        <p class="meta">${selectedTeam} 의 다가오는 예매 오픈 경기가 없습니다. 예매 캘린더에서 일정을 확인하세요.</p>
+      </div>
+    `;
+    return;
+  }
+
+  const { game, ticketing, openInfo } = pick;
+  const reminderOn = Boolean(getTicketReminders()[gameId(game)]);
+  const isOpen = openInfo.isOpen;
+  const remain = openInfo.openAt.getTime() - Date.now();
+  const soon = !isOpen && remain <= 60 * 60 * 1000;
+  const alertLabel = reminderOn ? "알림 설정됨" : openInfo.canRemind ? "알림 받기" : "오픈 임박";
+  const canClickReminder = reminderOn || openInfo.canRemind;
+  const { days, clock } = formatCountdown(Math.max(0, remain));
+  const countdownText = isOpen ? "예매 중" : days > 0 ? `D-${days} · ${clock}` : clock;
+
+  ticketOpenCard.classList.toggle("is-soon", soon);
+  ticketOpenCard.classList.toggle("toc-open", isOpen);
+
+  ticketOpenCard.innerHTML = html`
+    <span class="toc-eyebrow">다음 예매 오픈</span>
+    <strong class="toc-matchup">${game.away} vs ${game.home}</strong>
+    <p class="toc-meta">${game.date} ${game.time} · ${game.location} · ${ticketing.venueType} ${ticketing.provider} · ${openInfo.openText}</p>
+    <div class="toc-countdown ${raw(soon ? "is-soon" : "")} ${raw(isOpen ? "toc-open" : "")}" aria-live="polite">${countdownText}</div>
+    <div class="toc-actions">
+      <a
+        href="${ticketing.url}"
+        target="_blank"
+        rel="noopener"
+        data-demand-action="provider-click"
+        data-demand-provider="${ticketing.provider}"
+        data-demand-team="${game.home}"
+        data-demand-source="home-card"
+      >예매처</a>
+      <button class="${raw(reminderOn ? "is-on" : "")}" type="button" data-ticket-alert="${gameId(game)}" ${raw(canClickReminder ? "" : "disabled")}>
+        ${alertLabel}
+      </button>
+    </div>
+  `;
+
+  if (!isOpen) {
+    startTicketOpenCountdown(openInfo.openAt);
+  }
 }
 
 function renderCancelWatch() {
@@ -1280,6 +1430,7 @@ function refreshSelectedTeamViews() {
   renderLiveGame();
   renderGames(currentGameFilter());
   renderTickets();
+  renderTicketOpenCard();
 }
 
 function renderAll() {
@@ -1291,6 +1442,7 @@ function renderAll() {
   renderTickets();
   renderTicketCalendar();
   renderCancelWatch();
+  renderTicketOpenCard();
   renderPlayers(currentPlayerFilter());
   renderDemandSignals();
 }
@@ -1645,6 +1797,7 @@ async function enableTicketReminder(gameKey, source = "unknown") {
   renderGames(document.querySelector("[data-game-filter].active")?.dataset.gameFilter ?? "recent");
   renderTickets();
   renderTicketCalendar();
+  renderTicketOpenCard();
   trackDemandSignal("ticket_reminder_saved", { team: game.home, provider: ticketing.provider, source });
   showToast(`${formatKstDateTime(new Date(reminder.remindAt))} 티켓 알림을 저장했습니다.`);
 
@@ -1843,9 +1996,14 @@ if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
 }
 
 document.addEventListener("visibilitychange", () => {
-  if (!document.hidden) {
-    pollData();
+  if (document.hidden) {
+    // 숨김 동안 1초 인터벌 정지(배터리/연산 절약).
+    stopTicketOpenCountdown();
+    return;
   }
+  pollData();
+  // 복귀 시 카드 재렌더로 상태/카운트다운을 현재 시각 기준으로 재개.
+  renderTicketOpenCard();
 });
 
 updateNotifyButton();
