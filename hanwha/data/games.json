@@ -125,6 +125,26 @@
   {
     "type": "recent",
     "status": "최근 결과",
+    "date": "06.12",
+    "time": "금 18:30",
+    "location": "고척",
+    "home": "키움",
+    "away": "한화",
+    "score": "승 2:0",
+    "detail": "고척 경기",
+    "ticketing": {
+      "provider": "NOL 티켓",
+      "url": "https://nol.interpark.com/ticket",
+      "note": "키움 홈 예매",
+      "openLabel": "키움 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "recent",
+    "status": "최근 결과",
     "date": "06.05",
     "time": "금 18:30",
     "location": "잠실",
@@ -134,7 +154,7 @@
     "detail": "잠실 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -155,7 +175,7 @@
     "detail": "잠실 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -176,7 +196,7 @@
     "detail": "잠실 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -245,6 +265,26 @@
       "openDaysBefore": 14,
       "openTime": "14:00",
       "openCaution": "구단 앱 공지 기준 확인",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "recent",
+    "status": "최근 결과",
+    "date": "06.12",
+    "time": "금 18:30",
+    "location": "광주",
+    "home": "KIA",
+    "away": "두산",
+    "score": "0:0",
+    "detail": "광주 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports/137/58",
+      "note": "KIA 홈 예매",
+      "openLabel": "KIA 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
       "venueType": "원정"
     }
   },
@@ -320,7 +360,7 @@
     "detail": "잠실 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -341,7 +381,7 @@
     "detail": "잠실 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -362,7 +402,28 @@
     "detail": "잠실 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
+      "note": "LG 홈 예매",
+      "openLabel": "LG 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "openCaution": "구단 공지 기준 확인",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "recent",
+    "status": "최근 결과",
+    "date": "06.12",
+    "time": "금 18:30",
+    "location": "잠실",
+    "home": "LG",
+    "away": "롯데",
+    "score": "0:0",
+    "detail": "잠실 경기",
+    "ticketing": {
+      "provider": "NOL 티켓",
+      "url": "https://nol.interpark.com/ticket",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -434,6 +495,27 @@
   {
     "type": "recent",
     "status": "최근 결과",
+    "date": "06.12",
+    "time": "금 18:30",
+    "location": "대구",
+    "home": "삼성",
+    "away": "SSG",
+    "score": "0:0",
+    "detail": "대구 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports",
+      "note": "삼성 홈 예매",
+      "openLabel": "삼성 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "openCaution": "구단 공지 기준 확인",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "recent",
+    "status": "최근 결과",
     "date": "06.09",
     "time": "화 18:30",
     "location": "고척",
@@ -443,7 +525,7 @@
     "detail": "고척 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -463,7 +545,7 @@
     "detail": "고척 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -483,7 +565,7 @@
     "detail": "고척 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -615,22 +697,23 @@
     }
   },
   {
-    "type": "upcoming",
-    "status": "예정 경기",
+    "type": "recent",
+    "status": "최근 결과",
     "date": "06.12",
     "time": "금 18:30",
-    "location": "고척",
-    "home": "키움",
-    "away": "한화",
-    "score": "경기전",
-    "detail": "키움 홈 경기",
+    "location": "수원",
+    "home": "KT",
+    "away": "NC",
+    "score": "0:0",
+    "detail": "수원 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
-      "note": "키움 홈 예매",
-      "openLabel": "키움 홈 예매 일정 기준",
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports",
+      "note": "KT 홈 예매",
+      "openLabel": "KT 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
+      "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
     }
   },
@@ -646,7 +729,7 @@
     "detail": "키움 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -666,7 +749,7 @@
     "detail": "키움 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -877,26 +960,6 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "06.12",
-    "time": "금 18:30",
-    "location": "광주",
-    "home": "KIA",
-    "away": "두산",
-    "score": "경기전",
-    "detail": "KIA 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports/137/58",
-      "note": "KIA 홈 예매",
-      "openLabel": "KIA 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    }
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
     "date": "06.13",
     "time": "토 17:00",
     "location": "광주",
@@ -946,7 +1009,7 @@
     "detail": "두산 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -967,7 +1030,7 @@
     "detail": "두산 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -988,7 +1051,7 @@
     "detail": "두산 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1009,7 +1072,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1030,7 +1093,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1051,7 +1114,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1072,33 +1135,12 @@
     "detail": "두산 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
       "earlyOpenLabel": "베어스클럽 10:00",
-      "venueType": "원정"
-    }
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "06.12",
-    "time": "금 18:30",
-    "location": "잠실",
-    "home": "LG",
-    "away": "롯데",
-    "score": "경기전",
-    "detail": "LG 홈 경기",
-    "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
-      "note": "LG 홈 예매",
-      "openLabel": "LG 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
     }
   },
@@ -1114,7 +1156,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1135,7 +1177,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1216,7 +1258,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1237,7 +1279,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1258,7 +1300,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1291,27 +1333,6 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "06.12",
-    "time": "금 18:30",
-    "location": "대구",
-    "home": "삼성",
-    "away": "SSG",
-    "score": "경기전",
-    "detail": "삼성 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
-      "note": "삼성 홈 예매",
-      "openLabel": "삼성 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
-    }
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
     "date": "06.13",
     "time": "토 17:00",
     "location": "대구",
@@ -1609,7 +1630,7 @@
     "detail": "키움 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1629,7 +1650,7 @@
     "detail": "키움 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1649,7 +1670,7 @@
     "detail": "키움 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1669,7 +1690,7 @@
     "detail": "키움 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1689,7 +1710,7 @@
     "detail": "키움 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1709,7 +1730,7 @@
     "detail": "키움 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://nol.interpark.com/ticket",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1881,27 +1902,6 @@
       "openDaysBefore": 14,
       "openTime": "14:00",
       "openCaution": "구단 앱 공지 기준 확인",
-      "venueType": "원정"
-    }
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "06.12",
-    "time": "금 18:30",
-    "location": "수원",
-    "home": "KT",
-    "away": "NC",
-    "score": "경기전",
-    "detail": "KT 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
-      "note": "KT 홈 예매",
-      "openLabel": "KT 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
     }
   },

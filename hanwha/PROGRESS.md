@@ -1,5 +1,8 @@
 # KBO 티켓팅 도우미 진행상황
 
+> **다음 개발 단일 소스: [`docs/ROADMAP.md`](docs/ROADMAP.md)** (백엔드/푸시 플랜 + 시장조사 + UI/UX 개편 + 미뤄둔 수정 통합). 개발 재개 시 여기부터 — Now 버킷: N1 인터파크(NOL) 링크 수정 · N2 "KBO TIDO" 개명. 진짜 분기점은 D3/D7/D8 결정 후 X0(백엔드+푸시 기반).
+> 상세: `docs/BACKEND_PUSH_PLAN.md` · `docs/FEATURE_MARKET_RESEARCH.md` · `docs/CANCEL_TICKET_ALERT_RESEARCH.md`.
+
 ## 현재 목표
 
 한화 단일 개인 앱에서 **KBO 10구단 티켓팅 도우미**로 전환한다. 무료 PWA로 예매 캘린더와 알림 저장 수요를 검증한 뒤, 지표가 충분할 때 취소표 관심 경기 알림, 네이티브 알림, 제휴, 스토어 배포로 확장한다.
