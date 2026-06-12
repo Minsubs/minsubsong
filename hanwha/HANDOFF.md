@@ -80,7 +80,13 @@ npm run check
 
 ## 남은 작업
 
-0. **다음 개발은 [`docs/ROADMAP.md`](docs/ROADMAP.md) 단일 소스 참조** — 백엔드/푸시·시장조사·UI/UX 개편·미뤄둔 수정 통합. 즉시(Now): N1 인터파크(NOL) 링크 수정(`script.js:141/167/175`), N2 "KBO TIDO" 개명(체크리스트는 ROADMAP §5). 백엔드 분기점은 X0(결정 D3/D7/D8 선행). *모두 미구현 — 정리만 됨.*
+0. **다음 개발은 [`docs/ROADMAP.md`](docs/ROADMAP.md) 단일 소스.** 진행 상황(2026-06-12 기준, 아래 ✅는 전부 main 머지·Pages 배포 완료):
+   - ✅ v20 리디자인 · 10구단 전환 · 리그 리더 · 취소표 컨시어지 · 예매 탭 하위탭(캘린더/티켓팅/취소표) · **"KBO TIDO" 개명** · **NOL(인터파크) 예매처 링크 복구**(실 출처는 `scripts/update-data.mjs`+데이터) · **홈 "다음 예매 오픈" 카운트다운 카드**(`#ticketOpenCard`) · 검증 신호 보강(N4)
+   - **현재 자산 버전: `styles.css?v=22` · `script.js?v=23` · `CACHE eagles-lounge-v25` · `data ?v=19`.** ⚠️ CSS/JS 변경 시 `?v`+`CACHE` 동반 bump 필수(안 그러면 SW가 옛 에셋 cacheFirst 서빙) — `tests/pwa-registration.test.mjs`의 드리프트 가드 테스트가 index↔SW 정합을 강제함.
+   - **다음 Now(외부 입력 불요·바로 가능):** ① 더보기→알림·구독 허브 하위탭 골격(예매 탭 `tickets-subnav` 패턴 복제) ② iOS "홈 화면 추가" 설치 안내 시트 ③ 빈·로딩·오류 상태 표준화. (ROADMAP §4.5 Now 행)
+   - **막힘(사용자 입력/결정 필요):** N3 프로모션 일정(공개 데이터 소스) · N5 어필리에이트(아고다/링크프라이스 계정) · **진짜 분기점 X0 백엔드+푸시**(결정 D3 호스팅·D7 VAPID·D8 법률 선행 — ROADMAP §8).
+   - 검증: `cd hanwha && npm run check` = **32/32**. 프로덕션 https://minsubs.github.io/minsubsong (PWA, SW 갱신은 ?v 캐시버스트로 자동).
+   - 개발 방식: 다이나믹 워크플로우(Workflow 툴, CSS‖JS 병렬 + 검증) → 브라우저 검증 → 커밋→PR→머지→배포 흐름. localStorage 키(`eagles*`)·SW 캐시명은 내부 식별자라 개명/변경 안 함.
 1. 과거 macro 커밋 히스토리 rewrite/force push 여부를 사용자 승인하에 결정한다.
 2. 노출 가능성이 있는 계정 비밀번호는 사용자가 직접 교체한다.
 3. 수요 검증 운영 루틴을 정의한다.
