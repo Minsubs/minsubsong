@@ -8,21 +8,21 @@
         "rank": 1,
         "name": "최원준",
         "team": "KT",
-        "value": "0.385",
+        "value": "0.382",
         "note": "KT"
       },
       {
         "rank": 2,
         "name": "이우성",
         "team": "NC",
-        "value": "0.361",
+        "value": "0.359",
         "note": "NC"
       },
       {
         "rank": 3,
         "name": "박성한",
         "team": "SSG",
-        "value": "0.356",
+        "value": "0.355",
         "note": "SSG"
       }
     ]
@@ -62,23 +62,23 @@
     "players": [
       {
         "rank": 1,
-        "name": "올러",
-        "team": "KIA",
-        "value": "2.39",
-        "note": "KIA"
-      },
-      {
-        "rank": 2,
         "name": "후라도",
         "team": "삼성",
         "value": "2.61",
         "note": "삼성"
       },
       {
+        "rank": 2,
+        "name": "올러",
+        "team": "KIA",
+        "value": "2.66",
+        "note": "KIA"
+      },
+      {
         "rank": 3,
         "name": "류현진",
         "team": "한화",
-        "value": "2.97",
+        "value": "2.84",
         "note": "한화"
       }
     ]

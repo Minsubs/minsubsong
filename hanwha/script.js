@@ -138,7 +138,7 @@ const ticketProviders = {
   },
   두산: {
     provider: "NOL 티켓",
-    url: "https://tickets.interpark.com/contents/sports",
+    url: "https://nol.interpark.com/ticket",
     note: "두산 홈 예매",
     openDaysBefore: 7,
     openTime: "11:00",
@@ -164,7 +164,7 @@ const ticketProviders = {
   },
   키움: {
     provider: "NOL 티켓",
-    url: "https://tickets.interpark.com/contents/sports",
+    url: "https://nol.interpark.com/ticket",
     note: "키움 홈 예매",
     openDaysBefore: 7,
     openTime: "11:00",
@@ -172,7 +172,7 @@ const ticketProviders = {
   },
   LG: {
     provider: "NOL 티켓",
-    url: "https://tickets.interpark.com/contents/sports",
+    url: "https://nol.interpark.com/ticket",
     note: "LG 홈 예매",
     openDaysBefore: 7,
     openTime: "11:00",
@@ -720,7 +720,7 @@ function exportDemandSignalSnapshot() {
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement("a");
   anchor.href = url;
-  anchor.download = `eagles-demand-signals-${new Date().toISOString().slice(0, 10)}.json`;
+  anchor.download = `kbo-tido-demand-signals-${new Date().toISOString().slice(0, 10)}.json`;
   anchor.click();
   URL.revokeObjectURL(url);
   trackDemandSignal("signals_exported");
@@ -1544,7 +1544,7 @@ function buildGameNotification() {
   const schedule = [game.date, game.time, game.location].filter(Boolean).join(" · ");
 
   return {
-    title: "이글스 경기 알림",
+    title: `${selectedTeam} 경기 알림`,
     body: `${matchup}${schedule ? ` · ${schedule}` : ""}`,
   };
 }
