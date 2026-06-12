@@ -5,13 +5,13 @@
     "location": "광주",
     "status": "live",
     "statusLabel": "경기 중",
-    "state": "TOP 6",
-    "inning": "TOP 6",
+    "state": "TOP 9",
+    "inning": "TOP 9",
     "awayTeam": "두산",
     "homeTeam": "KIA",
-    "awayScore": 2,
+    "awayScore": 4,
     "homeScore": 1,
-    "note": "두산 2:1 KIA. TOP 6 진행 중입니다.",
+    "note": "두산 4:1 KIA. TOP 9 진행 중입니다.",
     "linescore": [
       {
         "inning": "1",
@@ -40,22 +40,22 @@
       },
       {
         "inning": "6",
-        "away": 0,
-        "home": null
+        "away": 2,
+        "home": 0
       },
       {
         "inning": "7",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 0
       },
       {
         "inning": "8",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 0
       },
       {
         "inning": "9",
-        "away": null,
+        "away": 0,
         "home": null
       }
     ]
@@ -66,13 +66,13 @@
     "location": "수원",
     "status": "live",
     "statusLabel": "경기 중",
-    "state": "TOP 6",
-    "inning": "TOP 6",
+    "state": "TOP 9",
+    "inning": "TOP 9",
     "awayTeam": "NC",
     "homeTeam": "KT",
     "awayScore": 2,
-    "homeScore": 1,
-    "note": "NC 2:1 KT. TOP 6 진행 중입니다.",
+    "homeScore": 2,
+    "note": "NC 2:2 KT. TOP 9 진행 중입니다.",
     "linescore": [
       {
         "inning": "1",
@@ -102,21 +102,21 @@
       {
         "inning": "6",
         "away": 0,
-        "home": null
+        "home": 0
       },
       {
         "inning": "7",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 0
       },
       {
         "inning": "8",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 1
       },
       {
         "inning": "9",
-        "away": null,
+        "away": 0,
         "home": null
       }
     ]
@@ -127,13 +127,13 @@
     "location": "잠실",
     "status": "live",
     "statusLabel": "경기 중",
-    "state": "TOP 6",
-    "inning": "TOP 6",
+    "state": "TOP 8",
+    "inning": "TOP 8",
     "awayTeam": "롯데",
     "homeTeam": "LG",
-    "awayScore": 2,
-    "homeScore": 0,
-    "note": "롯데 2:0 LG. TOP 6 진행 중입니다.",
+    "awayScore": 7,
+    "homeScore": 4,
+    "note": "롯데 7:4 LG. TOP 8 진행 중입니다.",
     "linescore": [
       {
         "inning": "1",
@@ -162,17 +162,17 @@
       },
       {
         "inning": "6",
-        "away": 0,
-        "home": null
+        "away": 5,
+        "home": 1
       },
       {
         "inning": "7",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 3
       },
       {
         "inning": "8",
-        "away": null,
+        "away": 0,
         "home": null
       },
       {
@@ -188,13 +188,13 @@
     "location": "대구",
     "status": "live",
     "statusLabel": "경기 중",
-    "state": "BOT 5",
-    "inning": "BOT 5",
+    "state": "TOP 9",
+    "inning": "TOP 9",
     "awayTeam": "SSG",
     "homeTeam": "삼성",
-    "awayScore": 3,
+    "awayScore": 5,
     "homeScore": 3,
-    "note": "SSG 3:3 삼성. BOT 5 진행 중입니다.",
+    "note": "SSG 5:3 삼성. TOP 9 진행 중입니다.",
     "linescore": [
       {
         "inning": "1",
@@ -223,22 +223,22 @@
       },
       {
         "inning": "6",
-        "away": null,
-        "home": null
+        "away": 1,
+        "home": 0
       },
       {
         "inning": "7",
-        "away": null,
-        "home": null
+        "away": 1,
+        "home": 0
       },
       {
         "inning": "8",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 0
       },
       {
         "inning": "9",
-        "away": null,
+        "away": 0,
         "home": null
       }
     ]
@@ -249,13 +249,13 @@
     "location": "고척",
     "status": "live",
     "statusLabel": "경기 중",
-    "state": "TOP 6",
-    "inning": "TOP 6",
+    "state": "BOT 8",
+    "inning": "BOT 8",
     "awayTeam": "한화",
     "homeTeam": "키움",
-    "awayScore": 2,
-    "homeScore": 0,
-    "note": "한화 2:0 키움. TOP 6 진행 중입니다.",
+    "awayScore": 3,
+    "homeScore": 1,
+    "note": "한화 3:1 키움. BOT 8 진행 중입니다.",
     "linescore": [
       {
         "inning": "1",
@@ -285,17 +285,17 @@
       {
         "inning": "6",
         "away": 0,
-        "home": null
+        "home": 1
       },
       {
         "inning": "7",
-        "away": null,
-        "home": null
+        "away": 1,
+        "home": 0
       },
       {
         "inning": "8",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 0
       },
       {
         "inning": "9",
