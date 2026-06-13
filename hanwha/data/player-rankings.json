@@ -8,15 +8,15 @@
         "rank": 1,
         "name": "최원준",
         "team": "KT",
-        "value": "0.386",
+        "value": "0.384",
         "note": "KT"
       },
       {
         "rank": 2,
-        "name": "이우성",
-        "team": "NC",
-        "value": "0.355",
-        "note": "NC"
+        "name": "레이예스",
+        "team": "롯데",
+        "value": "0.359",
+        "note": "롯데"
       },
       {
         "rank": 3,
@@ -41,17 +41,17 @@
       },
       {
         "rank": 2,
+        "name": "김도영",
+        "team": "KIA",
+        "value": "19 HR",
+        "note": "KIA"
+      },
+      {
+        "rank": 3,
         "name": "최정",
         "team": "SSG",
         "value": "15 HR",
         "note": "SSG"
-      },
-      {
-        "rank": 3,
-        "name": "페라자",
-        "team": "한화",
-        "value": "13 HR",
-        "note": "한화"
       }
     ]
   },
@@ -62,24 +62,24 @@
     "players": [
       {
         "rank": 1,
-        "name": "후라도",
-        "team": "삼성",
-        "value": "2.61",
-        "note": "삼성"
-      },
-      {
-        "rank": 2,
         "name": "올러",
         "team": "KIA",
         "value": "2.66",
         "note": "KIA"
       },
       {
-        "rank": 3,
+        "rank": 2,
         "name": "류현진",
         "team": "한화",
         "value": "2.84",
         "note": "한화"
+      },
+      {
+        "rank": 3,
+        "name": "최민석",
+        "team": "두산",
+        "value": "2.88",
+        "note": "두산"
       }
     ]
   }
