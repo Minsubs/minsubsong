@@ -30,7 +30,7 @@
     "stats": [
       {
         "label": "AVG",
-        "value": "0.359"
+        "value": "0.358"
       },
       {
         "label": "HR",
@@ -52,7 +52,7 @@
     "stats": [
       {
         "label": "AVG",
-        "value": "0.355"
+        "value": "0.357"
       },
       {
         "label": "HR",
@@ -82,7 +82,7 @@
       },
       {
         "label": "RBI",
-        "value": "61"
+        "value": "62"
       }
     ],
     "note": "리그 타율 4위"
