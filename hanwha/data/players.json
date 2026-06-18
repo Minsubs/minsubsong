@@ -30,7 +30,7 @@
     "stats": [
       {
         "label": "AVG",
-        "value": "0.355"
+        "value": "0.353"
       },
       {
         "label": "HR",
@@ -46,8 +46,8 @@
   {
     "type": "hitter",
     "number": 3,
-    "name": "박성한",
-    "team": "SSG",
+    "name": "오스틴",
+    "team": "LG",
     "role": "타자",
     "stats": [
       {
@@ -56,11 +56,11 @@
       },
       {
         "label": "HR",
-        "value": "3"
+        "value": "20"
       },
       {
         "label": "RBI",
-        "value": "33"
+        "value": "64"
       }
     ],
     "note": "리그 타율 3위"
@@ -68,21 +68,21 @@
   {
     "type": "hitter",
     "number": 4,
-    "name": "오스틴",
-    "team": "LG",
+    "name": "박성한",
+    "team": "SSG",
     "role": "타자",
     "stats": [
       {
         "label": "AVG",
-        "value": "0.351"
+        "value": "0.347"
       },
       {
         "label": "HR",
-        "value": "20"
+        "value": "3"
       },
       {
         "label": "RBI",
-        "value": "64"
+        "value": "33"
       }
     ],
     "note": "리그 타율 4위"
@@ -134,6 +134,28 @@
   {
     "type": "pitcher",
     "number": 3,
+    "name": "최민석",
+    "team": "두산",
+    "role": "투수",
+    "stats": [
+      {
+        "label": "ERA",
+        "value": "2.77"
+      },
+      {
+        "label": "W-L",
+        "value": "6-2"
+      },
+      {
+        "label": "WHIP",
+        "value": "1.23"
+      }
+    ],
+    "note": "리그 평균자책 3위"
+  },
+  {
+    "type": "pitcher",
+    "number": 4,
     "name": "후라도",
     "team": "삼성",
     "role": "투수",
@@ -149,28 +171,6 @@
       {
         "label": "WHIP",
         "value": "1.23"
-      }
-    ],
-    "note": "리그 평균자책 3위"
-  },
-  {
-    "type": "pitcher",
-    "number": 4,
-    "name": "알칸타라",
-    "team": "키움",
-    "role": "투수",
-    "stats": [
-      {
-        "label": "ERA",
-        "value": "2.96"
-      },
-      {
-        "label": "W-L",
-        "value": "7-4"
-      },
-      {
-        "label": "WHIP",
-        "value": "1.13"
       }
     ],
     "note": "리그 평균자책 4위"
