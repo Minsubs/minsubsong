@@ -339,35 +339,95 @@ async function collectAllTeamScheduleGames({ targets, teamIds = KBO_TEAM_IDS, fe
 }
 
 // 10구단 통합 예매 캘린더 — 전 구단 예정 경기를 예매 오픈 시각순으로 정렬한다.
-function buildTicketCalendar(allGames) {
+// top-level openAt(ISO +09:00)을 emit해 백엔드/클라가 재계산 없이 발송 트리거
+// 근거로 쓰게 한다. 파생 실패/NaN 은 fail-closed 로 null.
+function buildTicketCalendar(allGames, year = Number(kstParts.year)) {
   return allGames
     .filter((game) => game.type === "upcoming")
-    .map((game) => ({ ...game, ticketing: buildTicketing(game) }))
+    .map((game) => {
+      const ticketing = buildTicketing(game);
+      return { ...game, ticketing, openAt: buildOpenAt({ ...game, ticketing }, year) };
+    })
     .sort(compareTicketOpen)
     .map(({ rawTime, rawScore, ...game }) => game);
 }
 
 function compareTicketOpen(left, right) {
   return (
-    Number(ticketOpenTimestamp(left)) - Number(ticketOpenTimestamp(right)) ||
+    ticketOpenTimestamp(left) - ticketOpenTimestamp(right) ||
     compareMonthDay(left.date, right.date) ||
     String(left.time).localeCompare(String(right.time))
   );
 }
 
+// 정렬용 epoch — openAt(ISO)을 파싱해 ms 로. 없으면 +Infinity(뒤로).
 function ticketOpenTimestamp(game) {
-  const ticketing = buildTicketing(game);
-  const gameDate = parseGameDate(game.date, game.rawTime ?? game.time);
-
-  if (!gameDate || !ticketing.openDaysBefore || !ticketing.openTime) {
+  const iso = game.openAt ?? buildOpenAt(game, Number(kstParts.year));
+  if (!iso) {
     return Number.POSITIVE_INFINITY;
   }
+  const ms = Date.parse(iso);
+  return Number.isFinite(ms) ? ms : Number.POSITIVE_INFINITY;
+}
 
-  const [hour, minute] = ticketing.openTime.split(":").map((part) => Number(part));
-  const openAt = new Date(gameDate);
-  openAt.setDate(openAt.getDate() - Number(ticketing.openDaysBefore));
-  openAt.setHours(hour, minute, 0, 0);
-  return openAt.getTime();
+// 순수 파생: 예매 오픈 절대시각(ISO, +09:00). 호스트 타임존에 의존하지 않게
+// UTC epoch 산술 + 고정 +09:00 오프셋으로 계산한다.
+//   openAtKst = gameDate(MM.DD, year) − openDaysBefore일, 시각=openTime("HH:MM")
+// Dec-Jan 경계: 1월 경기는 meta(=year, 보통 12월 실행)의 다음 해 경기이므로 year+1
+// 로 보정한다. 일(day) 빼기는 epoch 산술이 월/연 경계를 자동 롤오버한다
+// (예: 01.05 − 14일 → 전년 12.22). 파생 불가/NaN 이면 null(fail-closed).
+function buildOpenAt(game, year) {
+  const ticketing = game.ticketing ?? buildTicketing(game);
+  const [, month, day] = String(game.date).match(/^(\d{2})\.(\d{2})$/) ?? [];
+  const openTime = ticketing?.openTime;
+  const openDaysBefore = ticketing?.openDaysBefore;
+  const [, openHour, openMinute] = String(openTime ?? "").match(/^(\d{1,2}):(\d{2})$/) ?? [];
+
+  const yearNumber = Number(year);
+  if (!month || !day || openDaysBefore == null || openHour == null || !Number.isFinite(yearNumber)) {
+    return null;
+  }
+
+  const monthNumber = Number(month);
+  const dayNumber = Number(day);
+  const daysBeforeNumber = Number(openDaysBefore);
+  const hourNumber = Number(openHour);
+  const minuteNumber = Number(openMinute);
+  if (
+    !Number.isFinite(monthNumber) ||
+    !Number.isFinite(dayNumber) ||
+    !Number.isFinite(daysBeforeNumber) ||
+    !Number.isFinite(hourNumber) ||
+    !Number.isFinite(minuteNumber)
+  ) {
+    return null;
+  }
+
+  // Dec-Jan 경계 보정: 1월 경기는 다음 해.
+  const gameYear = monthNumber === 1 ? yearNumber + 1 : yearNumber;
+
+  // KST 시각을 UTC epoch 로: KST(+09:00) = UTC − 9h. Date.UTC 로 host TZ 배제.
+  const gameOpenUtcMs = Date.UTC(gameYear, monthNumber - 1, dayNumber, hourNumber, minuteNumber) - 9 * 3600000;
+  const openAtMs = gameOpenUtcMs - daysBeforeNumber * 86400000;
+  if (!Number.isFinite(openAtMs)) {
+    return null;
+  }
+
+  return toKstIso(openAtMs);
+}
+
+// epoch ms → ISO 문자열(+09:00 오프셋 표기). new Date().toISOString()은 Z(UTC)라
+// +09:00 표기를 직접 만든다.
+function toKstIso(epochMs) {
+  const kst = new Date(epochMs + 9 * 3600000);
+  const pad = (value, length = 2) => String(value).padStart(length, "0");
+  const yyyy = pad(kst.getUTCFullYear(), 4);
+  const MM = pad(kst.getUTCMonth() + 1);
+  const dd = pad(kst.getUTCDate());
+  const hh = pad(kst.getUTCHours());
+  const mm = pad(kst.getUTCMinutes());
+  const ss = pad(kst.getUTCSeconds());
+  return `${yyyy}-${MM}-${dd}T${hh}:${mm}:${ss}+09:00`;
 }
 
 function parseGameDate(monthDay, timeText) {
@@ -1021,6 +1081,7 @@ export {
   buildLeagueLeaderRankings,
   buildPlayerCards,
   buildTicketCalendar,
+  buildOpenAt,
   collectAllTeamScheduleGames,
   mergeScoreboardGame,
   sameMatchup,

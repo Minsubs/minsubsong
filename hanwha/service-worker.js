@@ -1,10 +1,10 @@
-const CACHE_NAME = "eagles-lounge-v23";
+const CACHE_NAME = "eagles-lounge-v29";
 const APP_SHELL = [
   "./",
   "./index.html",
   "./offline.html",
-  "./styles.css?v=21",
-  "./script.js?v=21",
+  "./styles.css?v=29",
+  "./script.js?v=29",
   "./manifest.webmanifest",
   "./assets/app-icon.svg",
   "./assets/hero-stadium.png",
@@ -89,6 +89,40 @@ async function cacheFirst(request) {
   }
   return response;
 }
+
+self.addEventListener("push", (event) => {
+  let payload = {};
+  try {
+    payload = event.data ? event.data.json() : {};
+  } catch {
+    payload = {};
+  }
+  const title = payload.title || "KBO TIDO";
+  event.waitUntil(
+    self.registration.showNotification(title, {
+      body: payload.body || "",
+      icon: "./assets/app-icon.svg",
+      badge: "./assets/app-icon.svg",
+      tag: payload.tag || "kbo-tido-push",
+      data: { url: payload.url || "./index.html#live" },
+    }),
+  );
+});
+
+self.addEventListener("pushsubscriptionchange", (event) => {
+  // 구독 endpoint 회전 시 best-effort 재구독(이전 옵션 재사용). 백엔드 재전송은 클라가 다음 방문 시.
+  event.waitUntil(
+    (async () => {
+      try {
+        await self.registration.pushManager.subscribe(
+          event.oldSubscription?.options ?? { userVisibleOnly: true },
+        );
+      } catch {
+        // 무시 — 클라 재방문 시 재등록.
+      }
+    })(),
+  );
+});
 
 self.addEventListener("notificationclick", (event) => {
   const targetUrl = new URL(event.notification.data?.url ?? "./index.html#live", self.registration.scope).href;

@@ -1,6 +1,6 @@
 {
-  "name": "KBO 티켓팅 도우미",
-  "short_name": "KBO 티켓",
+  "name": "KBO TIDO",
+  "short_name": "KBO TIDO",
   "description": "KBO 10구단 예매 캘린더와 티켓 알림 수요 검증 PWA",
   "lang": "ko-KR",
   "start_url": "./index.html",
