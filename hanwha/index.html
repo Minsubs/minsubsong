@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0a0b0e" />
+    <meta name="theme-color" content="#0c0d11" />
     <script>
       // 저장된/시스템 테마를 첫 페인트 전에 적용해 FOUC 와 라이트 리셋을 막는다.
       (function () {
@@ -17,7 +17,7 @@
           }
           var meta = document.querySelector('meta[name="theme-color"]');
           if (meta) {
-            meta.setAttribute("content", t === "dark" ? "#0a0b0e" : "#eeeee8");
+            meta.setAttribute("content", t === "dark" ? "#0c0d11" : "#f2ece0");
           }
         } catch (e) {}
       })();
@@ -29,13 +29,7 @@
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" href="./assets/app-icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="./assets/app-icon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./styles.css?v=22" />
+    <link rel="stylesheet" href="./styles.css?v=29" />
   </head>
   <body>
     <header class="topbar">
@@ -54,7 +48,9 @@
       </nav>
       <div class="top-actions">
         <select class="team-chip" id="teamSelect" aria-label="내 구단 선택"></select>
-        <button class="notify-button" id="notifyButton" type="button" hidden>알림 켜기</button>
+        <button class="icon-button notify-button" id="notifyButton" type="button" aria-label="알림" title="알림" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 19a2 2 0 0 0 4 0"/></svg>
+        </button>
         <button class="install-button" id="installApp" type="button" hidden>앱 설치</button>
         <button class="icon-button" id="themeToggle" type="button" aria-label="테마 전환" title="테마 전환">
           <span aria-hidden="true">◐</span>
@@ -71,63 +67,44 @@
     </nav>
 
     <main id="top">
-      <section class="hero dashboard-hero" id="live" aria-labelledby="heroTitle" data-view-panel="home">
-        <img src="./assets/hero-stadium.png" alt="야간 야구장과 응원석" />
-        <div class="hero-overlay"></div>
-        <div class="hero-dashboard" aria-label="실시간 경기와 선수 랭킹">
-          <article class="live-panel" id="liveGamePanel">
-            <span class="game-status">로딩</span>
-            <p class="meta">경기 데이터를 불러오는 중</p>
-          </article>
-          <aside class="ranking-panel" id="rankingPanel"></aside>
-        </div>
-        <div class="hero-content">
-          <h1 id="heroTitle">KBO TIDO</h1>
-          <p class="hero-copy">
-            10구단 예매 오픈 일정과 예매처를 모아 보고, 티켓팅 직전 알림 수요를 검증합니다.
-          </p>
-          <div class="hero-actions">
-            <a class="primary-action" href="#tickets" data-view-target="tickets">예매 캘린더</a>
-            <a class="secondary-action" href="#more" data-view-target="more">수요 검증</a>
-          </div>
-        </div>
-      </section>
+      <aside class="ios-install-banner" id="iosInstallBanner" data-view-panel="home" role="note" hidden>
+        <span class="ios-install-banner__icon" aria-hidden="true">📲</span>
+        <p class="ios-install-banner__text">홈 화면에 추가하면 예매 오픈 알림을 놓치지 않아요.</p>
+        <button type="button" class="ios-install-banner__cta" data-ios-install-open>설치 방법</button>
+        <button type="button" class="ios-install-banner__close" data-ios-install-dismiss aria-label="설치 안내 닫기">×</button>
+      </aside>
 
       <section class="ticket-open-card section-grid" id="ticketOpenCard" data-view-panel="home" aria-label="다음 예매 오픈"></section>
 
-      <section class="snapshot" id="summaryBoard" aria-label="팀 요약" data-view-panel="home">
-        <article>
-          <span>순위</span>
-          <strong>로딩</strong>
-          <small>데이터 확인 중</small>
-        </article>
-        <article>
-          <span>승-패</span>
-          <strong>로딩</strong>
-          <small>데이터 확인 중</small>
-        </article>
-        <article>
-          <span>승률</span>
-          <strong>로딩</strong>
-          <small>데이터 확인 중</small>
-        </article>
-        <article>
-          <span>최근 흐름</span>
-          <strong>로딩</strong>
-          <small>데이터 확인 중</small>
-        </article>
+      <section class="home-score-strip" id="liveGamePanel" data-view-panel="home" aria-label="오늘 경기" aria-busy="true">
+        <div class="hss-row hss-row--skeleton" aria-hidden="true">
+          <span class="hss-skel hss-skel--chip"></span>
+          <span class="hss-skel hss-skel--badge"></span>
+          <span class="hss-skel hss-skel--line"></span>
+          <span class="hss-skel hss-skel--score"></span>
+          <span class="hss-skel hss-skel--score"></span>
+          <span class="hss-skel hss-skel--line"></span>
+          <span class="hss-skel hss-skel--badge"></span>
+        </div>
       </section>
+
+      <section class="live-scoreboard section-grid" id="liveScoreboard" data-view-panel="home" aria-label="오늘의 KBO 실시간 스코어"></section>
 
       <section class="section-grid" id="games" data-view-panel="schedule">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Game Center</p>
-            <h2>경기 결과</h2>
+            <p class="eyebrow">Game Center · On Air</p>
+            <h2>일정 · 결과</h2>
+          </div>
+          <div class="game-filters" role="tablist" aria-label="경기 필터">
+            <button class="game-chip active" type="button" role="tab" aria-selected="true" data-game-filter="recent">최근</button>
+            <button class="game-chip" type="button" role="tab" aria-selected="false" data-game-filter="upcoming">예정</button>
+            <button class="game-chip" type="button" role="tab" aria-selected="false" data-game-filter="all">전체</button>
           </div>
         </div>
         <div class="games-layout">
-          <div class="featured-game" id="featuredGame"></div>
-          <div class="game-list" id="gameList"></div>
+          <div class="featured-game broadcast-card" id="featuredGame"></div>
+          <div class="game-list broadcast-list" id="gameList"></div>
         </div>
       </section>
 
@@ -175,43 +152,24 @@
       <section class="section-grid muted-band" id="rankings" data-view-panel="standings">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Rankings</p>
-            <h2>KBO 순위와 리그 기록</h2>
+            <p class="eyebrow">KBO Standings</p>
+            <h2>전체 팀 순위</h2>
           </div>
         </div>
-        <div class="ranking-subsection">
-          <div class="section-heading compact">
-            <div>
-              <p class="eyebrow">KBO Standings</p>
-              <h3>전체 팀 순위</h3>
-            </div>
-          </div>
-          <div id="teamStandingsBoard"></div>
-        </div>
-        <div class="ranking-subsection">
-          <div class="section-heading compact">
-            <div>
-              <p class="eyebrow">League Leaders</p>
-              <h3>리그 기록 리더</h3>
-            </div>
-          </div>
-          <div class="ranking-board" id="rankingBoard"></div>
-        </div>
+        <div id="teamStandingsBoard"></div>
       </section>
 
-      <section class="section-grid" id="players" data-view-panel="more">
+      <section class="section-grid notify-center" id="notifyCenter" data-view-panel="more">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">League Players</p>
-            <h2>리그 주요 선수</h2>
+            <p class="eyebrow">Alerts</p>
+            <h2>알림 센터</h2>
           </div>
-          <div class="segmented" role="tablist" aria-label="선수 기록 필터">
-            <button class="active" type="button" data-player-filter="all">전체</button>
-            <button type="button" data-player-filter="hitter">타자</button>
-            <button type="button" data-player-filter="pitcher">투수</button>
-          </div>
+          <button class="secondary-button" type="button" id="notifyPermBtn">알림 켜기</button>
         </div>
-        <div class="player-grid" id="playerGrid"></div>
+        <p class="meta notify-center__note">관심 카테고리를 켜두면, 백엔드 푸시 도입(다음 단계) 후 앱이 닫혀 있어도 알림을 받을 수 있어요. 지금은 설정만 기기에 저장됩니다.</p>
+        <div class="notify-topics" id="notifyTopics" role="group" aria-label="알림 카테고리"></div>
+        <div class="notify-center__install" id="notifyInstall"></div>
       </section>
 
       <section class="section-grid muted-band" id="validation" data-view-panel="more">
@@ -248,6 +206,33 @@
       </p>
     </footer>
 
-    <script src="./script.js?v=23"></script>
+    <div class="ios-install-sheet" id="iosInstallSheet" role="dialog" aria-modal="true" aria-labelledby="iosInstallSheetTitle" tabindex="-1" hidden>
+      <div class="ios-install-sheet__backdrop" data-ios-install-dismiss-sheet></div>
+      <div class="ios-install-sheet__panel" role="document">
+        <button type="button" class="ios-install-sheet__close" data-ios-install-close aria-label="닫기">×</button>
+        <h2 id="iosInstallSheetTitle">홈 화면에 추가하기</h2>
+        <p class="ios-install-sheet__lead">KBO TIDO를 홈 화면에 추가하면 앱처럼 열고 예매 오픈 알림을 받을 수 있어요.</p>
+        <p class="ios-install-sheet__safari-note">이 안내는 Safari에서만 동작해요. Safari로 이 페이지를 열어 진행해 주세요.</p>
+        <ol class="ios-install-steps">
+          <li data-step="1">
+            <span class="ios-install-steps__num" aria-hidden="true">1</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="M8 7l4-4 4 4"/><path d="M5 12v7h14v-7"/></svg>
+            <div><strong>공유 버튼 탭</strong><span>Safari 하단(또는 상단)의 공유 아이콘을 누르세요.</span></div>
+          </li>
+          <li data-step="2">
+            <span class="ios-install-steps__num" aria-hidden="true">2</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8v8M8 12h8"/></svg>
+            <div><strong>"홈 화면에 추가" 선택</strong><span>메뉴를 내려 '홈 화면에 추가'를 누르세요.</span></div>
+          </li>
+          <li data-step="3">
+            <span class="ios-install-steps__num" aria-hidden="true">3</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4 10-10"/></svg>
+            <div><strong>"추가" 확인</strong><span>오른쪽 위 '추가'를 누르면 끝나요.</span></div>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <script src="./script.js?v=29"></script>
   </body>
 </html>

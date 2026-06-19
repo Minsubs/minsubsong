@@ -27,7 +27,7 @@ test("app shell and data loader include ticketing calendar", async () => {
   assert.match(script, /ticketCalendar:\s*\[\]/);
   assert.match(script, /ticketCalendar:\s*"\.\/data\/ticketing-calendar\.json"/);
   assert.match(script, /fetchJson\(dataFiles\.ticketCalendar\)/);
-  assert.match(serviceWorker, /eagles-lounge-v25/);
+  assert.match(serviceWorker, /eagles-lounge-v29/);
   assert.match(serviceWorker, /\.\/data\/ticketing-calendar\.json\?v=19/);
 });
 
@@ -90,15 +90,15 @@ test("cancel ticket concierge stays within compliant scope", async () => {
   assert.match(script, /cancel_watch_saved/);
   assert.match(script, /cancelWaiting/);
 
-  // 컴플라이언스 가드: script.js 의 모든 fetch( 호출은
-  // fetchJson 내부의 `${path}... 템플릿이거나 "./data 직접 경로만 허용.
-  // (예매처 도메인 자동 조회/폴링 금지 — CANCEL_TICKET_ALERT_RESEARCH.md 6절)
+  // 컴플라이언스 가드: script.js 의 모든 fetch( 호출은 fetchJson 의 `${path} 템플릿,
+  // "./data 직접 경로, 또는 앱 자체 백엔드(`${PUSH_API_BASE} — Web Push 구독 등록)만 허용.
+  // (예매처 도메인 자동 조회/폴링·스크래핑 금지 — CANCEL_TICKET_ALERT_RESEARCH.md 6절)
   const fetchCalls = [...script.matchAll(/\bfetch\(\s*([^)\n]*)/g)];
   assert.ok(fetchCalls.length > 0, "fetch( 사용처가 최소 1곳(fetchJson) 있어야 함");
   for (const [whole, arg] of fetchCalls) {
     assert.match(
       arg,
-      /^(`\$\{path\}|"\.\/data)/,
+      /^(`\$\{path\}|`\$\{PUSH_API_BASE\}|"\.\/data)/,
       `허용되지 않은 fetch 사용처: ${whole}`,
     );
   }

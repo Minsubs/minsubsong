@@ -14,6 +14,7 @@ import {
   buildLiveGames,
   buildGames,
   buildTicketCalendar,
+  buildOpenAt,
   buildLeagueLeaderRankings,
   buildPlayerCards,
   collectAllTeamScheduleGames,
@@ -338,6 +339,79 @@ test("buildTicketCalendar returns all-team upcoming games sorted by ticket open 
   assert.ok(calendar.every((game) => !("rawTime" in game)), "public calendar JSON must not expose rawTime");
   assert.equal(calendar[0].ticketing.provider, "롯데 자이언츠");
   assert.equal(calendar[1].ticketing.provider, "NOL 티켓");
+});
+
+// --- buildOpenAt: 예매 오픈 절대시각 파생 (ISO +09:00, 실패=null) ---
+
+test("buildOpenAt: 한화 홈경기 — 7일 전 11:00 KST, +09:00 ISO", () => {
+  // 한화: openDaysBefore 7, openTime 11:00. 06.18 경기 → 06.11 11:00 KST.
+  const openAt = buildOpenAt(
+    { date: "06.18", rawTime: "18:30", home: "한화" },
+    2026,
+  );
+  assert.equal(openAt, "2026-06-11T11:00:00+09:00");
+});
+
+test("buildOpenAt: 롯데 — 14일 전 14:00 KST", () => {
+  // 롯데: openDaysBefore 14, openTime 14:00. 06.20 → 06.06 14:00.
+  const openAt = buildOpenAt({ date: "06.20", rawTime: "18:00", home: "롯데" }, 2026);
+  assert.equal(openAt, "2026-06-06T14:00:00+09:00");
+});
+
+test("buildOpenAt: ticketing 미리 주입 시 그대로 사용", () => {
+  const openAt = buildOpenAt(
+    { date: "07.01", rawTime: "18:30", ticketing: { openDaysBefore: 5, openTime: "11:00" } },
+    2026,
+  );
+  assert.equal(openAt, "2026-06-26T11:00:00+09:00");
+});
+
+test("buildOpenAt 연도경계: 01.05 경기는 다음 해, 오픈은 전년 12월로 롤오버", () => {
+  // 1월 경기는 meta year(2025)의 다음 해(2026) 경기. 롯데 14일 전 14:00.
+  // 2026-01-05 − 14일 = 2025-12-22 14:00 KST.
+  const openAt = buildOpenAt({ date: "01.05", rawTime: "14:00", home: "롯데" }, 2025);
+  assert.equal(openAt, "2025-12-22T14:00:00+09:00");
+});
+
+test("buildOpenAt 연도경계: 12.25 경기는 같은 해, 오픈도 12월 내", () => {
+  // 12월 경기는 보정 없음(meta year 그대로). 한화 7일 전 11:00.
+  // 2025-12-25 − 7일 = 2025-12-18 11:00 KST.
+  const openAt = buildOpenAt({ date: "12.25", rawTime: "18:30", home: "한화" }, 2025);
+  assert.equal(openAt, "2025-12-18T11:00:00+09:00");
+});
+
+test("buildOpenAt: 파생 불가(날짜/시각/연도 누락)는 null (fail-closed)", () => {
+  // 잘못된 date 포맷.
+  assert.equal(buildOpenAt({ date: "6.18", rawTime: "18:30", home: "한화" }, 2026), null);
+  // openTime/openDaysBefore 없는 예매처(기본 provider — openDaysBefore 미정).
+  assert.equal(
+    buildOpenAt({ date: "06.18", rawTime: "18:30", ticketing: { openTime: "11:00" } }, 2026),
+    null,
+  );
+  // 연도 NaN.
+  assert.equal(buildOpenAt({ date: "06.18", rawTime: "18:30", home: "한화" }, NaN), null);
+});
+
+test("buildTicketCalendar: emit한 항목에 top-level openAt(ISO +09:00) 포함", () => {
+  const calendar = buildTicketCalendar(
+    [
+      {
+        type: "upcoming",
+        date: "06.20",
+        time: "토 18:00",
+        rawTime: "18:00",
+        location: "잠실",
+        home: "두산",
+        away: "LG",
+        score: "경기전",
+        detail: "두산 홈 경기",
+      },
+    ],
+    2026,
+  );
+  // 두산: openDaysBefore 7, openTime 11:00. 06.20 − 7일 = 06.13 11:00 KST.
+  assert.equal(calendar[0].openAt, "2026-06-13T11:00:00+09:00");
+  assert.match(calendar[0].openAt, /\+09:00$/);
 });
 
 // --- 전 구단 리그 리더 보드 (한화 전용 → 리그 전체 전환) ---

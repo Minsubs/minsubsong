@@ -1,0 +1,16 @@
+{
+  "name": "kbo-tido-push",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "KBO TIDO Web Push backend (Cloudflare Worker + D1). Anonymous, no PII.",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "node --test test/*.test.mjs",
+    "db-init": "wrangler d1 execute kbo-tido --file=schema.sql"
+  },
+  "devDependencies": {
+    "wrangler": "^3.78.0"
+  }
+}

@@ -1,6 +1,8 @@
 # KBO 티켓팅 도우미 진행상황
 
-> **다음 개발 단일 소스: [`docs/ROADMAP.md`](docs/ROADMAP.md)** (백엔드/푸시 플랜 + 시장조사 + UI/UX 개편 + 미뤄둔 수정 통합). 개발 재개 시 여기부터 — Now 버킷: N1 인터파크(NOL) 링크 수정 · N2 "KBO TIDO" 개명. 진짜 분기점은 D3/D7/D8 결정 후 X0(백엔드+푸시 기반).
+> **다음 개발 단일 소스: [`docs/ROADMAP.md`](docs/ROADMAP.md)** (백엔드/푸시 플랜 + 시장조사 + UI/UX 개편 + 미뤄둔 수정 통합). 개발 재개 시 여기부터.
+> Now 버킷 진행: ~~N1 NOL 링크 · N2 "KBO TIDO" 개명~~ (`e0a95c2`) · ~~N4 검증 신호 보강 · 홈 예매오픈 카운트다운 카드~~ (`10177b5`) → **모두 완료·검증**.
+> Now 진행: ~~iOS 설치유도 시트~~ → **완료·검증 (미커밋, 작업트리)**. 남은 Now: UI 골격 잔여(더보기 알림·구독 허브 `more-subnav` · 빈/로딩/오류 표준화) · N3 프로모션(공개 데이터 소스 선결) · N5 어필리에이트(아고다/링크프라이스 계정 선결). 진짜 분기점은 D3/D7/D8 결정 후 X0(백엔드+푸시 기반).
 > 상세: `docs/BACKEND_PUSH_PLAN.md` · `docs/FEATURE_MARKET_RESEARCH.md` · `docs/CANCEL_TICKET_ALERT_RESEARCH.md`.
 
 ## 현재 목표
@@ -38,6 +40,13 @@
 - [x] 취소표 관심 경기 알림의 예매처별 허용 범위/데이터 접근 방식 조사 → `docs/CANCEL_TICKET_ALERT_RESEARCH.md` (2026-06-11, 결론: 자동 감시는 5개 예매처 전부 보류 조건 해당 — 컨시어지형 v1만 진행 가능)
 - [ ] 지표 기반 네이티브 알림/제휴/스토어 확장 여부 결정
 - [x] live-game.json 전구단화 (오늘의 KBO 전 경기 배열 + selectedTeam 선택, 레거시 단일 객체 방어 유지)
+- [x] N1 인터파크(NOL) 예매처 링크 복구 (`script.js` 두산/키움/LG → `nol.interpark.com/ticket`, 커밋 `e0a95c2`) — 검증: NOL 200 / 구 URL 404
+- [x] N2 앱 개명 "KBO TIDO" (index.html·manifest·README·offline.html, localStorage 키는 유지, 커밋 `e0a95c2`)
+- [x] N4 검증 탭 신호 보강 + "합산=백엔드 선행" 고지 (`demand-scope-note` + cancel_watch_*/team_selected 신호, 커밋 `10177b5`)
+- [x] 홈 "다음 예매 오픈" 카운트다운 카드 (`#ticketOpenCard`, 내 구단 최근접 openAt, 커밋 `10177b5`)
+- [x] (Now) iOS 설치유도 시트 — iOS Safari·미설치에서만 상단 버튼+홈 1회성 배너 → 3스텝 시트(공유→홈화면 추가→확인), a11y(focus trap·Esc·aria-modal), 비-Safari 적응 카피, 캐시 v26. (미커밋, 작업트리)
+- [ ] (Now) UI 골격 잔여 — 더보기 알림·구독 허브(`more-subnav`) · 빈/로딩/오류 표준화
+- [ ] (Now·외부선결) N3 프로모션 일정 칩(공개 데이터 소스) · N5 여행/숙박 어필리에이트(계정+공정위 표기)
 
 ## Phase 0 — Macro 분리
 
@@ -138,6 +147,22 @@
 npm run check
 # 30/30 pass
 ```
+
+## Phase 5 — iOS 설치유도 시트 (2026-06-19, 미커밋)
+
+ROADMAP Now "iOS 설치유도 시트" 루프. iOS Safari 는 `beforeinstallprompt` 를 발화하지 않아 기존 `#installApp` 버튼이 iOS 에선 안 보였던 갭을 메운다. (설치=향후 Web Push 도달의 전제.)
+
+- 스펙: `docs/superpowers/specs/2026-06-19-ios-install-sheet-design.md` (브레인스토밍 산출).
+- 감지(순수 함수): `isIosDevice`(iPhone/iPad/iPod + iPadOS Mac위장 maxTouchPoints) · `isStandaloneDisplay`(display-mode + navigator.standalone) · `isIosSafari`(CriOS/FxiOS/in-app 제외) · `shouldShowIosInstall`.
+- UI: iOS Safari·미설치에서만 상단 `앱 설치` 버튼이 시트를 열고, 홈 패널 1회성 배너(`#iosInstallBanner`, dismiss → `localStorage.eaglesIosInstallHintDismissed`). 3스텝 시트(`#iosInstallSheet`, 공유→홈 화면에 추가→추가) + a11y(role=dialog·aria-modal·focus trap·Esc·backdrop). 비-Safari iOS 는 `needs-safari` 카피로 적응. styles.css `[v26]` append-only 레이어.
+- 게이팅 주의: 배너는 `data-view-panel="home"` 라 뷰 라우터(`setActiveView`)가 `.hidden` 을 소유 → 설치 게이팅은 별도 `ios-off` 클래스로 분리(라우터와 충돌 회피).
+- 캐시: `styles.css?v=23` · `script.js?v=24` · SW `eagles-lounge-v26` (index+SW 동시 bump, 버전드리프트 테스트가 강제).
+- 테스트: 신규 `tests/ios-install.test.mjs` 6케이스. `pwa-registration.test.mjs` 의 SW 버전 핀 v25→v26 갱신.
+
+검증 증거:
+- `npm run check` → **38/38 pass** (32 → +6, syntax check 포함).
+- 브라우저 실검증(python http.server :4174 + Preview): 데스크톱(MacIntel)에서 배너 `ios-off`·시트 미노출 / 감지 함수 — iPhone Safari show=true·iPhone Chrome safari=false·iPadOS(Mac+touch) ios=true·데스크톱 ios=false·standalone 게이트=false / 시트 오픈 시 포커스 닫기버튼 이동·Esc·백드롭·dismiss(localStorage="1")·비-Safari 노트(block↔none) / 모바일 바텀시트 + 다크 라임 렌더 스크린샷 확인 · 콘솔 에러 없음.
+- (검증 중 발견·기록: 같은 세션에서 `?v` 고정 채 파일만 고치면 SW cacheFirst 가 stale 서빙 → 검증 위해 SW unregister+cache clear 필요했음. 프로덕션은 배포마다 캐시명 bump 라 무관.)
 
 ## 다음 세션 시작 지시
 

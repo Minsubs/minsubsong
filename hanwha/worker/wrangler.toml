@@ -1,0 +1,40 @@
+name = "kbo-tido-push"
+main = "index.js"
+compatibility_date = "2024-09-23"
+# 표준 fetch/WebCrypto 외 nodejs 폴리필 불필요(순수 lib + WebCrypto).
+
+# ── 분단위 cron — 예매 오픈 임박 발송 트리거 ──────────────────────────────────
+# 매 분 실행. scheduled() 가 quiet hours / lead 윈도우 / 미발송 여부로 자체 게이트.
+[triggers]
+crons = ["* * * * *"]
+
+# ── D1 바인딩 ────────────────────────────────────────────────────────────────
+# database_id 는 `wrangler d1 create kbo-tido` 후 발급되는 값으로 교체(배포 게이트).
+[[d1_databases]]
+binding = "DB"
+database_name = "kbo-tido"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+
+# ── 공개 환경변수(비밀 아님) ─────────────────────────────────────────────────
+# 개인키(VAPID_PRIVATE)는 여기에 절대 넣지 않는다 → wrangler secret 만 사용.
+[vars]
+# CORS allowlist — GitHub Pages origin(쉼표구분 다중 허용). 정확한 scheme://host[:port].
+ALLOWED_ORIGIN = "https://minsub.github.io"
+# 배포된 정적 데이터(JSON)를 fetch 할 베이스 — Pages origin. <base>/data/*.json 을 읽는다.
+DATA_BASE_URL = "https://minsub.github.io"
+# VAPID 공개키 — 플레이스홀더. 프로덕션 키쌍 생성 후 교체(개인키는 secret).
+VAPID_PUBLIC = "REPLACE_WITH_VAPID_PUBLIC_KEY_PLACEHOLDER"
+# 연락처(푸시 서비스 VAPID sub). mailto: 또는 https:.
+VAPID_SUBJECT = "mailto:ops@example.com"
+# 발송 윈도우 — 오픈 몇 분 전부터 발송(lead).
+PUSH_LEAD_MINUTES = "15"
+# 푸시 TTL(초) — 임박 알림은 짧게.
+PUSH_TTL_SECONDS = "600"
+# 조용한 시간(참고용; 실제 게이트는 push-logic isQuietHour 가 KST 22:00~08:00 고정).
+QUIET_HOURS_START = "22"
+QUIET_HOURS_END = "8"
+
+# ── 비밀(파일 금지) ──────────────────────────────────────────────────────────
+# 개인키는 반드시 secret 으로만 주입:
+#   wrangler secret put VAPID_PRIVATE
+# (base64url raw d, 32바이트 스칼라. README 참고.)
