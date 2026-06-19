@@ -8,7 +8,7 @@
     "stats": [
       {
         "label": "AVG",
-        "value": "0.381"
+        "value": "0.380"
       },
       {
         "label": "HR",
@@ -30,7 +30,7 @@
     "stats": [
       {
         "label": "AVG",
-        "value": "0.353"
+        "value": "0.348"
       },
       {
         "label": "HR",
@@ -52,7 +52,7 @@
     "stats": [
       {
         "label": "AVG",
-        "value": "0.352"
+        "value": "0.347"
       },
       {
         "label": "HR",
@@ -162,7 +162,7 @@
     "stats": [
       {
         "label": "ERA",
-        "value": "2.96"
+        "value": "2.86"
       },
       {
         "label": "W-L",
@@ -170,7 +170,7 @@
       },
       {
         "label": "WHIP",
-        "value": "1.23"
+        "value": "1.24"
       }
     ],
     "note": "리그 평균자책 4위"
