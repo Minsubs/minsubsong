@@ -11,7 +11,7 @@
     "detail": "키움 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -51,7 +51,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -114,7 +114,7 @@
     "detail": "키움 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -154,7 +154,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -217,7 +217,7 @@
     "detail": "키움 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -257,7 +257,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -340,7 +340,7 @@
     "detail": "두산 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -443,7 +443,7 @@
     "detail": "두산 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -566,7 +566,7 @@
     "detail": "두산 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -689,7 +689,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -730,7 +730,7 @@
     "detail": "키움 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -832,7 +832,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -873,7 +873,7 @@
     "detail": "키움 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -935,7 +935,7 @@
     "detail": "키움 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -975,7 +975,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1078,7 +1078,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1120,7 +1120,7 @@
     "detail": "키움 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1160,7 +1160,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1202,7 +1202,7 @@
     "detail": "키움 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1242,7 +1242,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1284,7 +1284,7 @@
     "detail": "키움 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1304,7 +1304,7 @@
     "detail": "두산 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1366,7 +1366,7 @@
     "detail": "두산 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1448,7 +1448,7 @@
     "detail": "두산 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1570,7 +1570,7 @@
     "detail": "두산 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1591,7 +1591,7 @@
     "detail": "키움 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1692,7 +1692,7 @@
     "detail": "두산 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1713,7 +1713,7 @@
     "detail": "키움 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1814,7 +1814,7 @@
     "detail": "두산 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1835,7 +1835,7 @@
     "detail": "키움 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1916,7 +1916,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1937,7 +1937,7 @@
     "detail": "키움 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1998,7 +1998,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -2019,7 +2019,7 @@
     "detail": "키움 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -2100,7 +2100,7 @@
     "detail": "키움 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -2120,7 +2120,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -2242,7 +2242,7 @@
     "detail": "두산 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -2325,7 +2325,7 @@
     "detail": "두산 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -2408,7 +2408,7 @@
     "detail": "두산 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -2553,7 +2553,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -2656,7 +2656,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -2779,7 +2779,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -2902,7 +2902,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -3046,7 +3046,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -3067,7 +3067,7 @@
     "detail": "키움 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -3128,7 +3128,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -3149,7 +3149,7 @@
     "detail": "키움 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -3210,7 +3210,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -3231,7 +3231,7 @@
     "detail": "키움 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -3271,7 +3271,7 @@
     "detail": "두산 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -3353,7 +3353,7 @@
     "detail": "두산 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -3434,7 +3434,7 @@
     "detail": "두산 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -3535,7 +3535,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -3617,7 +3617,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -3719,7 +3719,7 @@
     "detail": "LG 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -3822,7 +3822,7 @@
     "detail": "두산 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -3843,7 +3843,7 @@
     "detail": "키움 홈 경기",
     "ticketing": {
       "provider": "NOL 티켓",
-      "url": "https://tickets.interpark.com/contents/sports",
+      "url": "https://ticket.interpark.com/Contents/Sports",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,

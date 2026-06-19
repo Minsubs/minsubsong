@@ -61,6 +61,21 @@ sed -n '1,220p' hanwha/PROGRESS.md
 - PWA: CACHE `eagles-lounge-v22`, 자산 `?v=20`, 데이터 `?v=19`, theme-color/manifest 신 팔레트.
 - 테스트: 신규/갱신 포함 30개. 상세 검증 증거는 PROGRESS.md "Phase 4" 절.
 
+### 2026-06-12 — 최신 main 동기화 + NOL 링크 수정
+
+- 로컬 `main`을 `origin/main` 최신 `83d5030`까지 `git pull --ff-only`로 동기화했다.
+- 동기화 전 변경은 stash로 보존했다:
+  - `stash@{0}` `preexisting-handoff-before-sync`: 이전 로컬 `HANDOFF.md` 메모. 현재 작업과 무관해 worktree에는 재적용하지 않았다.
+  - `stash@{1}` `codex-roadmap-nol-link-fix-before-sync`: 동기화 전 NOL 링크 수정 백업. 최신 main 위에 수동 재적용 완료.
+- 두산/키움/LG의 NOL 티켓 링크를 404 경로 `https://tickets.interpark.com/contents/sports`에서 200 경로 `https://ticket.interpark.com/Contents/Sports`로 교체했다.
+- 반영 범위: 앱 상수(`script.js`), 데이터 생성기(`scripts/update-data.mjs`), 현재 스냅샷(`data/games.json`, `data/ticketing-calendar.json`), 회귀 테스트(`tests/pwa-registration.test.mjs`, `tests/update-data.test.mjs`).
+- 검증:
+  - `npm run check` → 33/33 pass
+  - old URL curl → HTTP 404, new URL curl → HTTP 200
+  - 로컬 브라우저 `#tickets`: stale NOL 링크 0개, current NOL 링크 60개
+  - 표시 중인 예매처 링크 클릭 → `https://ticket.interpark.com/Contents/Sports`, title `NOL 티켓 | 스포츠 예매`
+  - QA 서버(`python3 -m http.server 4173`) 종료 완료.
+
 ## 검증 상태
 
 최신 확인 명령:
@@ -73,7 +88,7 @@ npm run check
 결과:
 
 ```text
-30/30 pass
+33/33 pass
 ```
 
 브라우저 실검증(2026-06-10): 모바일 390/데스크톱 1280 × 다크/라이트, 내 구단 한화↔LG↔두산 전환 시 홈 요약·라이브·일정·순위 강조가 함께 바뀜, 콘솔 에러 없음.

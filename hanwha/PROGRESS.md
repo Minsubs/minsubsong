@@ -29,6 +29,7 @@
 - [x] 5탭 IA 재구조 (홈·예매·일정·결과·순위·더보기) + 모바일 바텀탭
 - [x] "내 구단" 선택(`selectedTeam`) — 10구단 개인화 (요약/라이브/일정/순위/캘린더)
 - [x] 전구단 데이터 전환 (games.json 10팀, 리그 리더 타율/홈런/ERA 실데이터)
+- [x] NOL 티켓 예매처 링크 404 경로 수정 (`ticket.interpark.com/Contents/Sports`)
 - [ ] 과거 macro 커밋 히스토리 rewrite 여부 결정
 - [ ] 노출 가능성이 있는 계정 비밀번호 사용자 직접 교체
 - [ ] 수요 검증 운영 루틴 정의
@@ -129,11 +130,27 @@
 - PWA: CACHE v22, 자산 `?v=20`, 데이터 `?v=19`(shape 변경 캐시버스트), theme-color `#0a0b0e`/`#eeeee8`.
 - 검증 증거: `npm run check` 30/30 pass (테스트 8개 신규/갱신 포함). 브라우저 실검증 — 모바일(390)/데스크톱(1280) × 다크/라이트, 내 구단 한화↔LG↔두산↔키움↔SSG 전환 시 홈 요약/라이브(실스코어)/일정/순위 강조 변경 확인, 콘솔 에러 없음.
 
+## 2026-06-12 — 최신 main 동기화 + NOL 링크 수정
+
+- 로컬 `main`이 `origin/main`보다 뒤처져 있어 기존 로컬 변경을 stash로 보존한 뒤 `git pull --ff-only`로 `83d5030`까지 fast-forward 했다.
+- 숨은 worktree의 `docs/ROADMAP.md` N1 항목 기준으로, 두산/키움/LG의 NOL 티켓 링크를 404 응답인 `https://tickets.interpark.com/contents/sports`에서 200 응답인 `https://ticket.interpark.com/Contents/Sports`로 교체했다.
+- 적용 파일: `script.js`, `scripts/update-data.mjs`, `data/games.json`, `data/ticketing-calendar.json`, `tests/pwa-registration.test.mjs`, `tests/update-data.test.mjs`.
+- 보존된 stash:
+  - `stash@{0}`: `preexisting-handoff-before-sync` — 이전 로컬 `HANDOFF.md` 메모, 현재 작업과 무관하여 worktree에는 재적용하지 않음.
+  - `stash@{1}`: `codex-roadmap-nol-link-fix-before-sync` — 동기화 전 NOL 링크 수정 백업, 최신 main 위에 수동 재적용 완료.
+- 검증:
+  - `npm run check` → 33/33 pass
+  - `curl -ILsS https://tickets.interpark.com/contents/sports` → HTTP 404
+  - `curl -ILsS https://ticket.interpark.com/Contents/Sports` → HTTP 200
+  - 로컬 브라우저 `http://127.0.0.1:4173/index.html#tickets`: stale NOL 링크 0개, current NOL 링크 60개 확인
+  - 표시 중인 예매처 링크 클릭 → `https://ticket.interpark.com/Contents/Sports`, title `NOL 티켓 | 스포츠 예매`
+  - QA용 `python3 -m http.server 4173` 서버는 종료함.
+
 최신 전체 회귀:
 
 ```bash
 npm run check
-# 30/30 pass
+# 33/33 pass
 ```
 
 ## 다음 세션 시작 지시

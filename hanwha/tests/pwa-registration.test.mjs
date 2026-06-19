@@ -116,3 +116,18 @@ test("demand validation signals are stored locally and wired to ticket actions",
   assert.match(script, /trackDemandSignal\("ticket_reminder_saved"/);
   assert.match(script, /trackDemandSignal\("calendar_filter_selected"/);
 });
+
+test("NOL ticket providers use the current Interpark sports landing URL", async () => {
+  const [script, ticketCalendar] = await Promise.all([
+    readFile(new URL("../script.js", import.meta.url), "utf8"),
+    readFile(new URL("../data/ticketing-calendar.json", import.meta.url), "utf8"),
+  ]);
+
+  assert.doesNotMatch(script, /https:\/\/tickets\.interpark\.com\/contents\/sports/);
+  assert.doesNotMatch(ticketCalendar, /https:\/\/tickets\.interpark\.com\/contents\/sports/);
+  assert.equal(
+    [...script.matchAll(/url: "https:\/\/ticket\.interpark\.com\/Contents\/Sports"/g)].length,
+    3,
+  );
+  assert.match(ticketCalendar, /"url": "https:\/\/ticket\.interpark\.com\/Contents\/Sports"/);
+});

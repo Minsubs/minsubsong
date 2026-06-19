@@ -338,6 +338,7 @@ test("buildTicketCalendar returns all-team upcoming games sorted by ticket open 
   assert.ok(calendar.every((game) => !("rawTime" in game)), "public calendar JSON must not expose rawTime");
   assert.equal(calendar[0].ticketing.provider, "롯데 자이언츠");
   assert.equal(calendar[1].ticketing.provider, "NOL 티켓");
+  assert.equal(calendar[1].ticketing.url, "https://ticket.interpark.com/Contents/Sports");
 });
 
 // --- 전 구단 리그 리더 보드 (한화 전용 → 리그 전체 전환) ---

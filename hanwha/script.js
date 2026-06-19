@@ -138,7 +138,7 @@ const ticketProviders = {
   },
   두산: {
     provider: "NOL 티켓",
-    url: "https://tickets.interpark.com/contents/sports",
+    url: "https://ticket.interpark.com/Contents/Sports",
     note: "두산 홈 예매",
     openDaysBefore: 7,
     openTime: "11:00",
@@ -164,7 +164,7 @@ const ticketProviders = {
   },
   키움: {
     provider: "NOL 티켓",
-    url: "https://tickets.interpark.com/contents/sports",
+    url: "https://ticket.interpark.com/Contents/Sports",
     note: "키움 홈 예매",
     openDaysBefore: 7,
     openTime: "11:00",
@@ -172,7 +172,7 @@ const ticketProviders = {
   },
   LG: {
     provider: "NOL 티켓",
-    url: "https://tickets.interpark.com/contents/sports",
+    url: "https://ticket.interpark.com/Contents/Sports",
     note: "LG 홈 예매",
     openDaysBefore: 7,
     openTime: "11:00",
