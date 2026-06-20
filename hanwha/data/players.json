@@ -8,7 +8,7 @@
     "stats": [
       {
         "label": "AVG",
-        "value": "0.380"
+        "value": "0.377"
       },
       {
         "label": "HR",
@@ -30,7 +30,7 @@
     "stats": [
       {
         "label": "AVG",
-        "value": "0.348"
+        "value": "0.353"
       },
       {
         "label": "HR",
@@ -38,7 +38,7 @@
       },
       {
         "label": "RBI",
-        "value": "49"
+        "value": "52"
       }
     ],
     "note": "리그 타율 2위"
@@ -46,6 +46,28 @@
   {
     "type": "hitter",
     "number": 3,
+    "name": "박성한",
+    "team": "SSG",
+    "role": "타자",
+    "stats": [
+      {
+        "label": "AVG",
+        "value": "0.348"
+      },
+      {
+        "label": "HR",
+        "value": "3"
+      },
+      {
+        "label": "RBI",
+        "value": "34"
+      }
+    ],
+    "note": "리그 타율 3위"
+  },
+  {
+    "type": "hitter",
+    "number": 4,
     "name": "오스틴",
     "team": "LG",
     "role": "타자",
@@ -61,28 +83,6 @@
       {
         "label": "RBI",
         "value": "64"
-      }
-    ],
-    "note": "리그 타율 3위"
-  },
-  {
-    "type": "hitter",
-    "number": 4,
-    "name": "박성한",
-    "team": "SSG",
-    "role": "타자",
-    "stats": [
-      {
-        "label": "AVG",
-        "value": "0.347"
-      },
-      {
-        "label": "HR",
-        "value": "3"
-      },
-      {
-        "label": "RBI",
-        "value": "33"
       }
     ],
     "note": "리그 타율 4위"
