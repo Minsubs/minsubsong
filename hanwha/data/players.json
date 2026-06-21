@@ -8,15 +8,15 @@
     "stats": [
       {
         "label": "AVG",
-        "value": "0.377"
+        "value": "0.379"
       },
       {
         "label": "HR",
-        "value": "5"
+        "value": "6"
       },
       {
         "label": "RBI",
-        "value": "37"
+        "value": "38"
       }
     ],
     "note": "리그 타율 1위"
@@ -24,21 +24,21 @@
   {
     "type": "hitter",
     "number": 2,
-    "name": "레이예스",
-    "team": "롯데",
+    "name": "박성한",
+    "team": "SSG",
     "role": "타자",
     "stats": [
       {
         "label": "AVG",
-        "value": "0.353"
+        "value": "0.351"
       },
       {
         "label": "HR",
-        "value": "10"
+        "value": "3"
       },
       {
         "label": "RBI",
-        "value": "52"
+        "value": "35"
       }
     ],
     "note": "리그 타율 2위"
@@ -46,8 +46,8 @@
   {
     "type": "hitter",
     "number": 3,
-    "name": "박성한",
-    "team": "SSG",
+    "name": "레이예스",
+    "team": "롯데",
     "role": "타자",
     "stats": [
       {
@@ -56,11 +56,11 @@
       },
       {
         "label": "HR",
-        "value": "3"
+        "value": "10"
       },
       {
         "label": "RBI",
-        "value": "34"
+        "value": "52"
       }
     ],
     "note": "리그 타율 3위"
@@ -74,15 +74,15 @@
     "stats": [
       {
         "label": "AVG",
-        "value": "0.347"
+        "value": "0.345"
       },
       {
         "label": "HR",
-        "value": "20"
+        "value": "21"
       },
       {
         "label": "RBI",
-        "value": "64"
+        "value": "65"
       }
     ],
     "note": "리그 타율 4위"
