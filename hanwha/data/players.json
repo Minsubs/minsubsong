@@ -24,28 +24,6 @@
   {
     "type": "hitter",
     "number": 2,
-    "name": "박성한",
-    "team": "SSG",
-    "role": "타자",
-    "stats": [
-      {
-        "label": "AVG",
-        "value": "0.351"
-      },
-      {
-        "label": "HR",
-        "value": "3"
-      },
-      {
-        "label": "RBI",
-        "value": "35"
-      }
-    ],
-    "note": "리그 타율 2위"
-  },
-  {
-    "type": "hitter",
-    "number": 3,
     "name": "레이예스",
     "team": "롯데",
     "role": "타자",
@@ -61,6 +39,28 @@
       {
         "label": "RBI",
         "value": "52"
+      }
+    ],
+    "note": "리그 타율 2위"
+  },
+  {
+    "type": "hitter",
+    "number": 3,
+    "name": "박성한",
+    "team": "SSG",
+    "role": "타자",
+    "stats": [
+      {
+        "label": "AVG",
+        "value": "0.347"
+      },
+      {
+        "label": "HR",
+        "value": "3"
+      },
+      {
+        "label": "RBI",
+        "value": "35"
       }
     ],
     "note": "리그 타율 3위"

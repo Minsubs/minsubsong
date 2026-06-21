@@ -13,17 +13,17 @@
       },
       {
         "rank": 2,
-        "name": "박성한",
-        "team": "SSG",
-        "value": "0.351",
-        "note": "SSG"
-      },
-      {
-        "rank": 3,
         "name": "레이예스",
         "team": "롯데",
         "value": "0.348",
         "note": "롯데"
+      },
+      {
+        "rank": 3,
+        "name": "박성한",
+        "team": "SSG",
+        "value": "0.347",
+        "note": "SSG"
       }
     ]
   },
