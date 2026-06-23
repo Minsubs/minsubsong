@@ -1,52 +1,52 @@
 [
   {
-    "date": "06.23",
-    "time": "화 18:30",
+    "date": "06.24",
+    "time": "수 18:30",
     "location": "수원",
-    "status": "live",
-    "statusLabel": "경기 중",
-    "state": "BOT 7",
-    "inning": "BOT 7",
+    "status": "scheduled",
+    "statusLabel": "경기 예정",
+    "state": "스코어 대기",
+    "inning": "연동 대기",
     "awayTeam": "SSG",
     "homeTeam": "KT",
-    "awayScore": 2,
-    "homeScore": 8,
-    "note": "SSG 2:8 KT. BOT 7 진행 중입니다.",
+    "awayScore": null,
+    "homeScore": null,
+    "note": "06.24 18:30 SSG vs KT. 경기 시작 후 스코어가 갱신됩니다.",
     "linescore": [
       {
         "inning": "1",
-        "away": 2,
-        "home": 3
+        "away": null,
+        "home": null
       },
       {
         "inning": "2",
-        "away": 0,
-        "home": 3
+        "away": null,
+        "home": null
       },
       {
         "inning": "3",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "4",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "5",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "6",
-        "away": 0,
-        "home": 2
+        "away": null,
+        "home": null
       },
       {
         "inning": "7",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "8",
@@ -61,57 +61,57 @@
     ]
   },
   {
-    "date": "06.23",
-    "time": "화 18:30",
+    "date": "06.24",
+    "time": "수 18:30",
     "location": "잠실",
-    "status": "live",
-    "statusLabel": "경기 중",
-    "state": "TOP 8",
-    "inning": "TOP 8",
+    "status": "scheduled",
+    "statusLabel": "경기 예정",
+    "state": "스코어 대기",
+    "inning": "연동 대기",
     "awayTeam": "삼성",
     "homeTeam": "LG",
-    "awayScore": 3,
-    "homeScore": 4,
-    "note": "삼성 3:4 LG. TOP 8 진행 중입니다.",
+    "awayScore": null,
+    "homeScore": null,
+    "note": "06.24 18:30 삼성 vs LG. 경기 시작 후 스코어가 갱신됩니다.",
     "linescore": [
       {
         "inning": "1",
-        "away": 0,
-        "home": 2
+        "away": null,
+        "home": null
       },
       {
         "inning": "2",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "3",
-        "away": 0,
-        "home": 1
+        "away": null,
+        "home": null
       },
       {
         "inning": "4",
-        "away": 0,
-        "home": 1
+        "away": null,
+        "home": null
       },
       {
         "inning": "5",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "6",
-        "away": 3,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "7",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "8",
-        "away": 0,
+        "away": null,
         "home": null
       },
       {
@@ -122,114 +122,114 @@
     ]
   },
   {
-    "date": "06.23",
-    "time": "화 18:30",
+    "date": "06.24",
+    "time": "수 18:30",
     "location": "사직",
-    "status": "live",
-    "statusLabel": "경기 중",
-    "state": "TOP 9",
-    "inning": "TOP 9",
+    "status": "scheduled",
+    "statusLabel": "경기 예정",
+    "state": "스코어 대기",
+    "inning": "연동 대기",
     "awayTeam": "NC",
     "homeTeam": "롯데",
-    "awayScore": 2,
-    "homeScore": 2,
-    "note": "NC 2:2 롯데. TOP 9 진행 중입니다.",
+    "awayScore": null,
+    "homeScore": null,
+    "note": "06.24 18:30 NC vs 롯데. 경기 시작 후 스코어가 갱신됩니다.",
     "linescore": [
       {
         "inning": "1",
-        "away": 0,
-        "home": 1
+        "away": null,
+        "home": null
       },
       {
         "inning": "2",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "3",
-        "away": 1,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "4",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "5",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "6",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "7",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "8",
-        "away": 1,
-        "home": 1
+        "away": null,
+        "home": null
       },
       {
         "inning": "9",
-        "away": 0,
+        "away": null,
         "home": null
       }
     ]
   },
   {
-    "date": "06.23",
-    "time": "화 18:30",
+    "date": "06.24",
+    "time": "수 18:30",
     "location": "고척",
-    "status": "live",
-    "statusLabel": "경기 중",
-    "state": "BOT 7",
-    "inning": "BOT 7",
+    "status": "scheduled",
+    "statusLabel": "경기 예정",
+    "state": "스코어 대기",
+    "inning": "연동 대기",
     "awayTeam": "KIA",
     "homeTeam": "키움",
-    "awayScore": 5,
-    "homeScore": 1,
-    "note": "KIA 5:1 키움. BOT 7 진행 중입니다.",
+    "awayScore": null,
+    "homeScore": null,
+    "note": "06.24 18:30 KIA vs 키움. 경기 시작 후 스코어가 갱신됩니다.",
     "linescore": [
       {
         "inning": "1",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "2",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "3",
-        "away": 2,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "4",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "5",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "6",
-        "away": 1,
-        "home": 1
+        "away": null,
+        "home": null
       },
       {
         "inning": "7",
-        "away": 2,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "8",
@@ -244,57 +244,57 @@
     ]
   },
   {
-    "date": "06.23",
-    "time": "화 18:30",
+    "date": "06.24",
+    "time": "수 18:30",
     "location": "대전",
-    "status": "live",
-    "statusLabel": "경기 중",
-    "state": "TOP 8",
-    "inning": "TOP 8",
+    "status": "scheduled",
+    "statusLabel": "경기 예정",
+    "state": "스코어 대기",
+    "inning": "연동 대기",
     "awayTeam": "두산",
     "homeTeam": "한화",
-    "awayScore": 2,
-    "homeScore": 2,
-    "note": "두산 2:2 한화. TOP 8 진행 중입니다.",
+    "awayScore": null,
+    "homeScore": null,
+    "note": "06.24 18:30 두산 vs 한화. 경기 시작 후 스코어가 갱신됩니다.",
     "linescore": [
       {
         "inning": "1",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "2",
-        "away": 1,
-        "home": 1
+        "away": null,
+        "home": null
       },
       {
         "inning": "3",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "4",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "5",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "6",
-        "away": 1,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "7",
-        "away": 0,
-        "home": 1
+        "away": null,
+        "home": null
       },
       {
         "inning": "8",
-        "away": 0,
+        "away": null,
         "home": null
       },
       {

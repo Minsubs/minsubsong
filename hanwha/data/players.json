@@ -8,7 +8,7 @@
     "stats": [
       {
         "label": "AVG",
-        "value": "0.379"
+        "value": "0.380"
       },
       {
         "label": "HR",
@@ -16,7 +16,7 @@
       },
       {
         "label": "RBI",
-        "value": "38"
+        "value": "41"
       }
     ],
     "note": "리그 타율 1위"
@@ -24,28 +24,6 @@
   {
     "type": "hitter",
     "number": 2,
-    "name": "레이예스",
-    "team": "롯데",
-    "role": "타자",
-    "stats": [
-      {
-        "label": "AVG",
-        "value": "0.348"
-      },
-      {
-        "label": "HR",
-        "value": "10"
-      },
-      {
-        "label": "RBI",
-        "value": "52"
-      }
-    ],
-    "note": "리그 타율 2위"
-  },
-  {
-    "type": "hitter",
-    "number": 3,
     "name": "박성한",
     "team": "SSG",
     "role": "타자",
@@ -63,13 +41,35 @@
         "value": "35"
       }
     ],
+    "note": "리그 타율 2위"
+  },
+  {
+    "type": "hitter",
+    "number": 3,
+    "name": "레이예스",
+    "team": "롯데",
+    "role": "타자",
+    "stats": [
+      {
+        "label": "AVG",
+        "value": "0.346"
+      },
+      {
+        "label": "HR",
+        "value": "10"
+      },
+      {
+        "label": "RBI",
+        "value": "53"
+      }
+    ],
     "note": "리그 타율 3위"
   },
   {
     "type": "hitter",
     "number": 4,
-    "name": "오스틴",
-    "team": "LG",
+    "name": "이우성",
+    "team": "NC",
     "role": "타자",
     "stats": [
       {
@@ -78,11 +78,11 @@
       },
       {
         "label": "HR",
-        "value": "21"
+        "value": "4"
       },
       {
         "label": "RBI",
-        "value": "65"
+        "value": "29"
       }
     ],
     "note": "리그 타율 4위"
@@ -96,15 +96,15 @@
     "stats": [
       {
         "label": "ERA",
-        "value": "2.58"
+        "value": "2.51"
       },
       {
         "label": "W-L",
-        "value": "7-5"
+        "value": "8-5"
       },
       {
         "label": "WHIP",
-        "value": "0.95"
+        "value": "0.94"
       }
     ],
     "note": "리그 평균자책 1위"
@@ -118,7 +118,7 @@
     "stats": [
       {
         "label": "ERA",
-        "value": "2.74"
+        "value": "2.76"
       },
       {
         "label": "W-L",
