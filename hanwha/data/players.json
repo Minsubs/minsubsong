@@ -8,7 +8,7 @@
     "stats": [
       {
         "label": "AVG",
-        "value": "0.377"
+        "value": "0.374"
       },
       {
         "label": "HR",
@@ -24,21 +24,21 @@
   {
     "type": "hitter",
     "number": 2,
-    "name": "오스틴",
-    "team": "LG",
+    "name": "박성한",
+    "team": "SSG",
     "role": "타자",
     "stats": [
       {
         "label": "AVG",
-        "value": "0.347"
+        "value": "0.351"
       },
       {
         "label": "HR",
-        "value": "22"
+        "value": "3"
       },
       {
         "label": "RBI",
-        "value": "66"
+        "value": "36"
       }
     ],
     "note": "리그 타율 2위"
@@ -46,6 +46,28 @@
   {
     "type": "hitter",
     "number": 3,
+    "name": "이우성",
+    "team": "NC",
+    "role": "타자",
+    "stats": [
+      {
+        "label": "AVG",
+        "value": "0.348"
+      },
+      {
+        "label": "HR",
+        "value": "5"
+      },
+      {
+        "label": "RBI",
+        "value": "32"
+      }
+    ],
+    "note": "리그 타율 3위"
+  },
+  {
+    "type": "hitter",
+    "number": 4,
     "name": "레이예스",
     "team": "롯데",
     "role": "타자",
@@ -61,28 +83,6 @@
       {
         "label": "RBI",
         "value": "54"
-      }
-    ],
-    "note": "리그 타율 3위"
-  },
-  {
-    "type": "hitter",
-    "number": 4,
-    "name": "이우성",
-    "team": "NC",
-    "role": "타자",
-    "stats": [
-      {
-        "label": "AVG",
-        "value": "0.346"
-      },
-      {
-        "label": "HR",
-        "value": "5"
-      },
-      {
-        "label": "RBI",
-        "value": "30"
       }
     ],
     "note": "리그 타율 4위"
@@ -162,11 +162,11 @@
     "stats": [
       {
         "label": "ERA",
-        "value": "2.86"
+        "value": "2.95"
       },
       {
         "label": "W-L",
-        "value": "3-1"
+        "value": "4-1"
       },
       {
         "label": "WHIP",
