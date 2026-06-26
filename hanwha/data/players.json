@@ -8,7 +8,7 @@
     "stats": [
       {
         "label": "AVG",
-        "value": "0.374"
+        "value": "0.369"
       },
       {
         "label": "HR",
@@ -30,7 +30,7 @@
     "stats": [
       {
         "label": "AVG",
-        "value": "0.351"
+        "value": "0.349"
       },
       {
         "label": "HR",
@@ -68,21 +68,21 @@
   {
     "type": "hitter",
     "number": 4,
-    "name": "레이예스",
-    "team": "롯데",
+    "name": "오스틴",
+    "team": "LG",
     "role": "타자",
     "stats": [
       {
         "label": "AVG",
-        "value": "0.347"
+        "value": "0.346"
       },
       {
         "label": "HR",
-        "value": "10"
+        "value": "22"
       },
       {
         "label": "RBI",
-        "value": "54"
+        "value": "66"
       }
     ],
     "note": "리그 타율 4위"
@@ -156,21 +156,21 @@
   {
     "type": "pitcher",
     "number": 4,
-    "name": "후라도",
-    "team": "삼성",
+    "name": "곽빈",
+    "team": "두산",
     "role": "투수",
     "stats": [
       {
         "label": "ERA",
-        "value": "2.95"
+        "value": "2.89"
       },
       {
         "label": "W-L",
-        "value": "4-1"
+        "value": "6-3"
       },
       {
         "label": "WHIP",
-        "value": "1.24"
+        "value": "1.30"
       }
     ],
     "note": "리그 평균자책 4위"

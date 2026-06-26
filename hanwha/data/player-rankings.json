@@ -8,14 +8,14 @@
         "rank": 1,
         "name": "최원준",
         "team": "KT",
-        "value": "0.374",
+        "value": "0.369",
         "note": "KT"
       },
       {
         "rank": 2,
         "name": "박성한",
         "team": "SSG",
-        "value": "0.351",
+        "value": "0.349",
         "note": "SSG"
       },
       {
@@ -48,10 +48,10 @@
       },
       {
         "rank": 3,
-        "name": "강백호",
-        "team": "한화",
-        "value": "18 HR",
-        "note": "한화"
+        "name": "힐리어드",
+        "team": "KT",
+        "value": "19 HR",
+        "note": "KT"
       }
     ]
   },
