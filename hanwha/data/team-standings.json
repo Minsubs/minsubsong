@@ -86,14 +86,14 @@
   {
     "rank": "7",
     "team": "NC",
-    "games": "73",
+    "games": "74",
     "wins": "34",
-    "losses": "38",
+    "losses": "39",
     "draws": "1",
-    "pct": "0.472",
-    "gamesBehind": "11.5",
-    "streak": "W2",
-    "home": "19-17-0",
+    "pct": "0.466",
+    "gamesBehind": "12.0",
+    "streak": "L1",
+    "home": "19-18-0",
     "away": "15-21-1",
     "isHanwha": false
   },
@@ -128,15 +128,15 @@
   {
     "rank": "10",
     "team": "키움",
-    "games": "77",
-    "wins": "26",
+    "games": "78",
+    "wins": "27",
     "losses": "50",
     "draws": "1",
-    "pct": "0.342",
-    "gamesBehind": "21.5",
-    "streak": "L0",
+    "pct": "0.351",
+    "gamesBehind": "21.0",
+    "streak": "W1",
     "home": "17-24-1",
-    "away": "9-26-0",
+    "away": "10-26-0",
     "isHanwha": false
   }
 ]
