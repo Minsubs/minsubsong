@@ -8,22 +8,22 @@
         "rank": 1,
         "name": "최원준",
         "team": "KT",
-        "value": "0.369",
+        "value": "0.366",
         "note": "KT"
       },
       {
         "rank": 2,
-        "name": "박성한",
-        "team": "SSG",
-        "value": "0.349",
-        "note": "SSG"
+        "name": "오스틴",
+        "team": "LG",
+        "value": "0.348",
+        "note": "LG"
       },
       {
         "rank": 3,
-        "name": "이우성",
-        "team": "NC",
-        "value": "0.348",
-        "note": "NC"
+        "name": "박성한",
+        "team": "SSG",
+        "value": "0.345",
+        "note": "SSG"
       }
     ]
   },
@@ -36,7 +36,7 @@
         "rank": 1,
         "name": "오스틴",
         "team": "LG",
-        "value": "22 HR",
+        "value": "23 HR",
         "note": "LG"
       },
       {
@@ -48,10 +48,10 @@
       },
       {
         "rank": 3,
-        "name": "힐리어드",
-        "team": "KT",
+        "name": "강백호",
+        "team": "한화",
         "value": "19 HR",
-        "note": "KT"
+        "note": "한화"
       }
     ]
   },
