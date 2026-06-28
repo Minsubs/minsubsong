@@ -8,15 +8,15 @@
     "stats": [
       {
         "label": "AVG",
-        "value": "0.366"
+        "value": "0.365"
       },
       {
         "label": "HR",
-        "value": "6"
+        "value": "7"
       },
       {
         "label": "RBI",
-        "value": "42"
+        "value": "44"
       }
     ],
     "note": "리그 타율 1위"
@@ -30,15 +30,15 @@
     "stats": [
       {
         "label": "AVG",
-        "value": "0.348"
+        "value": "0.354"
       },
       {
         "label": "HR",
-        "value": "23"
+        "value": "24"
       },
       {
         "label": "RBI",
-        "value": "70"
+        "value": "75"
       }
     ],
     "note": "리그 타율 2위"
@@ -46,13 +46,35 @@
   {
     "type": "hitter",
     "number": 3,
+    "name": "이우성",
+    "team": "NC",
+    "role": "타자",
+    "stats": [
+      {
+        "label": "AVG",
+        "value": "0.349"
+      },
+      {
+        "label": "HR",
+        "value": "6"
+      },
+      {
+        "label": "RBI",
+        "value": "34"
+      }
+    ],
+    "note": "리그 타율 3위"
+  },
+  {
+    "type": "hitter",
+    "number": 4,
     "name": "박성한",
     "team": "SSG",
     "role": "타자",
     "stats": [
       {
         "label": "AVG",
-        "value": "0.345"
+        "value": "0.344"
       },
       {
         "label": "HR",
@@ -61,28 +83,6 @@
       {
         "label": "RBI",
         "value": "36"
-      }
-    ],
-    "note": "리그 타율 3위"
-  },
-  {
-    "type": "hitter",
-    "number": 4,
-    "name": "이우성",
-    "team": "NC",
-    "role": "타자",
-    "stats": [
-      {
-        "label": "AVG",
-        "value": "0.343"
-      },
-      {
-        "label": "HR",
-        "value": "5"
-      },
-      {
-        "label": "RBI",
-        "value": "32"
       }
     ],
     "note": "리그 타율 4위"
@@ -140,7 +140,7 @@
     "stats": [
       {
         "label": "ERA",
-        "value": "2.76"
+        "value": "2.67"
       },
       {
         "label": "W-L",
@@ -148,7 +148,7 @@
       },
       {
         "label": "WHIP",
-        "value": "1.07"
+        "value": "1.06"
       }
     ],
     "note": "리그 평균자책 3위"
