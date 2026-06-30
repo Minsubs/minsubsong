@@ -13,17 +13,17 @@
       },
       {
         "rank": 2,
-        "name": "오스틴",
-        "team": "LG",
+        "name": "이우성",
+        "team": "NC",
         "value": "0.354",
-        "note": "LG"
+        "note": "NC"
       },
       {
         "rank": 3,
-        "name": "이우성",
-        "team": "NC",
-        "value": "0.349",
-        "note": "NC"
+        "name": "오스틴",
+        "team": "LG",
+        "value": "0.350",
+        "note": "LG"
       }
     ]
   },
@@ -34,17 +34,17 @@
     "players": [
       {
         "rank": 1,
+        "name": "김도영",
+        "team": "KIA",
+        "value": "25 HR",
+        "note": "KIA"
+      },
+      {
+        "rank": 2,
         "name": "오스틴",
         "team": "LG",
         "value": "24 HR",
         "note": "LG"
-      },
-      {
-        "rank": 2,
-        "name": "김도영",
-        "team": "KIA",
-        "value": "23 HR",
-        "note": "KIA"
       },
       {
         "rank": 3,
@@ -64,14 +64,14 @@
         "rank": 1,
         "name": "올러",
         "team": "KIA",
-        "value": "2.51",
+        "value": "2.36",
         "note": "KIA"
       },
       {
         "rank": 2,
         "name": "최민석",
         "team": "두산",
-        "value": "2.57",
+        "value": "2.39",
         "note": "두산"
       },
       {

@@ -24,8 +24,8 @@
   {
     "type": "hitter",
     "number": 2,
-    "name": "오스틴",
-    "team": "LG",
+    "name": "이우성",
+    "team": "NC",
     "role": "타자",
     "stats": [
       {
@@ -34,11 +34,11 @@
       },
       {
         "label": "HR",
-        "value": "24"
+        "value": "6"
       },
       {
         "label": "RBI",
-        "value": "75"
+        "value": "34"
       }
     ],
     "note": "리그 타율 2위"
@@ -46,21 +46,21 @@
   {
     "type": "hitter",
     "number": 3,
-    "name": "이우성",
-    "team": "NC",
+    "name": "오스틴",
+    "team": "LG",
     "role": "타자",
     "stats": [
       {
         "label": "AVG",
-        "value": "0.349"
+        "value": "0.350"
       },
       {
         "label": "HR",
-        "value": "6"
+        "value": "24"
       },
       {
         "label": "RBI",
-        "value": "34"
+        "value": "75"
       }
     ],
     "note": "리그 타율 3위"
@@ -74,7 +74,7 @@
     "stats": [
       {
         "label": "AVG",
-        "value": "0.344"
+        "value": "0.339"
       },
       {
         "label": "HR",
@@ -96,15 +96,15 @@
     "stats": [
       {
         "label": "ERA",
-        "value": "2.51"
+        "value": "2.36"
       },
       {
         "label": "W-L",
-        "value": "8-5"
+        "value": "9-5"
       },
       {
         "label": "WHIP",
-        "value": "0.94"
+        "value": "0.98"
       }
     ],
     "note": "리그 평균자책 1위"
@@ -118,11 +118,11 @@
     "stats": [
       {
         "label": "ERA",
-        "value": "2.57"
+        "value": "2.39"
       },
       {
         "label": "W-L",
-        "value": "7-2"
+        "value": "8-2"
       },
       {
         "label": "WHIP",
