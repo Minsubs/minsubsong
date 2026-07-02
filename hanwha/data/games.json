@@ -27,7 +27,7 @@
     "location": "대전",
     "home": "한화",
     "away": "KT",
-    "score": "승 12:2",
+    "score": "3:14",
     "detail": "대전 경기",
     "ticketing": {
       "provider": "티켓링크",
@@ -68,7 +68,7 @@
     "location": "잠실",
     "home": "두산",
     "away": "롯데",
-    "score": "0:0",
+    "score": "3:8",
     "detail": "잠실 경기",
     "ticketing": {
       "provider": "NOL 티켓",
@@ -109,7 +109,7 @@
     "location": "고척",
     "home": "키움",
     "away": "LG",
-    "score": "0:0",
+    "score": "7:5",
     "detail": "고척 경기",
     "ticketing": {
       "provider": "NOL 티켓",
@@ -149,7 +149,7 @@
     "location": "광주",
     "home": "KIA",
     "away": "SSG",
-    "score": "0:0",
+    "score": "7:8",
     "detail": "광주 경기",
     "ticketing": {
       "provider": "티켓링크",
@@ -189,7 +189,7 @@
     "location": "창원",
     "home": "NC",
     "away": "삼성",
-    "score": "0:0",
+    "score": "6:1",
     "detail": "창원 경기",
     "ticketing": {
       "provider": "NC 다이노스",
@@ -329,6 +329,26 @@
     "status": "예정 경기",
     "date": "07.16",
     "time": "목 18:30",
+    "location": "대전",
+    "home": "한화",
+    "away": "키움",
+    "score": "경기전",
+    "detail": "한화 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports/137/63",
+      "note": "한화 홈 예매",
+      "openLabel": "홈경기 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "venueType": "홈"
+    }
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "07.17",
+    "time": "금 18:00",
     "location": "대전",
     "home": "한화",
     "away": "키움",
@@ -490,6 +510,26 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
+    "date": "07.17",
+    "time": "금 18:00",
+    "location": "창원",
+    "home": "NC",
+    "away": "두산",
+    "score": "경기전",
+    "detail": "NC 홈 경기",
+    "ticketing": {
+      "provider": "NC 다이노스",
+      "url": "https://www.ncdinos.com/",
+      "note": "NC 홈 예매",
+      "openLabel": "NC 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
     "date": "07.07",
     "time": "화 18:30",
     "location": "대구",
@@ -555,6 +595,27 @@
     "status": "예정 경기",
     "date": "07.16",
     "time": "목 18:30",
+    "location": "잠실",
+    "home": "LG",
+    "away": "KT",
+    "score": "경기전",
+    "detail": "LG 홈 경기",
+    "ticketing": {
+      "provider": "NOL 티켓",
+      "url": "https://nol.interpark.com/ticket",
+      "note": "LG 홈 예매",
+      "openLabel": "LG 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "openCaution": "구단 공지 기준 확인",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "07.17",
+    "time": "금 18:00",
     "location": "잠실",
     "home": "LG",
     "away": "KT",
@@ -654,6 +715,26 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
+    "date": "07.17",
+    "time": "금 18:00",
+    "location": "문학",
+    "home": "SSG",
+    "away": "KIA",
+    "score": "경기전",
+    "detail": "SSG 홈 경기",
+    "ticketing": {
+      "provider": "SSG 티켓",
+      "url": "https://ticket.ssg.com/ticket",
+      "note": "SSG 홈 예매",
+      "openLabel": "SSG 홈 예매 일정 기준",
+      "openDaysBefore": 5,
+      "openTime": "11:00",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
     "date": "07.07",
     "time": "화 18:30",
     "location": "수원",
@@ -842,6 +923,27 @@
     "status": "예정 경기",
     "date": "07.16",
     "time": "목 18:30",
+    "location": "대구",
+    "home": "삼성",
+    "away": "롯데",
+    "score": "경기전",
+    "detail": "삼성 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports",
+      "note": "삼성 홈 예매",
+      "openLabel": "삼성 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "openCaution": "구단 공지 기준 확인",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "07.17",
+    "time": "금 18:00",
     "location": "대구",
     "home": "삼성",
     "away": "롯데",
