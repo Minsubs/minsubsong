@@ -183,6 +183,15 @@ ROADMAP Now "iOS 설치유도 시트" 루프. iOS Safari 는 `beforeinstallpromp
 - 브라우저 실검증(python http.server :4174 + Preview): 데스크톱(MacIntel)에서 배너 `ios-off`·시트 미노출 / 감지 함수 — iPhone Safari show=true·iPhone Chrome safari=false·iPadOS(Mac+touch) ios=true·데스크톱 ios=false·standalone 게이트=false / 시트 오픈 시 포커스 닫기버튼 이동·Esc·백드롭·dismiss(localStorage="1")·비-Safari 노트(block↔none) / 모바일 바텀시트 + 다크 라임 렌더 스크린샷 확인 · 콘솔 에러 없음.
 - (검증 중 발견·기록: 같은 세션에서 `?v` 고정 채 파일만 고치면 SW cacheFirst 가 stale 서빙 → 검증 위해 SW unregister+cache clear 필요했음. 프로덕션은 배포마다 캐시명 bump 라 무관.)
 
+## 2026-07-03 — Claude 중단 복구 및 배포
+
+- LazyCodex `4.15.1` 업데이트와 런타임 프로브 완료.
+- Claude Code 세션 `1c574453-6fa4-4756-a8ae-90fa5149b214`의 중단 시각·원인·워크플로우 원문·SHA-256을 `.omo/evidence/claude-interruption-20260703/`에 보존.
+- 원 1/9 선수 UI·데이터 제거를 완결하고, 원 2/9 고아 CSS·공개 수요검증 렌더러 제거 및 `DESIGN.md` 기준서 추가.
+- `npm run check` 45/45, worker 68/68, 로컬·배포 실브라우저 콘솔 오류 0.
+- PR #10 → merge commit `f2754be` → Pages run `28660491720` 성공. 실사이트 `https://minsubs.github.io/minsubsong/` 검증 완료.
+- 다음 구현 루프: 원 3/9 `scripts/update-data.mjs` 동일 내용 재작성 생략. 시장조사는 실패한 verify 4개와 문서 합성을 별도 재개.
+
 ## 다음 세션 시작 지시
 
 ```text

@@ -1,9 +1,9 @@
 # KBO 티켓팅 도우미 Handoff
 
-## 2026-07-03 LazyCodex 업데이트 및 중단 지점
+## 2026-07-03 LazyCodex 업데이트, Claude 중단 복구 및 배포
 
 - LazyCodex `4.15.1` 설치 완료. `omo --version`은 `4.15.1`, 플러그인 부트스트랩 상태는 `success`, Codex 비대화식 런타임 프로브는 훅 로드 후 `OK`로 종료했다.
-- 이 문서를 쓴 세션은 시작 시점의 `4.13.0` MCP 프로세스를 유지하므로 종료한다. 다음 작업은 새 Codex 세션에서 재개한다.
+- 후속 Codex 세션에서 Claude 중단 상태를 복원하고 원 2/9 단계까지 완료한 뒤 커밋·PR·main 머지·Pages 배포를 마쳤다.
 
 ### Claude Code 원본 세션
 
@@ -73,9 +73,13 @@ Claude가 완료한 1단계의 정확한 내용:
 ### Claude 중단 뒤 Codex가 이어서 완료한 범위
 
 - 원 2/9 단계에 해당하는 고아 CSS와 공개 수요검증 렌더러 제거를 완료했다. 로컬 `trackDemandSignal` 저장 경로는 유지했다.
+- 삭제된 선수 JSON과 연결돼 있던 타자·투수 페이지 네트워크 호출, 파서, 메타 소스까지 제거하고 회귀 테스트를 추가했다.
 - 기존 CSS에서 추출한 `DESIGN.md` 기준서를 추가했다.
-- 검증: `npm run check` 44/44, 데드 UI 참조 0, CSS 괄호 균형 정상, 375/768/1280 브라우저 확인, 배포본 대비 모바일 더보기 픽셀 diff 100/100, 콘솔 오류 0.
-- 아직 커밋·push·배포하지 않았다.
+- 검증: `npm run check` 45/45, worker 68/68, 데드 UI 참조 0, CSS 괄호 균형 정상, 375/768/1280 브라우저 확인, 배포본 대비 모바일 더보기 픽셀 diff 100/100, 콘솔 오류 0.
+- 커밋: `f199a8d`(코드/데이터 제거), `e71d196`(중단 원문/디자인 문서 보존).
+- PR #10을 merge commit `f2754be`로 `main`에 머지했다.
+- GitHub Pages run `28660491720` 성공. `https://minsubs.github.io/minsubsong/`에서 HTTP 200, 더보기 탭, 삭제 UI 부재, 가로 overflow 없음, 콘솔 오류 0, 선수 데이터·서비스워커 참조 0을 확인했다.
+- 배포 워크플로우는 성공했지만 GitHub가 `actions/checkout@v4` 등 Node.js 20 기반 액션을 Node.js 24로 강제 실행한다는 deprecation 경고를 남겼다. 기능 실패는 아니다.
 - 다음 구현 루프는 원 3/9인 `scripts/update-data.mjs` 동일 내용 재작성 생략부터 시작한다.
 - 시장조사 루프는 구현 루프와 별도다. 실패한 verify 4개 → 문서 합성을 재실행해야 한다.
 
