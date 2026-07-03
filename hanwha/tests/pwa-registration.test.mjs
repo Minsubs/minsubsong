@@ -74,6 +74,9 @@ test("demand validation UI is removed from public screens while signal collectio
   // 신호 수집(trackDemandSignal)과 localStorage 저장은 향후 백엔드 익명 집계용으로 유지.
   assert.match(script, /function trackDemandSignal/);
   assert.match(script, /DEMAND_SIGNALS_KEY/);
+  assert.doesNotMatch(script, /function renderDemandSignals/);
+  assert.doesNotMatch(script, /function exportDemandSignalSnapshot/);
+  assert.doesNotMatch(script, /function resetDemandSignalSnapshot/);
 });
 
 test("cancel ticket concierge stays within compliant scope", async () => {
@@ -114,7 +117,6 @@ test("demand validation signals are stored locally and wired to ticket actions",
 
   assert.match(script, /DEMAND_SIGNALS_KEY\s*=\s*"eaglesDemandSignals"/);
   assert.match(script, /function trackDemandSignal/);
-  assert.match(script, /function renderDemandSignals/);
   assert.match(script, /data-demand-action="provider-click"/);
   assert.match(script, /trackDemandSignal\("ticket_reminder_saved"/);
   assert.match(script, /trackDemandSignal\("calendar_filter_selected"/);

@@ -1,18 +1,97 @@
 # KBO 티켓팅 도우미 Handoff
 
+## 2026-07-03 LazyCodex 업데이트 및 중단 지점
+
+- LazyCodex `4.15.1` 설치 완료. `omo --version`은 `4.15.1`, 플러그인 부트스트랩 상태는 `success`, Codex 비대화식 런타임 프로브는 훅 로드 후 `OK`로 종료했다.
+- 이 문서를 쓴 세션은 시작 시점의 `4.13.0` MCP 프로세스를 유지하므로 종료한다. 다음 작업은 새 Codex 세션에서 재개한다.
+
+### Claude Code 원본 세션
+
+- 세션 ID: `1c574453-6fa4-4756-a8ae-90fa5149b214`
+- 진입점/작업 위치/브랜치: Claude Desktop · `/Users/minsub/Documents/hanwha` · `main`
+- 세션 로그: `/Users/minsub/.claude/projects/-Users-minsub-Documents-hanwha/1c574453-6fa4-4756-a8ae-90fa5149b214.jsonl`
+- 중단 시각: 2026-07-03 21:01:20 KST
+- 직접 원인: 컨텍스트 창 부족이 아니라 `You've hit your session limit · resets 1:10am (Asia/Seoul)` API 429
+- Claude가 마지막으로 사용자에게 밝힌 계획: 두 워크플로우 완료 뒤 독립 재검증 → 커밋 → push → 배포 → 라이브 확인까지 자동 진행. **중단 때문에 이 후속 동작은 하나도 실행되지 않았다.**
+- 원 세션 재개 명령: `cd /Users/minsub/Documents/hanwha && claude --resume 1c574453-6fa4-4756-a8ae-90fa5149b214`
+
+### 읽기 전용 전면 감사 — 완료
+
+- Run ID / Task ID: `wf_936f8643-51f` / `wjzsh3s5i`
+- 범위: 목표 갭, JS/CSS 데드 코드, 데이터 파이프라인, 문서 드리프트, 적대 검증, 통합 리포트
+- 상태: wrapper와 감사 결과 모두 완료. 후속 9단계 구현의 입력으로 사용됨.
+- 원본: `.omo/evidence/claude-interruption-20260703/wf_936f8643-51f.json`, `refactor-audit-wf_936f8643-51f.js`
+
+### 9단계 구현 워크플로우 — 1/9만 Claude가 완료
+
+- Run ID / Task ID: `wf_2d70359c-9f3` / `wmzskwekn`
+- 원본 스크립트: `.omo/evidence/claude-interruption-20260703/refactor-apply-all-wf_2d70359c-9f3.js`
+- 결과 원문: `.omo/evidence/claude-interruption-20260703/refactor-apply-wmzskwekn.output`
+- 사용량: agent 9개, sub-agent token 121,547, tool call 66
+
+| 단계 | Claude 중단 당시 상태 | 작업트리 반영 여부 |
+|---|---|---|
+| 1. 데드 JS/데이터 원자 제거 | 완료 | 반영됨 |
+| 2. 고아 CSS 수술 | 45,624 tokens/12 calls 뒤 session limit, 반환값 `null` | 중단 당시 `styles.css` 변경 없음 |
+| 3. 파이프라인 동일 내용 쓰기 생략 | session limit, 0 token/0 call | 미반영 |
+| 4. OG/manifest/offline | session limit, 0/0 | 미반영 |
+| 5. 공유 + 선예매 배지 | session limit, 0/0 | 미반영 |
+| 6. 지난 티켓팅 절충 + ICS | session limit, 0/0 | 미반영 |
+| 7. 이벤트 미러링 + 오류 상태 | session limit, 0/0 | 미반영 |
+| 8. v31 + 전체 검증 | session limit, 0/0 | 미반영 |
+| 9. 문서 재기준선 | session limit, 0/0 | 미반영 |
+
+Claude가 완료한 1단계의 정확한 내용:
+
+- `script.js`: `renderPlayers`, `currentPlayerFilter`, 선수 필터 리스너/호출/상수 제거
+- `script.js`: `renderRankingList`, `rankingPanel` 데드 분기, `rankingPanel`/`rankingBoard` 상수 제거; `renderRankingPanels`의 실제 순위 렌더는 유지
+- `script.js`/`service-worker.js`/`scripts/update-data.mjs`: `players.json`, `player-rankings.json` fetch·precache·생성 경로 원자 제거
+- `tests/update-data.test.mjs`: 두 빌더 테스트·fixture·import 제거
+- `data/players.json`, `data/player-rankings.json`: 삭제 상태
+- `summary` 경로는 8단계 전까지 유지한다는 불변 조건 때문에 의도적으로 보존
+- 검증: 앱 테스트 44/44, worker 테스트 68/68, 관련 JS/MJS 문법 검사 통과
+- `isFiniteStat`는 고아가 됐지만 당시 스펙 밖이라 유지. `hitters`/`pitchers` 파싱도 export와 다른 용도가 있어 유지.
+
+### 2026-07 시장조사 워크플로우 — 조사 원문은 보존, 문서는 미생성
+
+- Run ID / Task ID: `wf_3b40bb01-459` / `wx3zomffd`
+- 목표: 2026-06-11 시장조사 대비 경쟁사/KBO 시장/암표법/예매처/플랫폼/수익화 델타 조사와 문서 합성
+- 원본 스크립트: `.omo/evidence/claude-interruption-20260703/market-research-refresh-wf_3b40bb01-459.js`
+- 결과 원문: `.omo/evidence/claude-interruption-20260703/market-research-wx3zomffd.output`
+- 사용량: agent 19개, sub-agent token 900,082, tool call 264
+- 6개 research 단계는 모두 완료.
+- verify 0–4, 6–8은 완료. verify 5, 9, 10, 11은 session limit으로 실패.
+- 최종 `synthesize:doc`는 0 token/0 call로 즉시 실패. workflow result는 `doc: null`, `verifiedCount: 12`.
+- 따라서 `MARKET_RESEARCH_2026-07.md` 같은 최종 문서는 생성되지 않았다. 개별 조사 결과는 원문에 있지만, 실패한 검증 4개를 다시 돌리고 합성하기 전에는 제품 판단 근거로 확정하지 않는다.
+
+### 원문 보존 위치
+
+- 고정 스냅샷과 SHA-256 목록: `.omo/evidence/claude-interruption-20260703/README.md`
+- 전체 sub-agent transcript: `/Users/minsub/.claude/projects/-Users-minsub-Documents-hanwha/1c574453-6fa4-4756-a8ae-90fa5149b214/subagents/workflows/`
+- 전체 workflow 메타데이터: `/Users/minsub/.claude/projects/-Users-minsub-Documents-hanwha/1c574453-6fa4-4756-a8ae-90fa5149b214/workflows/`
+
+### Claude 중단 뒤 Codex가 이어서 완료한 범위
+
+- 원 2/9 단계에 해당하는 고아 CSS와 공개 수요검증 렌더러 제거를 완료했다. 로컬 `trackDemandSignal` 저장 경로는 유지했다.
+- 기존 CSS에서 추출한 `DESIGN.md` 기준서를 추가했다.
+- 검증: `npm run check` 44/44, 데드 UI 참조 0, CSS 괄호 균형 정상, 375/768/1280 브라우저 확인, 배포본 대비 모바일 더보기 픽셀 diff 100/100, 콘솔 오류 0.
+- 아직 커밋·push·배포하지 않았다.
+- 다음 구현 루프는 원 3/9인 `scripts/update-data.mjs` 동일 내용 재작성 생략부터 시작한다.
+- 시장조사 루프는 구현 루프와 별도다. 실패한 verify 4개 → 문서 합성을 재실행해야 한다.
+
 작성 시각: 2026-06-10 KST (최초 2026-06-06)
 
 ## 시작 위치
 
-- repo: `/Users/minsub/Documents/한화`
-- 앱 루트: `/Users/minsub/Documents/한화/hanwha`
+- repo: `/Users/minsub/Documents/hanwha`
+- 앱 루트: `/Users/minsub/Documents/hanwha/hanwha`
 - 기준 브랜치: `main`
 - 최신 원격 반영 기준: `origin/main`
 
 새 세션에서는 아래 순서로 시작한다.
 
 ```bash
-cd /Users/minsub/Documents/한화
+cd /Users/minsub/Documents/hanwha
 git status --short --branch
 sed -n '1,220p' hanwha/HANDOFF.md
 sed -n '1,220p' hanwha/PROGRESS.md

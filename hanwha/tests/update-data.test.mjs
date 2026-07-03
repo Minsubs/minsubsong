@@ -1,5 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 
 import {
   parseScore,
@@ -15,10 +16,17 @@ import {
   buildGames,
   buildTicketCalendar,
   buildOpenAt,
-  buildLeagueLeaderRankings,
-  buildPlayerCards,
   collectAllTeamScheduleGames,
 } from "../scripts/update-data.mjs";
+
+test("update-data: 제거된 선수 데이터 소스를 호출하거나 출력하지 않는다", async () => {
+  const source = await readFile(new URL("../scripts/update-data.mjs", import.meta.url), "utf8");
+
+  assert.doesNotMatch(source, /Record\/Player\/HitterBasic/);
+  assert.doesNotMatch(source, /Record\/Player\/PitcherBasic/);
+  assert.doesNotMatch(source, /player-rankings\.json/);
+  assert.doesNotMatch(source, /players\.json/);
+});
 
 test("parseScore: 경기 전 빈 값/콜론은 null (0:0 오인 방지)", () => {
   assert.deepEqual(parseScore(""), [null, null]);
@@ -413,70 +421,6 @@ test("buildTicketCalendar: emit한 항목에 top-level openAt(ISO +09:00) 포함
   // 두산: openDaysBefore 7, openTime 11:00. 06.20 − 7일 = 06.13 11:00 KST.
   assert.equal(calendar[0].openAt, "2026-06-13T11:00:00+09:00");
   assert.match(calendar[0].openAt, /\+09:00$/);
-});
-
-// --- 전 구단 리그 리더 보드 (한화 전용 → 리그 전체 전환) ---
-
-function leagueHittersFixture() {
-  return [
-    { rank: 1, name: "강백호", team: "KT", avg: "0.350", games: "60", homeRuns: "12", rbi: "55" },
-    { rank: 2, name: "페라자", team: "한화", avg: "0.332", games: "60", homeRuns: "20", rbi: "61" },
-    { rank: 3, name: "오스틴", team: "LG", avg: "0.320", games: "58", homeRuns: "18", rbi: "60" },
-    { rank: 4, name: "문현빈", team: "한화", avg: "0.290", games: "60", homeRuns: "8", rbi: "40" },
-  ];
-}
-
-function leaguePitchersFixture() {
-  return [
-    { rank: 1, name: "류현진", team: "한화", era: "2.97", games: "12", wins: "7", losses: "2", whip: "1.01" },
-    { rank: 2, name: "원태인", team: "삼성", era: "2.50", games: "12", wins: "8", losses: "1", whip: "0.95" },
-    { rank: 3, name: "곽빈", team: "두산", era: "3.10", games: "11", wins: "6", losses: "3", whip: "1.20" },
-    { rank: 4, name: "왕옌청", team: "한화", era: "3.49", games: "10", wins: "5", losses: "3", whip: "1.46" },
-  ];
-}
-
-test("buildLeagueLeaderRankings: 리그 전체 3그룹(타율/홈런/ERA), 전 구단·정렬·top3·team 포함", () => {
-  const groups = buildLeagueLeaderRankings(leagueHittersFixture(), leaguePitchersFixture());
-
-  assert.deepEqual(
-    groups.map((group) => `${group.id}|${group.scope}`),
-    ["league-avg|리그 전체", "league-hr|리그 전체", "league-era|리그 전체"],
-  );
-  // 한화 전용 'team-power' 그룹은 더 이상 없어야 한다(회귀 가드).
-  assert.ok(groups.every((group) => group.id !== "team-power"));
-
-  const [avg, hr, era] = groups;
-  // 타율: 내림차순 top3, 1위는 KT 강백호 — 전 구단이 섞여야 한다.
-  assert.deepEqual(
-    avg.players.map((p) => `${p.rank}:${p.name}:${p.team}:${p.value}:${p.note}`),
-    ["1:강백호:KT:0.350:KT", "2:페라자:한화:0.332:한화", "3:오스틴:LG:0.320:LG"],
-  );
-  // 홈런: HR 내림차순 top3, 페라자(20)가 1위로 재정렬된다.
-  assert.deepEqual(
-    hr.players.map((p) => `${p.rank}:${p.name}:${p.value}`),
-    ["1:페라자:20 HR", "2:오스틴:18 HR", "3:강백호:12 HR"],
-  );
-  // 평균자책: ERA 오름차순(낮을수록 좋음) top3, 원태인(2.50)이 1위.
-  assert.deepEqual(
-    era.players.map((p) => `${p.rank}:${p.name}:${p.team}:${p.value}`),
-    ["1:원태인:삼성:2.50", "2:류현진:한화:2.97", "3:곽빈:두산:3.10"],
-  );
-});
-
-test("buildPlayerCards: 리그 타율 top4 타자 + ERA top4 투수 = 8장, team·note 포함", () => {
-  const cards = buildPlayerCards(leagueHittersFixture(), leaguePitchersFixture());
-  assert.equal(cards.length, 8);
-  assert.deepEqual(cards.filter((c) => c.type === "hitter").map((c) => c.note), [
-    "리그 타율 1위",
-    "리그 타율 2위",
-    "리그 타율 3위",
-    "리그 타율 4위",
-  ]);
-  assert.equal(cards[0].team, "KT");
-  const firstPitcher = cards.find((c) => c.type === "pitcher");
-  assert.equal(firstPitcher.name, "원태인");
-  assert.equal(firstPitcher.note, "리그 평균자책 1위");
-  assert.equal(firstPitcher.team, "삼성");
 });
 
 // --- buildGames 전 구단 전환 (한화 전용 → 전 구단, 날짜 창으로만 제한) ---

@@ -13,14 +13,6 @@
     {
       "name": "KBO Scoreboard",
       "url": "https://eng.koreabaseball.com/Schedule/Scoreboard.aspx"
-    },
-    {
-      "name": "KBO Player Batting",
-      "url": "https://www.koreabaseball.com/Record/Player/HitterBasic/Basic1.aspx"
-    },
-    {
-      "name": "KBO Player Pitching",
-      "url": "https://www.koreabaseball.com/Record/Player/PitcherBasic/Basic1.aspx"
     }
   ]
 }

@@ -166,7 +166,7 @@ textarea {
   padding: 12px clamp(18px, 4vw, 56px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   background: color-mix(in srgb, var(--black) 88%, transparent);
-  color: #fff8ef;
+  color: var(--on-accent);
   backdrop-filter: blur(16px);
 }
 
@@ -192,14 +192,6 @@ textarea {
   font-size: 0.9rem;
   font-weight: 900;
   box-shadow: inset 0 0 0 4px color-mix(in srgb, var(--surface-strong) 86%, transparent);
-}
-
-.team-badge.is-eagles {
-  border-color: color-mix(in srgb, var(--orange) 72%, var(--line));
-  background:
-    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.28), transparent 28%),
-    linear-gradient(145deg, var(--orange), var(--orange-dark));
-  color: #fff8ef;
 }
 
 .brand strong,
@@ -271,7 +263,7 @@ textarea {
 .view-tabs button.active {
   border-color: color-mix(in srgb, var(--orange) 44%, var(--line));
   background: var(--black);
-  color: #fff8ef;
+  color: var(--on-accent);
 }
 
 .has-view-tabs [data-view-panel][hidden] {
@@ -330,59 +322,7 @@ textarea {
   display: none;
 }
 
-.hero {
-  position: relative;
-  min-height: min(820px, calc(100svh - 72px));
-  overflow: hidden;
-  display: grid;
-  grid-template-columns: 1fr;
-  align-content: center;
-  gap: clamp(18px, 3vw, 28px);
-  padding: clamp(42px, 6vw, 78px) clamp(20px, 7vw, 92px) clamp(78px, 8vw, 108px);
-}
-
-.hero img,
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.hero img {
-  object-fit: cover;
-}
-
-.hero-overlay {
-  background:
-    linear-gradient(90deg, rgba(16, 12, 9, 0.72), rgba(16, 12, 9, 0.44) 48%, rgba(16, 12, 9, 0.18)),
-    linear-gradient(0deg, rgba(246, 242, 236, 0.96), rgba(246, 242, 236, 0) 24%);
-}
-
-.hero-content {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(260px, 1fr) auto;
-  align-items: end;
-  gap: 18px 28px;
-  width: min(1180px, 100%);
-  max-width: none;
-  color: #fff8ef;
-}
-
-.hero-dashboard {
-  position: relative;
-  width: min(1180px, 100%);
-  display: grid;
-  grid-template-columns: minmax(440px, 1.34fr) minmax(280px, 0.66fr);
-  gap: 14px;
-  align-items: stretch;
-  color: var(--text);
-}
-
-.live-panel,
-.ranking-panel section,
-.ranking-card {
+.live-panel {
   border: 1px solid rgba(255, 255, 255, 0.24);
   border-radius: 8px;
   background: color-mix(in srgb, var(--surface-strong) 92%, transparent);
@@ -398,8 +338,7 @@ textarea {
   padding: clamp(18px, 3vw, 26px);
 }
 
-.live-head,
-.ranking-card-head {
+.live-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -542,31 +481,6 @@ textarea {
   font-weight: 900;
 }
 
-.ranking-panel {
-  display: grid;
-  gap: 14px;
-}
-
-.ranking-panel section {
-  padding: 18px;
-}
-
-.ranking-panel h3,
-.ranking-card h3 {
-  margin: 10px 0 14px;
-  font-size: 1.08rem;
-}
-
-.ranking-board {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-}
-
-.ranking-subsection + .ranking-subsection {
-  margin-top: 28px;
-}
-
 .standings-table {
   overflow-x: auto;
   border: 1px solid var(--line);
@@ -603,10 +517,6 @@ textarea {
   border-bottom: 0;
 }
 
-.standings-table tbody tr.is-hanwha {
-  background: color-mix(in srgb, var(--orange) 11%, var(--surface-strong));
-}
-
 .rank-pill {
   display: inline-grid;
   place-items: center;
@@ -614,12 +524,8 @@ textarea {
   height: 34px;
   border-radius: 50%;
   background: var(--black);
-  color: #fff8ef;
+  color: var(--on-accent);
   font-weight: 900;
-}
-
-.is-hanwha .rank-pill {
-  background: var(--orange);
 }
 
 .standing-team {
@@ -635,56 +541,6 @@ textarea {
   font-size: 0.78rem;
 }
 
-.ranking-card {
-  padding: 20px;
-}
-
-.ranking-list {
-  display: grid;
-  gap: 8px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.ranking-list li {
-  display: grid;
-  grid-template-columns: 44px minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 10px;
-  min-height: 48px;
-  padding: 10px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: var(--surface);
-}
-
-.ranking-list li small {
-  grid-column: 2 / -1;
-  color: var(--muted);
-}
-
-.ranking-list.compact li {
-  min-height: 44px;
-  padding: 8px 10px;
-}
-
-.rank-no {
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: var(--black);
-  color: #fff;
-  font-weight: 900;
-}
-
-.rank-name {
-  min-width: 0;
-  font-weight: 800;
-}
-
 .eyebrow {
   margin: 0 0 10px;
   color: var(--orange-dark);
@@ -692,34 +548,9 @@ textarea {
   text-transform: uppercase;
 }
 
-.hero h1 {
-  margin: 0;
-  max-width: 720px;
-  font-size: clamp(1.8rem, 3.2vw, 3.1rem);
-  line-height: 1.05;
-  font-weight: 900;
-}
-
-.hero-copy {
-  max-width: 560px;
-  margin: 10px 0 0;
-  color: #f0dfce;
-  font-size: 1rem;
-  line-height: 1.55;
-}
-
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: flex-end;
-  margin-top: 0;
-}
-
 .primary-action,
 .secondary-action,
-.secondary-button,
-.post-actions button {
+.secondary-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -729,8 +560,7 @@ textarea {
   font-weight: 800;
 }
 
-.primary-action,
-.post-actions button {
+.primary-action {
   border: 0;
   background: var(--orange);
   color: #fff;
@@ -752,36 +582,6 @@ textarea {
 .secondary-button.subtle {
   border-color: var(--line);
   color: var(--muted);
-}
-
-.shop-links {
-  grid-column: 1 / -1;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: flex-end;
-  margin-top: 0;
-}
-
-.shop-links a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 36px;
-  max-width: 100%;
-  padding: 0 13px;
-  border: 1px solid rgba(255, 255, 255, 0.26);
-  border-radius: 999px;
-  background: rgba(23, 18, 15, 0.42);
-  color: #fff8ef;
-  font-size: 0.9rem;
-  font-weight: 800;
-  line-height: 1.2;
-}
-
-.shop-links a:hover {
-  border-color: rgba(255, 125, 38, 0.9);
-  background: rgba(255, 125, 38, 0.18);
 }
 
 .snapshot {
@@ -817,8 +617,7 @@ textarea {
   font-weight: 900;
 }
 
-.section-grid,
-.community-layout {
+.section-grid {
   width: min(1180px, calc(100% - 40px));
   margin: 0 auto;
   padding: 92px 0;
@@ -887,10 +686,7 @@ textarea {
 }
 
 .featured-game,
-.game-card,
-.player-card,
-.post-box,
-.feed article {
+.game-card {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--surface-strong);
@@ -902,7 +698,6 @@ textarea {
   min-height: 360px;
 }
 
-.game-status,
 .chip {
   display: inline-flex;
   align-items: center;
@@ -997,78 +792,6 @@ textarea {
 .calendar-filters {
   max-width: min(100%, 720px);
   overflow-x: auto;
-}
-
-.validation-actions {
-  display: inline-flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: flex-end;
-}
-
-.demand-signal-board {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.demand-signal-board article,
-.demand-signal-events {
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--surface-strong);
-  box-shadow: var(--shadow-soft);
-}
-
-.demand-signal-board article {
-  min-height: 132px;
-  padding: 20px;
-}
-
-.demand-signal-board span,
-.demand-signal-board small,
-.demand-signal-events small {
-  display: block;
-  color: var(--muted);
-}
-
-.demand-signal-board strong {
-  display: block;
-  margin: 4px 0;
-  font-size: clamp(1.8rem, 3vw, 2.5rem);
-  font-weight: 900;
-}
-
-.demand-signal-events {
-  display: grid;
-  gap: 12px;
-  padding: 20px;
-}
-
-.demand-signal-events ol {
-  display: grid;
-  gap: 8px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.demand-signal-events li {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(160px, auto) auto;
-  align-items: center;
-  gap: 10px;
-  min-height: 46px;
-  padding: 10px 12px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: var(--surface);
-}
-
-.demand-signal-events span,
-.demand-signal-events strong {
-  min-width: 0;
-  overflow-wrap: anywhere;
 }
 
 .game-card time,
@@ -1183,151 +906,6 @@ textarea {
   display: none;
 }
 
-.player-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
-}
-
-.player-card {
-  padding: 18px;
-}
-
-.player-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.number {
-  display: grid;
-  place-items: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: var(--black);
-  color: #fff;
-  font-weight: 900;
-}
-
-.player-card h3 {
-  margin: 18px 0 4px;
-  font-size: 1.28rem;
-}
-
-.stat-line {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-top: 18px;
-}
-
-.stat-line span {
-  display: block;
-  color: var(--muted);
-  font-size: 0.78rem;
-}
-
-.stat-line strong {
-  display: block;
-  margin-top: 2px;
-  font-size: 1.06rem;
-}
-
-.community-layout {
-  display: grid;
-  grid-template-columns: 0.85fr 1.15fr;
-  gap: 18px;
-}
-
-.community-layout .section-heading {
-  grid-column: 1 / -1;
-  margin-bottom: 0;
-}
-
-.post-box {
-  padding: 18px;
-  align-self: start;
-}
-
-.post-box label {
-  display: block;
-  margin-bottom: 10px;
-  font-weight: 800;
-}
-
-.post-box textarea,
-.post-actions select {
-  width: 100%;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: var(--surface);
-  color: var(--text);
-}
-
-.post-box textarea {
-  resize: vertical;
-  min-height: 132px;
-  padding: 12px;
-}
-
-.post-actions {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 10px;
-  margin-top: 12px;
-}
-
-.post-actions select {
-  min-height: 44px;
-  padding: 0 12px;
-}
-
-.feed {
-  display: grid;
-  gap: 12px;
-}
-
-.feed article {
-  padding: 18px;
-}
-
-.feed header {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 10px;
-}
-
-.feed p {
-  margin: 0;
-  line-height: 1.65;
-}
-
-.reaction-row {
-  display: flex;
-  gap: 8px;
-  margin-top: 14px;
-}
-
-.reaction-row button,
-.reaction-row .reaction {
-  display: inline-flex;
-  align-items: center;
-  min-height: 34px;
-  padding: 0 14px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--surface);
-  color: var(--muted);
-  font-size: 0.85rem;
-}
-
-.reaction-row button {
-  cursor: pointer;
-}
-
 .footer {
   padding: 30px clamp(20px, 5vw, 64px);
   border-top: 1px solid var(--line);
@@ -1380,30 +958,8 @@ textarea {
   }
 
   .snapshot,
-  .hero,
-  .hero-dashboard,
-  .hero-content,
-  .games-layout,
-  .community-layout,
-  .ranking-board {
+  .games-layout {
     grid-template-columns: 1fr;
-  }
-
-  .hero-content {
-    align-items: start;
-  }
-
-  .hero-actions,
-  .shop-links {
-    justify-content: flex-start;
-  }
-
-  .player-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .demand-signal-board {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -1448,15 +1004,6 @@ textarea {
     display: none;
   }
 
-  .hero {
-    min-height: auto;
-    padding: 34px 20px 78px;
-  }
-
-  .hero h1 {
-    font-size: clamp(1.7rem, 11vw, 2.7rem);
-  }
-
   .live-panel {
     min-height: auto;
   }
@@ -1466,8 +1013,7 @@ textarea {
     width: calc(100% - 24px);
   }
 
-  .section-grid,
-  .community-layout {
+  .section-grid {
     width: calc(100% - 24px);
     padding: 64px 0;
   }
@@ -1503,18 +1049,6 @@ textarea {
     flex-wrap: wrap;
   }
 
-  .player-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .demand-signal-board,
-  .demand-signal-events li {
-    grid-template-columns: 1fr;
-  }
-
-  .validation-actions {
-    justify-content: flex-start;
-  }
 }
 
 /* ===========================================================================
@@ -1594,26 +1128,19 @@ h2 {
 .snapshot article,
 .featured-game,
 .game-card,
-.player-card,
-.ranking-card,
 .ticket-game-card,
 .live-panel,
-.ranking-panel,
 .standings-table,
 .line-score {
   border-radius: var(--radius);
   box-shadow: var(--shadow-soft);
 }
 .game-card,
-.player-card,
-.ranking-card,
 .ticket-game-card,
 .snapshot article {
   transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
 }
 .game-card:hover,
-.player-card:hover,
-.ranking-card:hover,
 .ticket-game-card:hover,
 .snapshot article:hover {
   transform: translateY(-3px);
@@ -1631,16 +1158,6 @@ h2 {
 /* 라이브 패널 + 상태 칩 */
 .live-panel {
   border: 1px solid var(--glass-border);
-}
-.game-status {
-  display: inline-block;
-  background: var(--grad-orange);
-  color: var(--on-orange);
-  border-radius: var(--radius-pill);
-  padding: 4px 13px;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  box-shadow: var(--shadow-orange);
 }
 .live-team b,
 .score {
@@ -1668,14 +1185,6 @@ h2 {
   border: 1px solid var(--glass-border);
 }
 
-/* 순위표 한화 행 강조 + 순위 알약 */
-.standings-table tbody tr.is-hanwha {
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--orange) 22%, transparent),
-    color-mix(in srgb, var(--orange) 6%, transparent)
-  );
-}
 .rank-pill {
   background: var(--grad-orange);
   color: var(--on-orange);
@@ -1697,9 +1206,6 @@ h2 {
   width: 100%;
   height: 100%;
 }
-.team-crest.is-eagles {
-  filter: drop-shadow(0 5px 14px color-mix(in srgb, var(--orange) 55%, transparent));
-}
 .live-team .team-crest {
   width: 52px;
   height: 52px;
@@ -1712,18 +1218,14 @@ h2 {
 /* ===========================================================================
    v20 리디자인 — "Night Game" 다크 네온 / "Daylight" 라이트 벤토
    토큰은 :root/:root.dark 에서 교체됨. 이 레이어는 컴포넌트 마감.
-   [Phase 2] 코어 크롬: topbar · nav · view-tabs · hero · snapshot.
+   [Phase 2] 코어 크롬: topbar · nav · view-tabs · snapshot.
    =========================================================================== */
 
 /* 디스플레이 숫자 — 스코어/스탯 강조 */
 .snapshot article strong,
-.demand-signal-board article strong,
 .live-team b,
 .score,
-.stat-line strong,
-.rank-no,
-.rank-pill,
-.number {
+.rank-pill {
   font-family: var(--font-display);
   font-feature-settings: "tnum" 1;
   letter-spacing: -0.01em;
@@ -1790,44 +1292,12 @@ h2 {
   border-color: var(--accent);
 }
 
-/* ── 히어로: 풀블리드 사진 제거 → 깔끔 패널, 타이틀 먼저 ── */
-.hero {
-  min-height: auto;
-  padding: clamp(28px, 4vw, 48px) clamp(20px, 5vw, 64px) clamp(18px, 3vw, 30px);
-}
-.hero > img,
-.hero-overlay {
-  display: none;
-}
-.hero-content {
-  order: -1;
-  color: var(--text);
-}
-.hero h1 {
-  color: var(--text);
-}
-.hero-copy {
-  color: var(--muted);
-}
 .secondary-action {
   border-color: var(--line);
   background: var(--surface);
   color: var(--text);
 }
-.shop-links a {
-  border-color: var(--line);
-  background: var(--surface);
-  color: var(--text);
-}
-.shop-links a:hover {
-  border-color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 10%, transparent);
-  color: var(--accent-strong);
-}
-
-/* 히어로 내 라이브/랭킹 패널 카드화 */
-.live-panel,
-.ranking-panel section {
+.live-panel {
   border: 1px solid var(--line);
   background: var(--surface);
 }
@@ -1954,7 +1424,6 @@ h2 {
   }
 }
 
-/* ── 내 구단 강조: .is-myteam (기존 .is-hanwha/.is-eagles 와 별개로 추가) ── */
 .standings-table tbody tr.is-myteam {
   background: linear-gradient(
     90deg,
@@ -2393,15 +1862,6 @@ h2 {
   line-height: 1.6;
 }
 
-/* ── 검증 탭 고지(N4): muted 작은 텍스트, 살짝 들여쓰기 ── */
-.demand-scope-note {
-  margin: 10px 0 0;
-  padding-left: 2px;
-  color: var(--muted);
-  font-size: 0.8rem;
-  line-height: 1.55;
-}
-
 /* ════════════════════════════════════════════════════════
    [v26] iOS 설치 안내 — 1회성 배너 + "홈 화면에 추가" 시트
    (append-only · v17~v25 비파괴 · iOS Safari·미설치에서만 JS 가 노출)
@@ -2624,32 +2084,6 @@ h2 {
    헤드라인·대각·탭형 숫자·티켓 유틸리티)와 마감만. append-only · v17~v26 비파괴.
    (티켓 절취선/바코드/일련번호/스탬프 마크업 결합은 후속 증분에서 JS 렌더와 함께.)
    ════════════════════════════════════════════════════════ */
-.hero { position: relative; overflow: hidden; }
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: auto 0 0 -10%;
-  height: 42%;
-  background: var(--accent-diag);
-  opacity: 0.14;
-  transform: skewY(-3deg);
-  transform-origin: left;
-  pointer-events: none;
-  z-index: 0;
-}
-.hero-content { position: relative; z-index: 1; }
-.hero h1 {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 900;
-  font-size: clamp(2.6rem, 7vw, 5rem);
-  line-height: 0.92;
-  letter-spacing: -0.035em;
-  transform: scaleY(1.06);
-  transform-origin: left bottom;
-  text-transform: uppercase;
-  overflow-wrap: anywhere;
-}
 /* 한글 헤드라인 가드는 명시 .headline-ko 클래스에만 (페이지 lang=ko 라
    :lang(ko) 는 라틴 브랜드까지 잡으므로 사용 안 함). */
 .headline-ko {
@@ -2666,10 +2100,7 @@ h2 {
   font-size: clamp(1.6rem, 4.4vw, 2.4rem);
 }
 .score,
-.rank-no,
-.number,
-.rank-pill,
-.demand-signal-board article strong {
+.rank-pill {
   font-variant-numeric: tabular-nums lining-nums;
   font-feature-settings: "tnum" 1, "lnum" 1;
 }
@@ -2770,7 +2201,6 @@ h2 {
   border-radius: var(--radius);
   box-shadow: var(--shadow-soft);
 }
-.home-score-strip .game-status { color: var(--accent); font-weight: 800; }
 .home-score-strip .line-score,
 .home-score-strip > p { display: none; }
 .home-score-strip .live-scoreboard { gap: 12px; align-items: center; }
@@ -3026,6 +2456,10 @@ h2 {
 }
 .empty-state--error {
   border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+}
+
+.empty-state--inline {
+  margin: 0;
 }
 
 /* ── 예매 하위 탭: 탭타깃 ≥44px + aria-selected 강조 일관 ── */
@@ -3355,7 +2789,7 @@ h2 {
    토큰만 사용 · 라이트/다크 공통 · APPEND only(기존 규칙 삭제/재작성 없음).
    .standings-broadcast = 티켓형 순위 그리드(일련번호 톤의 헤더 · rank-pill ·
    팀 크레스트 · tabular 숫자 · 승률 perf-bar · 흐름 칩). is-myteam =
-   현재 구단색(--accent) 강조 + inset. ranking-card = 티켓 스텁 톤.
+   현재 구단색(--accent) 강조 + inset.
    =========================================================================== */
 .standings-broadcast {
   display: block;
@@ -3522,20 +2956,6 @@ h2 {
   color: var(--on-accent);
 }
 
-/* ranking-card = 티켓 스텁 톤 */
-.ranking-card .ranking-card-head .ticket-serial {
-  display: inline-block;
-  margin: 0 0 4px;
-}
-.ranking-card-title {
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: 1.1rem;
-  color: var(--text);
-  transform: scaleY(1.03);
-  margin: 0;
-}
-
 @media (max-width: 560px) {
   .standings-broadcast__head,
   .standings-broadcast__row {
@@ -3556,345 +2976,6 @@ h2 {
   .sb-streak {
     padding: 2px 6px;
     font-size: 0.74rem;
-  }
-}
-
-/* ===========================================================================
-   [v28] 더보기(more) 화면 — Broadcast 언어 재구성 (append-only)
-   화면 4: 선수 = 로스터 티켓 스텁(번호 = 등번 탭형 숫자 · 일련번호 = 팀/포지션
-   · 대형 디스플레이 이름 · 스탯 = 바코드형 스트립). is-myteam = 현재 구단색(--accent).
-   화면 5: 수요 검증 = 시그널 원장(메트릭 스트립 + 시그널 스트림 이벤트 리스트).
-   빈/오류 = .empty-state. a11y = focus 링(overflow:hidden 카드엔 box-shadow 링).
-   =========================================================================== */
-
-/* ── 선수 그리드: 로스터 스텁 카드 ── */
-.player-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
-}
-.player-grid .empty-state {
-  grid-column: 1 / -1;
-}
-
-.player-stub {
-  position: relative;
-  display: grid;
-  grid-template-columns: 56px minmax(0, 1fr);
-  align-items: stretch;
-  gap: 0;
-  padding: 0;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--surface);
-  overflow: hidden;
-  transition: transform 0.16s ease, box-shadow 0.16s ease;
-}
-.player-stub:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-soft);
-}
-
-/* 등번 탭(절취선 좌측 스텁) — tabular 숫자 */
-.player-stub__num {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-  padding: 14px 6px;
-  background: var(--surface-2);
-  border-right: 1px dashed var(--line);
-  color: var(--text);
-}
-.player-stub__num-hash {
-  font-family: var(--font-mono);
-  font-size: 0.56rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.player-stub__num-val {
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: 1.7rem;
-  line-height: 1;
-  font-variant-numeric: tabular-nums lining-nums;
-  font-feature-settings: "tnum" 1, "lnum" 1;
-}
-
-.player-stub__body {
-  min-width: 0;
-  padding: 14px 16px;
-}
-.player-stub__serial {
-  display: block;
-  margin: 0 0 6px;
-}
-.player-stub__name {
-  margin: 0 0 4px;
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: 1.3rem;
-  line-height: 1.05;
-  color: var(--text);
-  transform: scaleY(1.03);
-  overflow-wrap: anywhere;
-}
-.player-stub__note {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.84rem;
-  overflow-wrap: anywhere;
-}
-
-/* 스탯 = 바코드형 스트립 */
-.player-stub__stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  margin-top: 14px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: var(--line);
-  overflow: hidden;
-}
-.player-stat {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding: 8px 6px;
-  background: var(--surface-2);
-  text-align: center;
-}
-.player-stat__label {
-  font-family: var(--font-mono);
-  font-size: 0.58rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.player-stat__value {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 1.05rem;
-  line-height: 1;
-  color: var(--text);
-  font-variant-numeric: tabular-nums lining-nums;
-  font-feature-settings: "tnum" 1, "lnum" 1;
-}
-
-/* 내 구단 강조 — 현재 구단색(--accent) */
-.player-stub.is-myteam {
-  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
-  box-shadow: inset 3px 0 0 0 var(--accent);
-}
-.player-stub.is-myteam .player-stub__num {
-  background: var(--accent);
-  border-right-color: color-mix(in srgb, var(--accent) 70%, var(--on-accent));
-}
-.player-stub.is-myteam .player-stub__num-hash,
-.player-stub.is-myteam .player-stub__num-val {
-  color: var(--on-accent);
-}
-.player-stub.is-myteam .player-stub__name {
-  color: var(--accent);
-}
-
-/* focus 링 — overflow:hidden 이라 box-shadow 링 */
-.player-stub:focus-within {
-  outline: none;
-  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
-}
-
-/* ── 수요 검증: 시그널 원장 ── */
-/* 보드 컨테이너를 블록으로 재정의(옛 4열 grid 무효화) */
-.demand-signal-board {
-  display: block;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--surface);
-  overflow: hidden;
-}
-.demand-strip__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 12px 16px;
-  background: var(--surface-2);
-  border-bottom: 1px dashed var(--line);
-}
-.demand-strip__head .ticket-serial {
-  margin: 0;
-}
-.demand-strip__live {
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.16em;
-  font-weight: 700;
-  padding: 3px 9px;
-  border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--pos) 45%, var(--line));
-  color: var(--pos);
-  background: color-mix(in srgb, var(--pos) 12%, transparent);
-}
-
-.demand-metric-strip {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 1px;
-  background: var(--line);
-}
-.demand-signal-board .demand-metric-strip article,
-.demand-signal-board .demand-metric {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  min-height: auto;
-  padding: 16px 14px 14px;
-  border: none;
-  border-radius: 0;
-  background: var(--surface);
-  box-shadow: none;
-}
-.demand-metric__serial {
-  font-family: var(--font-mono);
-  font-size: 0.56rem;
-  letter-spacing: 0.14em;
-  color: var(--muted);
-}
-.demand-metric__label {
-  font-size: 0.8rem;
-  color: var(--muted);
-}
-.demand-signal-board .demand-metric__value {
-  display: block;
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: clamp(1.6rem, 2.6vw, 2.2rem);
-  line-height: 1;
-  color: var(--text);
-  font-variant-numeric: tabular-nums lining-nums;
-  font-feature-settings: "tnum" 1, "lnum" 1;
-}
-.demand-metric__detail {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--muted);
-  overflow-wrap: anywhere;
-}
-
-.demand-scope-note {
-  margin: 0;
-  padding: 11px 16px;
-  border-top: 1px dashed var(--line);
-  background: var(--surface-2);
-  color: var(--muted);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.02em;
-}
-
-/* 시그널 스트림 */
-.signal-stream {
-  display: grid;
-  gap: 6px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.demand-signal-events .signal-stream__row {
-  display: grid;
-  grid-template-columns: 44px minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 10px;
-  min-height: 46px;
-  padding: 10px 12px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: var(--surface);
-}
-.signal-stream__serial {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--muted);
-  font-variant-numeric: tabular-nums lining-nums;
-  font-feature-settings: "tnum" 1, "lnum" 1;
-}
-.signal-stream__body {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
-}
-.signal-stream__event {
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  letter-spacing: 0.04em;
-  color: var(--muted);
-  overflow-wrap: anywhere;
-}
-.signal-stream__detail {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.96rem;
-  color: var(--text);
-  overflow-wrap: anywhere;
-}
-.signal-stream__time {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: var(--muted);
-  white-space: nowrap;
-  text-align: right;
-}
-.signal-stream__empty {
-  padding: 0;
-  border: none;
-  background: none;
-}
-.empty-state--inline {
-  margin: 0;
-}
-
-@media (max-width: 960px) {
-  .player-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .demand-metric-strip {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 560px) {
-  .player-grid {
-    grid-template-columns: 1fr;
-  }
-  .demand-metric-strip {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .demand-signal-events .signal-stream__row {
-    grid-template-columns: 38px minmax(0, 1fr);
-    grid-template-areas:
-      "serial body"
-      "serial time";
-    row-gap: 2px;
-  }
-  .signal-stream__serial {
-    grid-area: serial;
-    align-self: start;
-  }
-  .signal-stream__body {
-    grid-area: body;
-  }
-  .signal-stream__time {
-    grid-area: time;
-    text-align: left;
   }
 }
 

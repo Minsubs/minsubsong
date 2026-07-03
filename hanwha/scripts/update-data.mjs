@@ -18,8 +18,6 @@ const SOURCES = {
   standings: "https://eng.koreabaseball.com/Standings/TeamStandings.aspx",
   schedule: "https://www.koreabaseball.com/Schedule/Schedule.aspx",
   scoreboard: "https://eng.koreabaseball.com/Schedule/Scoreboard.aspx",
-  hitters: "https://www.koreabaseball.com/Record/Player/HitterBasic/Basic1.aspx",
-  pitchers: "https://www.koreabaseball.com/Record/Player/PitcherBasic/Basic1.aspx",
 };
 
 const TEAM_NAMES = {
@@ -148,20 +146,16 @@ async function main() {
   const scheduleTargets = scheduleMonthTargets(kstParts.year, kstParts.month);
   // allSettled 로 받아 한 소스가 죽어도 나머지는 갱신한다. 실패한 섹션은
   // 해당 data/*.json 을 건드리지 않아 직전 스냅샷이 그대로 유지된다.
-  const [standingsR, scheduleR, scoreboardR, hittersR, pitchersR, allScheduleR] = await Promise.allSettled([
+  const [standingsR, scheduleR, scoreboardR, allScheduleR] = await Promise.allSettled([
     fetchSource("standings", SOURCES.standings),
     Promise.all(scheduleTargets.map((target) => fetchScheduleMonth(target))),
     fetchSource("scoreboard", SOURCES.scoreboard),
-    fetchSource("hitters", SOURCES.hitters),
-    fetchSource("pitchers", SOURCES.pitchers),
     collectAllTeamScheduleGames({ targets: scheduleTargets, fetchScheduleMonth }),
   ]);
 
   const standingsHtml = settledValue(standingsR, "standings");
   const schedulePayloads = settledValue(scheduleR, "schedule");
   const scoreboardHtml = settledValue(scoreboardR, "scoreboard");
-  const hittersHtml = settledValue(hittersR, "hitters");
-  const pitchersHtml = settledValue(pitchersR, "pitchers");
   const allSchedule = settledValue(allScheduleR, "schedule-all");
 
   const { standings = [], standing = null, teamStats = null } =
@@ -172,8 +166,6 @@ async function main() {
     schedulePayloads,
   );
   const scoreboard = safeParse("scoreboard", () => parseScoreboard(scoreboardHtml), scoreboardHtml);
-  const hitters = safeParse("hitters", () => parseHitters(hittersHtml), hittersHtml);
-  const pitchers = safeParse("pitchers", () => parsePitchers(pitchersHtml), pitchersHtml);
   // meta 는 항상 갱신(실행 시각). 데이터 변동이 없으면 CI 가 되돌린다.
   await writeJson("meta.json", buildMeta());
 
@@ -211,13 +203,6 @@ async function main() {
     }
   } else {
     console.warn("skip games.json/live-game.json: 일정 수집 실패 — 기존 스냅샷 유지");
-  }
-  if (hitters && pitchers) {
-    await writeJson("player-rankings.json", buildLeagueLeaderRankings(hitters, pitchers));
-    await writeJson("players.json", buildPlayerCards(hitters, pitchers));
-    wrote += 2;
-  } else {
-    console.warn("skip player-rankings.json/players.json: 선수 기록 수집 실패 — 기존 스냅샷 유지");
   }
   if (allSchedule) {
     await writeJson("ticketing-calendar.json", buildTicketCalendar(allSchedule));
@@ -466,33 +451,6 @@ function parseStandings(html) {
   return { standings, standing, teamStats };
 }
 
-// 전 구단 타자 행을 그대로 보존한다(한화 전용 필터 제거 — 리그 기록으로 전환).
-function parseHitters(html) {
-  return parsePlayerRows(html).map((player) => ({
-    rank: Number(player.rank),
-    name: player.name,
-    team: player.team,
-    avg: player.stats.HRA_RT,
-    games: player.stats.GAME_CN,
-    homeRuns: player.stats.HR_CN,
-    rbi: player.stats.RBI_CN,
-  }));
-}
-
-// 전 구단 투수 행을 그대로 보존한다(한화 전용 필터 제거 — 리그 기록으로 전환).
-function parsePitchers(html) {
-  return parsePlayerRows(html).map((player) => ({
-    rank: Number(player.rank),
-    name: player.name,
-    team: player.team,
-    era: player.stats.ERA_RT,
-    games: player.stats.GAME_CN,
-    wins: player.stats.W_CN,
-    losses: player.stats.L_CN,
-    whip: player.stats.WHIP_RT,
-  }));
-}
-
 function parseScoreboard(html) {
   return html
     .split(/<div class="scoreboard_time">/i)
@@ -562,34 +520,6 @@ function buildLineScoreFromRows(awayRow, homeRow) {
   }));
 }
 
-function parsePlayerRows(html) {
-  return extractRows(html).map((row) => {
-    const cells = extractCells(row);
-
-    if (cells.length < 4) {
-      return null;
-    }
-
-    const stats = {};
-    for (const cell of cells) {
-      if (cell.dataId) {
-        stats[cell.dataId] = cell.text;
-      }
-    }
-
-    if (!cells[0]?.text || !cells[1]?.text || !cells[2]?.text || Object.keys(stats).length === 0) {
-      return null;
-    }
-
-    return {
-      rank: cells[0].text,
-      name: cells[1].text,
-      team: cells[2].text,
-      stats,
-    };
-  }).filter(Boolean);
-}
-
 function mergeScoreboardGame(game, scoreboard) {
   const scoreboardGame = game.date === todayKey ? scoreboard.find((item) => sameMatchup(item, game)) : null;
 
@@ -632,8 +562,6 @@ function buildMeta() {
       { name: "KBO Team Standings", url: SOURCES.standings },
       { name: "KBO Daily Schedule", url: SOURCES.schedule },
       { name: "KBO Scoreboard", url: SOURCES.scoreboard },
-      { name: "KBO Player Batting", url: SOURCES.hitters },
-      { name: "KBO Player Pitching", url: SOURCES.pitchers },
     ],
   };
 }
@@ -811,108 +739,6 @@ function buildLiveGameEntry(todayGame, scoreboardGame) {
   };
 }
 
-// 리그 전체 리더 보드 — 타율 top3 / 홈런 top3 / 평균자책(오름차순) top3.
-// 각 그룹은 리그 전체 범위이며, 한화 전용 그룹은 더 이상 만들지 않는다.
-function buildLeagueLeaderRankings(hitters, pitchers) {
-  const topAvg = [...hitters]
-    .filter((player) => isFiniteStat(player.avg))
-    .sort((a, b) => Number(b.avg) - Number(a.avg))
-    .slice(0, 3);
-  const topHomeRuns = [...hitters]
-    .filter((player) => isFiniteStat(player.homeRuns))
-    .sort((a, b) => Number(b.homeRuns) - Number(a.homeRuns))
-    .slice(0, 3);
-  const topEra = [...pitchers]
-    .filter((player) => isFiniteStat(player.era))
-    .sort((a, b) => Number(a.era) - Number(b.era))
-    .slice(0, 3);
-
-  return [
-    {
-      id: "league-avg",
-      title: "리그 타율",
-      scope: "리그 전체",
-      players: topAvg.map((player, index) => ({
-        rank: index + 1,
-        name: player.name,
-        team: player.team,
-        value: player.avg,
-        note: player.team,
-      })),
-    },
-    {
-      id: "league-hr",
-      title: "리그 홈런",
-      scope: "리그 전체",
-      players: topHomeRuns.map((player, index) => ({
-        rank: index + 1,
-        name: player.name,
-        team: player.team,
-        value: `${player.homeRuns} HR`,
-        note: player.team,
-      })),
-    },
-    {
-      id: "league-era",
-      title: "리그 평균자책",
-      scope: "리그 전체",
-      players: topEra.map((player, index) => ({
-        rank: index + 1,
-        name: player.name,
-        team: player.team,
-        value: player.era,
-        note: player.team,
-      })),
-    },
-  ];
-}
-
-// 리그 주요 선수 카드 — 타율 상위 타자 4명 + 평균자책 상위 투수 4명(총 ~8장).
-function buildPlayerCards(hitters, pitchers) {
-  const topAvg = [...hitters]
-    .filter((player) => isFiniteStat(player.avg))
-    .sort((a, b) => Number(b.avg) - Number(a.avg))
-    .slice(0, 4);
-  const topEra = [...pitchers]
-    .filter((player) => isFiniteStat(player.era))
-    .sort((a, b) => Number(a.era) - Number(b.era))
-    .slice(0, 4);
-
-  const hitterCards = topAvg.map((player, index) => ({
-    type: "hitter",
-    number: index + 1,
-    name: player.name,
-    team: player.team,
-    role: "타자",
-    stats: [
-      { label: "AVG", value: player.avg },
-      { label: "HR", value: player.homeRuns },
-      { label: "RBI", value: player.rbi },
-    ],
-    note: `리그 타율 ${index + 1}위`,
-  }));
-
-  const pitcherCards = topEra.map((player, index) => ({
-    type: "pitcher",
-    number: index + 1,
-    name: player.name,
-    team: player.team,
-    role: "투수",
-    stats: [
-      { label: "ERA", value: player.era },
-      { label: "W-L", value: `${player.wins}-${player.losses}` },
-      { label: "WHIP", value: player.whip },
-    ],
-    note: `리그 평균자책 ${index + 1}위`,
-  }));
-
-  return [...hitterCards, ...pitcherCards];
-}
-
-function isFiniteStat(value) {
-  return value !== undefined && value !== null && value !== "" && Number.isFinite(Number(value));
-}
-
 function extractRows(html) {
   return [...html.matchAll(/<tr[\s\S]*?<\/tr>/gi)].map((match) => match[0]);
 }
@@ -1071,15 +897,11 @@ if (isDirectRun) {
 export {
   parseStandings,
   parseScoreboard,
-  parseHitters,
-  parsePitchers,
   buildSummary,
   buildTeamStandings,
   buildGames,
   buildLiveGame,
   buildLiveGames,
-  buildLeagueLeaderRankings,
-  buildPlayerCards,
   buildTicketCalendar,
   buildOpenAt,
   collectAllTeamScheduleGames,
