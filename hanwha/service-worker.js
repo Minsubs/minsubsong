@@ -12,10 +12,8 @@ const APP_SHELL = [
   "./data/summary.json?v=19",
   "./data/team-standings.json?v=19",
   "./data/live-game.json?v=19",
-  "./data/player-rankings.json?v=19",
   "./data/games.json?v=19",
   "./data/ticketing-calendar.json?v=19",
-  "./data/players.json?v=19",
 ];
 
 self.addEventListener("install", (event) => {

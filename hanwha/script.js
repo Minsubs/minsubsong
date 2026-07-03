@@ -3,10 +3,8 @@ let data = {
   summary: [],
   teamStandings: [],
   liveGame: [],
-  rankings: [],
   games: [],
   ticketCalendar: [],
-  players: [],
 };
 
 const dataFiles = {
@@ -14,10 +12,8 @@ const dataFiles = {
   summary: "./data/summary.json",
   teamStandings: "./data/team-standings.json",
   liveGame: "./data/live-game.json",
-  rankings: "./data/player-rankings.json",
   games: "./data/games.json",
   ticketCalendar: "./data/ticketing-calendar.json",
-  players: "./data/players.json",
 };
 
 const MAX_UPCOMING_GAMES = 10;
@@ -260,8 +256,6 @@ const liveScoreboard = document.querySelector("#liveScoreboard");
 const notifyTopics = document.querySelector("#notifyTopics");
 const notifyInstall = document.querySelector("#notifyInstall");
 const notifyPermBtn = document.querySelector("#notifyPermBtn");
-const rankingPanel = document.querySelector("#rankingPanel");
-const rankingBoard = document.querySelector("#rankingBoard");
 const teamStandingsBoard = document.querySelector("#teamStandingsBoard");
 const gameList = document.querySelector("#gameList");
 const featuredGame = document.querySelector("#featuredGame");
@@ -270,11 +264,6 @@ const ticketOpenCard = document.querySelector("#ticketOpenCard");
 const ticketCalendarFilters = document.querySelector("#ticketCalendarFilters");
 const ticketCalendarList = document.querySelector("#ticketCalendarList");
 const cancelWatchList = document.querySelector("#cancelWatchList");
-const playerGrid = document.querySelector("#playerGrid");
-const demandSignalBoard = document.querySelector("#demandSignalBoard");
-const demandSignalEvents = document.querySelector("#demandSignalEvents");
-const exportDemandSignals = document.querySelector("#exportDemandSignals");
-const resetDemandSignals = document.querySelector("#resetDemandSignals");
 const teamSelect = document.querySelector("#teamSelect");
 const themeToggle = document.querySelector("#themeToggle");
 const installApp = document.querySelector("#installApp");
@@ -350,18 +339,16 @@ async function fetchJson(path) {
 }
 
 async function loadData() {
-  const [meta, summary, teamStandings, liveGame, rankings, games, ticketCalendar, players] = await Promise.all([
+  const [meta, summary, teamStandings, liveGame, games, ticketCalendar] = await Promise.all([
     fetchJson(dataFiles.meta),
     fetchJson(dataFiles.summary),
     fetchJson(dataFiles.teamStandings),
     fetchJson(dataFiles.liveGame),
-    fetchJson(dataFiles.rankings),
     fetchJson(dataFiles.games),
     fetchJson(dataFiles.ticketCalendar),
-    fetchJson(dataFiles.players),
   ]);
 
-  data = { meta, summary, teamStandings, liveGame, rankings, games, ticketCalendar, players };
+  data = { meta, summary, teamStandings, liveGame, games, ticketCalendar };
 }
 
 function summaryCardsForSelectedTeam() {
@@ -804,107 +791,6 @@ function trackDemandSignal(eventName, details = {}) {
   } catch {
     return;
   }
-
-  renderDemandSignals();
-}
-
-function topDemandEntry(bucket) {
-  const [name, count] = Object.entries(bucket).sort((a, b) => b[1] - a[1])[0] ?? [];
-  return name ? `${name} ${count}` : "-";
-}
-
-function demandMetricCards(signals) {
-  const permissionTotal = Object.values(signals.permissionResults).reduce((sum, count) => sum + count, 0);
-  // 취소표(cancel_watch_*) 신호를 누락 없이 합산해 한 카드로 노출.
-  const cancelWatchTotal = Object.entries(signals.eventCounts)
-    .filter(([name]) => name.startsWith("cancel_watch_"))
-    .reduce((sum, [, count]) => sum + count, 0);
-  const metrics = [
-    ["알림 저장", signals.eventCounts.ticket_reminder_saved ?? 0, topDemandEntry(signals.teams)],
-    ["예매처 클릭", signals.eventCounts.provider_click ?? 0, topDemandEntry(signals.providers)],
-    ["구단 필터", signals.eventCounts.calendar_filter_selected ?? 0, topDemandEntry(signals.teams)],
-    ["취소표 관심", cancelWatchTotal, topDemandEntry(signals.providers)],
-    ["알림 권한", permissionTotal, topDemandEntry(signals.permissionResults)],
-  ];
-
-  return html`${metrics.map(
-    ([label, value, detail], index) => html`
-        <article class="demand-metric">
-          <span class="demand-metric__serial" aria-hidden="true">M-${raw(String(index + 1).padStart(2, "0"))}</span>
-          <span class="demand-metric__label">${label}</span>
-          <strong class="demand-metric__value">${value}</strong>
-          <small class="demand-metric__detail">${detail}</small>
-        </article>
-      `,
-  )}`;
-}
-
-function renderDemandSignals() {
-  if (!demandSignalBoard || !demandSignalEvents) {
-    return;
-  }
-
-  const signals = readDemandSignals();
-  demandSignalBoard.innerHTML = html`
-    <div class="demand-strip__head">
-      <p class="ticket-serial">Signal Ledger</p>
-      <span class="demand-strip__live" aria-hidden="true">LOCAL</span>
-    </div>
-    <div class="demand-metric-strip">${demandMetricCards(signals)}</div>
-    <p class="demand-scope-note">이 수치는 현재 기기 기준 · 전체 합산은 백엔드 도입(다음 단계) 후 제공</p>
-  `;
-  demandSignalEvents.innerHTML = html`
-    <div class="section-heading compact">
-      <div>
-        <p class="eyebrow">Signal Stream</p>
-        <h3>최근 신호</h3>
-      </div>
-      <p class="meta">마지막 업데이트 ${new Date(signals.updatedAt).toLocaleString("ko-KR")}</p>
-    </div>
-    <ol class="signal-stream">
-      ${signals.lastEvents.length
-        ? signals.lastEvents.map((event, index) => {
-            const detail = [event.team, event.provider, event.permission].filter(Boolean).join(" · ") || "-";
-            return html`
-              <li class="signal-stream__row">
-                <span class="signal-stream__serial" aria-hidden="true">#${raw(String(signals.lastEvents.length - index).padStart(3, "0"))}</span>
-                <span class="signal-stream__body">
-                  <span class="signal-stream__event">${event.eventName}</span>
-                  <strong class="signal-stream__detail">${detail}</strong>
-                </span>
-                <small class="signal-stream__time">${new Date(event.at).toLocaleString("ko-KR")}</small>
-              </li>
-            `;
-          })
-        : html`
-            <li class="signal-stream__empty">
-              <div class="empty-state empty-state--inline" role="status">
-                <span class="empty-state__icon" aria-hidden="true">📡</span>
-                <p class="empty-state__title">대기 중</p>
-                <p class="empty-state__hint">아직 기록된 신호가 없습니다. 예매·알림 동작 시 여기에 누적됩니다.</p>
-              </div>
-            </li>
-          `}
-    </ol>
-  `;
-}
-
-function exportDemandSignalSnapshot() {
-  const signals = readDemandSignals();
-  const blob = new Blob([JSON.stringify(signals, null, 2)], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const anchor = document.createElement("a");
-  anchor.href = url;
-  anchor.download = `kbo-tido-demand-signals-${new Date().toISOString().slice(0, 10)}.json`;
-  anchor.click();
-  URL.revokeObjectURL(url);
-  trackDemandSignal("signals_exported");
-}
-
-function resetDemandSignalSnapshot() {
-  localStorage.removeItem(DEMAND_SIGNALS_KEY);
-  renderDemandSignals();
-  showToast("수요 검증 신호를 초기화했습니다.");
 }
 
 function setTicketReminder(game, ticketing) {
@@ -1631,40 +1517,8 @@ function renderNotifyCenter() {
   }
 }
 
-function renderRankingList(rankings, compact = false) {
-  return html`${rankings.map((item) => {
-    // team 과 note 를 합치되, note 가 비었거나 team 과 같으면 중복/빈 구분자를 피한다.
-    const extra = !compact && item.note && item.note !== item.team ? item.note : "";
-    const meta = [item.team, extra].filter(Boolean).join(" · ");
-    return html`
-        <li>
-          <span class="rank-no">${item.rank}</span>
-          <span class="rank-name">${item.name}</span>
-          <strong>${item.value}</strong>
-          ${meta ? html`<small>${meta}</small>` : ""}
-        </li>
-      `;
-  })}`;
-}
-
 function renderRankingPanels() {
-  // 홈 히어로 랭킹 패널(#rankingPanel)은 리디자인에서 제거됨 — 있으면만 렌더.
-  // 순위 탭의 teamStandingsBoard/rankingBoard 는 계속 렌더해야 한다(회귀 방지).
-  if (rankingPanel) {
-    const featuredGroups = data.rankings.slice(0, 2);
-    rankingPanel.innerHTML = html`${featuredGroups.map(
-      (group) => html`
-        <section>
-          <div>
-            <span class="chip">${group.scope}</span>
-            <h3>${group.title}</h3>
-          </div>
-          <ol class="ranking-list compact">${renderRankingList(group.players, true)}</ol>
-        </section>
-      `,
-    )}`;
-  }
-
+  // 순위 탭의 teamStandingsBoard 는 계속 렌더해야 한다(회귀 방지).
   const standings = data.teamStandings ?? [];
   if (!standings.length) {
     teamStandingsBoard.innerHTML = html`
@@ -1693,8 +1547,6 @@ function renderRankingPanels() {
       </div>
     `;
   }
-
-  // 리그 기록 리더(#rankingBoard)는 순위 탭에서 제거됨 — teamStandingsBoard 만 렌더.
 }
 
 function renderStandingRow(team) {
@@ -1731,77 +1583,12 @@ function renderStandingRow(team) {
   `;
 }
 
-function renderPlayers(filter = "all") {
-  if (!playerGrid) {
-    return;
-  }
-
-  const all = data.players ?? [];
-  const players = filter === "all" ? all : all.filter((player) => player.type === filter);
-
-  if (!all.length) {
-    playerGrid.innerHTML = html`
-      <div class="empty-state" role="status">
-        <span class="empty-state__icon" aria-hidden="true">⚾</span>
-        <p class="empty-state__title">선수 데이터 없음</p>
-        <p class="empty-state__hint">리그 선수 기록을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.</p>
-      </div>
-    `;
-    return;
-  }
-
-  if (!players.length) {
-    playerGrid.innerHTML = html`
-      <div class="empty-state" role="status">
-        <span class="empty-state__icon" aria-hidden="true">🔍</span>
-        <p class="empty-state__title">해당 기록 없음</p>
-        <p class="empty-state__hint">선택한 필터에 해당하는 선수가 없습니다.</p>
-      </div>
-    `;
-    return;
-  }
-
-  playerGrid.innerHTML = html`${players.map((player) => {
-    const isMine = player.team && player.team === selectedTeam;
-    const num = String(player.number ?? "-").padStart(2, "0");
-    return html`
-        <article class="player-stub${raw(isMine ? " is-myteam" : "")}">
-          <div class="player-stub__num" aria-hidden="true">
-            <span class="player-stub__num-hash">NO.</span>
-            <span class="player-stub__num-val">${num}</span>
-          </div>
-          <div class="player-stub__body">
-            <p class="ticket-serial player-stub__serial">
-              ${player.team ? html`${player.team} · ` : ""}${player.role}
-            </p>
-            <h3 class="player-stub__name">${player.name}</h3>
-            <p class="player-stub__note">${player.note}</p>
-            <div class="player-stub__stats" role="list" aria-label="${player.name} 주요 기록">
-              ${player.stats.map(
-                (stat) => html`
-                  <div class="player-stat" role="listitem">
-                    <span class="player-stat__label">${stat.label}</span>
-                    <strong class="player-stat__value">${stat.value}</strong>
-                  </div>
-                `,
-              )}
-            </div>
-          </div>
-        </article>
-      `;
-  })}`;
-}
-
 function renderMeta() {
   dataUpdated.textContent = `데이터 기준: ${data.meta.updatedAt}. ${data.meta.note}`;
 }
 
 function currentGameFilter() {
   return document.querySelector("[data-game-filter].active")?.dataset.gameFilter ?? "recent";
-}
-
-function currentPlayerFilter() {
-  return document.querySelector("[data-player-filter].active")?.dataset.playerFilter ?? "all";
 }
 
 function populateTeamSelect() {
@@ -1837,9 +1624,7 @@ function renderAll() {
   renderTicketCalendar();
   renderCancelWatch();
   renderTicketOpenCard();
-  renderPlayers(currentPlayerFilter());
   renderNotifyCenter();
-  renderDemandSignals();
 }
 
 async function pollData() {
@@ -1982,13 +1767,6 @@ document.querySelectorAll("[data-game-filter]").forEach((button) => {
   });
 });
 
-document.querySelectorAll("[data-player-filter]").forEach((button) => {
-  button.addEventListener("click", () => {
-    setActiveButton(document.querySelectorAll("[data-player-filter]"), button);
-    renderPlayers(button.dataset.playerFilter);
-  });
-});
-
 ticketCalendarFilters?.addEventListener("click", (event) => {
   const button = event.target.closest("[data-calendar-filter]");
 
@@ -2010,9 +1788,6 @@ teamSelect?.addEventListener("change", () => {
   });
   refreshSelectedTeamViews();
 });
-
-exportDemandSignals?.addEventListener("click", exportDemandSignalSnapshot);
-resetDemandSignals?.addEventListener("click", resetDemandSignalSnapshot);
 
 // 알림 센터 — 카테고리 토글(로컬), 권한 버튼, iOS 설치
 notifyTopics?.addEventListener("click", (event) => {
