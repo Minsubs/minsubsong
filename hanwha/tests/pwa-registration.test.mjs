@@ -27,7 +27,7 @@ test("app shell and data loader include ticketing calendar", async () => {
   assert.match(script, /ticketCalendar:\s*\[\]/);
   assert.match(script, /ticketCalendar:\s*"\.\/data\/ticketing-calendar\.json"/);
   assert.match(script, /fetchJson\(dataFiles\.ticketCalendar\)/);
-  assert.match(serviceWorker, /eagles-lounge-v29/);
+  assert.match(serviceWorker, /eagles-lounge-v30/);
   assert.match(serviceWorker, /\.\/data\/ticketing-calendar\.json\?v=19/);
 });
 
@@ -61,16 +61,19 @@ test("calendar controls accessible under the 예매 (tickets) tab", async () => 
   assert.match(script, /\.\.\.data\.games,\s*\.\.\.\(data\.ticketCalendar \?\? \[\]\)/);
 });
 
-test("demand validation controls accessible under the 더보기 (more) tab", async () => {
-  const index = await readFile(new URL("../index.html", import.meta.url), "utf8");
+test("demand validation UI is removed from public screens while signal collection remains", async () => {
+  const [index, script] = await Promise.all([
+    readFile(new URL("../index.html", import.meta.url), "utf8"),
+    readFile(new URL("../script.js", import.meta.url), "utf8"),
+  ]);
 
-  // 수요 검증은 5탭 IA 에서 "더보기" 탭(more)으로 통합됨.
-  assert.match(index, /data-view-target="more"[^>]*>더보기/);
-  assert.match(index, /id="validation"[^>]*data-view-panel="more"/);
-  assert.match(index, /id="demandSignalBoard"/);
-  assert.match(index, /id="demandSignalEvents"/);
-  assert.match(index, /id="exportDemandSignals"/);
-  assert.match(index, /id="resetDemandSignals"/);
+  // 수요 검증 신호는 운영자용이라 공개 UI 에서 제거됨.
+  assert.doesNotMatch(index, /id="validation"/);
+  assert.doesNotMatch(index, /id="demandSignalBoard"/);
+
+  // 신호 수집(trackDemandSignal)과 localStorage 저장은 향후 백엔드 익명 집계용으로 유지.
+  assert.match(script, /function trackDemandSignal/);
+  assert.match(script, /DEMAND_SIGNALS_KEY/);
 });
 
 test("cancel ticket concierge stays within compliant scope", async () => {

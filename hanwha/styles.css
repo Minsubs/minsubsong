@@ -4226,3 +4226,63 @@ h2 {
   .lsb-live-eyebrow::before { animation: lsb-pulse 1.6s ease-in-out infinite; }
 }
 @keyframes lsb-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+/* 예매 캘린더 구단 필터: 11개(전체+10팀) 버튼을 2줄로 자연 랩(공용 .segmented는 수정하지 않고 후순위 override) */
+#ticketCalendarFilters.calendar-filters {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: none;
+  overflow: visible;
+}
+
+#ticketCalendarFilters.calendar-filters button {
+  flex: 0 0 auto;
+}
+
+@media (max-width: 620px) {
+  #ticketCalendarFilters.calendar-filters button {
+    min-width: 56px;
+    min-height: 32px;
+    padding: 6px 10px;
+  }
+}
+
+/* ===========================================================================
+   [수정 3] 순위 그리드 밸런스 override (append-only, CSS-only)
+   .standings-broadcast 데스크톱/모바일 컬럼 폭·간격·타이포 미세 조정.
+   =========================================================================== */
+.standings-broadcast__head,
+.standings-broadcast__row {
+  grid-template-columns:
+    32px minmax(0, 1.1fr)
+    repeat(3, 28px)
+    minmax(90px, 1.1fr) 48px 50px;
+  gap: 7px;
+  padding: 10px 12px;
+}
+
+@media (max-width: 560px) {
+  .standings-broadcast__head,
+  .standings-broadcast__row {
+    grid-template-columns:
+      28px minmax(0, 1fr)
+      repeat(3, 22px)
+      minmax(70px, 1fr) 40px 44px;
+    gap: 5px;
+    padding: 8px 10px;
+  }
+  .sb-pct__val {
+    font-size: 0.85rem;
+  }
+  .sb-streak {
+    font-size: 0.72rem;
+    font-variant-numeric: tabular-nums lining-nums;
+    font-feature-settings: "tnum" 1, "lnum" 1;
+  }
+  .sb-col--num {
+    font-size: 0.85rem;
+  }
+  .perf-bar {
+    height: 6px;
+  }
+}

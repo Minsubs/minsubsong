@@ -68,6 +68,9 @@ const teamColors = {
   키움: { base: "#641a2e", edge: "#3c0a18", ink: "#ffffff" },
 };
 
+// 2025 시즌 KBO 정규시즌 최종 순위(캘린더 필터 정렬용 — 매 시즌 종료 후 갱신)
+const LAST_SEASON_RANK = { LG: 1, 한화: 2, SSG: 3, 삼성: 4, NC: 5, KT: 6, 롯데: 7, KIA: 8, 두산: 9, 키움: 10 };
+
 function readSelectedTeam() {
   try {
     const stored = localStorage.getItem(SELECTED_TEAM_KEY);
@@ -393,7 +396,7 @@ function renderSummary() {
 function renderGames(filter = "recent") {
   // 전구단 games 를 내 구단(홈/원정)으로 먼저 필터.
   const teamGames = data.games.filter((game) => game.home === selectedTeam || game.away === selectedTeam);
-  const games = filter === "all" ? teamGames.filter((game) => game.type !== "upcoming") : teamGames.filter((game) => game.type === filter);
+  const games = filter === "all" ? teamGames.filter((game) => game.type === "recent" || game.type === "upcoming") : teamGames.filter((game) => game.type === filter);
   const featured = games[0] ?? teamGames.find((game) => game.type !== "upcoming");
 
   if (!featured) {
@@ -536,7 +539,7 @@ function calendarTeams() {
     teams.add(game.home);
     teams.add(game.away);
   }
-  return [...teams].sort((a, b) => String(a).localeCompare(String(b), "ko"));
+  return [...teams].sort((a, b) => (LAST_SEASON_RANK[a] ?? 999) - (LAST_SEASON_RANK[b] ?? 999));
 }
 
 function currentCalendarFilter() {
