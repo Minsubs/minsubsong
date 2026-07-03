@@ -12,7 +12,6 @@ KBO 티켓팅 도우미는 10구단 경기 일정, 홈팀 기준 예매처, 예�
 | --- | --- | --- | --- |
 | KBO 국문 일정 | 월별 경기 일정 | `games.json`, `ticketing-calendar.json` | 공개 API가 아니라 응답 형식 변경 가능 |
 | KBO 팀 순위/기록 | 순위, 팀 요약 | `summary.json`, `team-standings.json` | HTML 구조 변경 가능 |
-| KBO 선수 기록 | 주요 선수 기록 | `players.json`, `player-rankings.json` | HTML 구조 변경 가능 |
 | 홈팀 예매처 매핑 | 예매처 URL, 오픈 규칙 | `ticketing` metadata | 구단별 정책 변경 가능 |
 | 예매처 상태 데이터 | 잔여석/취소표 상태, 지원 가능 여부 | Phase 3 후보 | 약관/트래픽 정책/로그인/제휴 조건 확인 필요 |
 
@@ -32,10 +31,8 @@ KBO 티켓팅 도우미는 10구단 경기 일정, 홈팀 기준 예매처, 예�
 - `data/summary.json`
 - `data/team-standings.json`
 - `data/live-game.json`
-- `data/player-rankings.json`
 - `data/games.json`
 - `data/ticketing-calendar.json`
-- `data/players.json`
 
 ## 갱신 명령
 

@@ -63,16 +63,14 @@ npm run serve
 - `data/summary.json`: 팀 요약
 - `data/team-standings.json`: KBO 전체 팀 순위
 - `data/live-game.json`: 메인 실시간 경기판
-- `data/player-rankings.json`: 메인 선수 랭킹
 - `data/games.json`: 한화 중심 경기 일정/결과
 - `data/ticketing-calendar.json`: 10구단 예매 오픈 캘린더
-- `data/players.json`: 선수 기록
 
 데이터 연동 세부 내용은 `docs/DATA_INTEGRATION.md`에 정리되어 있습니다.
 
 ## 데이터 갱신
 
-KBO 공식 페이지에서 팀 순위, 경기 일정, 선수 기록을 가져와 `data/*.json`을 갱신합니다.
+KBO 공식 페이지에서 팀 순위와 경기 일정을 가져와 `data/*.json`을 갱신합니다.
 
 ```bash
 npm run update:data

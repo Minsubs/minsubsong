@@ -355,7 +355,7 @@ iOS 비중이 큰 한국 시장에서, iOS 사용자가 푸시를 받으려면 *
 - **로드맵에 이미 흡수**: 알림 정밀도·취소표 서버 발송은 P1/P2가 그 자체.
 - **보류**: 크로스기기 설정 동기화(개인정보 최소화 원칙과 충돌, 효용 낮음).
 
-> 출처: 코드 매핑(`script.js` `DEMAND_SIGNALS_KEY="eaglesDemandSignals"`·`trackDemandSignal`/`renderDemandSignals`, localStorage 집계 / `update-data.mjs` git 커밋 cron / `ticketing-calendar.json` `openAt` 부재→파생) · `docs/CANCEL_TICKET_ALERT_RESEARCH.md`(제휴 경로·수요 신호 레버리지) · 4장 프라이버시 설계(익명·최소수집)
+> 출처: 코드 매핑(`script.js` `DEMAND_SIGNALS_KEY="eaglesDemandSignals"`·`trackDemandSignal` localStorage 집계, 공개 렌더러 제거 / `update-data.mjs` git 커밋 cron / `ticketing-calendar.json` `openAt` 부재→파생) · `docs/CANCEL_TICKET_ALERT_RESEARCH.md`(제휴 경로·수요 신호 레버리지) · 4장 프라이버시 설계(익명·최소수집)
 
 ---
 
