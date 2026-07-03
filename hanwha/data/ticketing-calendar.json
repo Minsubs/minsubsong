@@ -18,7 +18,8 @@
       "openTime": "14:00",
       "openCaution": "구단 앱 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-06-23T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -39,7 +40,8 @@
       "openTime": "14:00",
       "openCaution": "구단 앱 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-06-24T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -60,7 +62,8 @@
       "openTime": "14:00",
       "openCaution": "구단 앱 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-06-25T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -81,7 +84,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-06-27T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -101,7 +105,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-06-27T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -121,7 +126,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-06-27T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -142,7 +148,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-06-27T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -162,7 +169,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-06-28T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -183,7 +191,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-06-28T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -203,7 +212,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-06-28T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -224,7 +234,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-06-28T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -244,7 +255,8 @@
       "openDaysBefore": 5,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-06-29T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -264,7 +276,8 @@
       "openDaysBefore": 5,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-06-30T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -284,7 +297,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    }
+    },
+    "openAt": "2026-06-30T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -305,7 +319,8 @@
       "openTime": "11:00",
       "earlyOpenLabel": "베어스클럽 10:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-06-30T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -326,7 +341,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-06-30T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -347,7 +363,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-06-30T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -367,7 +384,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    }
+    },
+    "openAt": "2026-07-01T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -388,7 +406,8 @@
       "openTime": "11:00",
       "earlyOpenLabel": "베어스클럽 10:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-01T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -409,7 +428,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-01T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -430,7 +450,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-01T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -450,7 +471,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    }
+    },
+    "openAt": "2026-07-02T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -471,7 +493,8 @@
       "openTime": "11:00",
       "earlyOpenLabel": "베어스클럽 10:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-02T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -492,7 +515,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-02T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -513,7 +537,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-02T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -534,7 +559,8 @@
       "openTime": "14:00",
       "openCaution": "구단 앱 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-07T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -555,7 +581,8 @@
       "openTime": "14:00",
       "openCaution": "구단 앱 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-08T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -575,7 +602,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    }
+    },
+    "openAt": "2026-07-09T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -595,7 +623,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-09T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -616,7 +645,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-09T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -637,7 +667,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-09T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -658,7 +689,8 @@
       "openTime": "14:00",
       "openCaution": "구단 앱 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-09T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -678,7 +710,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    }
+    },
+    "openAt": "2026-07-10T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -698,7 +731,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-10T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -719,7 +753,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-10T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -740,7 +775,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-10T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -761,7 +797,8 @@
       "openTime": "14:00",
       "openCaution": "구단 앱 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-10T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -781,7 +818,8 @@
       "openDaysBefore": 5,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-11T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -801,7 +839,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    }
+    },
+    "openAt": "2026-07-11T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -821,7 +860,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-11T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -842,7 +882,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-11T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -863,7 +904,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-11T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -884,7 +926,8 @@
       "openTime": "14:00",
       "openCaution": "구단 앱 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-11T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -904,7 +947,8 @@
       "openDaysBefore": 5,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-12T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -924,7 +968,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    }
+    },
+    "openAt": "2026-07-12T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -944,7 +989,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-12T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -965,7 +1011,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-12T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -986,7 +1033,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-12T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1007,7 +1055,8 @@
       "openTime": "14:00",
       "openCaution": "구단 앱 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-12T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1027,7 +1076,8 @@
       "openDaysBefore": 5,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-13T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1047,7 +1097,8 @@
       "openDaysBefore": 5,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-14T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1067,7 +1118,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-14T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1088,7 +1140,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-14T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1109,7 +1162,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-14T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1129,7 +1183,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-14T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1149,7 +1204,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-15T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1170,7 +1226,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-15T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1191,7 +1248,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-15T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1211,7 +1269,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-15T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1231,7 +1290,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-16T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1252,7 +1312,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-16T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1273,7 +1334,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-16T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1293,7 +1355,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-16T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1313,7 +1376,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    }
+    },
+    "openAt": "2026-07-17T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1334,7 +1398,8 @@
       "openTime": "11:00",
       "earlyOpenLabel": "베어스클럽 10:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-17T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1354,7 +1419,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-17T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1375,7 +1441,8 @@
       "openTime": "14:00",
       "openCaution": "구단 앱 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-17T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1395,7 +1462,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    }
+    },
+    "openAt": "2026-07-18T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1416,7 +1484,8 @@
       "openTime": "11:00",
       "earlyOpenLabel": "베어스클럽 10:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-18T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1436,7 +1505,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-18T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1457,7 +1527,8 @@
       "openTime": "14:00",
       "openCaution": "구단 앱 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-18T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1477,7 +1548,8 @@
       "openDaysBefore": 5,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-19T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1497,7 +1569,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    }
+    },
+    "openAt": "2026-07-19T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1518,7 +1591,8 @@
       "openTime": "11:00",
       "earlyOpenLabel": "베어스클럽 10:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-19T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1538,7 +1612,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-19T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1559,7 +1634,8 @@
       "openTime": "14:00",
       "openCaution": "구단 앱 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-19T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1579,7 +1655,8 @@
       "openDaysBefore": 5,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-20T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1599,7 +1676,8 @@
       "openDaysBefore": 5,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-21T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1619,7 +1697,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    }
+    },
+    "openAt": "2026-07-21T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1640,7 +1719,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-21T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1661,7 +1741,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-21T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1681,7 +1762,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-21T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1702,7 +1784,8 @@
       "openTime": "14:00",
       "openCaution": "구단 앱 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-21T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1722,7 +1805,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    }
+    },
+    "openAt": "2026-07-22T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1743,7 +1827,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-22T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1764,7 +1849,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-22T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1784,7 +1870,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-22T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1805,7 +1892,8 @@
       "openTime": "14:00",
       "openCaution": "구단 앱 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-22T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1825,7 +1913,8 @@
       "openDaysBefore": 5,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-23T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1845,7 +1934,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    }
+    },
+    "openAt": "2026-07-23T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1866,7 +1956,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-23T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1887,7 +1978,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-23T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1907,7 +1999,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-23T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1928,7 +2021,8 @@
       "openTime": "14:00",
       "openCaution": "구단 앱 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-23T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1948,7 +2042,8 @@
       "openDaysBefore": 5,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-24T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1969,7 +2064,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-24T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1990,7 +2086,8 @@
       "openTime": "11:00",
       "earlyOpenLabel": "베어스클럽 10:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-24T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2010,7 +2107,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-24T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2030,7 +2128,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-24T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2050,7 +2149,8 @@
       "openDaysBefore": 5,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-25T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2071,7 +2171,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-25T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2092,7 +2193,8 @@
       "openTime": "11:00",
       "earlyOpenLabel": "베어스클럽 10:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-25T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2112,7 +2214,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-25T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2132,7 +2235,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-25T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2152,7 +2256,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-26T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2173,7 +2278,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-26T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2194,7 +2300,8 @@
       "openTime": "11:00",
       "earlyOpenLabel": "베어스클럽 10:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-26T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2214,7 +2321,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-26T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2235,7 +2343,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-28T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2256,7 +2365,8 @@
       "openTime": "11:00",
       "earlyOpenLabel": "베어스클럽 10:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-28T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2276,7 +2386,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-28T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2297,7 +2408,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-29T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2318,7 +2430,8 @@
       "openTime": "11:00",
       "earlyOpenLabel": "베어스클럽 10:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-29T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2338,7 +2451,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-29T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2358,7 +2472,8 @@
       "openDaysBefore": 5,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-30T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2379,7 +2494,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-30T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2400,7 +2516,8 @@
       "openTime": "11:00",
       "earlyOpenLabel": "베어스클럽 10:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-30T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2420,7 +2537,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-30T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2440,7 +2558,8 @@
       "openDaysBefore": 5,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-31T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2460,7 +2579,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    }
+    },
+    "openAt": "2026-07-31T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2481,7 +2601,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-31T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2502,7 +2623,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-31T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2522,7 +2644,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-31T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2543,7 +2666,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-31T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2564,7 +2688,8 @@
       "openTime": "14:00",
       "openCaution": "구단 앱 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-07-31T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2584,7 +2709,8 @@
       "openDaysBefore": 5,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-01T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2604,7 +2730,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    }
+    },
+    "openAt": "2026-08-01T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2625,7 +2752,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-01T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2646,7 +2774,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-01T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2666,7 +2795,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-01T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2687,7 +2817,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-01T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2708,7 +2839,8 @@
       "openTime": "14:00",
       "openCaution": "구단 앱 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-01T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2728,7 +2860,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    }
+    },
+    "openAt": "2026-08-02T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2749,7 +2882,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-02T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2770,7 +2904,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-02T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2790,7 +2925,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-02T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2811,7 +2947,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-02T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2832,7 +2969,8 @@
       "openTime": "14:00",
       "openCaution": "구단 앱 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-02T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2853,7 +2991,8 @@
       "openTime": "11:00",
       "earlyOpenLabel": "베어스클럽 10:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-04T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2873,7 +3012,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-04T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2893,7 +3033,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-04T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2913,7 +3054,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-04T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2934,7 +3076,8 @@
       "openTime": "14:00",
       "openCaution": "구단 앱 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-04T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2955,7 +3098,8 @@
       "openTime": "11:00",
       "earlyOpenLabel": "베어스클럽 10:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-05T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2975,7 +3119,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-05T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2995,7 +3140,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-05T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3015,7 +3161,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-05T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3036,7 +3183,8 @@
       "openTime": "14:00",
       "openCaution": "구단 앱 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-05T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3056,7 +3204,8 @@
       "openDaysBefore": 5,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-06T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3077,7 +3226,8 @@
       "openTime": "11:00",
       "earlyOpenLabel": "베어스클럽 10:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-06T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3097,7 +3247,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-06T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3117,7 +3268,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-06T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3137,7 +3289,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-06T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3158,7 +3311,8 @@
       "openTime": "14:00",
       "openCaution": "구단 앱 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-06T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3178,7 +3332,8 @@
       "openDaysBefore": 5,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-07T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3199,7 +3354,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-07T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3219,7 +3375,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-07T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3240,7 +3397,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-07T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3261,7 +3419,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-07T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3281,7 +3440,8 @@
       "openDaysBefore": 5,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-08T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3302,7 +3462,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-08T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3322,7 +3483,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-08T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3343,7 +3505,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-08T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3364,7 +3527,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-08T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3385,7 +3549,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-09T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3405,7 +3570,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-09T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3426,7 +3592,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-09T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3447,7 +3614,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-09T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3467,7 +3635,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    }
+    },
+    "openAt": "2026-08-11T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3487,7 +3656,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-11T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3508,7 +3678,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-11T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3529,7 +3700,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-11T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3549,7 +3721,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    }
+    },
+    "openAt": "2026-08-12T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3569,7 +3742,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-12T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3590,7 +3764,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-12T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3611,7 +3786,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-12T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3631,7 +3807,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    }
+    },
+    "openAt": "2026-08-13T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3651,7 +3828,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-13T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3672,7 +3850,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-13T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3693,7 +3872,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-13T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3713,7 +3893,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    }
+    },
+    "openAt": "2026-08-14T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3734,7 +3915,8 @@
       "openTime": "11:00",
       "earlyOpenLabel": "베어스클럽 10:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-14T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3754,7 +3936,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-14T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3774,7 +3957,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-14T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3795,7 +3979,8 @@
       "openTime": "14:00",
       "openCaution": "구단 앱 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-14T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3815,7 +4000,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    }
+    },
+    "openAt": "2026-08-15T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3836,7 +4022,8 @@
       "openTime": "11:00",
       "earlyOpenLabel": "베어스클럽 10:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-15T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3856,7 +4043,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-15T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3876,7 +4064,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-15T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3897,7 +4086,8 @@
       "openTime": "14:00",
       "openCaution": "구단 앱 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-15T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3917,7 +4107,8 @@
       "openDaysBefore": 5,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-16T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3937,7 +4128,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-16T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3957,7 +4149,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    }
+    },
+    "openAt": "2026-08-16T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3978,7 +4171,8 @@
       "openTime": "11:00",
       "earlyOpenLabel": "베어스클럽 10:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-16T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3998,7 +4192,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-16T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4019,7 +4214,8 @@
       "openTime": "14:00",
       "openCaution": "구단 앱 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-16T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4039,7 +4235,8 @@
       "openDaysBefore": 5,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-17T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4059,7 +4256,8 @@
       "openDaysBefore": 5,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-18T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4080,7 +4278,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-18T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4101,7 +4300,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-18T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4121,7 +4321,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-18T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4141,7 +4342,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-18T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4162,7 +4364,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-19T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4183,7 +4386,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-19T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4203,7 +4407,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-19T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4223,7 +4428,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-19T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4243,7 +4449,8 @@
       "openDaysBefore": 5,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-20T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4264,7 +4471,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-20T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4285,7 +4493,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-20T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4305,7 +4514,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-20T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4325,7 +4535,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-20T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4345,7 +4556,8 @@
       "openDaysBefore": 5,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-21T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4365,7 +4577,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    }
+    },
+    "openAt": "2026-08-21T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4386,7 +4599,8 @@
       "openTime": "11:00",
       "earlyOpenLabel": "베어스클럽 10:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-21T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4406,7 +4620,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-21T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4427,7 +4642,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-21T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4447,7 +4663,8 @@
       "openDaysBefore": 5,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-22T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4467,7 +4684,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    }
+    },
+    "openAt": "2026-08-22T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4488,7 +4706,8 @@
       "openTime": "11:00",
       "earlyOpenLabel": "베어스클럽 10:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-22T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4508,7 +4727,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-22T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4529,7 +4749,8 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-22T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4549,7 +4770,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    }
+    },
+    "openAt": "2026-08-23T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4570,7 +4792,8 @@
       "openTime": "11:00",
       "earlyOpenLabel": "베어스클럽 10:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-23T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4590,7 +4813,8 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-23T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4611,6 +4835,7 @@
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
-    }
+    },
+    "openAt": "2026-08-23T11:00:00+09:00"
   }
 ]
