@@ -4,7 +4,7 @@
 > 전제 상태: Codex `finish-claude-cleanup` 머지 후 — 데드 JS/CSS 정리 완료(script.js 2397줄, styles.css 3369줄), 캐시 v30, `#fff8ef` 잔존 2건, A1~A7·checksum·미러링 미반영.
 > 검증 게이트(모든 단계 공통): `node --check` + `npm run check`(44/44 기준) + worker `node --test worker/test/*.mjs`(68/68). UI 변경은 브라우저 확인 후 완료 선언.
 
-## R1. 시장조사 합성 (sonnet, M)
+## R1. 시장조사 합성 — ✅ 완료 (2026-07-04, Fable 직접 합성 → docs/MARKET_RESEARCH_2026-07.md)
 - 입력: `docs/MARKET_RESEARCH_2026-07-raw.md`(수집 14건: 6방향 리서치 + 검증 verdict).
 - 산출: `docs/MARKET_RESEARCH_2026-07.md` — ①요약+6/11 대비 델타표 ②경쟁 ③시장 ④법률(8/11 암표법 체크리스트) ⑤예매처 ⑥플랫폼 ⑦수익화 ⑧Top5 재검증(유지/변경 판정) ⑨unknown(검증 실패 4건 포함 정직 표기) ⑩ROADMAP 시사점.
 - 규칙: refuted 주장 본문 제외(부록 기록), 전 주장 출처 URL 유지.
