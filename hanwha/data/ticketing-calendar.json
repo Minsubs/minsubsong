@@ -68,92 +68,6 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "07.04",
-    "time": "토 18:00",
-    "location": "잠실",
-    "home": "LG",
-    "away": "한화",
-    "score": "경기전",
-    "detail": "LG 홈 경기",
-    "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
-      "note": "LG 홈 예매",
-      "openLabel": "LG 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
-    },
-    "openAt": "2026-06-27T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "07.04",
-    "time": "토 18:00",
-    "location": "고척",
-    "home": "키움",
-    "away": "두산",
-    "score": "경기전",
-    "detail": "키움 홈 경기",
-    "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
-      "note": "키움 홈 예매",
-      "openLabel": "키움 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-06-27T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "07.04",
-    "time": "토 18:00",
-    "location": "광주",
-    "home": "KIA",
-    "away": "NC",
-    "score": "경기전",
-    "detail": "KIA 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports/137/58",
-      "note": "KIA 홈 예매",
-      "openLabel": "KIA 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-06-27T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "07.04",
-    "time": "토 18:00",
-    "location": "수원",
-    "home": "KT",
-    "away": "롯데",
-    "score": "경기전",
-    "detail": "KT 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
-      "note": "KT 홈 예매",
-      "openLabel": "KT 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
-    },
-    "openAt": "2026-06-27T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
     "date": "07.05",
     "time": "일 14:00",
     "location": "고척",
@@ -236,27 +150,6 @@
       "venueType": "원정"
     },
     "openAt": "2026-06-28T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "07.04",
-    "time": "토 18:00",
-    "location": "문학",
-    "home": "SSG",
-    "away": "삼성",
-    "score": "경기전",
-    "detail": "SSG 홈 경기",
-    "ticketing": {
-      "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
-      "note": "SSG 홈 예매",
-      "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-06-29T11:00:00+09:00"
   },
   {
     "type": "upcoming",
