@@ -405,17 +405,6 @@ textarea {
   justify-self: end;
 }
 
-.live-state {
-  display: grid;
-  place-items: center;
-  min-width: 104px;
-  min-height: 132px;
-  padding: 16px 10px;
-  border-radius: 8px;
-  background: var(--black);
-  color: #fff8ef;
-  text-align: center;
-}
 
 .live-state strong {
   margin-top: 4px;
@@ -567,10 +556,6 @@ textarea {
   cursor: pointer;
 }
 
-.secondary-action {
-  border: 1px solid rgba(255, 255, 255, 0.36);
-  color: #fff8ef;
-}
 
 .secondary-button {
   border: 1px solid color-mix(in srgb, var(--orange) 34%, var(--line));
@@ -946,6 +931,12 @@ textarea {
   font-size: clamp(2rem, 8vw, 3rem);
 }
 
+.offline-shell h1 em {
+  font-family: var(--font-display);
+  font-style: italic;
+  letter-spacing: -0.01em;
+}
+
 .offline-shell p {
   margin: 0 0 22px;
   color: var(--muted);
@@ -1180,10 +1171,6 @@ h2 {
   box-shadow: var(--shadow-orange);
   font-weight: 800;
 }
-.secondary-action {
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--glass-border);
-}
 
 .rank-pill {
   background: var(--grad-orange);
@@ -1292,11 +1279,6 @@ h2 {
   border-color: var(--accent);
 }
 
-.secondary-action {
-  border-color: var(--line);
-  background: var(--surface);
-  color: var(--text);
-}
 .live-panel {
   border: 1px solid var(--line);
   background: var(--surface);
@@ -3366,4 +3348,41 @@ h2 {
   .perf-bar {
     height: 6px;
   }
+}
+
+/* ===========================================================================
+   [R4] 선예매 배지 — 기존 .chip 토큰(--orange/--orange-dark) 재사용.
+   =========================================================================== */
+.early-open-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 10px;
+  margin-top: 4px;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--orange) 16%, transparent);
+  color: var(--orange-dark);
+  font-size: 0.78rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+/* ===========================================================================
+   [R6] 오류 카드 다시 시도 버튼 — 기존 .empty-state 토큰 재사용.
+   =========================================================================== */
+.empty-state__retry {
+  min-height: 44px;
+  padding: 0 18px;
+  margin-top: 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 800;
+  font-size: 0.88rem;
+  cursor: pointer;
+}
+.empty-state__retry:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ring);
 }

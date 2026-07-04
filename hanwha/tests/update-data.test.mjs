@@ -1,6 +1,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readFile, stat, unlink } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
 
 import {
   parseScore,
@@ -17,7 +19,10 @@ import {
   buildTicketCalendar,
   buildOpenAt,
   collectAllTeamScheduleGames,
+  writeJson,
 } from "../scripts/update-data.mjs";
+
+const DATA_DIR = join(dirname(fileURLToPath(import.meta.url)), "..", "data");
 
 test("update-data: 제거된 선수 데이터 소스를 호출하거나 출력하지 않는다", async () => {
   const source = await readFile(new URL("../scripts/update-data.mjs", import.meta.url), "utf8");
@@ -571,4 +576,28 @@ test("buildGames: 다른 팀 경기는 중립 스코어를 유지하고 ticketin
   assert.equal(lgGame.ticketing.venueType, "원정");
   // 공개 JSON 에 내부 필드 노출 금지.
   assert.ok(games.every((game) => !("rawTime" in game) && !("rawScore" in game)));
+});
+
+test("writeJson: 동일 내용 재호출 시 파일을 재작성하지 않는다(mtime 불변)", async () => {
+  const fileName = "__test-write-json-skip.json";
+  const filePath = join(DATA_DIR, fileName);
+  const payload = { hello: "world" };
+
+  try {
+    await writeJson(fileName, payload);
+    const firstStat = await stat(filePath);
+
+    // macOS/Linux 파일시스템 mtime 분해능(수 ms) 안에서도 구분되도록 살짝 대기.
+    await new Promise((resolve) => setTimeout(resolve, 20));
+
+    await writeJson(fileName, payload);
+    const secondStat = await stat(filePath);
+
+    assert.equal(secondStat.mtimeMs, firstStat.mtimeMs);
+
+    const content = await readFile(filePath, "utf8");
+    assert.equal(content, `${JSON.stringify(payload, null, 2)}\n`);
+  } finally {
+    await unlink(filePath).catch(() => {});
+  }
 });

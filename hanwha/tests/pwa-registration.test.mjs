@@ -27,7 +27,7 @@ test("app shell and data loader include ticketing calendar", async () => {
   assert.match(script, /ticketCalendar:\s*\[\]/);
   assert.match(script, /ticketCalendar:\s*"\.\/data\/ticketing-calendar\.json"/);
   assert.match(script, /fetchJson\(dataFiles\.ticketCalendar\)/);
-  assert.match(serviceWorker, /eagles-lounge-v30/);
+  assert.match(serviceWorker, /eagles-lounge-v31/);
   assert.match(serviceWorker, /\.\/data\/ticketing-calendar\.json\?v=19/);
 });
 
@@ -122,6 +122,22 @@ test("demand validation signals are stored locally and wired to ticket actions",
   assert.match(script, /trackDemandSignal\("calendar_filter_selected"/);
 });
 
+test("buildOpenIcs produces a compliant VEVENT with a -PT10M alarm and no external fetch", async () => {
+  const script = await readFile(new URL("../script.js", import.meta.url), "utf8");
+
+  // 순수함수 + 클라 Blob 다운로드(외부 fetch 무접촉).
+  assert.match(script, /function buildOpenIcs\(game, ticketing, openInfo\)/);
+  assert.match(script, /new Blob\(\[ics\], \{ type: "text\/calendar/);
+  assert.match(script, /kbo-tido-open-/);
+  // VEVENT 필수 필드: DTSTART/DURATION PT10M/SUMMARY 마커/VALARM -PT10M.
+  assert.match(script, /`DTSTART:\$\{start\}`/);
+  assert.match(script, /"DURATION:PT10M"/);
+  assert.match(script, /\[예매오픈\] \$\{game\.away\} vs \$\{game\.home\} \(\$\{provider\}\)/);
+  assert.match(script, /"TRIGGER:-PT10M"/);
+  // '캘린더에 추가' 액션이 히어로/스텁에 노출된다.
+  assert.match(script, /data-add-ics="\$\{gameId\(game\)\}"/);
+});
+
 test("NOL ticket providers use the current Interpark sports landing URL", async () => {
   const [script, ticketCalendar] = await Promise.all([
     readFile(new URL("../script.js", import.meta.url), "utf8"),
@@ -132,7 +148,7 @@ test("NOL ticket providers use the current Interpark sports landing URL", async 
   assert.doesNotMatch(ticketCalendar, /https:\/\/tickets\.interpark\.com\/contents\/sports/);
   assert.equal(
     [...script.matchAll(/url: "https:\/\/ticket\.interpark\.com\/Contents\/Sports"/g)].length,
-    3,
+    2,
   );
   assert.match(ticketCalendar, /"url": "https:\/\/ticket\.interpark\.com\/Contents\/Sports"/);
 });

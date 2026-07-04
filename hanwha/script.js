@@ -218,17 +218,17 @@ const ticketProviders = {
     url: "https://ticket.interpark.com/Contents/Sports",
     note: "키움 홈 예매",
     openDaysBefore: 7,
-    openTime: "11:00",
+    openTime: "14:00",
     cancelWaiting: cancelWaitingInterpark,
   },
   LG: {
-    provider: "NOL 티켓",
-    url: "https://ticket.interpark.com/Contents/Sports",
+    provider: "티켓링크",
+    url: "https://www.ticketlink.co.kr/sports/137/59",
     note: "LG 홈 예매",
     openDaysBefore: 7,
     openTime: "11:00",
     openCaution: "구단 공지 기준 확인",
-    cancelWaiting: cancelWaitingInterpark,
+    cancelWaiting: cancelWaitingTicketlink,
   },
   KT: {
     provider: "티켓링크",
@@ -276,6 +276,8 @@ const viewTriggers = document.querySelectorAll("[data-view-target]");
 let deferredInstallPrompt = null;
 let toastTimer = null;
 let lastUpdatedAt = null;
+// 예매 캘린더: 예매 중(오픈됨) 컴팩트 리스트의 '더 보기' 펼침 상태(세션 한정).
+let calendarOpenExpanded = false;
 
 document.documentElement.classList.add("has-view-tabs");
 
@@ -555,12 +557,23 @@ function renderTicketCalendar(filter = currentCalendarFilter()) {
     )}
   `;
 
-  const games =
+  const filtered =
     filter === "all"
       ? data.ticketCalendar
       : data.ticketCalendar.filter((game) => game.home === filter || game.away === filter);
 
-  if (!games.length) {
+  // ①경기일이 지난 항목 제외 — parseKstDate 기준 경기 시작 시각이 과거면 캘린더에서 뺀다.
+  const now = Date.now();
+  const active = filtered
+    .map((game) => {
+      const gameDate = parseKstDate(game.date, game.time);
+      const ticketing = getTicketing(game);
+      const openInfo = getTicketOpenInfo(game, ticketing);
+      return { game, gameDate, ticketing, openInfo };
+    })
+    .filter(({ gameDate }) => gameDate instanceof Date && gameDate.getTime() >= now);
+
+  if (!active.length) {
     ticketCalendarList.innerHTML = html`
       <div class="empty-state" role="status">
         <span class="empty-state__icon" aria-hidden="true">📅</span>
@@ -571,8 +584,24 @@ function renderTicketCalendar(filter = currentCalendarFilter()) {
     return;
   }
 
-  ticketCalendarList.innerHTML = html`${games.map((game) => {
-    const provider = game.ticketing?.provider ?? getTicketing(game).provider;
+  // ②미오픈(아직 예매 오픈 전)은 openAt 임박순으로 최상단에 풀 스텁으로 노출.
+  const unopened = active
+    .filter(({ openInfo }) => !openInfo.isOpen && openInfo.openAt instanceof Date)
+    .sort((a, b) => a.openInfo.openAt - b.openInfo.openAt);
+  // openAt 계산이 안 되는 미오픈 항목(시간 미확정)은 뒤에 붙여 누락되지 않게 한다.
+  const unopenedTbd = active.filter(({ openInfo }) => !openInfo.isOpen && !(openInfo.openAt instanceof Date));
+  const unopenedOrdered = [...unopened, ...unopenedTbd];
+
+  // ③예매 중(이미 오픈)은 경기일 임박순 정렬 후 상위 3건만 컴팩트 1줄.
+  const opened = active
+    .filter(({ openInfo }) => openInfo.isOpen)
+    .sort((a, b) => a.gameDate - b.gameDate);
+  const openedCompact = opened.slice(0, 3);
+  // ④나머지 예매 중 경기는 '더 보기' 토글 안에 컴팩트 1줄로.
+  const openedRest = opened.slice(3);
+
+  const fullStub = ({ game, ticketing }) => {
+    const provider = game.ticketing?.provider ?? ticketing.provider;
     const stamp = ticketDayStamp(game);
     return html`
         <article class="ticket-stub ticket-stub--calendar">
@@ -586,6 +615,9 @@ function renderTicketCalendar(filter = currentCalendarFilter()) {
               ${renderTeamBadge(game.home)}
               <span>${game.home}</span>
             </strong>
+            ${ticketing.earlyOpenLabel
+              ? html`<span class="early-open-chip">선예매 ${ticketing.earlyOpenLabel}</span>`
+              : ""}
             <p class="ticket-stub__meta">${game.location} · ${game.detail}</p>
             ${renderTicketInfo({ ...game, type: "upcoming" })}
           </div>
@@ -600,7 +632,49 @@ function renderTicketCalendar(filter = currentCalendarFilter()) {
           <span class="ticket-stamp ticket-stub__stamp" aria-hidden="true">${stamp}</span>
         </article>
       `;
-  })}`;
+  };
+
+  // 예매 중 컴팩트 1줄: 매치업 · 경기일 · 예매처 링크.
+  const compactRow = ({ game, ticketing }) => html`
+      <li class="calendar-open-row">
+        <span class="calendar-open-row__match">${game.away} vs ${game.home}</span>
+        <span class="calendar-open-row__date">${game.date} ${game.time}</span>
+        <a
+          class="calendar-open-row__link"
+          href="${ticketing.url}"
+          target="_blank"
+          rel="noopener"
+          data-demand-action="provider-click"
+          data-demand-provider="${ticketing.provider}"
+          data-demand-team="${game.home}"
+          data-demand-source="calendar-open"
+        >${ticketing.provider}</a>
+      </li>
+    `;
+
+  const openedMarkup = opened.length
+    ? html`
+      <section class="calendar-open" aria-label="예매 중인 경기">
+        <h3 class="calendar-open__title">예매 중</h3>
+        <ul class="calendar-open__list">${openedCompact.map(compactRow)}</ul>
+        ${openedRest.length
+          ? html`
+            <button
+              class="calendar-open__more"
+              type="button"
+              data-calendar-open-toggle
+              aria-expanded="${raw(calendarOpenExpanded ? "true" : "false")}"
+            >${calendarOpenExpanded ? "접기" : `예매 중인 경기 ${openedRest.length}개 더 보기`}</button>
+            <ul class="calendar-open__list calendar-open__list--rest" ${raw(calendarOpenExpanded ? "" : "hidden")}>
+              ${openedRest.map(compactRow)}
+            </ul>
+          `
+          : ""}
+      </section>
+    `
+    : "";
+
+  ticketCalendarList.innerHTML = html`${unopenedOrdered.map(fullStub)}${openedMarkup}`;
 }
 
 function renderTeamBadge(team) {
@@ -791,6 +865,34 @@ function trackDemandSignal(eventName, details = {}) {
   } catch {
     return;
   }
+
+  mirrorDemandSignal(eventName, details);
+}
+
+// 로컬 이벤트명 → 백엔드 허용 이벤트명(worker/lib/push-logic.js ALLOWED_EVENTS) 매핑.
+// 매핑 없는 이벤트는 미러링하지 않는다(allow-list, 식별자/PII 미포함).
+const DEMAND_MIRROR_EVENT_MAP = {
+  team_selected: "team_interest",
+  cancel_watch_saved: "cancel_watch",
+  notification_permission_result: "subscribe",
+};
+
+function mirrorDemandSignal(eventName, details = {}) {
+  if (!pushConfigured() || typeof navigator === "undefined" || typeof navigator.sendBeacon !== "function") {
+    return;
+  }
+
+  const mirroredName = DEMAND_MIRROR_EVENT_MAP[eventName];
+  if (!mirroredName) {
+    return;
+  }
+
+  try {
+    const payload = JSON.stringify({ events: [{ name: mirroredName, count: 1 }] });
+    navigator.sendBeacon(`${PUSH_API_BASE}/api/events`, new Blob([payload], { type: "application/json" }));
+  } catch {
+    // sendBeacon 실패는 무시 — 수요 신호 미러링은 부가 기능이다.
+  }
 }
 
 function setTicketReminder(game, ticketing) {
@@ -902,6 +1004,75 @@ function getTicketOpenInfo(game, ticketing) {
   };
 }
 
+// RFC5545 UTC 타임스탬프(YYYYMMDDTHHMMSSZ).
+function icsStamp(date) {
+  return date.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z$/, "Z");
+}
+
+// TEXT 값 이스케이프(RFC5545 3.3.11): 백슬래시·세미콜론·콤마·줄바꿈.
+function icsEscapeText(value) {
+  return String(value)
+    .replace(/\\/g, "\\\\")
+    .replace(/;/g, "\\;")
+    .replace(/,/g, "\\,")
+    .replace(/\r\n|\n|\r/g, "\\n");
+}
+
+// 예매 오픈용 .ics 문자열을 만드는 순수함수(외부 fetch 없음).
+// openInfo.openAt(Date)이 없으면 null 을 반환한다.
+function buildOpenIcs(game, ticketing, openInfo) {
+  if (!(openInfo?.openAt instanceof Date)) {
+    return null;
+  }
+  const start = icsStamp(openInfo.openAt);
+  const provider = ticketing?.provider ?? "";
+  const url = ticketing?.url ?? "";
+  const summary = icsEscapeText(`[예매오픈] ${game.away} vs ${game.home} (${provider})`);
+  const description = icsEscapeText(url);
+  const uid = `${start}-${game.away}-${game.home}@kbo-tido`.replace(/\s+/g, "");
+  return [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//KBO TIDO//Ticket Open//KO",
+    "CALSCALE:GREGORIAN",
+    "BEGIN:VEVENT",
+    `UID:${icsEscapeText(uid)}`,
+    `DTSTAMP:${icsStamp(new Date())}`,
+    `DTSTART:${start}`,
+    "DURATION:PT10M",
+    `SUMMARY:${summary}`,
+    `DESCRIPTION:${description}`,
+    "BEGIN:VALARM",
+    "ACTION:DISPLAY",
+    `DESCRIPTION:${summary}`,
+    "TRIGGER:-PT10M",
+    "END:VALARM",
+    "END:VEVENT",
+    "END:VCALENDAR",
+  ].join("\r\n");
+}
+
+// buildOpenIcs 결과를 Blob 으로 내려받는다(외부 fetch 없음 — 클라 생성).
+function downloadOpenIcs(game, ticketing, openInfo) {
+  const ics = buildOpenIcs(game, ticketing, openInfo);
+  if (!ics) {
+    showToast("예매 오픈 시간이 확정되지 않아 캘린더 파일을 만들지 못했습니다.");
+    return;
+  }
+  const stamp = (game.date || "").replace(/\./g, "");
+  const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
+  const objectUrl = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+  anchor.href = objectUrl;
+  anchor.download = `kbo-tido-open-${stamp}-${game.home}.ics`;
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
+  URL.revokeObjectURL(objectUrl);
+  trackDemandSignal("calendar_ics_added", { team: game.home, provider: ticketing?.provider });
+  showToast("예매 오픈 일정을 캘린더 파일로 내려받았어요.");
+}
+
 function renderTicketInfo(game, featured = false) {
   const ticketing = getTicketing(game);
   const isUpcoming = game.type === "upcoming";
@@ -933,6 +1104,9 @@ function renderTicketInfo(game, featured = false) {
         <button class="${raw(reminderOn ? "is-on" : "")}" type="button" data-ticket-alert="${gameId(game)}" ${raw(canClickReminder ? "" : "disabled")}>
           ${isUpcoming ? alertLabel : "종료"}
         </button>
+        ${isUpcoming && openInfo.openAt instanceof Date
+          ? html`<button type="button" data-add-ics="${gameId(game)}">캘린더에 추가</button>`
+          : ""}
         ${isUpcoming
           ? html`<button
               class="cancel-watch-toggle ${raw(watchOn ? "is-on" : "")}"
@@ -1121,6 +1295,7 @@ function renderTicketOpenCard() {
     <span class="ticket-serial">${serial}</span>
     <span class="toc-eyebrow">다음 예매 오픈</span>
     <strong class="toc-matchup">${game.away} vs ${game.home}</strong>
+    ${ticketing.earlyOpenLabel ? html`<span class="early-open-chip">선예매 ${ticketing.earlyOpenLabel}</span>` : ""}
     <p class="toc-meta">${game.date} ${game.time} · ${game.location} · ${ticketing.venueType} ${ticketing.provider} · ${openInfo.openText}</p>
     <div class="toc-countdown ${raw(soon ? "is-soon" : "")} ${raw(isOpen ? "toc-open" : "")}" aria-live="polite">${countdownText}</div>
     <div class="toc-actions">
@@ -1136,6 +1311,10 @@ function renderTicketOpenCard() {
       <button class="${raw(reminderOn ? "is-on" : "")}" type="button" data-ticket-alert="${gameId(game)}" ${raw(canClickReminder ? "" : "disabled")}>
         ${alertLabel}
       </button>
+      ${openInfo.openAt instanceof Date
+        ? html`<button type="button" data-add-ics="${gameId(game)}">캘린더에 추가</button>`
+        : ""}
+      <button type="button" data-share-game="${gameId(game)}">공유</button>
     </div>
     ${upcomingMarkup}
     <div class="toc-perf" aria-hidden="true"></div>
@@ -1678,10 +1857,22 @@ function renderDataError(error) {
       </article>
     `;
   }
-  featuredGame.innerHTML = `<p class="meta">데이터를 불러오지 못했습니다: ${error.message}</p>`;
-  ticketGameList.innerHTML = `<div class="empty-state empty-state--error" role="alert"><span class="empty-state__icon" aria-hidden="true">⚠️</span><p class="empty-state__title">티켓팅 정보를 불러오지 못했습니다</p><p class="empty-state__hint">로컬 서버로 다시 열어 주세요.</p></div>`;
-  liveGamePanel.innerHTML = `<p class="meta">실시간 경기 데이터를 불러오지 못했습니다.</p>`;
-  teamStandingsBoard.innerHTML = `<p class="meta">KBO 팀 순위 데이터를 불러오지 못했습니다.</p>`;
+  featuredGame.innerHTML = dataErrorCardHtml("경기 정보를 불러오지 못했습니다");
+  ticketGameList.innerHTML = dataErrorCardHtml("티켓팅 정보를 불러오지 못했습니다");
+  liveGamePanel.innerHTML = dataErrorCardHtml("실시간 경기 데이터를 불러오지 못했습니다");
+  teamStandingsBoard.innerHTML = dataErrorCardHtml("KBO 팀 순위 데이터를 불러오지 못했습니다");
+}
+
+// 오류 상태 표준 카드 — .empty-state--error + 다시 시도(reload) 버튼.
+function dataErrorCardHtml(title) {
+  return `
+    <div class="empty-state empty-state--error" role="alert">
+      <span class="empty-state__icon" aria-hidden="true">⚠️</span>
+      <p class="empty-state__title">${title}</p>
+      <p class="empty-state__hint">잠시 후 다시 시도해 주세요.</p>
+      <button type="button" class="empty-state__retry" data-retry-data-load>다시 시도</button>
+    </div>
+  `;
 }
 
 function setActiveButton(buttons, selected) {
@@ -2297,7 +2488,69 @@ async function checkCancelWatchReminders() {
   }
 }
 
+function handleShareGame(gameKey) {
+  const game = [...(data.games ?? []), ...(data.ticketCalendar ?? [])].find((item) => gameId(item) === gameKey);
+
+  if (!game) {
+    return;
+  }
+
+  const ticketing = getTicketing(game);
+  const openInfo = getTicketOpenInfo(game, ticketing);
+  const shareData = {
+    title: "KBO TIDO",
+    text: `${game.away} vs ${game.home} 예매 오픈 ${openInfo.openText}`,
+    url: location.href,
+  };
+
+  if (navigator.share) {
+    navigator.share(shareData).catch(() => {});
+    return;
+  }
+
+  if (navigator.clipboard?.writeText) {
+    navigator.clipboard
+      .writeText(shareData.url)
+      .then(() => showToast("링크를 복사했어요"))
+      .catch(() => showToast("링크를 복사했어요"));
+    return;
+  }
+
+  showToast("링크를 복사했어요");
+}
+
 document.addEventListener("click", (event) => {
+  const retryButton = event.target.closest("[data-retry-data-load]");
+  if (retryButton) {
+    window.location.reload();
+    return;
+  }
+
+  const shareButton = event.target.closest("[data-share-game]");
+  if (shareButton) {
+    handleShareGame(shareButton.dataset.shareGame);
+    return;
+  }
+
+  const icsButton = event.target.closest("[data-add-ics]");
+  if (icsButton) {
+    const game = [...(data.games ?? []), ...(data.ticketCalendar ?? [])].find(
+      (item) => gameId(item) === icsButton.dataset.addIcs,
+    );
+    if (game) {
+      const ticketing = getTicketing(game);
+      downloadOpenIcs(game, ticketing, getTicketOpenInfo(game, ticketing));
+    }
+    return;
+  }
+
+  const calendarMore = event.target.closest("[data-calendar-open-toggle]");
+  if (calendarMore) {
+    calendarOpenExpanded = !calendarOpenExpanded;
+    renderTicketCalendar();
+    return;
+  }
+
   const providerLink = event.target.closest('[data-demand-action="provider-click"]');
   if (providerLink) {
     trackDemandSignal("provider_click", {

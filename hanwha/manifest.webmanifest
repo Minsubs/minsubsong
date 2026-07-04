@@ -25,9 +25,9 @@
       "url": "./index.html#calendar"
     },
     {
-      "name": "수요 검증",
-      "short_name": "검증",
-      "url": "./index.html#validation"
+      "name": "알림 센터",
+      "short_name": "알림",
+      "url": "./index.html#more"
     }
   ]
 }

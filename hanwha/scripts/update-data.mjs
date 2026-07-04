@@ -90,11 +90,11 @@ const TICKET_PROVIDERS = {
     note: "키움 홈 예매",
     openLabel: "키움 홈 예매 일정 기준",
     openDaysBefore: 7,
-    openTime: "11:00",
+    openTime: "14:00",
   },
   LG: {
-    provider: "NOL 티켓",
-    url: "https://ticket.interpark.com/Contents/Sports",
+    provider: "티켓링크",
+    url: "https://www.ticketlink.co.kr/sports/137/59",
     note: "LG 홈 예매",
     openLabel: "LG 홈 예매 일정 기준",
     openDaysBefore: 7,
@@ -881,7 +881,17 @@ async function readExistingJson(fileName) {
 }
 
 async function writeJson(fileName, data) {
-  await writeFile(join(DATA_DIR, fileName), `${JSON.stringify(data, null, 2)}\n`);
+  const nextContent = `${JSON.stringify(data, null, 2)}\n`;
+  const filePath = join(DATA_DIR, fileName);
+  try {
+    const existingContent = await readFile(filePath, "utf8");
+    if (existingContent === nextContent) {
+      return;
+    }
+  } catch {
+    // 기존 파일이 없거나 읽기 실패 시 새로 쓴다.
+  }
+  await writeFile(filePath, nextContent);
 }
 
 // 직접 실행(node update-data.mjs)일 때만 네트워크 수집을 돈다.
@@ -916,4 +926,5 @@ export {
   compareMonthDay,
   locationToKorean,
   toEnglishTeam,
+  writeJson,
 };
