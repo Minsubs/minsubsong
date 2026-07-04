@@ -104,7 +104,7 @@
 | MLB Ballpark 프로모션/이벤트 일정 | 게임데이 올인원 | **가능** | 우리 캘린더 강점 직결. 10구단 프로모션데이·기념굿즈 오픈을 캘린더에 얹는 자연 확장 |
 | MLB My History / 직관 기록 | 개인화·재방문 | **조건부(레드오션)** | 하루1루·직꾸·오늘은승요가 선점. selectedTeam·캘린더와 묶은 "보조 위젯"이면 잔존가치, 메인 무기로는 약함 |
 
-**한국 시장 결정적 제약:** 2025 국민체육진흥법 개정 — 매크로 無관계 재판매·암표 전면 금지 + 중개 플랫폼 방조 책임 신설(시행 예정). → **SeatGeek/Gametime/StubHub식 "리세일 마켓·라스트미닛 딜 거래" 모델은 한국 이식 불가/위험.** 단 *가격·거래는 빼고* "알림/정보 레이어"만 떼어오는 건 가능. 이 규제 강화는 오히려 "거래 안 하고 정보만 주는" 우리 포지션의 안전성을 높인다.
+**한국 시장 결정적 제약:** 2025 국민체육진흥법 개정 — 매크로 無관계 재판매·암표 전면 금지 + 중개 플랫폼 방조 책임 신설(2026-08-28 시행). → **SeatGeek/Gametime/StubHub식 "리세일 마켓·라스트미닛 딜 거래" 모델은 한국 이식 불가/위험.** 단 *가격·거래는 빼고* "알림/정보 레이어"만 떼어오는 건 가능. 이 규제 강화는 오히려 "거래 안 하고 정보만 주는" 우리 포지션의 안전성을 높인다.
 
 > 출처(확인일 2026-06-11): MLB Ballpark https://www.mlb.com/apps/ballpark · Go-Ahead Entry https://www.biometricupdate.com/202503/mlb-go-ahead-entry-adds-new-parks · SeatGeek Deal Score https://support.seatgeek.com/hc/en-us/articles/360007200954 · https://seatgeek.com/deal-score · Gametime 2025 https://gametime.co/blog/gametime-2025-new-product-release/ · StubHub FanProtect https://support.stubhub.com/articles/61000276393 · A View From My Seat https://aviewfrommyseat.com/ · 자리어때 https://myseatcheck.com/ · 하루1루 https://haru1ru.com/ · 앱 사용 데이터 https://www.banronbodo.com/news/articleView.html?idxno=22997 · 암표법 https://www.segye.com/newsView/20251105516585 · https://www.ebn.co.kr/news/articleView.html?idxno=1685416
 > **Unknown**: SeatGeek·StubHub·Gametime MAU 수치 / KBO 직관기록 앱 다운로드·MAU.
