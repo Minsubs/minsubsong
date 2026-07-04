@@ -1,11 +1,11 @@
 # KBO 티켓팅 도우미 진행상황
 
-> 2026-07-03 중단 지점: LazyCodex `4.15.1` 업데이트 완료 후 새 세션 적용 대기. Claude 워크플로우 1/9 데이터 경로 제거와 Codex 2/9 고아 CSS·공개 수요검증 렌더러 제거까지 작업트리에 반영·검증됨(`npm run check` 44/44, 브라우저 375/768/1280, 배포본 대비 모바일 더보기 픽셀 diff 100/100). 다음은 3/9 데이터 쓰기 동일 내용 스킵. 상세는 `HANDOFF.md` 최상단.
+> 2026-07-04 배치 완료: `docs/BATCH_DESIGN_2026-07.md`의 R2~R8 전체 구현 + LG 예매처/키움 오픈시각 긴급 데이터 수정, 캐시 v31. 상세는 `HANDOFF.md` 최상단.
 
 > **다음 개발 단일 소스: [`docs/ROADMAP.md`](docs/ROADMAP.md)** (백엔드/푸시 플랜 + 시장조사 + UI/UX 개편 + 미뤄둔 수정 통합). 개발 재개 시 여기부터.
-> Now 버킷 진행: ~~N1 NOL 링크 · N2 "KBO TIDO" 개명~~ (`e0a95c2`) · ~~N4 검증 신호 보강 · 홈 예매오픈 카운트다운 카드~~ (`10177b5`) → **모두 완료·검증**.
-> Now 진행: ~~iOS 설치유도 시트~~ → **완료·검증 (미커밋, 작업트리)**. 남은 Now: UI 골격 잔여(더보기 알림·구독 허브 `more-subnav` · 빈/로딩/오류 표준화) · N3 프로모션(공개 데이터 소스 선결) · N5 어필리에이트(아고다/링크프라이스 계정 선결). 진짜 분기점은 D3/D7/D8 결정 후 X0(백엔드+푸시 기반).
-> 상세: `docs/BACKEND_PUSH_PLAN.md` · `docs/FEATURE_MARKET_RESEARCH.md` · `docs/CANCEL_TICKET_ALERT_RESEARCH.md`.
+> Now 버킷 진행: ~~N1 NOL 링크 · N2 "KBO TIDO" 개명~~ (`e0a95c2`) · ~~N4 검증 신호 보강 · 홈 예매오픈 카운트다운 카드~~ (`10177b5`) · ~~iOS 설치유도 시트~~ · ~~데드 코드 정리~~ · ~~R2~R8 배치~~ → **모두 완료·검증**.
+> Now 착수 보류: N3 프로모션(공개 데이터 소스 조사 선결) · N5 어필리에이트(D11 수익화 착수 시점 결정 대기). `more-subnav`(더보기 하위탭)는 폐기 결정(하위 면 소멸). 진짜 분기점은 D3/D7/D8 결정 후 X0(백엔드+푸시 기반) — 다음 루프.
+> 상세: `docs/BACKEND_PUSH_PLAN.md` · `docs/FEATURE_MARKET_RESEARCH.md` · `docs/MARKET_RESEARCH_2026-07.md` · `docs/CANCEL_TICKET_ALERT_RESEARCH.md`.
 
 ## 현재 목표
 
@@ -43,13 +43,24 @@
 - [x] 취소표 관심 경기 알림의 예매처별 허용 범위/데이터 접근 방식 조사 → `docs/CANCEL_TICKET_ALERT_RESEARCH.md` (2026-06-11, 결론: 자동 감시는 5개 예매처 전부 보류 조건 해당 — 컨시어지형 v1만 진행 가능)
 - [ ] 지표 기반 네이티브 알림/제휴/스토어 확장 여부 결정
 - [x] live-game.json 전구단화 (오늘의 KBO 전 경기 배열 + selectedTeam 선택, 레거시 단일 객체 방어 유지)
-- [x] N1 인터파크(NOL) 예매처 링크 복구 (`script.js` 두산/키움/LG → `nol.interpark.com/ticket`, 커밋 `e0a95c2`) — 검증: NOL 200 / 구 URL 404
+- [x] N1 인터파크(NOL) 예매처 링크 복구 (`script.js` 두산/키움/LG → `ticket.interpark.com/Contents/Sports`, 커밋 `e0a95c2`) — 검증: NOL 200 / 구 URL 404
 - [x] N2 앱 개명 "KBO TIDO" (index.html·manifest·README·offline.html, localStorage 키는 유지, 커밋 `e0a95c2`)
 - [x] N4 검증 탭 신호 보강 + "합산=백엔드 선행" 고지 (`demand-scope-note` + cancel_watch_*/team_selected 신호, 커밋 `10177b5`)
 - [x] 홈 "다음 예매 오픈" 카운트다운 카드 (`#ticketOpenCard`, 내 구단 최근접 openAt, 커밋 `10177b5`)
 - [x] (Now) iOS 설치유도 시트 — iOS Safari·미설치에서만 상단 버튼+홈 1회성 배너 → 3스텝 시트(공유→홈화면 추가→확인), a11y(focus trap·Esc·aria-modal), 비-Safari 적응 카피, 캐시 v26. (미커밋, 작업트리)
-- [ ] (Now) UI 골격 잔여 — 더보기 알림·구독 허브(`more-subnav`) · 빈/로딩/오류 표준화
-- [ ] (Now·외부선결) N3 프로모션 일정 칩(공개 데이터 소스) · N5 여행/숙박 어필리에이트(계정+공정위 표기)
+- [x] 데드 코드 정리(2026-07-03) — 선수 그리드·히어로 랭킹패널·리그 리더·공개 수요검증 UI 제거, 신호 수집(`trackDemandSignal`)은 유지. `docs/ROADMAP.md` §1.1 "제거된 화면" 참조. `더보기` 하위탭(`more-subnav`) 신설 계획은 하위 면 소멸로 폐기.
+- [x] R1 시장조사 델타 합성 → `docs/MARKET_RESEARCH_2026-07.md` (LG 예매처 티켓링크 오류·키움 오픈 14:00 오류 발견)
+- [x] R2 크론 위생 — `update-data.mjs` 동일 내용 재작성 스킵
+- [x] R3 OG/매니페스트/오프라인 메타 정렬
+- [x] R4 공유 버튼 + 선예매 배지
+- [x] R5 캘린더 절충 + .ics 내보내기
+- [x] R6 이벤트 미러링 + 오류 상태 표준화(`renderDataError`)
+- [x] R7 캐시 트리아드 v30→v31 + `#fff8ef` 잔존 2건 처리(메인 세션이 직접 적용)
+- [x] R8 문서 재기준선(ROADMAP/HANDOFF/PROGRESS/DATA_INTEGRATION/FEATURE_MARKET_RESEARCH/CANCEL_TICKET_ALERT_RESEARCH) — 본 배치
+- [x] 긴급 데이터 수정 — LG 예매처 NOL→티켓링크, 키움 오픈시각 14:00 정정
+- [ ] (Now·착수 보류) N3 프로모션 일정 칩 — 공개 데이터 소스 조사가 선결, 소스 미확보 상태
+- [ ] (Now·착수 보류) N5 여행/숙박 어필리에이트 — D11(수익화 착수 시점) 사용자 결정 대기
+- [ ] X0 배포 게이트 — D3(호스팅 스택)·D7(VAPID 키 운영)·D8(법률/처리방침 검토) 사용자 결정 대기
 
 ## Phase 0 — Macro 분리
 

@@ -1,5 +1,12 @@
 # KBO 티켓팅 도우미 Handoff
 
+## 2026-07-04 R2~R8 배치 구현 + 긴급 데이터 수정 완료 (캐시 v31)
+
+- `docs/BATCH_DESIGN_2026-07.md`의 R2~R8 전체를 구현·반영했다: R2 크론 위생(동일 내용 재작성 스킵) · R3 OG/매니페스트/오프라인 메타 · R4 공유 버튼+선예매 배지 · R5 캘린더 절충+.ics 내보내기 · R6 이벤트 미러링+오류 상태 표준화 · R7 캐시 트리아드 v30→v31(**메인 세션이 직접 적용**) · R8 문서 재기준선(본 배치).
+- **긴급 데이터 수정**(`docs/MARKET_RESEARCH_2026-07.md` §10-2 근거): LG 예매처를 NOL 인터파크→**티켓링크**로 교체, 키움 오픈시각을 11:00→**14:00**으로 정정.
+- 문서 재기준선(R8) 반영 범위: `docs/ROADMAP.md`(캐시 v31·라인수 실측·제거된 화면 절 신설·`more-subnav` 폐기 기록·N3/N5 상태 명기), `HANDOFF.md`/`PROGRESS.md`(본 절+체크리스트), `docs/DATA_INTEGRATION.md`(players/player-rankings 삭제 반영), `docs/FEATURE_MARKET_RESEARCH.md`/`docs/CANCEL_TICKET_ALERT_RESEARCH.md`(암표법 시행일 8/28 정정·취소표대기 요금 표기 완화).
+- **다음 루프 = X0 배포 게이트(D3 호스팅 스택 / D7 VAPID 키 운영 / D8 법률·처리방침 검토) 결정 → 결정 후 X1(예매 오픈 임박 푸시) 착수. 병행 가능한 별도 트랙: N3(구단 프로모션 데이터 소스 조사) / N5(D11 수익화 착수 시점 결정 대기).**
+
 ## 2026-07-04 Claude 재개 — 수집 보존 + 잔여 배치 설계 완료
 
 - 시장조사 수집 원문을 LLM 재실행 없이 journal 에서 기계 추출해 **`docs/MARKET_RESEARCH_2026-07-raw.md`**(14건: 6방향 리서치 + 검증 verdict, 84KB)로 보존했다 — 커밋 `089431b`. 최종 합성 완료 → `docs/MARKET_RESEARCH_2026-07.md` (Top5 재검증·데이터 오류 2건 발견 포함). R1 종결.
@@ -131,7 +138,7 @@ sed -n '1,220p' hanwha/PROGRESS.md
 ## 완료된 일
 
 - `ticketlink-macro/`를 제품 repo에서 분리하고 tracked deletion을 `main`에 반영했다.
-- `ticketlink-macro` 보존 위치: `/Users/minsub/Documents/한화/_separated/ticketlink-macro-20260606-203301`
+- `ticketlink-macro` 보존 위치: `/Users/minsub/Documents/hanwha/_separated/ticketlink-macro-20260606-203301`
 - `KBO_TEAM_IDS` 10개 팀 기반으로 예매 캘린더 생성 파이프라인을 확장했다.
 - `data/ticketing-calendar.json`은 예정 경기 데이터를 포함한다. 이 수치는 `chore(hanwha): refresh KBO snapshot` 커밋마다 갱신되는 스냅샷이라 시점에 따라 달라진다 (2026-06-10 확인 기준 200경기, 모두 예정 경기, 홈팀 10개 전구단).
 - 앱에 `예매 캘린더` 탭을 추가했다.
@@ -171,7 +178,7 @@ sed -n '1,220p' hanwha/PROGRESS.md
 최신 확인 명령:
 
 ```bash
-cd /Users/minsub/Documents/한화/hanwha
+cd /Users/minsub/Documents/hanwha/hanwha
 npm run check
 ```
 
@@ -203,10 +210,10 @@ npm run check
 
 아래 경로는 작업용/보존용 untracked 상태로 남아 있을 수 있다. 사용자 승인 없이 삭제하거나 커밋하지 않는다.
 
-- `/Users/minsub/Documents/한화/.claude/`
-- `/Users/minsub/Documents/한화/.omo/`
-- `/Users/minsub/Documents/한화/_separated/`
-- `/Users/minsub/Documents/한화/data/`
+- `/Users/minsub/Documents/hanwha/.claude/`
+- `/Users/minsub/Documents/hanwha/.omo/`
+- `/Users/minsub/Documents/hanwha/_separated/`
+- `/Users/minsub/Documents/hanwha/data/`
 
 ## 다음 세션 추천 첫 작업
 
