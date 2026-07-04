@@ -69,27 +69,6 @@
     "type": "upcoming",
     "status": "예정 경기",
     "date": "07.05",
-    "time": "일 14:00",
-    "location": "고척",
-    "home": "키움",
-    "away": "두산",
-    "score": "경기전",
-    "detail": "키움 홈 경기",
-    "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
-      "note": "키움 홈 예매",
-      "openLabel": "키움 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-06-28T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "07.05",
     "time": "일 18:00",
     "location": "잠실",
     "home": "LG",
@@ -150,6 +129,27 @@
       "venueType": "원정"
     },
     "openAt": "2026-06-28T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "07.05",
+    "time": "일 14:00",
+    "location": "고척",
+    "home": "키움",
+    "away": "두산",
+    "score": "경기전",
+    "detail": "키움 홈 경기",
+    "ticketing": {
+      "provider": "NOL 티켓",
+      "url": "https://ticket.interpark.com/Contents/Sports",
+      "note": "키움 홈 예매",
+      "openLabel": "키움 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "14:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-06-28T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1074,10 +1074,10 @@
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
-      "openTime": "11:00",
+      "openTime": "14:00",
       "venueType": "원정"
     },
-    "openAt": "2026-07-14T11:00:00+09:00"
+    "openAt": "2026-07-14T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1160,10 +1160,10 @@
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
-      "openTime": "11:00",
+      "openTime": "14:00",
       "venueType": "원정"
     },
-    "openAt": "2026-07-15T11:00:00+09:00"
+    "openAt": "2026-07-15T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1246,10 +1246,10 @@
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
-      "openTime": "11:00",
+      "openTime": "14:00",
       "venueType": "원정"
     },
-    "openAt": "2026-07-16T11:00:00+09:00"
+    "openAt": "2026-07-16T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1987,27 +1987,6 @@
     "status": "예정 경기",
     "date": "07.31",
     "time": "금 18:30",
-    "location": "고척",
-    "home": "키움",
-    "away": "SSG",
-    "score": "경기전",
-    "detail": "키움 홈 경기",
-    "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
-      "note": "키움 홈 예매",
-      "openLabel": "키움 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-24T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "07.31",
-    "time": "금 18:30",
     "location": "창원",
     "home": "NC",
     "away": "KIA",
@@ -2023,6 +2002,27 @@
       "venueType": "원정"
     },
     "openAt": "2026-07-24T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "07.31",
+    "time": "금 18:30",
+    "location": "고척",
+    "home": "키움",
+    "away": "SSG",
+    "score": "경기전",
+    "detail": "키움 홈 경기",
+    "ticketing": {
+      "provider": "NOL 티켓",
+      "url": "https://ticket.interpark.com/Contents/Sports",
+      "note": "키움 홈 예매",
+      "openLabel": "키움 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "14:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-07-24T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2094,27 +2094,6 @@
     "status": "예정 경기",
     "date": "08.01",
     "time": "토 18:00",
-    "location": "고척",
-    "home": "키움",
-    "away": "SSG",
-    "score": "경기전",
-    "detail": "키움 홈 경기",
-    "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
-      "note": "키움 홈 예매",
-      "openLabel": "키움 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-25T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.01",
-    "time": "토 18:00",
     "location": "창원",
     "home": "NC",
     "away": "KIA",
@@ -2134,8 +2113,8 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "08.02",
-    "time": "일 14:00",
+    "date": "08.01",
+    "time": "토 18:00",
     "location": "고척",
     "home": "키움",
     "away": "SSG",
@@ -2147,10 +2126,10 @@
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
-      "openTime": "11:00",
+      "openTime": "14:00",
       "venueType": "원정"
     },
-    "openAt": "2026-07-26T11:00:00+09:00"
+    "openAt": "2026-07-25T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2216,6 +2195,27 @@
       "venueType": "원정"
     },
     "openAt": "2026-07-26T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.02",
+    "time": "일 14:00",
+    "location": "고척",
+    "home": "키움",
+    "away": "SSG",
+    "score": "경기전",
+    "detail": "키움 홈 경기",
+    "ticketing": {
+      "provider": "NOL 티켓",
+      "url": "https://ticket.interpark.com/Contents/Sports",
+      "note": "키움 홈 예매",
+      "openLabel": "키움 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "14:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-07-26T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2892,27 +2892,6 @@
     "status": "예정 경기",
     "date": "08.11",
     "time": "화 18:30",
-    "location": "고척",
-    "home": "키움",
-    "away": "LG",
-    "score": "경기전",
-    "detail": "키움 홈 경기",
-    "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
-      "note": "키움 홈 예매",
-      "openLabel": "키움 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-04T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.11",
-    "time": "화 18:30",
     "location": "광주",
     "home": "KIA",
     "away": "삼성",
@@ -2949,6 +2928,27 @@
       "venueType": "원정"
     },
     "openAt": "2026-08-04T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.11",
+    "time": "화 18:30",
+    "location": "고척",
+    "home": "키움",
+    "away": "LG",
+    "score": "경기전",
+    "detail": "키움 홈 경기",
+    "ticketing": {
+      "provider": "NOL 티켓",
+      "url": "https://ticket.interpark.com/Contents/Sports",
+      "note": "키움 홈 예매",
+      "openLabel": "키움 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "14:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-04T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2999,27 +2999,6 @@
     "status": "예정 경기",
     "date": "08.12",
     "time": "수 18:30",
-    "location": "고척",
-    "home": "키움",
-    "away": "LG",
-    "score": "경기전",
-    "detail": "키움 홈 경기",
-    "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
-      "note": "키움 홈 예매",
-      "openLabel": "키움 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-05T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.12",
-    "time": "수 18:30",
     "location": "광주",
     "home": "KIA",
     "away": "삼성",
@@ -3056,6 +3035,27 @@
       "venueType": "원정"
     },
     "openAt": "2026-08-05T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.12",
+    "time": "수 18:30",
+    "location": "고척",
+    "home": "키움",
+    "away": "LG",
+    "score": "경기전",
+    "detail": "키움 홈 경기",
+    "ticketing": {
+      "provider": "NOL 티켓",
+      "url": "https://ticket.interpark.com/Contents/Sports",
+      "note": "키움 홈 예매",
+      "openLabel": "키움 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "14:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-05T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3127,27 +3127,6 @@
     "status": "예정 경기",
     "date": "08.13",
     "time": "목 18:30",
-    "location": "고척",
-    "home": "키움",
-    "away": "LG",
-    "score": "경기전",
-    "detail": "키움 홈 경기",
-    "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
-      "note": "키움 홈 예매",
-      "openLabel": "키움 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-06T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.13",
-    "time": "목 18:30",
     "location": "광주",
     "home": "KIA",
     "away": "삼성",
@@ -3184,6 +3163,27 @@
       "venueType": "원정"
     },
     "openAt": "2026-08-06T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.13",
+    "time": "목 18:30",
+    "location": "고척",
+    "home": "키움",
+    "away": "LG",
+    "score": "경기전",
+    "detail": "키움 홈 경기",
+    "ticketing": {
+      "provider": "NOL 티켓",
+      "url": "https://ticket.interpark.com/Contents/Sports",
+      "note": "키움 홈 예매",
+      "openLabel": "키움 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "14:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-06T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3816,27 +3816,6 @@
     "status": "예정 경기",
     "date": "08.21",
     "time": "금 18:30",
-    "location": "고척",
-    "home": "키움",
-    "away": "KIA",
-    "score": "경기전",
-    "detail": "키움 홈 경기",
-    "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
-      "note": "키움 홈 예매",
-      "openLabel": "키움 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-14T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.21",
-    "time": "금 18:30",
     "location": "창원",
     "home": "NC",
     "away": "삼성",
@@ -3852,6 +3831,27 @@
       "venueType": "원정"
     },
     "openAt": "2026-08-14T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.21",
+    "time": "금 18:30",
+    "location": "고척",
+    "home": "키움",
+    "away": "KIA",
+    "score": "경기전",
+    "detail": "키움 홈 경기",
+    "ticketing": {
+      "provider": "NOL 티켓",
+      "url": "https://ticket.interpark.com/Contents/Sports",
+      "note": "키움 홈 예매",
+      "openLabel": "키움 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "14:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-14T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3923,27 +3923,6 @@
     "status": "예정 경기",
     "date": "08.22",
     "time": "토 18:00",
-    "location": "고척",
-    "home": "키움",
-    "away": "KIA",
-    "score": "경기전",
-    "detail": "키움 홈 경기",
-    "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
-      "note": "키움 홈 예매",
-      "openLabel": "키움 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-15T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.22",
-    "time": "토 18:00",
     "location": "창원",
     "home": "NC",
     "away": "삼성",
@@ -3959,6 +3938,27 @@
       "venueType": "원정"
     },
     "openAt": "2026-08-15T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.22",
+    "time": "토 18:00",
+    "location": "고척",
+    "home": "키움",
+    "away": "KIA",
+    "score": "경기전",
+    "detail": "키움 홈 경기",
+    "ticketing": {
+      "provider": "NOL 티켓",
+      "url": "https://ticket.interpark.com/Contents/Sports",
+      "note": "키움 홈 예매",
+      "openLabel": "키움 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "14:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-15T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3998,27 +3998,6 @@
       "note": "SSG 홈 예매",
       "openLabel": "SSG 홈 예매 일정 기준",
       "openDaysBefore": 5,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-16T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.23",
-    "time": "일 14:00",
-    "location": "고척",
-    "home": "키움",
-    "away": "KIA",
-    "score": "경기전",
-    "detail": "키움 홈 경기",
-    "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
-      "note": "키움 홈 예매",
-      "openLabel": "키움 홈 예매 일정 기준",
-      "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
     },
@@ -4087,6 +4066,27 @@
       "venueType": "원정"
     },
     "openAt": "2026-08-16T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.23",
+    "time": "일 14:00",
+    "location": "고척",
+    "home": "키움",
+    "away": "KIA",
+    "score": "경기전",
+    "detail": "키움 홈 경기",
+    "ticketing": {
+      "provider": "NOL 티켓",
+      "url": "https://ticket.interpark.com/Contents/Sports",
+      "note": "키움 홈 예매",
+      "openLabel": "키움 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "14:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-16T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4201,27 +4201,6 @@
     "status": "예정 경기",
     "date": "08.25",
     "time": "화 18:30",
-    "location": "고척",
-    "home": "키움",
-    "away": "삼성",
-    "score": "경기전",
-    "detail": "키움 홈 경기",
-    "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
-      "note": "키움 홈 예매",
-      "openLabel": "키움 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-18T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.25",
-    "time": "화 18:30",
     "location": "광주",
     "home": "KIA",
     "away": "롯데",
@@ -4237,6 +4216,27 @@
       "venueType": "원정"
     },
     "openAt": "2026-08-18T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.25",
+    "time": "화 18:30",
+    "location": "고척",
+    "home": "키움",
+    "away": "삼성",
+    "score": "경기전",
+    "detail": "키움 홈 경기",
+    "ticketing": {
+      "provider": "NOL 티켓",
+      "url": "https://ticket.interpark.com/Contents/Sports",
+      "note": "키움 홈 예매",
+      "openLabel": "키움 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "14:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-18T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4287,27 +4287,6 @@
     "status": "예정 경기",
     "date": "08.26",
     "time": "수 18:30",
-    "location": "고척",
-    "home": "키움",
-    "away": "삼성",
-    "score": "경기전",
-    "detail": "키움 홈 경기",
-    "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
-      "note": "키움 홈 예매",
-      "openLabel": "키움 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-19T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.26",
-    "time": "수 18:30",
     "location": "광주",
     "home": "KIA",
     "away": "롯데",
@@ -4323,6 +4302,27 @@
       "venueType": "원정"
     },
     "openAt": "2026-08-19T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.26",
+    "time": "수 18:30",
+    "location": "고척",
+    "home": "키움",
+    "away": "삼성",
+    "score": "경기전",
+    "detail": "키움 홈 경기",
+    "ticketing": {
+      "provider": "NOL 티켓",
+      "url": "https://ticket.interpark.com/Contents/Sports",
+      "note": "키움 홈 예매",
+      "openLabel": "키움 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "14:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-19T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4394,27 +4394,6 @@
     "status": "예정 경기",
     "date": "08.27",
     "time": "목 18:30",
-    "location": "고척",
-    "home": "키움",
-    "away": "삼성",
-    "score": "경기전",
-    "detail": "키움 홈 경기",
-    "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
-      "note": "키움 홈 예매",
-      "openLabel": "키움 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-20T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.27",
-    "time": "목 18:30",
     "location": "광주",
     "home": "KIA",
     "away": "롯데",
@@ -4430,6 +4409,27 @@
       "venueType": "원정"
     },
     "openAt": "2026-08-20T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.27",
+    "time": "목 18:30",
+    "location": "고척",
+    "home": "키움",
+    "away": "삼성",
+    "score": "경기전",
+    "detail": "키움 홈 경기",
+    "ticketing": {
+      "provider": "NOL 티켓",
+      "url": "https://ticket.interpark.com/Contents/Sports",
+      "note": "키움 홈 예매",
+      "openLabel": "키움 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "14:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-20T14:00:00+09:00"
   },
   {
     "type": "upcoming",
