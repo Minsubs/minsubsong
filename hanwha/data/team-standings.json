@@ -58,15 +58,15 @@
   {
     "rank": "5",
     "team": "두산",
-    "games": "83",
-    "wins": "41",
+    "games": "84",
+    "wins": "42",
     "losses": "40",
     "draws": "2",
-    "pct": "0.506",
-    "gamesBehind": "9.5",
-    "streak": "W1",
+    "pct": "0.512",
+    "gamesBehind": "9.0",
+    "streak": "W2",
     "home": "23-16-1",
-    "away": "18-24-1",
+    "away": "19-24-1",
     "isHanwha": false
   },
   {
@@ -128,14 +128,14 @@
   {
     "rank": "10",
     "team": "키움",
-    "games": "84",
+    "games": "85",
     "wins": "29",
-    "losses": "54",
+    "losses": "55",
     "draws": "1",
-    "pct": "0.349",
-    "gamesBehind": "22.5",
-    "streak": "L1",
-    "home": "19-27-1",
+    "pct": "0.345",
+    "gamesBehind": "23.0",
+    "streak": "L2",
+    "home": "19-28-1",
     "away": "10-27-0",
     "isHanwha": false
   }

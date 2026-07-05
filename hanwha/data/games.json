@@ -166,6 +166,26 @@
   {
     "type": "recent",
     "status": "최근 결과",
+    "date": "07.05",
+    "time": "일 14:00",
+    "location": "고척",
+    "home": "키움",
+    "away": "두산",
+    "score": "8:1",
+    "detail": "고척 경기",
+    "ticketing": {
+      "provider": "NOL 티켓",
+      "url": "https://ticket.interpark.com/Contents/Sports",
+      "note": "키움 홈 예매",
+      "openLabel": "키움 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "14:00",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "recent",
+    "status": "최근 결과",
     "date": "07.01",
     "time": "수 18:30",
     "location": "고척",
@@ -272,6 +292,26 @@
     "home": "SSG",
     "away": "삼성",
     "score": "13:7",
+    "detail": "문학 경기",
+    "ticketing": {
+      "provider": "SSG 티켓",
+      "url": "https://ticket.ssg.com/ticket",
+      "note": "SSG 홈 예매",
+      "openLabel": "SSG 홈 예매 일정 기준",
+      "openDaysBefore": 5,
+      "openTime": "11:00",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "recent",
+    "status": "최근 결과",
+    "date": "07.05",
+    "time": "일 18:00",
+    "location": "문학",
+    "home": "SSG",
+    "away": "삼성",
+    "score": "0:0",
     "detail": "문학 경기",
     "ticketing": {
       "provider": "SSG 티켓",
@@ -393,6 +433,27 @@
     "home": "KT",
     "away": "롯데",
     "score": "4:1",
+    "detail": "수원 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports",
+      "note": "KT 홈 예매",
+      "openLabel": "KT 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "openCaution": "구단 공지 기준 확인",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "recent",
+    "status": "최근 결과",
+    "date": "07.05",
+    "time": "일 18:00",
+    "location": "수원",
+    "home": "KT",
+    "away": "롯데",
+    "score": "0:0",
     "detail": "수원 경기",
     "ticketing": {
       "provider": "티켓링크",
@@ -569,26 +630,6 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "07.05",
-    "time": "일 14:00",
-    "location": "고척",
-    "home": "키움",
-    "away": "두산",
-    "score": "경기전",
-    "detail": "키움 홈 경기",
-    "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
-      "note": "키움 홈 예매",
-      "openLabel": "키움 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "14:00",
-      "venueType": "원정"
-    }
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
     "date": "07.07",
     "time": "화 18:30",
     "location": "잠실",
@@ -873,26 +914,6 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
-    }
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "07.05",
-    "time": "일 18:00",
-    "location": "문학",
-    "home": "SSG",
-    "away": "삼성",
-    "score": "경기전",
-    "detail": "SSG 홈 경기",
-    "ticketing": {
-      "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
-      "note": "SSG 홈 예매",
-      "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
-      "openTime": "11:00",
       "venueType": "원정"
     }
   },
@@ -1200,27 +1221,6 @@
       "url": "https://www.ticketlink.co.kr/sports",
       "note": "삼성 홈 예매",
       "openLabel": "삼성 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
-    }
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "07.05",
-    "time": "일 18:00",
-    "location": "수원",
-    "home": "KT",
-    "away": "롯데",
-    "score": "경기전",
-    "detail": "KT 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
-      "note": "KT 홈 예매",
-      "openLabel": "KT 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
