@@ -2,28 +2,6 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "07.08",
-    "time": "수 18:30",
-    "location": "사직",
-    "home": "롯데",
-    "away": "KIA",
-    "score": "경기전",
-    "detail": "롯데 홈 경기",
-    "ticketing": {
-      "provider": "롯데 자이언츠",
-      "url": "https://ticket.giantsclub.com/",
-      "note": "롯데 홈 예매",
-      "openLabel": "롯데 홈 예매 일정 기준",
-      "openDaysBefore": 14,
-      "openTime": "14:00",
-      "openCaution": "구단 앱 공지 기준 확인",
-      "venueType": "원정"
-    },
-    "openAt": "2026-06-24T14:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
     "date": "07.09",
     "time": "목 18:30",
     "location": "사직",
@@ -104,72 +82,6 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    },
-    "openAt": "2026-07-01T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "07.08",
-    "time": "수 18:30",
-    "location": "잠실",
-    "home": "두산",
-    "away": "SSG",
-    "score": "경기전",
-    "detail": "두산 홈 경기",
-    "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
-      "note": "두산 홈 예매",
-      "openLabel": "두산 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "earlyOpenLabel": "베어스클럽 10:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-01T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "07.08",
-    "time": "수 18:30",
-    "location": "대구",
-    "home": "삼성",
-    "away": "LG",
-    "score": "경기전",
-    "detail": "삼성 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
-      "note": "삼성 홈 예매",
-      "openLabel": "삼성 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-01T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "07.08",
-    "time": "수 18:30",
-    "location": "수원",
-    "home": "KT",
-    "away": "키움",
-    "score": "경기전",
-    "detail": "KT 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
-      "note": "KT 홈 예매",
-      "openLabel": "KT 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
     },
     "openAt": "2026-07-01T11:00:00+09:00"
   },
