@@ -67,6 +67,40 @@ const teamColors = {
 // 2025 시즌 KBO 정규시즌 최종 순위(캘린더 필터 정렬용 — 매 시즌 종료 후 갱신)
 const LAST_SEASON_RANK = { LG: 1, 한화: 2, SSG: 3, 삼성: 4, NC: 5, KT: 6, 롯데: 7, KIA: 8, 두산: 9, 키움: 10 };
 
+// UI 팀명 → 표준 KBO 코드(worker/lib/push-logic.js TEAM_ALIASES 와 동일)
+const TEAM_PUSH_CODE = {
+  한화: "HH", LG: "LG", SSG: "SK", 두산: "OB", KIA: "HT",
+  삼성: "SS", 롯데: "LT", KT: "KT", NC: "NC", 키움: "WO",
+};
+
+// 티켓 시리얼용 보딩패스 스타일 3글자 코드 (UI 표시 전용 — TEAM_PUSH_CODE 시스템 코드와 혼용 금지).
+const TEAM_SERIAL_CODE = {
+  한화: "EAG", LG: "TWN", 두산: "BRS", 키움: "HRS", SSG: "LDS",
+  KIA: "TGR", 삼성: "LIO", 롯데: "GNT", KT: "WIZ", NC: "DIN",
+};
+const STADIUM_SERIAL_CODE = {
+  대전: "DJN", 잠실: "JAM", 고척: "GOC", 문학: "INC", 수원: "SWN",
+  대구: "DGU", 광주: "GWJ", 사직: "SJK", 창원: "CWN", 울산: "ULS",
+  포항: "POH", 청주: "CHJ",
+};
+
+// location(도시/약칭) → 실제 경기장명. 미매핑 값은 원문 폴백(제2구장/빈값 방어). 로마자 변환 안 함.
+const STADIUM_NAME = {
+  잠실: "잠실야구장", 고척: "고척스카이돔", 문학: "인천 SSG랜더스필드",
+  수원: "수원 KT위즈파크", 대전: "대전 한화생명볼파크", 대구: "대구 삼성라이온즈파크",
+  광주: "광주 기아챔피언스필드", 사직: "사직야구장", 창원: "창원 NC파크",
+  울산: "울산 문수야구장", 포항: "포항야구장", 청주: "청주야구장",
+};
+function stadiumName(location) {
+  return STADIUM_NAME[location] ?? location ?? "";
+}
+// 스텁(140~180px)용 축약 — 도시 접두어가 있으면 제거(예: "대전 한화생명볼파크" → "한화생명볼파크").
+function stadiumShort(location) {
+  const full = stadiumName(location);
+  const sp = full.indexOf(" ");
+  return sp > 0 ? full.slice(sp + 1) : full;
+}
+
 function readSelectedTeam() {
   try {
     const stored = localStorage.getItem(SELECTED_TEAM_KEY);
@@ -329,6 +363,20 @@ function html(strings, ...values) {
   return new SafeHtml(out);
 }
 
+// 스트로크 아이콘(바텀탭/헤더 종과 톤 일치) — D7 버튼 위계용. 이모지 금지.
+const TIDO_ICONS = {
+  ticket: '<path d="M4 8h16v3a2 2 0 0 0 0 4v1H4v-1a2 2 0 0 0 0-4z"/>',
+  bell: '<path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 19a2 2 0 0 0 4 0"/>',
+  calendarPlus: '<rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 10h16M8 3v4M16 3v4M12 13.5v4M10 15.5h4"/>',
+  share: '<path d="M12 3v12"/><path d="M8 7l4-4 4 4"/><path d="M5 12v7h14v-7"/>',
+  bookmark: '<path d="M6 4h12v16l-6-4-6 4z"/>',
+};
+function tidoIcon(name) {
+  return raw(
+    `<svg class="tico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${TIDO_ICONS[name] || ""}</svg>`,
+  );
+}
+
 async function fetchJson(path) {
   const separator = path.includes("?") ? "&" : "?";
   const response = await fetch(`${path}${separator}${DATA_VERSION}`, { cache: "no-store" });
@@ -429,7 +477,7 @@ function renderGames(filter = "recent") {
     <p class="broadcast-card__head">${featured.away} <i>vs</i> ${featured.home}</p>
     <div class="broadcast-card__perf" aria-hidden="true"></div>
     <div class="broadcast-card__foot">
-      <div class="ticket-barcode" aria-hidden="true"></div>
+      <div class="ticket-barcode kbo-barcode" aria-hidden="true">${buildBarcode(gameId(featured))}</div>
       <p class="broadcast-card__meta">${featured.location} · ${featured.detail}</p>
     </div>
     <span class="ticket-stamp broadcast-card__stamp" aria-hidden="true">${featStamp}</span>
@@ -482,6 +530,67 @@ function ticketSerial(game) {
   return `NO. ${(game.date || "").replace(/\./g, "")}-${game.home}`;
 }
 
+function teamSerialCode(team) {
+  return TEAM_SERIAL_CODE[team] ?? String(team || "").slice(0, 3).toUpperCase();
+}
+function stadiumSerialCode(location) {
+  return STADIUM_SERIAL_CODE[location] ?? ""; // 미매핑 경기장은 세그먼트 생략
+}
+
+// 실데이터 파생 티켓 시리얼 — YEAR-MMDD-AWAY-HOME-STADIUM (예: 2026-0718-HRS-EAG-DJN).
+function ticketSerialCode(game) {
+  const mmdd = String(game.date || "").replace(/\./g, "");
+  const away = teamSerialCode(game.away);
+  const home = teamSerialCode(game.home);
+  const st = stadiumSerialCode(game.location);
+  return `${seasonYear()}-${mmdd}-${away}-${home}${st ? `-${st}` : ""}`;
+}
+
+// FNV-1a 해시 — 문자열 시드를 32bit 정수로.
+function tidoHashSeed(str) {
+  let h = 2166136261 >>> 0;
+  const s = String(str);
+  for (let i = 0; i < s.length; i += 1) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+}
+// mulberry32 결정적 PRNG — 같은 시드 = 같은 난수열.
+function tidoRng(seedInt) {
+  let a = seedInt >>> 0;
+  return function next() {
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+// 경기 시드로 결정적 바코드 SVG(같은 시드=같은 패턴). orientation "h"(가로)|"v"(세로).
+// fill 은 상속 프로퍼티 — svg style 의 var(--barcode) 가 rect 로 내려간다(테마 대응).
+function buildBarcode(seed, orientation = "h") {
+  const rand = tidoRng(tidoHashSeed(seed));
+  const SPAN = 100;
+  const rects = [];
+  let pos = 1;
+  while (pos < SPAN - 1) {
+    const w = 0.7 + rand() * 2.6;
+    if (pos + w > SPAN - 1) {
+      break;
+    }
+    rects.push(
+      orientation === "v"
+        ? `<rect x="0" y="${pos.toFixed(2)}" width="30" height="${w.toFixed(2)}" />`
+        : `<rect x="${pos.toFixed(2)}" y="0" width="${w.toFixed(2)}" height="30" />`,
+    );
+    pos += w + (0.7 + rand() * 1.9);
+  }
+  const vb = orientation === "v" ? "0 0 30 100" : "0 0 100 30";
+  return raw(
+    `<svg class="kbo-barcode__svg" viewBox="${vb}" preserveAspectRatio="none" aria-hidden="true" style="fill:var(--barcode)">${rects.join("")}</svg>`,
+  );
+}
+
 function renderTickets() {
   const upcomingGames = data.games.filter((game) => game.type === "upcoming").slice(0, MAX_UPCOMING_GAMES);
 
@@ -505,12 +614,12 @@ function renderTickets() {
             <span class="ticket-serial">${ticketSerial(game)}</span>
             <span class="ticket-stub__eyebrow">${game.date} ${game.time} · ${ticketing.venueType}석 ${ticketing.provider}</span>
             <strong class="toc-matchup">${game.away} vs ${game.home}</strong>
-            <p class="ticket-stub__meta">${game.location} · ${game.detail}</p>
+            <p class="ticket-stub__meta">${stadiumName(game.location)} · ${game.detail}</p>
             ${renderTicketInfo(game)}
           </div>
           <div class="ticket-stub__perf" aria-hidden="true"></div>
           <div class="ticket-stub__foot">
-            <div class="ticket-barcode" aria-hidden="true"></div>
+            <div class="ticket-barcode kbo-barcode" aria-hidden="true">${buildBarcode(gameId(game))}</div>
             <div class="ticket-stub__bcrow">
               <span>${ticketing.provider}</span>
               <span>${ticketing.venueType}</span>
@@ -618,12 +727,12 @@ function renderTicketCalendar(filter = currentCalendarFilter()) {
             ${ticketing.earlyOpenLabel
               ? html`<span class="early-open-chip">선예매 ${ticketing.earlyOpenLabel}</span>`
               : ""}
-            <p class="ticket-stub__meta">${game.location} · ${game.detail}</p>
+            <p class="ticket-stub__meta">${stadiumName(game.location)} · ${game.detail}</p>
             ${renderTicketInfo({ ...game, type: "upcoming" })}
           </div>
           <div class="ticket-stub__perf" aria-hidden="true"></div>
           <div class="ticket-stub__foot">
-            <div class="ticket-barcode" aria-hidden="true"></div>
+            <div class="ticket-barcode kbo-barcode" aria-hidden="true">${buildBarcode(gameId(game))}</div>
             <div class="ticket-stub__bcrow">
               <span>${provider}</span>
               <span>예매 캘린더</span>
@@ -677,34 +786,34 @@ function renderTicketCalendar(filter = currentCalendarFilter()) {
   ticketCalendarList.innerHTML = html`${unopenedOrdered.map(fullStub)}${openedMarkup}`;
 }
 
+// 마스코트 라틴 이니셜 1글자(원본 이글스 아이콘의 E 무드). 후속 아이콘 배선에서도 재사용.
+// T·L 중복은 팀 컬러 + 팀명 병기로 구분(의도된 트레이드오프).
+const TEAM_MASCOT_LETTER = {
+  한화: "E", LG: "T", 두산: "D", 키움: "K", SSG: "L",
+  KIA: "T", 삼성: "SL", 롯데: "G", KT: "KT", NC: "NC",
+};
 function renderTeamBadge(team) {
-  const initial = teamInitials[team] ?? String(team).slice(0, 2).toUpperCase();
   const color = teamColors[team] ?? { base: "#4a4a4a", edge: "#262626", ink: "#ffffff" };
+  const letter = TEAM_MASCOT_LETTER[team] ?? String(teamInitials[team] ?? team).slice(0, 1).toUpperCase();
   const myTeam = team === selectedTeam ? " is-myteam" : "";
-  const fontSize = initial.length >= 3 ? 12.5 : initial.length === 2 ? 15.5 : 20;
+  // 2글자(SL·NC)는 한 단계 작게 — 원판 안에 꽉 차되 답답하지 않게.
+  const fontSize = letter.length >= 2 ? 21 : 32;
+  // 플랫-볼드 레터마크: 팀 base 단색 + edge 스트로크. 그라디언트/하이라이트/글로우 없음.
+  // 글자는 오프화이트 헤비(900), 원판을 꽉 채우는 존재감. (내구단) 액센트 링만.
   return html`<span class="team-crest${raw(myTeam)}" aria-hidden="true">
       <svg viewBox="0 0 48 48" role="img">
-        <rect
-          x="2.5"
-          y="2.5"
-          width="43"
-          height="43"
-          rx="15"
-          ry="15"
-          fill="${raw(color.base)}"
-          stroke="${raw(color.edge)}"
-          stroke-width="2"
-        />
+        <circle cx="24" cy="24" r="21.5" fill="${raw(color.base)}" stroke="${raw(color.edge)}" stroke-width="1.75" />
+        <circle class="crest-ring" cx="24" cy="24" r="19.5" fill="none" stroke-width="1.5" />
         <text
           x="24"
-          y="24.5"
+          y="25.5"
           text-anchor="middle"
           dominant-baseline="central"
-          font-family="'Noto Sans KR', sans-serif"
+          font-family="'Pretendard Variable', Pretendard, system-ui, sans-serif"
           font-size="${raw(fontSize)}"
           font-weight="900"
-          fill="${raw(color.ink)}"
-        >${initial}</text>
+          fill="#fff8ef"
+        >${letter}</text>
       </svg>
     </span>`;
 }
@@ -888,7 +997,10 @@ function mirrorDemandSignal(eventName, details = {}) {
   }
 
   try {
-    const payload = JSON.stringify({ events: [{ name: mirroredName, count: 1 }] });
+    const ev = { name: mirroredName, count: 1 };
+    const code = details.team ? TEAM_PUSH_CODE[details.team] : null;
+    if (code) ev.key = code; // 관심구단 코드를 집계 차원으로(≤8자)
+    const payload = JSON.stringify({ events: [ev] });
     navigator.sendBeacon(`${PUSH_API_BASE}/api/events`, new Blob([payload], { type: "application/json" }));
   } catch {
     // sendBeacon 실패는 무시 — 수요 신호 미러링은 부가 기능이다.
@@ -955,17 +1067,17 @@ function parseKstDate(monthDay, timeText) {
 }
 
 function formatKstDateTime(date) {
-  return new Intl.DateTimeFormat("ko-KR", {
+  // "MM.DD HH:MM" — 날짜/시각을 공백으로 분리(점 연쇄 "07.11.11:00" 방지).
+  const parts = new Intl.DateTimeFormat("ko-KR", {
     timeZone: "Asia/Seoul",
     month: "2-digit",
     day: "2-digit",
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
-  })
-    .format(date)
-    .replace(/\.\s/g, ".")
-    .replace(/\.$/, "");
+  }).formatToParts(date);
+  const get = (type) => parts.find((p) => p.type === type)?.value ?? "";
+  return `${get("month")}.${get("day")} ${get("hour")}:${get("minute")}`;
 }
 
 function getTicketOpenInfo(game, ticketing) {
@@ -1093,6 +1205,7 @@ function renderTicketInfo(game, featured = false) {
       </div>
       <div class="ticket-actions">
         <a
+          class="toc-cta"
           href="${ticketing.url}"
           target="_blank"
           rel="noopener"
@@ -1100,20 +1213,31 @@ function renderTicketInfo(game, featured = false) {
           data-demand-provider="${ticketing.provider}"
           data-demand-team="${game.home}"
           data-demand-source="${featured ? "featured" : "list"}"
-        >예매처</a>
-        <button class="${raw(reminderOn ? "is-on" : "")}" type="button" data-ticket-alert="${gameId(game)}" ${raw(canClickReminder ? "" : "disabled")}>
-          ${isUpcoming ? alertLabel : "종료"}
-        </button>
-        ${isUpcoming && openInfo.openAt instanceof Date
-          ? html`<button type="button" data-add-ics="${gameId(game)}">캘린더에 추가</button>`
-          : ""}
-        ${isUpcoming
-          ? html`<button
-              class="cancel-watch-toggle ${raw(watchOn ? "is-on" : "")}"
-              type="button"
-              data-cancel-watch="${gameId(game)}"
-            >${watchOn ? "관심 중" : "취소표 관심"}</button>`
-          : ""}
+        >${tidoIcon("ticket")}<span>예매처</span></a>
+        <div class="tia-icons">
+          <button
+            class="toc-iconbtn ${raw(reminderOn ? "is-on" : "")}"
+            type="button"
+            data-ticket-alert="${gameId(game)}"
+            ${raw(canClickReminder ? "" : "disabled")}
+            aria-pressed="${raw(reminderOn ? "true" : "false")}"
+            aria-label="${raw(isUpcoming ? (reminderOn ? "알림 켜짐" : "알림 받기") : "예매 종료")}"
+            title="${raw(isUpcoming ? alertLabel : "종료")}"
+          >${tidoIcon("bell")}</button>
+          ${isUpcoming && openInfo.openAt instanceof Date
+            ? html`<button class="toc-iconbtn toc-iconbtn--ghost" type="button" data-add-ics="${gameId(game)}" aria-label="캘린더에 추가" title="캘린더에 추가">${tidoIcon("calendarPlus")}</button>`
+            : ""}
+          ${isUpcoming
+            ? html`<button
+                class="toc-iconbtn toc-iconbtn--ghost ${raw(watchOn ? "is-on" : "")}"
+                type="button"
+                data-cancel-watch="${gameId(game)}"
+                aria-pressed="${raw(watchOn ? "true" : "false")}"
+                aria-label="${raw(watchOn ? "취소표 관심 해제" : "취소표 관심")}"
+                title="${raw(watchOn ? "관심 중" : "취소표 관심")}"
+              >${tidoIcon("bookmark")}</button>`
+            : ""}
+        </div>
       </div>
     </div>
   `;
@@ -1171,6 +1295,21 @@ function formatCountdown(ms) {
   return { days, clock: `${hh}:${mm}:${ss}` };
 }
 
+// 인라인 단위 카운트다운 HTML — "10시간 57분 45초"(단위=작고 옅은 span). 24h+ 는 "2일 10시간 57분".
+// 숫자는 tabular-nums(.toc-countdown)로 매초 떨림 방지. XSS 위험 없음(숫자+고정 단위).
+function countdownInnerHtml(ms) {
+  const total = Math.max(0, Math.floor(ms / 1000));
+  const days = Math.floor(total / 86400);
+  const hours = Math.floor((total % 86400) / 3600);
+  const minutes = Math.floor((total % 3600) / 60);
+  const seconds = total % 60;
+  const seg = (n, unit) => `${String(n).padStart(2, "0")}<span class="toc-cd-u">${unit}</span>`;
+  if (days > 0) {
+    return `${days}<span class="toc-cd-u">일</span> ${seg(hours, "시간")} ${seg(minutes, "분")}`;
+  }
+  return `${seg(hours, "시간")} ${seg(minutes, "분")} ${seg(seconds, "초")}`;
+}
+
 function tickTicketOpenCountdown() {
   if (!ticketOpenCard || !ticketOpenCountdownTarget) {
     return;
@@ -1188,8 +1327,7 @@ function tickTicketOpenCountdown() {
     return;
   }
 
-  const { days, clock } = formatCountdown(remain);
-  el.textContent = days > 0 ? `D-${days} · ${clock}` : clock;
+  el.innerHTML = countdownInnerHtml(remain);
 
   // 오픈 ≤ 1시간이면 임박 강조(임계점을 카운트다운 도중 넘으면 켜진다).
   const soon = remain <= 60 * 60 * 1000;
@@ -1225,7 +1363,7 @@ function renderTicketOpenCard() {
   const pick = pickNextTicketOpenGame();
 
   if (!pick) {
-    ticketOpenCard.classList.remove("is-soon", "toc-open");
+    ticketOpenCard.classList.remove("is-soon", "toc-open", "has-upcoming");
     ticketOpenCard.innerHTML = html`
       <div class="toc-empty">
         <span class="toc-eyebrow">다음 예매 오픈</span>
@@ -1242,13 +1380,15 @@ function renderTicketOpenCard() {
   const soon = !isOpen && remain <= 60 * 60 * 1000;
   const alertLabel = reminderOn ? "알림 설정됨" : openInfo.canRemind ? "알림 받기" : "오픈 임박";
   const canClickReminder = reminderOn || openInfo.canRemind;
-  const { days, clock } = formatCountdown(Math.max(0, remain));
-  const countdownText = isOpen ? "예매 중" : days > 0 ? `D-${days} · ${clock}` : clock;
+  const { days } = formatCountdown(Math.max(0, remain));
+  const countdownText = isOpen ? "지금 예매 중" : countdownInnerHtml(Math.max(0, remain));
 
   ticketOpenCard.classList.toggle("is-soon", soon);
   ticketOpenCard.classList.toggle("toc-open", isOpen);
 
-  const serial = `NO. ${(game.date || "").replace(/\./g, "")}-${game.home}`;
+  const serialCode = ticketSerialCode(game);
+  const openWhen = openInfo.openAt instanceof Date ? formatKstDateTime(openInfo.openAt) : "시간 확인 필요";
+  const stampLabel = isOpen ? "예매중" : `D-${days}`;
 
   // 다가오는 오픈 미니 리스트 — 히어로로 뽑힌 경기(pickGameId)는 제외한 다음 N개.
   const pickGameId = gameId(game);
@@ -1281,8 +1421,9 @@ function renderTicketOpenCard() {
                   data-ticket-alert="${gameId(g)}"
                   ${raw(gCanClick ? "" : "disabled")}
                   aria-pressed="${raw(gReminderOn ? "true" : "false")}"
+                  aria-label="${raw(gReminderOn ? "알림 켜짐" : "알림")}"
                   title="${gAlertLabel}"
-                >${gAlertLabel}</button>
+                >${tidoIcon("bell")}</button>
               </li>
             `;
           })}
@@ -1291,36 +1432,69 @@ function renderTicketOpenCard() {
     `
     : "";
 
+  ticketOpenCard.classList.toggle("has-upcoming", upcomingList.length > 0);
+
+  // 실물 티켓 구조: 본체(.toc-ticket__body) + 절취선(.toc-ticket__rip) + 스텁(.toc-ticket__stub).
+  // 데스크톱은 3열(본체|세로절취선|세로바코드 스텁), 모바일은 세로 스택(가로 바코드).
   ticketOpenCard.innerHTML = html`
-    <span class="ticket-serial">${serial}</span>
-    <span class="toc-eyebrow">다음 예매 오픈</span>
-    <strong class="toc-matchup">${game.away} vs ${game.home}</strong>
-    ${ticketing.earlyOpenLabel ? html`<span class="early-open-chip">선예매 ${ticketing.earlyOpenLabel}</span>` : ""}
-    <p class="toc-meta">${game.date} ${game.time} · ${game.location} · ${ticketing.venueType} ${ticketing.provider} · ${openInfo.openText}</p>
-    <div class="toc-countdown ${raw(soon ? "is-soon" : "")} ${raw(isOpen ? "toc-open" : "")}" aria-live="polite">${countdownText}</div>
-    <div class="toc-actions">
-      <a
-        href="${ticketing.url}"
-        target="_blank"
-        rel="noopener"
-        data-demand-action="provider-click"
-        data-demand-provider="${ticketing.provider}"
-        data-demand-team="${game.home}"
-        data-demand-source="home-card"
-      >예매처</a>
-      <button class="${raw(reminderOn ? "is-on" : "")}" type="button" data-ticket-alert="${gameId(game)}" ${raw(canClickReminder ? "" : "disabled")}>
-        ${alertLabel}
-      </button>
-      ${openInfo.openAt instanceof Date
-        ? html`<button type="button" data-add-ics="${gameId(game)}">캘린더에 추가</button>`
-        : ""}
-      <button type="button" data-share-game="${gameId(game)}">공유</button>
+    <div class="toc-ticket">
+      <div class="toc-ticket__body">
+        <span class="ticket-stamp" aria-hidden="true">${stampLabel}</span>
+        <p class="toc-micro">KBO TIDO · TICKET OPEN REMINDER</p>
+        <span class="toc-eyebrow">다음 예매 오픈</span>
+        <strong class="toc-matchup">${game.away} vs ${game.home}</strong>
+        ${ticketing.earlyOpenLabel ? html`<span class="early-open-chip">선예매 ${ticketing.earlyOpenLabel}</span>` : ""}
+        <div class="toc-metas">
+          <p class="toc-meta"><span>${game.date} ${game.time}</span><span>${stadiumName(game.location)}</span></p>
+          <p class="toc-meta toc-meta--sub"><span>${ticketing.provider}</span><span>예매 오픈 ${openWhen}</span></p>
+        </div>
+        <div class="toc-count">
+          <div class="toc-countdown ${raw(soon ? "is-soon" : "")} ${raw(isOpen ? "toc-open" : "")}" aria-live="polite">${raw(countdownText)}</div>
+        </div>
+        <div class="toc-actions">
+          <a
+            class="toc-cta"
+            href="${ticketing.url}"
+            target="_blank"
+            rel="noopener"
+            data-demand-action="provider-click"
+            data-demand-provider="${ticketing.provider}"
+            data-demand-team="${game.home}"
+            data-demand-source="home-card"
+          >${tidoIcon("ticket")}<span>예매처</span></a>
+          <div class="toc-iconbar">
+            <button
+              class="toc-iconbtn ${raw(reminderOn ? "is-on" : "")}"
+              type="button"
+              data-ticket-alert="${gameId(game)}"
+              ${raw(canClickReminder ? "" : "disabled")}
+              aria-pressed="${raw(reminderOn ? "true" : "false")}"
+              aria-label="${raw(reminderOn ? "알림 켜짐" : "알림 받기")}"
+              title="${alertLabel}"
+            >${tidoIcon("bell")}</button>
+            ${openInfo.openAt instanceof Date
+              ? html`<button class="toc-iconbtn toc-iconbtn--ghost" type="button" data-add-ics="${gameId(game)}" aria-label="캘린더에 추가" title="캘린더에 추가">${tidoIcon("calendarPlus")}</button>`
+              : ""}
+            <button class="toc-iconbtn toc-iconbtn--ghost" type="button" data-share-game="${gameId(game)}" aria-label="공유" title="공유">${tidoIcon("share")}</button>
+          </div>
+        </div>
+      </div>
+      <div class="toc-ticket__rip" aria-hidden="true"></div>
+      <aside class="toc-ticket__stub" aria-label="티켓 스텁">
+        <div class="toc-stub__code">
+          <div class="toc-stub__bars toc-stub__bars--v">${buildBarcode(serialCode, "v")}</div>
+          <div class="toc-stub__bars toc-stub__bars--h">${buildBarcode(serialCode, "h")}</div>
+        </div>
+        <dl class="toc-stub__fields">
+          <div><dt>경기장</dt><dd>${stadiumShort(game.location)}</dd></div>
+          <div><dt>일시</dt><dd>${game.date} ${game.time}</dd></div>
+          <div><dt>예매처</dt><dd>${ticketing.provider}</dd></div>
+          <div><dt>오픈</dt><dd>${openWhen}</dd></div>
+        </dl>
+        <span class="toc-stub__serial">NO. ${serialCode}</span>
+      </aside>
     </div>
     ${upcomingMarkup}
-    <div class="toc-perf" aria-hidden="true"></div>
-    <div class="ticket-barcode" aria-hidden="true"></div>
-    <div class="toc-bcrow"><span>${ticketing.provider}</span><span>${ticketing.venueType}</span></div>
-    <span class="ticket-stamp" aria-hidden="true">${isOpen ? "예매중" : `D-${days}`}</span>
   `;
 
   if (!isOpen) {
@@ -1362,7 +1536,7 @@ function renderCancelWatch() {
           <span class="ticket-serial">${ticketSerial(entry)}</span>
           <span class="ticket-stub__eyebrow">${entry.date} ${entry.time} · ${entry.provider}</span>
           <strong class="toc-matchup">${entry.away} vs ${entry.home}</strong>
-          <p class="ticket-stub__meta">${entry.location} · 취소표 컨시어지</p>
+          <p class="ticket-stub__meta">${stadiumName(entry.location)} · 취소표 컨시어지</p>
           <span class="cancel-status ${raw(statusClass)}">${waiting.label}</span>
         </div>
         <div class="ticket-stub__perf" aria-hidden="true"></div>
@@ -1978,6 +2152,7 @@ teamSelect?.addEventListener("change", () => {
     button.classList.remove("active");
   });
   refreshSelectedTeamViews();
+  subscribeToPush(); // 팀 변경 → 서버 topics 재동기화
 });
 
 // 알림 센터 — 카테고리 토글(로컬), 권한 버튼, iOS 설치
@@ -1990,6 +2165,7 @@ notifyTopics?.addEventListener("click", (event) => {
   writePushTopics(topics);
   trackDemandSignal("notify_topic_toggle", { topic: key });
   renderNotifyCenter();
+  subscribeToPush(); // 서버 topics 재동기화(게이트: 권한/설정 시에만 실제 POST)
 });
 notifyPermBtn?.addEventListener("click", async () => {
   await enableNotifications();
@@ -2282,9 +2458,10 @@ function urlBase64ToUint8Array(base64) {
   return Uint8Array.from([...raw].map((char) => char.charCodeAt(0)));
 }
 function selectedPushTopics() {
+  const code = TEAM_PUSH_CODE[selectedTeam] ?? selectedTeam;
   return Object.entries(readPushTopics())
     .filter(([, on]) => on === true)
-    .map(([key]) => `${selectedTeam}:${key}`);
+    .map(([key]) => `${code}:${key}`);
 }
 async function subscribeToPush() {
   // 게이트: VAPID 키 + 백엔드 URL 이 설정돼야 실제 구독. 미설정 시 no-op(코드만 준비).
@@ -2315,6 +2492,24 @@ async function subscribeToPush() {
   }
 }
 
+async function unsubscribeFromPush() {
+  if (!pushConfigured() || !("serviceWorker" in navigator)) return;
+  try {
+    const reg = await navigator.serviceWorker.ready;
+    const sub = await reg.pushManager.getSubscription();
+    if (!sub) return;
+    const endpoint = sub.endpoint;
+    await sub.unsubscribe();
+    await fetch(`${PUSH_API_BASE}/api/subscriptions`, {
+      method: "DELETE",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ endpoint }),
+    });
+  } catch {
+    // 실패는 조용히 무시(다음 시도에 재시도).
+  }
+}
+
 async function enableNotifications() {
   if (!notificationSupported()) {
     return;
@@ -2339,7 +2534,18 @@ async function enableNotifications() {
   trackNotificationPermission(permission, "game");
 }
 
-notifyButton?.addEventListener("click", enableNotifications);
+async function toggleNotifications() {
+  const on = Notification.permission === "granted"
+    && localStorage.getItem("eaglesNotifications") === "on";
+  if (on) {
+    localStorage.setItem("eaglesNotifications", "off");
+    updateNotifyButton();
+    await unsubscribeFromPush();
+    return;
+  }
+  await enableNotifications();
+}
+notifyButton?.addEventListener("click", toggleNotifications);
 
 async function enableTicketReminder(gameKey, source = "unknown") {
   const game = [...data.games, ...(data.ticketCalendar ?? [])].find((item) => gameId(item) === gameKey);
@@ -2631,6 +2837,9 @@ document.addEventListener("visibilitychange", () => {
 });
 
 updateNotifyButton();
+if (localStorage.getItem("eaglesNotifications") === "on") {
+  subscribeToPush(); // 시작 시 서버 구독/topics 재동기화(endpoint 회전 복구 포함)
+}
 updateInstallAffordance();
 applyTeamAccent();
 populateTeamSelect();

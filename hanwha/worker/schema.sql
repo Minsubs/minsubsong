@@ -50,3 +50,29 @@ CREATE TABLE IF NOT EXISTS demand_counters (
   count   INTEGER NOT NULL DEFAULT 0,
   PRIMARY KEY (metric, day)
 );
+
+-- F3. Reschedule (double-header) detection baseline. Records which calendar
+-- game_ids have been observed and when they FIRST appeared. A game whose
+-- first_seen_at is "now" while the table is already populated (season running)
+-- and whose game date is near is a reschedule candidate. NO PII — game_id is a
+-- deterministic key derived from public schedule fields (home+date+time).
+CREATE TABLE IF NOT EXISTS calendar_seen (
+  game_id       TEXT PRIMARY KEY,  -- deterministic key (push-logic gameIdOf)
+  first_seen_at INTEGER NOT NULL   -- epoch ms, UTC; kept on first insert (idempotent)
+);
+
+-- F4. Live game state snapshot for scoreboard diffing. One row per game_key
+-- (team codes + KST date). Holds only public scoreboard-derived values plus a
+-- missing_count for the cancel diff (game absent from scoreboard N ticks).
+-- NO PII. Pruned by updated_at (yesterday's games).
+CREATE TABLE IF NOT EXISTS live_state (
+  game_key      TEXT PRIMARY KEY,  -- e.g. '2026-07-15:HH@LG'
+  home_score    INTEGER,           -- NULL before first score / pre-game
+  away_score    INTEGER,
+  state         TEXT,              -- raw scoreboard state string ('18:30'/'FINAL'/live)
+  missing_count INTEGER NOT NULL DEFAULT 0, -- consecutive ticks absent (cancel diff)
+  updated_at    INTEGER NOT NULL   -- epoch ms, UTC
+);
+
+-- Pruning scans updated_at.
+CREATE INDEX IF NOT EXISTS idx_live_state_updated ON live_state (updated_at);

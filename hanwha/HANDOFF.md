@@ -1,5 +1,46 @@
 # KBO 티켓팅 도우미 Handoff
 
+## 2026-07-10 X0 백엔드 + UI 전면 리프레시 + 워커 알림기능 배치 (본 커밋으로 `main`→Pages 배포)
+
+- **X0 사용자 결정 확정**: D3=Cloudflare Workers+D1+Cron 채택 · D7=VAPID 개인키는 `wrangler secret`로만 주입 · D8=발송 전 법률·처리방침 검토 게이트 유지(검토 자체는 아직 미실행, 원칙만 확정).
+- **X0 차단 버그 수정**: `worker/wrangler.toml`의 `ALLOWED_ORIGIN`/`DATA_BASE_URL`이 오타 도메인 `minsub.github.io`를 가리키고 있어 CORS·데이터 fetch가 배포돼도 전부 실패했을 상태 — 실측(`curl` HTTP 200)으로 확인한 `minsubs.github.io` / `minsubs.github.io/minsubsong`로 교체. `VAPID_SUBJECT`도 동일하게 실서비스 URL로 정정.
+- **`worker/scripts/provision.sh` 신설**: `npx wrangler login` 1회 후 D1 생성 → VAPID 키쌍 생성 → `wrangler.toml` 패치 → `wrangler deploy` → `wrangler secret put VAPID_PRIVATE` → D1 스키마 적용까지 멱등 처리(재실행 안전). Opus 검증으로 실패 경로 3건 발견·패치: P1 키 유실 시 롤백 trap 누락, P2 `pipefail` 없이 중간 실패가 조용히 죽는 경로, P3 `wrangler secret list` 판정 오류. 사용 방법은 `worker/README.md` "최초 프로비저닝" 절.
+- **X0 클라 결함 9건 확정·패치**(Opus 서브에이전트 전원 CONFIRMED, 패치 후 앱 테스트 **47/47**):
+  - **C1(critical)** — 알림 토픽이 UI 팀명(`한화`)과 워커 표준 코드(`HH`)로 서로 달라 구독이 실질 무효였음 → `script.js`에 `TEAM_PUSH_CODE` 매핑 신설.
+  - C2 — 알림 켜기만 있고 끄기 경로가 없던 결함 → `unsubscribeFromPush` + `toggleNotifications`로 온/오프 대칭화.
+  - C3 — 토글·팀 변경·앱 시작 시 서버 구독 재동기화 누락 → 세 지점 모두 `subscribeToPush()` 재호출 추가(endpoint 회전 복구 포함).
+  - C4 — SW `pushsubscriptionchange`가 재구독 후 백엔드 재등록을 하지 않던 결함 보강.
+  - C5 — `PUSH_API_BASE` 기본값이 존재하지 않는 `kbo-tido.app`이던 것을 실배포 예정 URL 기준으로 정정.
+  - C6 — 팀 변경 시 `team_interest` 로컬 키가 소실되던 결함 수정.
+  - 캐시 트리아드 v31 → v32(X0 패치) → **v33(UI 리프레시 포함, 본 배포)**.
+- **메뉴 중복 버그 수정**: `index.html`의 데드 `<nav class="nav">`(최초 커밋부터 존재, 데스크톱에서 `.view-tabs`와 중복 표시)를 제거. DOM 실측으로 중복 소멸 확인.
+- **푸터 카피 정정**: "JSON 스냅샷"/"MVP용 정적 데이터" 계열 문구를 "KBO 공식 홈페이지 데이터를 자동 수집해 반영합니다"로 통일 — `data/meta.json` note, `scripts/update-data.mjs`, `index.html` 폴백 문구 3곳 동시 반영.
+- **문서 드리프트 정정**: `docs/BACKEND_PUSH_PLAN.md`의 "플랜 문서 — 미구현"·"`push` 핸들러 없음" 서술과 §6 매핑 표를 현재 상태(코드 구현 완료·배포·실기기 검증은 미실행)로 상태 주석 정정. `worker/README.md` "게이트 2(배포)" 절에 `provision.sh` 상호참조 추가.
+- **신규 설계 문서**: [`docs/LIVE_ALERTS_DESIGN_2026-07.md`](docs/LIVE_ALERTS_DESIGN_2026-07.md) — 라이브 스코어 실시간화(홈 패널 몇 회·몇 대 몇) + 마이팀 시작/득점/종료/우천취소/우천지연 알림. LV0(소스 PoC) → LV1(홈 실시간화+앱 열림 알림) → LV2(앱 닫힘 푸시, ROADMAP X4를 흡수) 3단계. 미해결 결정 DL1~DL5(득점 알림 범위·quiet-hour 예외·폴링 주기·착수 순서·우천지연 포함 여부).
+- **LV1a 완료**: `worker/lib/scoreboard.js`(순수 파서) + `GET /api/live`(엣지캐시 25초 + 원 소스 실패 시 stale 캐시 10분 폴백) + 단위테스트. `wrangler dev` 로컬 실측으로 캐시 HIT와 503 폴백 동작 확인.
+- **워커 알림기능 배치 F1~F4 + T1/T2 완료**(워커 테스트 78 → **116/116**):
+  - F1 동시오픈 묶음 발송(실측: 캘린더 204건 중 85.8%가 같은 분 정확 동시오픈 → 묶음이 상시 경로). F2 주간 예매 브리핑(`weekly_brief` 토픽, 일요일 KST 20:00, ISO주차 dedup, 청크 발송). F3 재편성(더블헤더) 발표 감지(`calendar_seen` diff, 콜드스타트 가드). F4 라이브 경기 알림(`game_live` 토픽 — start/score/end/**canceled**, 우천취소는 LV0 실측대로 "일정엔 있는데 스코어보드 미출현" diff + 2회 연속 확인, delayed는 진행중 표기 실측 후로 보류). T1 429 Retry-After 백오프, T2 DWP+레거시 병기 페이로드(2KB 보장).
+  - 부수 발견·수정: 기존 `buildSentSet`이 캘린더에 없는 `game.id`를 조회해 once-per-key 캡이 틱 간 무효였던 버그를 `gameIdOf`(home+date+time)로 통일 수정.
+- **UI 전면 리프레시(D1~D5+D7) 완료** — 앱 테스트 **47/47**, 캐시 v33:
+  - D1 Pretendard Variable 전환(+SW `fonts-v1` 런타임 캐시). D2 v2 플랫 레터마크 뱃지(그라디언트/글로우 제거) — 레터 매핑 **한화 E·LG T·두산 D·키움 K·SSG L·KIA T·삼성 SL·롯데 G·KT KT·NC NC**(`TEAM_MASCOT_LETTER`). D3 데스크톱 1120px 그리드 + 홈 2컬럼 + 인라인 카운트다운("10시간 57분 45초", 24h+ 일 단위 승격). D4 테마 부팅 시 `prefers-color-scheme` 존중. D5 실물 티켓 히어로(본체+절취선+세로 스텁, 경기별 시드 바코드, 보딩패스 시리얼 `NO. 2026-0718-HRS-EAG-DJN` — `TEAM_SERIAL_CODE`/`STADIUM_SERIAL_CODE`), 경기장 실명(`STADIUM_NAME`: 대전 한화생명볼파크 등), "구장"→"경기장", 메타 2줄, 매치업 한글. D7 버튼 위계(예매처=filled primary / 알림=종 토글 / 캘린더·공유=ghost 아이콘). D-0 스탬프 겹침 수정.
+  - ⚠️ 내부 코드(`TEAM_PUSH_CODE`)는 UI 문자열에 절대 노출 안 함(푸시 topic 등 시스템 표면 전용). 표시용 3글자 코드는 `TEAM_SERIAL_CODE`/`STADIUM_SERIAL_CODE` 별도.
+- **X0 Cloudflare 실배포(사용자 액션 필요, 미실행)**:
+  ```bash
+  cd hanwha/worker && npx wrangler login && bash scripts/provision.sh
+  ```
+  후 출력 공개키/Worker URL로 `script.js` `VAPID_PUBLIC_KEY`/`PUSH_API_BASE` 교체 + 캐시 bump + 실기기 푸시 검증. **D8 법률·처리방침 검토 완료 전 실사용자 발송 금지.** (Pages 프론트 배포와 무관 — 워커는 별도 인프라.)
+- 시장조사(`docs/MARKET_RESEARCH_2026-07.md` §10) 반영은 `docs/ROADMAP.md` §2/§1.2/§8에(X1 앵커 "포스트시즌(10월) 전", X5 신설 등).
+
+## 2026-07-10 미구현 — 다음 세션 (리밋으로 유실 / 사용자 선택 대기)
+
+리밋(429)으로 아래는 **미착수**다. 각 항목에 재개 수단을 명시한다.
+
+- **Wave 2 UI (D6·D8·D9) — 미착수.** 워크플로우 스크립트 존재, `Workflow({scriptPath: ".../workflows/scripts/wave2-client-wf_cdb33dd2-88c.js", resumeFromRunId: "wf_cdb33dd2-88c"})`로 재개(캐시된 완료 에이전트 없음 — 사실상 신규 실행). 스트림 A = D6 마이팀 설정 발견성(헤더 칩=뱃지+팀명+캐럿, 첫 사용 펄스 링, 클릭 시 11타일 그리드 팝오버, 문구 금지 순수 시각) + D8 중립("KBO 전체") 옵션(**신규 사용자 기본값=중립**, 기존 저장값 존중, `selectedPushTopics` 중립 시 빈 배열 가드) + D9 브랜드마크(미니 엠블럼+투톤 로고타입)·헤더 밴드 재디자인.
+- **클라 기능 묶음 — 미착수.** 스트림 B = LV1b 라이브 폴링(`GET /api/live` 45초, 경기창·visible 게이트, 홈 패널 이닝·스코어 주입, diff→마이팀 시작/득점/종료 로컬 알림) · 프리플라이트 체크리스트(발굴 #1) · 알림센터 토글 2종(`weekly_brief`·`game_live`, **전부 기본 OFF**) · "잡았어요" 자가신고 신호(+워커 `validateEventBatch` allow-list에 `cancel_success` 추가) · **앱 아이콘/매니페스트 배선**(`index.html`의 `apple-touch-icon`을 SVG→PNG로 — iOS는 SVG 아이콘 미지원, `manifest` 링크를 `selectedTeam` 기준 스왑) · iOS 설치시트 안내 1줄.
+- **앱 아이콘 디자인 — 미확정(사용자 선택 대기).** v1(플랫 뱃지)·v3(엠블럼 계승) 모두 기각. 시안 워크플로우 2개가 리밋으로 미완: `resumeFromRunId: "wf_5db63cd1-700"`(5종: 크롭레터·스티치심볼·엠블럼프로·티켓다이컷·듀오톤다이아몬드) / `"wf_e289e70b-16b"`(여성 취향 3종: 티꾸스티커·모찌레터·감성라인). 생성킷: `scratchpad/icongen/`(`icon-defs.mjs` 두 함수 교체 → `node gen-icons.mjs <out>`). **확정 전까지 기존 `assets/app-icon.svg` 유지.** 디스크의 `assets/icons/` 22 PNG + `manifest-*.webmanifest` 11개는 기각된 v3라 **커밋 제외(untracked 유지)** — 디자인 확정 후 같은 파일명으로 덮어쓰기.
+- **LV2 우천지연(`delayed`)** — 스코어보드 진행중 표기가 올스타 브레이크로 실측 불가. **7/16 후반기 재개 후** 표기 확인하고 구현(F4에 자리만 주석). 취소(`canceled`)는 이미 diff 방식으로 구현됨.
+- **시장조사 잔여 데이터 확인**: NC 예매처 티켓링크(구단앱 병행) 재확인, KT 일반예매 16시 공식 재확인, 예매처 URL 상수 `script.js`↔`update-data.mjs` 이원화 단일화.
+
 ## 2026-07-04 R2~R8 배치 구현 + 긴급 데이터 수정 완료 (캐시 v31)
 
 - `docs/BATCH_DESIGN_2026-07.md`의 R2~R8 전체를 구현·반영했다: R2 크론 위생(동일 내용 재작성 스킵) · R3 OG/매니페스트/오프라인 메타 · R4 공유 버튼+선예매 배지 · R5 캘린더 절충+.ics 내보내기 · R6 이벤트 미러링+오류 상태 표준화 · R7 캐시 트리아드 v30→v31(**메인 세션이 직접 적용**) · R8 문서 재기준선(본 배치).
@@ -196,8 +237,8 @@ npm run check
    - ~~N1 NOL 링크 · N2 "KBO TIDO" 개명~~ → **완료·검증 (`e0a95c2`; NOL 200 / 구 URL 404)**.
    - ~~N4 검증 신호 보강 · 홈 예매오픈 카운트다운 카드~~ → **완료 (`10177b5`)**.
    - ~~iOS 설치유도 시트~~ → **완료·검증 (2026-06-19, 미커밋·작업트리)**. 스펙 `docs/superpowers/specs/2026-06-19-ios-install-sheet-design.md`, Phase 5 참조. iOS Safari·미설치 버튼+홈 1회성 배너 → 3스텝 시트, a11y, 캐시 v26, 38/38 + 브라우저 검증.
-   - **남은 Now (다음 권장 루프):** UI 골격 잔여 — 더보기 알림·구독 허브(`more-subnav`) · 빈/로딩/오류 표준화. 그다음 N3 프로모션(공개 데이터 소스 선결) · N5 어필리에이트(아고다/링크프라이스 계정 선결).
-   - 백엔드 분기점은 X0(결정 D3/D7/D8 선행).
+   - **남은 Now (착수 보류):** N3 프로모션(공개 데이터 소스 선결) · N5 어필리에이트(D11 수익화 착수 시점 결정 대기). `more-subnav`는 폐기 결정, 빈/로딩/오류 표준화는 R6에서 완료(2026-07-04) — 자세한 내용은 `docs/ROADMAP.md` §1.1/§4.1 참조.
+   - **X0 배포 게이트 — D3/D7/D8 결정 완료(2026-07-10)**: D3=Cloudflare Workers+D1+Cron, D7=`wrangler secret`, D8=발송 전 법률 게이트 유지. 코드·프로비저닝 스크립트(`worker/scripts/provision.sh`) 준비 완료, 클라 결함 9건 패치(앱 47/47) 반영 완료 — 남은 것은 사용자의 `npx wrangler login` 실행뿐(위 2026-07-10 절 참조). 그다음 X1(예매 오픈 임박 푸시) 착수, 병행 가능 트랙: X5(라이브 스코어+경기 알림, 가칭) LV0 소스 PoC.
 1. 과거 macro 커밋 히스토리 rewrite/force push 여부를 사용자 승인하에 결정한다.
 2. 노출 가능성이 있는 계정 비밀번호는 사용자가 직접 교체한다.
 3. 수요 검증 운영 루틴을 정의한다.
@@ -217,6 +258,6 @@ npm run check
 
 ## 다음 세션 추천 첫 작업
 
-사용자가 별도 지시하지 않으면 `수요 검증 운영 루틴 정의`부터 진행한다.
+사용자가 별도 지시하지 않으면 **`cd hanwha/worker && npx wrangler login && bash scripts/provision.sh`**부터 진행한다(위 2026-07-10 절 "다음 루프" 참조). 완료 후 `script.js`의 `VAPID_PUBLIC_KEY`/`PUSH_API_BASE` 교체 → 캐시 bump → 실기기 푸시 검증. D8(법률·처리방침 검토) 완료 전 실사용자 대상 발송은 금지 유지.
 
-취소표 관심 경기 알림: 조사 문서는 완료(`docs/CANCEL_TICKET_ALERT_RESEARCH.md`). 진행 지시가 오면 문서 6절 권고(컨시어지 v1: 관심 경기 저장 + 예매처별 지원 상태 표기 + 공식 취소표 대기 안내 + 딥링크 + 시간 리마인더 + 수요 신호) 범위로만 구현하고, 자동 상태 감시는 제휴 성사 전까지 금지 유지.
+병행 가능한 별도 트랙: LV1b(클라 폴링, `docs/LIVE_ALERTS_DESIGN_2026-07.md` 참조) · 수요 검증 운영 루틴 정의 · 취소표 관심 경기 알림(조사 문서 완료 — `docs/CANCEL_TICKET_ALERT_RESEARCH.md`. 진행 지시가 오면 문서 6절 권고 범위로만 구현하고, 자동 상태 감시는 제휴 성사 전까지 금지 유지).

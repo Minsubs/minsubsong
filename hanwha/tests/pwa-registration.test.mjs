@@ -27,7 +27,7 @@ test("app shell and data loader include ticketing calendar", async () => {
   assert.match(script, /ticketCalendar:\s*\[\]/);
   assert.match(script, /ticketCalendar:\s*"\.\/data\/ticketing-calendar\.json"/);
   assert.match(script, /fetchJson\(dataFiles\.ticketCalendar\)/);
-  assert.match(serviceWorker, /eagles-lounge-v31/);
+  assert.match(serviceWorker, /eagles-lounge-v33/);
   assert.match(serviceWorker, /\.\/data\/ticketing-calendar\.json\?v=19/);
 });
 

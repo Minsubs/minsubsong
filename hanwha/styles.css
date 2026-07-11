@@ -37,7 +37,7 @@
   --ring: rgba(198, 45, 26, 0.45);
 
   /* Broadcast Ticket 타이포 — CDN 폰트 차단 → 시스템 컨덴스드/모노 스택 */
-  --font-display: "Helvetica Neue", "Arial Narrow", "Roboto Condensed", "Segoe UI", "Apple SD Gothic Neo", Pretendard, "Noto Sans KR", system-ui, sans-serif;
+  --font-display: "Pretendard Variable", Pretendard, "Noto Sans KR", "Apple SD Gothic Neo", system-ui, sans-serif;
   --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
 
   /* Broadcast Ticket 신규 토큰 — 티켓 모티프 */
@@ -95,7 +95,7 @@
   --glass-border: rgba(255, 77, 28, 0.16);
   --ring: rgba(255, 77, 28, 0.5);
 
-  --font-display: "Helvetica Neue", "Arial Narrow", "Roboto Condensed", "Segoe UI", "Apple SD Gothic Neo", Pretendard, "Noto Sans KR", system-ui, sans-serif;
+  --font-display: "Pretendard Variable", Pretendard, "Noto Sans KR", "Apple SD Gothic Neo", system-ui, sans-serif;
   --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
 
   --paper: #15171d;
@@ -138,7 +138,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Pretendard Variable", Pretendard, "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   letter-spacing: 0;
 }
 
@@ -3385,4 +3385,405 @@ h2 {
 .empty-state__retry:focus-visible {
   outline: none;
   box-shadow: 0 0 0 2px var(--ring);
+}
+
+/* ===========================================================================
+   [v33 design refresh] — Pretendard 타이포 · 뱃지 · 데스크톱 레이아웃 ·
+   히어로 실물 티켓(본체+절취선+스텁) · 결정적 바코드.
+   APPEND-ONLY: 위 규칙 재작성 없음. 색은 전부 토큰. 라이트/다크 공통.
+   =========================================================================== */
+
+/* ── 숫자 정렬(tnum) 안전망 — 신규 티켓/카운트다운 숫자 ── */
+.toc-countdown,
+.toc-stub__serial,
+.toc-stub__fields dd {
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+/* ── 결정적 바코드 SVG(가짜 반복 그라디언트 대체) ── */
+.kbo-barcode {
+  background: none !important;
+}
+.kbo-barcode__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── 팀 뱃지(D2 v2): 플랫-볼드 레터마크 — 내구단 = 액센트 링만(글로우 제거) ── */
+.crest-ring {
+  stroke: transparent;
+}
+.team-crest.is-myteam .crest-ring {
+  stroke: var(--accent);
+}
+.team-crest.is-myteam {
+  filter: none;
+}
+
+/* ═══ 홈 히어로 = 실물 티켓 (본체 + 절취선 + 스텁) — 모바일 베이스 ═══ */
+.toc-ticket {
+  position: relative;
+}
+.toc-ticket__body {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  min-width: 0;
+}
+.toc-micro {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.toc-count {
+  display: grid;
+  gap: 3px;
+}
+/* 인라인 카운트다운 단위(시간/분/초) — 작고 옅게, 숫자와 baseline 정렬 */
+.toc-cd-u {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.42em;
+  color: var(--muted);
+  margin: 0 0.14em 0 0.05em;
+  letter-spacing: 0;
+}
+
+/* 절취선 (모바일: 가로 대시 + 양끝 펀치홀) */
+.toc-ticket__rip {
+  position: relative;
+  height: 0;
+  margin: 16px 4px 14px;
+  border-top: 2px dashed var(--perf);
+}
+.toc-ticket__rip::before,
+.toc-ticket__rip::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  transform: translate(-50%, -50%);
+}
+.toc-ticket__rip::before {
+  left: 0;
+}
+.toc-ticket__rip::after {
+  left: 100%;
+}
+
+/* 스텁 (모바일: 가로 바코드 + 시리얼, 필드 숨김) */
+.toc-ticket__stub {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+  min-width: 0;
+}
+.toc-stub__code {
+  width: 100%;
+}
+.toc-stub__bars--v {
+  display: none;
+}
+.toc-stub__bars--h {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: 34px;
+}
+.toc-stub__fields {
+  display: none;
+}
+.toc-stub__serial {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ═══ 데스크톱(≥920px): 컨테이너 1120 정렬 + 히어로 2열 + 세로 티켓 스텁 ═══ */
+@media (min-width: 920px) {
+  /* 내부 콘텐츠 max-width 1120 중앙 정렬 (헤더/탭/푸터 밴드는 풀블리드, 내부 정렬 일치) */
+  .section-grid,
+  .home-score-strip,
+  .live-scoreboard,
+  .tickets-subnav {
+    width: min(1120px, calc(100% - 48px));
+  }
+  .muted-band {
+    padding-inline: max(24px, calc((100% - 1120px) / 2));
+  }
+  .topbar,
+  .view-tabs,
+  .footer {
+    padding-inline: max(24px, calc((100% - 1120px) / 2));
+  }
+
+  /* 홈 히어로: 다가오는 오픈이 있으면 [티켓 7 : 리스트 5] 2열 */
+  #ticketOpenCard.ticket-open-card.has-upcoming {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    column-gap: 28px;
+    align-items: start;
+  }
+  #ticketOpenCard.ticket-open-card.has-upcoming .toc-ticket {
+    grid-column: 1;
+  }
+  #ticketOpenCard.ticket-open-card.has-upcoming .toc-upcoming {
+    grid-column: 2;
+    margin-top: 0;
+    padding: 2px 0 0 26px;
+    border-top: 0;
+    border-left: 1px dashed color-mix(in srgb, var(--line) 82%, transparent);
+  }
+
+  /* 티켓 자체: 본체 | 세로 절취선 | 세로 바코드 스텁(~172px) */
+  .toc-ticket {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 1px 172px;
+    column-gap: 24px;
+    align-items: stretch;
+  }
+  .toc-ticket__rip {
+    height: auto;
+    margin: 2px 0;
+    border-top: 0;
+    border-left: 2px dashed var(--perf);
+  }
+  .toc-ticket__rip::before {
+    left: 50%;
+    top: 0;
+  }
+  .toc-ticket__rip::after {
+    left: 50%;
+    top: 100%;
+  }
+  .toc-ticket__stub {
+    align-content: space-between;
+    justify-items: stretch;
+    gap: 12px;
+  }
+  .toc-stub__code {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 116px;
+  }
+  .toc-stub__bars--h {
+    display: none;
+  }
+  .toc-stub__bars--v {
+    display: block;
+    width: 44px;
+    height: 132px;
+    margin: 0 auto;
+  }
+  .toc-stub__fields {
+    display: grid;
+    gap: 5px;
+    margin: 0;
+  }
+  .toc-stub__fields > div {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: 8px;
+    align-items: baseline;
+  }
+  .toc-stub__fields dt {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .toc-stub__fields dd {
+    margin: 0;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .toc-stub__serial {
+    align-self: end;
+    text-align: center;
+  }
+}
+
+/* ═══════════ [v33 · D7] 히어로/티켓 액션 위계 — 1 primary + icon secondaries ═══════════ */
+.tico {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+.toc-iconbar,
+.tia-icons {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}
+.ticket-strip .ticket-actions {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* primary CTA(예매처) — 유일한 filled 텍스트 버튼 */
+.toc-actions .toc-cta,
+.ticket-strip .ticket-actions .toc-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--grad-accent);
+  color: var(--on-accent);
+  font-weight: 800;
+  font-size: 0.9rem;
+  box-shadow: var(--glow);
+  text-decoration: none;
+  cursor: pointer;
+  transition: filter 0.15s ease, box-shadow 0.15s ease;
+}
+.toc-actions .toc-cta .tico,
+.ticket-strip .ticket-actions .toc-cta .tico {
+  width: 18px;
+  height: 18px;
+}
+.toc-actions .toc-cta:hover,
+.ticket-strip .ticket-actions .toc-cta:hover {
+  filter: brightness(1.06);
+  color: var(--on-accent);
+}
+.toc-actions .toc-cta:focus-visible,
+.ticket-strip .ticket-actions .toc-cta:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+/* secondary 아이콘 버튼 */
+.toc-actions .toc-iconbtn,
+.ticket-strip .ticket-actions .toc-iconbtn {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+.toc-actions .toc-iconbtn:hover,
+.ticket-strip .ticket-actions .toc-iconbtn:hover {
+  border-color: var(--accent);
+  color: var(--accent-strong);
+}
+.toc-actions .toc-iconbtn--ghost,
+.ticket-strip .ticket-actions .toc-iconbtn--ghost {
+  border-color: transparent;
+  background: transparent;
+  color: var(--muted);
+}
+.toc-actions .toc-iconbtn--ghost:hover,
+.ticket-strip .ticket-actions .toc-iconbtn--ghost:hover {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--accent-strong);
+}
+.toc-actions .toc-iconbtn.is-on,
+.ticket-strip .ticket-actions .toc-iconbtn.is-on {
+  border-color: transparent;
+  background: var(--grad-accent);
+  color: var(--on-accent);
+  box-shadow: var(--glow);
+}
+.toc-actions .toc-iconbtn:disabled,
+.ticket-strip .ticket-actions .toc-iconbtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.toc-actions .toc-iconbtn:focus-visible,
+.ticket-strip .ticket-actions .toc-iconbtn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+@media (max-width: 619px) {
+  .toc-actions .toc-cta,
+  .ticket-strip .ticket-actions .toc-cta {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}
+
+/* ═══════════ [v33 fix] 스탬프 겹침 · 다가오는 오픈 알림 = 종 아이콘 토글 ═══════════ */
+/* D-n 스탬프를 티켓 본체(.toc-ticket__body) 기준으로 배치 — 2컬럼에서 upcoming 리스트와 겹침 방지 */
+.toc-ticket__body {
+  position: relative;
+}
+.toc-ticket__body > .toc-micro {
+  padding-right: 60px; /* 우상단 스탬프 자리 확보 */
+}
+
+/* 다가오는 오픈 리스트 알림 = 종 아이콘 토글(ghost ~38px) — 기존 텍스트 원형 대체 */
+.toc-upcoming__alert {
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  min-width: 38px;
+  height: 38px;
+  min-height: 38px;
+  padding: 0;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--muted);
+}
+.toc-upcoming__alert .tico {
+  width: 18px;
+  height: 18px;
+}
+.toc-upcoming__alert:hover {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--accent-strong);
+}
+.toc-upcoming__alert.is-on {
+  border-color: transparent;
+  background: var(--grad-accent);
+  color: var(--on-accent);
+  box-shadow: var(--glow);
+}
+.toc-upcoming__alert.is-on:hover {
+  color: var(--on-accent);
+}
+
+/* 히어로 메타 2줄 블록(경기정보 / 예매정보) — 세그먼트 단위로만 개행(mid-token 방지) */
+.toc-metas {
+  display: grid;
+  gap: 3px;
+}
+.toc-metas .toc-meta {
+  margin: 0;
+}
+.toc-meta > span {
+  white-space: nowrap;
+}
+.toc-meta--sub {
+  color: var(--muted);
 }

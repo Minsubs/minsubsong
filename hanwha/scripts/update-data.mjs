@@ -557,7 +557,7 @@ function includesHanwha(game) {
 function buildMeta() {
   return {
     updatedAt,
-    note: "KBO 공식 페이지 자동 수집 기반 JSON 스냅샷입니다.",
+    note: "KBO 공식 홈페이지 데이터를 자동 수집해 반영합니다.",
     sources: [
       { name: "KBO Team Standings", url: SOURCES.standings },
       { name: "KBO Daily Schedule", url: SOURCES.schedule },

@@ -22,7 +22,7 @@ import {
   SQL,
 } from "../lib/db.js";
 
-const PAGES = "https://minsub.github.io";
+const PAGES = "https://minsubs.github.io";
 
 // ---------------------------------------------------------------------------
 // cors.js
@@ -56,7 +56,7 @@ test("parseAllowedOrigins: junk / empty -> empty set", () => {
 });
 
 test("parseAllowedOrigins: strips trailing path/slash to bare origin", () => {
-  const set = parseAllowedOrigins("https://minsub.github.io/kbo-tido/");
+  const set = parseAllowedOrigins("https://minsubs.github.io/minsubsong/");
   assert.ok(set.has(PAGES));
 });
 
@@ -64,7 +64,7 @@ test("isOriginAllowed: exact match only", () => {
   const allowed = parseAllowedOrigins(PAGES);
   assert.equal(isOriginAllowed(PAGES, allowed), true);
   assert.equal(isOriginAllowed("https://evil.example.com", allowed), false);
-  assert.equal(isOriginAllowed("http://minsub.github.io", allowed), false); // scheme differs
+  assert.equal(isOriginAllowed("http://minsubs.github.io", allowed), false); // scheme differs
   assert.equal(isOriginAllowed(null, allowed), false);
   assert.equal(isOriginAllowed("", allowed), false);
 });
