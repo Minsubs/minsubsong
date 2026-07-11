@@ -39,7 +39,12 @@
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" href="./assets/app-icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="./assets/app-icon.svg" />
-    <link rel="stylesheet" href="./styles.css?v=31" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+    />
+    <link rel="stylesheet" href="./styles.css?v=33" />
   </head>
   <body>
     <header class="topbar">
@@ -49,13 +54,6 @@
           <small>10구단 예매 캘린더 · 알림 체크</small>
         </span>
       </a>
-      <nav class="nav" aria-label="주요 메뉴">
-        <a href="#home" data-view-target="home">홈</a>
-        <a href="#tickets" data-view-target="tickets">예매</a>
-        <a href="#schedule" data-view-target="schedule">일정·결과</a>
-        <a href="#standings" data-view-target="standings">순위</a>
-        <a href="#more" data-view-target="more">더보기</a>
-      </nav>
       <div class="top-actions">
         <select class="team-chip" id="teamSelect" aria-label="내 구단 선택"></select>
         <button class="icon-button notify-button" id="notifyButton" type="button" aria-label="알림" title="알림" hidden>
@@ -193,7 +191,7 @@
     </nav>
 
     <footer class="footer">
-      <p id="dataUpdated">데이터 기준: 확인 중. MVP용 정적 데이터이며 실제 서비스에서는 자동 연동 대상으로 분리 예정.</p>
+      <p id="dataUpdated">데이터 기준: 확인 중. KBO 공식 홈페이지 데이터를 참조합니다.</p>
       <p>
         출처:
         <a href="https://eng.koreabaseball.com/Standings/TeamStandings.aspx">KBO Team Standings</a>,
@@ -228,6 +226,6 @@
       </div>
     </div>
 
-    <script src="./script.js?v=31"></script>
+    <script src="./script.js?v=33"></script>
   </body>
 </html>

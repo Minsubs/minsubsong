@@ -1,10 +1,21 @@
-const CACHE_NAME = "eagles-lounge-v31";
+const CACHE_NAME = "eagles-lounge-v33";
+// Pretendard(CDN) 런타임 캐시 — 앱 셸 버전과 독립. stale-while-revalidate 로
+// 오프라인 재방문 시 폰트 유지. activate 정리에서 보존한다.
+const FONT_CACHE = "fonts-v1";
+// script.js 게이트 상수 미러(배포 시 동일 값으로 교체; 빈 값이면 inert).
+const PUSH_API_BASE = "";
+const PUSH_VAPID_PUBLIC_KEY = "";
+function urlB64ToUint8Array(b) {
+  const pad = "=".repeat((4 - (b.length % 4)) % 4);
+  const s = (b + pad).replace(/-/g, "+").replace(/_/g, "/");
+  return Uint8Array.from([...atob(s)].map((c) => c.charCodeAt(0)));
+}
 const APP_SHELL = [
   "./",
   "./index.html",
   "./offline.html",
-  "./styles.css?v=31",
-  "./script.js?v=31",
+  "./styles.css?v=33",
+  "./script.js?v=33",
   "./manifest.webmanifest",
   "./assets/app-icon.svg",
   "./assets/hero-stadium.png",
@@ -25,7 +36,11 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches
       .keys()
-      .then((keys) => Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key)))),
+      .then((keys) =>
+        Promise.all(
+          keys.filter((key) => key !== CACHE_NAME && key !== FONT_CACHE).map((key) => caches.delete(key)),
+        ),
+      ),
   );
   self.clients.claim();
 });
@@ -48,8 +63,31 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
+  // Pretendard CDN(CSS + woff2 서브셋) → 별도 폰트 캐시 stale-while-revalidate.
+  if (url.hostname === "cdn.jsdelivr.net") {
+    event.respondWith(staleWhileRevalidate(request, FONT_CACHE));
+    return;
+  }
+
   event.respondWith(cacheFirst(request));
 });
+
+async function staleWhileRevalidate(request, cacheName) {
+  const cache = await caches.open(cacheName);
+  const cached = await cache.match(request);
+
+  const network = fetch(request)
+    .then((response) => {
+      // CORS 정상 응답(.ok) 또는 opaque 응답만 캐시.
+      if (response && (response.ok || response.type === "opaque")) {
+        cache.put(request, response.clone());
+      }
+      return response;
+    })
+    .catch(() => cached);
+
+  return cached || network;
+}
 
 async function networkFirst(request, fallback = null) {
   const cache = await caches.open(CACHE_NAME);
@@ -108,13 +146,29 @@ self.addEventListener("push", (event) => {
 });
 
 self.addEventListener("pushsubscriptionchange", (event) => {
-  // 구독 endpoint 회전 시 best-effort 재구독(이전 옵션 재사용). 백엔드 재전송은 클라가 다음 방문 시.
+  // endpoint 회전 시 재구독(이전 옵션 재사용, 없으면 VAPID 키로 재구성) + 백엔드 재등록.
   event.waitUntil(
     (async () => {
       try {
-        await self.registration.pushManager.subscribe(
-          event.oldSubscription?.options ?? { userVisibleOnly: true },
-        );
+        const options = event.oldSubscription?.options ?? {
+          userVisibleOnly: true,
+          ...(PUSH_VAPID_PUBLIC_KEY
+            ? { applicationServerKey: urlB64ToUint8Array(PUSH_VAPID_PUBLIC_KEY) }
+            : {}),
+        };
+        const sub = await self.registration.pushManager.subscribe(options);
+        if (PUSH_API_BASE) {
+          const json = sub.toJSON();
+          await fetch(`${PUSH_API_BASE}/api/subscriptions`, {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({
+              endpoint: sub.endpoint,
+              p256dh: json.keys?.p256dh,
+              auth: json.keys?.auth,
+            }),
+          });
+        }
       } catch {
         // 무시 — 클라 재방문 시 재등록.
       }

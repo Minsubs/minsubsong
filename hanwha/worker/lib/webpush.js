@@ -328,8 +328,9 @@ export function buildPushHeaders({ jwt, vapidPublicKey, ttl, urgency, topic }) {
  * @param {string} [args.topic]
  * @param {number} [args.now]  테스트용 고정 시각
  * @param {typeof fetch} [args.fetchImpl=fetch]  주입용(테스트)
- * @returns {Promise<{status:number, gone:boolean, ok:boolean}>}
+ * @returns {Promise<{status:number, gone:boolean, ok:boolean, retryAfter:number|null}>}
  *          gone=true 면 410/404 → 호출자가 D1 에서 즉시 DELETE.
+ *          status===429 면 retryAfter(초, Retry-After 파싱) 로 호출자가 백오프/skip.
  */
 export async function sendPush({
   subscription,
@@ -376,5 +377,35 @@ export async function sendPush({
   const status = res.status;
   const gone = status === 404 || status === 410;
   // 2xx 성공. 그 외(429/5xx 등)는 호출자가 재시도 정책 판단.
-  return { status, gone, ok: status >= 200 && status < 300 };
+  // 429 면 Retry-After(초 또는 HTTP-date)를 파싱해 백오프 힌트로 반환.
+  return {
+    status,
+    gone,
+    ok: status >= 200 && status < 300,
+    retryAfter: status === 429 ? parseRetryAfter(res, now) : null,
+  };
+}
+
+/**
+ * Retry-After 헤더를 초(정수)로 파싱. delta-seconds 또는 HTTP-date 모두 처리.
+ * 헤더 없음/파싱 불가면 null. res.headers 가 없거나 get 이 없어도 안전(테스트 주입 대비).
+ * @param {{headers?:{get?:(name:string)=>string|null}}} res
+ * @param {number} [nowSeconds]  HTTP-date 상대 계산용(테스트 고정 시각, epoch seconds)
+ * @returns {number|null}
+ */
+export function parseRetryAfter(res, nowSeconds) {
+  const raw =
+    res && res.headers && typeof res.headers.get === 'function'
+      ? res.headers.get('Retry-After')
+      : null;
+  if (!raw) return null;
+  const secs = Number(raw);
+  if (Number.isFinite(secs)) return secs >= 0 ? Math.floor(secs) : 0;
+  const dateMs = Date.parse(raw);
+  if (!Number.isNaN(dateMs)) {
+    const base = typeof nowSeconds === 'number' ? nowSeconds * 1000 : Date.now();
+    const delta = Math.round((dateMs - base) / 1000);
+    return delta > 0 ? delta : 0;
+  }
+  return null;
 }

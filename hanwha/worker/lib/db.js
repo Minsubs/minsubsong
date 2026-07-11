@@ -60,6 +60,30 @@ export const SQL = {
     FROM demand_counters
     ORDER BY day DESC, metric ASC
   `,
+  // F3. 재편성 감지 — 캘린더에서 관측된 game_id 와 최초 관측 시각.
+  //     INSERT OR IGNORE 로 최초 first_seen_at 을 보존(멱등).
+  recordCalendarSeen: `
+    INSERT INTO calendar_seen (game_id, first_seen_at)
+    VALUES (?1, ?2)
+    ON CONFLICT(game_id) DO NOTHING
+  `,
+  getSeenIds: `SELECT game_id FROM calendar_seen`,
+  // F4. 라이브 경기 상태 diff — game_key 당 최신 스냅샷.
+  getLiveStates: `
+    SELECT game_key, home_score, away_score, state, missing_count, updated_at
+    FROM live_state
+  `,
+  upsertLiveState: `
+    INSERT INTO live_state (game_key, home_score, away_score, state, missing_count, updated_at)
+    VALUES (?1, ?2, ?3, ?4, ?5, ?6)
+    ON CONFLICT(game_key) DO UPDATE SET
+      home_score    = excluded.home_score,
+      away_score    = excluded.away_score,
+      state         = excluded.state,
+      missing_count = excluded.missing_count,
+      updated_at    = excluded.updated_at
+  `,
+  deleteOldLiveState: `DELETE FROM live_state WHERE updated_at < ?1`,
 };
 
 // ---------------------------------------------------------------------------
@@ -255,4 +279,79 @@ export async function insertEventCounts(db, counts, day) {
 export async function getMetrics(db) {
   const { results } = await db.prepare(SQL.getMetrics).all();
   return results || [];
+}
+
+// ---------------------------------------------------------------------------
+// F3. calendar_seen — 재편성 감지 baseline
+// ---------------------------------------------------------------------------
+
+/**
+ * Record calendar game_ids as seen (idempotent — keeps original first_seen_at).
+ * @param {D1Database} db
+ * @param {string[]} ids
+ * @param {number} firstSeenAtMs
+ */
+export async function recordCalendarSeen(db, ids, firstSeenAtMs) {
+  const list = Array.isArray(ids)
+    ? [...new Set(ids.filter((x) => typeof x === "string" && x.length > 0))]
+    : [];
+  if (list.length === 0) return [];
+  const stmt = db.prepare(SQL.recordCalendarSeen);
+  return db.batch(list.map((id) => stmt.bind(id, firstSeenAtMs)));
+}
+
+/**
+ * All previously-seen calendar game_ids.
+ * @param {D1Database} db
+ * @returns {Promise<string[]>}
+ */
+export async function getSeenIds(db) {
+  const { results } = await db.prepare(SQL.getSeenIds).all();
+  return (results || []).map((r) => r.game_id);
+}
+
+// ---------------------------------------------------------------------------
+// F4. live_state — 라이브 경기 diff 스냅샷
+// ---------------------------------------------------------------------------
+
+/**
+ * All current live_state snapshot rows.
+ * @param {D1Database} db
+ * @returns {Promise<Array>}
+ */
+export async function getLiveStates(db) {
+  const { results } = await db.prepare(SQL.getLiveStates).all();
+  return results || [];
+}
+
+/**
+ * Upsert a batch of live_state rows (one per game_key).
+ * @param {D1Database} db
+ * @param {Array<{game_key:string,home_score:number|null,away_score:number|null,state:string,missing_count:number,updated_at:number}>} rows
+ */
+export async function upsertLiveStates(db, rows) {
+  const list = Array.isArray(rows) ? rows.filter((r) => r && r.game_key) : [];
+  if (list.length === 0) return [];
+  const stmt = db.prepare(SQL.upsertLiveState);
+  return db.batch(
+    list.map((r) =>
+      stmt.bind(
+        r.game_key,
+        r.home_score ?? null,
+        r.away_score ?? null,
+        String(r.state ?? ""),
+        Number.isFinite(r.missing_count) ? r.missing_count : 0,
+        r.updated_at,
+      ),
+    ),
+  );
+}
+
+/**
+ * Prune live_state rows older than a cutoff (hygiene — yesterday's games).
+ * @param {D1Database} db
+ * @param {number} cutoffMs
+ */
+export async function deleteOldLiveState(db, cutoffMs) {
+  return db.prepare(SQL.deleteOldLiveState).bind(cutoffMs).run();
 }

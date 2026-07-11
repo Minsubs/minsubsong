@@ -21,6 +21,7 @@ import {
   audienceFromEndpoint,
   buildPushHeaders,
   sendPush,
+  parseRetryAfter,
 } from '../lib/webpush.js';
 
 const subtle = globalThis.crypto.subtle;
@@ -314,6 +315,77 @@ test('sendPush does not flag 429/500 as gone', async () => {
   assert.equal(a.result.gone, false);
   assert.equal(a.result.ok, false);
   assert.equal(b.result.gone, false);
+});
+
+// ── T1. 429 백오프 — Retry-After 파싱 ─────────────────────────────────────────
+
+// Retry-After 헤더를 붙일 수 있는 fixture.
+async function sendPushWithHeaders(status, retryAfter) {
+  const { rawPub, auth } = await makeSubscriberKeys();
+  const { privateKeyB64, publicKeyB64 } = await makeVapidTestKeys();
+  const priv = await importVapidPrivateKey({ privateKey: privateKeyB64, publicKey: publicKeyB64 });
+  const headers = new Map();
+  if (retryAfter != null) headers.set('retry-after', String(retryAfter));
+  const fetchImpl = async () => ({
+    status,
+    headers: { get: (name) => headers.get(String(name).toLowerCase()) ?? null },
+  });
+  return sendPush({
+    subscription: { endpoint: 'https://fcm.googleapis.com/fcm/send/abc', p256dh: bytesToBase64url(rawPub), auth: bytesToBase64url(auth) },
+    payload: JSON.stringify({ title: 't', body: 'b', url: '/' }),
+    vapid: { publicKey: publicKeyB64, privateKey: priv, subject: 'mailto:o@x.com' },
+    now: 1_700_000_000,
+    fetchImpl,
+  });
+}
+
+test('T1 sendPush: 429 면 Retry-After(초) 를 retryAfter 로 반환', async () => {
+  const r = await sendPushWithHeaders(429, '120');
+  assert.equal(r.status, 429);
+  assert.equal(r.gone, false);
+  assert.equal(r.ok, false);
+  assert.equal(r.retryAfter, 120);
+});
+
+test('T1 sendPush: 429 인데 Retry-After 없으면 retryAfter=null (throw 금지)', async () => {
+  const r = await sendPushWithHeaders(429, null);
+  assert.equal(r.retryAfter, null);
+});
+
+test('T1 sendPush: 2xx/기타 상태는 retryAfter=null', async () => {
+  const ok = await sendPushWithHeaders(201, '99');
+  assert.equal(ok.retryAfter, null); // 429 아니면 파싱 안 함
+  const gone = await sendPushWithHeaders(410, '99');
+  assert.equal(gone.gone, true);
+  assert.equal(gone.retryAfter, null);
+});
+
+test('T1 sendPush: headers 없는 응답(주입)에도 429 안전 처리', async () => {
+  const r = await sendPushFixture(429); // {status} 만 반환하는 기존 fixture
+  assert.equal(r.result.status, 429);
+  assert.equal(r.result.retryAfter, null);
+});
+
+test('T1 parseRetryAfter: delta-seconds / HTTP-date / 결측 / 음수', () => {
+  const mk = (v) => ({ headers: { get: () => v } });
+  assert.equal(parseRetryAfter(mk('120')), 120);
+  assert.equal(parseRetryAfter(mk('0')), 0);
+  assert.equal(parseRetryAfter(mk('-5')), 0); // 음수는 0 으로 클램프
+  assert.equal(parseRetryAfter(mk(null)), null); // 헤더 없음
+  assert.equal(parseRetryAfter(mk('garbage')), null); // 파싱 불가
+  // HTTP-date: now(초) 기준 60초 뒤
+  const nowSec = 1_700_000_000;
+  const future = new Date(nowSec * 1000 + 60_000).toUTCString();
+  assert.equal(parseRetryAfter(mk(future), nowSec), 60);
+  // 과거 날짜는 0
+  const past = new Date(nowSec * 1000 - 60_000).toUTCString();
+  assert.equal(parseRetryAfter(mk(past), nowSec), 0);
+});
+
+test('T1 parseRetryAfter: headers/get 없는 응답도 안전(null)', () => {
+  assert.equal(parseRetryAfter({}), null);
+  assert.equal(parseRetryAfter({ headers: {} }), null);
+  assert.equal(parseRetryAfter(null), null);
 });
 
 test('sendPush rejects oversized payload (fail-closed)', async () => {

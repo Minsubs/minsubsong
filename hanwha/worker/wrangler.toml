@@ -19,17 +19,29 @@ database_id = "REPLACE_WITH_D1_DATABASE_ID"
 # 개인키(VAPID_PRIVATE)는 여기에 절대 넣지 않는다 → wrangler secret 만 사용.
 [vars]
 # CORS allowlist — GitHub Pages origin(쉼표구분 다중 허용). 정확한 scheme://host[:port].
-ALLOWED_ORIGIN = "https://minsub.github.io"
-# 배포된 정적 데이터(JSON)를 fetch 할 베이스 — Pages origin. <base>/data/*.json 을 읽는다.
-DATA_BASE_URL = "https://minsub.github.io"
+# (Origin 헤더에는 경로가 없으므로 프로젝트 경로 /minsubsong 는 붙이지 않는다.)
+ALLOWED_ORIGIN = "https://minsubs.github.io"
+# 배포된 정적 데이터(JSON)를 fetch 할 베이스 — <base>/data/*.json 을 읽는다(프로젝트 경로 포함).
+DATA_BASE_URL = "https://minsubs.github.io/minsubsong"
+# LV1 라이브 프록시 소스 — GET /api/live 가 fetch 하는 KBO 스코어보드 HTML.
+SCOREBOARD_URL = "https://eng.koreabaseball.com/Schedule/Scoreboard.aspx"
 # VAPID 공개키 — 플레이스홀더. 프로덕션 키쌍 생성 후 교체(개인키는 secret).
 VAPID_PUBLIC = "REPLACE_WITH_VAPID_PUBLIC_KEY_PLACEHOLDER"
 # 연락처(푸시 서비스 VAPID sub). mailto: 또는 https:.
-VAPID_SUBJECT = "mailto:ops@example.com"
+VAPID_SUBJECT = "https://minsubs.github.io/minsubsong/"
 # 발송 윈도우 — 오픈 몇 분 전부터 발송(lead).
 PUSH_LEAD_MINUTES = "15"
 # 푸시 TTL(초) — 임박 알림은 짧게.
 PUSH_TTL_SECONDS = "600"
+# F4 라이브 알림 TTL(초) — 임박성 소멸(늦은 득점 알림 무가치).
+PUSH_LIVE_TTL_SECONDS = "300"
+# 한 cron 틱 발송 총량 상한(F1+F2+F4 합산 — 무료 티어 subrequest 예산 대비).
+# 초과분은 다음 틱에서 sent_log 가 이미 발송분을 제외하고 이어감(F2 청크).
+PUSH_MAX_SENDS_PER_TICK = "40"
+# 한 틱 내 429 누적 상한 — 초과 시 잔여 발송 중단(T1 폭주 방지).
+PUSH_MAX_429 = "5"
+# F3 재편성 후보 판정 지평(일) — 새로 나타난 경기의 경기일이 이 안이면 후보.
+RESCHEDULE_HORIZON_DAYS = "10"
 # 조용한 시간(참고용; 실제 게이트는 push-logic isQuietHour 가 KST 22:00~08:00 고정).
 QUIET_HOURS_START = "22"
 QUIET_HOURS_END = "8"

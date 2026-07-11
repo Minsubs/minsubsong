@@ -1,7 +1,7 @@
 # 백엔드 + Web Push 도입 플랜
 
 작성일: 2026-06-11 KST
-성격: **플랜 문서 — 미구현.** 사실은 4개 트랙(Web Push 기술 타당성 / 호스팅 아키텍처 / 프라이버시·UX / 코드 매핑) 조사 기반이나, **최종 결정 전 재검증을 권장**한다. 외부 한도·약관·법령은 시점에 따라 바뀌므로 착수 직전 1차 출처 재확인 필요. PIPA/정보통신망법 해석 부분은 **법률 자문이 아니며** 발송 전 변호사/개인정보 담당 검토 권장.
+성격: **플랜 문서 — 코드 구현 완료(2026-07, `worker/` + SW/클라 셸, 단위검증), 배포·실기기 검증 미실행.** 이하 본문은 2026-06-11 조사 시점 서술이며 코드 관련 현재 상태는 `worker/README.md` 참조. 사실은 4개 트랙(Web Push 기술 타당성 / 호스팅 아키텍처 / 프라이버시·UX / 코드 매핑) 조사 기반이나, **최종 결정 전 재검증을 권장**한다. 외부 한도·약관·법령은 시점에 따라 바뀌므로 착수 직전 1차 출처 재확인 필요. PIPA/정보통신망법 해석 부분은 **법률 자문이 아니며** 발송 전 변호사/개인정보 담당 검토 권장.
 관련: `PROGRESS.md`의 "지표 기반 네이티브 알림/제휴/스토어 확장 여부 결정", `docs/CANCEL_TICKET_ALERT_RESEARCH.md` 7장 미해결질문 3(푸시 백엔드 투자), 동 문서 5장 ② 사용자 주도 확인 경로의 선결과제(Web Push)를 구체화한 것이다.
 
 ---
@@ -10,11 +10,11 @@
 
 ### 1.1 왜 백엔드 + 푸시인가
 
-현재 앱은 **백엔드 없는 GitHub Pages 정적 PWA**다. 데이터는 GitHub Actions cron(하루 4회, `hanwha/scripts/update-data.mjs`)이 KBO를 스크랩해 `data/*.json`으로 커밋하고 Pages가 자동 배포한다. 알림은 **앱이 열려 있을 때만** 동작하는 로컬 `Notification`이다 — `service-worker.js`에 `push` 핸들러가 없어(코드 매핑 확인), 앱이 닫혀 있으면 알림이 도달하지 않는다.
+현재 앱은 **백엔드 없는 GitHub Pages 정적 PWA**다. 데이터는 GitHub Actions cron(하루 4회, `hanwha/scripts/update-data.mjs`)이 KBO를 스크랩해 `data/*.json`으로 커밋하고 Pages가 자동 배포한다. 알림은 **앱이 열려 있을 때만** 동작하는 로컬 `Notification`이다 — 조사 당시(2026-06-11) `service-worker.js`에 `push` 핸들러가 없어(코드 매핑 확인) 앱이 닫혀 있으면 알림이 도달하지 않았다(2026-07 현재 push/pushsubscriptionchange 핸들러 구현됨 — 이 절은 도입 배경 설명으로만 유효).
 
 합의된 핵심 가치는 **"10구단 통합 예매-오픈 캘린더 + 알림"**이고, 진짜 무기는 **"앱이 닫혀 있어도 오는 예매 오픈 임박 푸시"**다. 이 한 줄을 실현하는 표준 메커니즘이 Web Push다 — 서버가 푸시 서비스(FCM/Mozilla/Apple)로 메시지를 보내면 **앱이 닫혀 있어도 서비스워커가 깨어나** `push` 이벤트에서 알림을 표시한다. 이를 위해선 ① VAPID 키 ② 구독(endpoint/keys) 영속 저장 ③ 발송 워커가 필요하고, 셋 다 신규 백엔드 컴포넌트다. Web Push 표준은 2023-03부터 **Baseline Widely available**이다.
 
-> 출처: Push API — MDN https://developer.mozilla.org/en-US/docs/Web/API/Push_API · Re-engageable Notifications & Push — MDN https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Tutorials/js13kGames/Re-engageable_Notifications_Push · 코드 매핑(`service-worker.js`에 push/pushsubscriptionchange 핸들러 부재, `notificationclick:93`·`periodicsync:117`만 존재)
+> 출처: Push API — MDN https://developer.mozilla.org/en-US/docs/Web/API/Push_API · Re-engageable Notifications & Push — MDN https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Tutorials/js13kGames/Re-engageable_Notifications_Push · 코드 매핑(조사 당시 `service-worker.js`에 push/pushsubscriptionchange 핸들러 부재, `notificationclick:93`·`periodicsync:117`만 존재 — 2026-07 현재 push/pushsubscriptionchange 핸들러 구현됨. 이 절은 도입 배경 설명으로만 유효)
 
 ### 1.2 "개인정보 최소화" 원칙과의 트레이드오프 (명시)
 
@@ -109,7 +109,7 @@ W3C Push API 명세상 endpoint는 "사용자의 기기·신원·위치를 푸�
 ### 2.4 VAPID 키 보관
 
 - VAPID = ECDSA **P-256 키쌍** 1쌍, `web-push generate-vapid-keys`로 1회 생성.
-- **공개키**: 클라이언트에 상수로 박아 `applicationServerKey`(Base64url)로 `subscribe()`에 전달. (코드 매핑상 현재 클라에 VAPID public key 상수 없음 — 신규 추가 필요.)
+- **공개키**: 클라이언트에 상수로 박아 `applicationServerKey`(Base64url)로 `subscribe()`에 전달. (코드 매핑상 조사 당시 클라에 VAPID public key 상수 없음 — 신규 추가 필요했음. 2026-07 현재 `script.js:2273`에 `VAPID_PUBLIC_KEY` 상수 추가됨 — 아래 6장 표 앞 상태 주석 참조.)
 - **개인키**: 절대 클라에 노출 금지. 발송 시 JWT 서명용.
   - 1순위(Worker): `wrangler secret put VAPID_PRIVATE_KEY`.
   - 2순위(GHA 발송): GitHub Actions Secrets.
@@ -277,6 +277,8 @@ iOS 비중이 큰 한국 시장에서, iOS 사용자가 푸시를 받으려면 *
 ## 6. 코드 변경 지점 요약 (코드 매핑 트랙 기반)
 
 모든 경로는 워크트리 절대경로. 워크플로우는 `hanwha/`가 아니라 **워크트리 루트**의 `.github/workflows/`에 있다.
+
+> **상태 주석(2026-07 추가, 아래 표는 2026-06-11 조사 시점 원문 그대로 보존)**: #1(SW `push` 핸들러)·#2(`pushsubscriptionchange` 핸들러)·#3(`subscribe()` + 백엔드 POST 셸)·#4(VAPID public key 상수)·#8(백엔드 — `worker/`, Cloudflare Worker + D1, 단위테스트 68/68 통과)은 **구현 완료**됐다. 단 실배포(`wrangler login` + `provision.sh`)·클라 키 실주입·실기기 검증·D8 법률 검토는 미실행 — 상세는 `worker/README.md` "절대 게이트" 참조. 나머지 #5(로컬 리마인더와의 중복 방지)·#6(`update-data.mjs`의 `openAt` emit)·#7(GHA 발송 워크플로우)·#9(`manifest.json` display 필드)는 구현 여부 **개별 확인 필요**.
 
 | # | 파일 | 위치 | 변경(개념) |
 | --- | --- | --- | --- |
