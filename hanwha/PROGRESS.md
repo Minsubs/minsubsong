@@ -1,6 +1,6 @@
 # KBO 티켓팅 도우미 진행상황
 
-> 2026-07-12 Wave 2 배포 준비 완료: 기존 화면에서 상단·마이팀 선택기·경기장 날씨만 부분 개편하고, 중립+10구단 PWA 아이콘/매니페스트와 iOS 재설치 안내를 연결했다. 앱 캐시는 **v34**, 검증은 **99/99 통과**했다. Pages 배포는 대기 중이며 Cloudflare Worker는 미인증 상태, 실사용자 푸시는 법률 게이트 때문에 비활성이다. 상세는 `HANDOFF.md` 최상단.
+> 2026-07-12 Wave 2 배포 완료: 기존 화면에서 상단·마이팀 선택기·경기장 날씨만 부분 개편하고, 중립+10구단 PWA 아이콘/매니페스트와 iOS 재설치 안내를 연결했다. 앱 캐시는 **v34**, 검증은 **99/99 통과**했다. 커밋 `945100e`를 [GitHub Pages](https://minsubs.github.io/minsubsong/)에 배포했으며([run 29176947950](https://github.com/Minsubs/minsubsong/actions/runs/29176947950)), Cloudflare Worker는 미인증 상태라 미배포다. 실사용자 푸시는 빈 Worker 연동값과 법률 게이트로 비활성이다. 상세는 `HANDOFF.md` 최상단.
 
 > 2026-07-04 배치 완료: `docs/BATCH_DESIGN_2026-07.md`의 R2~R8 전체 구현 + LG 예매처/키움 오픈시각 긴급 데이터 수정, 캐시 v31. 상세는 `HANDOFF.md` 해당 절.
 
@@ -42,7 +42,7 @@
 - [x] 중립+10구단 앱 아이콘/매니페스트 — 성인 20~30대 여성 팬 대상의 프리미엄 티켓 굿즈 방향
 - [x] 마이팀 선택 시 manifest/Apple touch icon 교체 + 설치 후 자동 변경 불가 재설치 안내
 - [x] 캐시 v34 및 앱 테스트 99/99
-- [ ] GitHub Pages 프론트 배포
+- [x] GitHub Pages 프론트 배포 — `945100e`, run `29176947950`
 - [x] 전구단 데이터 전환 (games.json 10팀, 리그 리더 타율/홈런/ERA 실데이터)
 - [x] NOL 티켓 예매처 링크 404 경로 수정 (`ticket.interpark.com/Contents/Sports`)
 - [ ] 과거 macro 커밋 히스토리 rewrite 여부 결정
