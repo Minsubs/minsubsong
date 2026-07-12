@@ -1,6 +1,6 @@
 # KBO 티켓팅 도우미 진행상황
 
-> 2026-07-10(미커밋, 작업트리): X0 사용자 결정 확정(D3=Cloudflare Workers+D1+Cron·D7=`wrangler secret`·D8=발송 전 법률 게이트 유지) + 차단 버그 수정(wrangler.toml 오타 도메인) + `worker/scripts/provision.sh` 신설(멱등, Opus 검증 실패경로 3건 패치) + X0 클라 결함 9건 패치(앱 **47/47**, 캐시 v31→v32) + 메뉴 중복 버그·푸터 카피 수정 + `docs/LIVE_ALERTS_DESIGN_2026-07.md` 신규 설계 + LV1a 구현(`GET /api/live`, 워커 68→**78/78**). **X0는 코드·프로비저닝 준비 완료, 사용자 `wrangler login` 실행 대기.** 상세는 `HANDOFF.md` 최상단.
+> 2026-07-12 Wave 2 배포 준비 완료: 기존 화면에서 상단·마이팀 선택기·경기장 날씨만 부분 개편하고, 중립+10구단 PWA 아이콘/매니페스트와 iOS 재설치 안내를 연결했다. 앱 캐시는 **v34**, 검증은 **99/99 통과**했다. Pages 배포는 대기 중이며 Cloudflare Worker는 미인증 상태, 실사용자 푸시는 법률 게이트 때문에 비활성이다. 상세는 `HANDOFF.md` 최상단.
 
 > 2026-07-04 배치 완료: `docs/BATCH_DESIGN_2026-07.md`의 R2~R8 전체 구현 + LG 예매처/키움 오픈시각 긴급 데이터 수정, 캐시 v31. 상세는 `HANDOFF.md` 해당 절.
 
@@ -38,6 +38,11 @@
 - [x] v20 전면 리디자인 (다크 "Night Game" 라임/시안 · 라이트 "Daylight" 블루)
 - [x] 5탭 IA 재구조 (홈·예매·일정·결과·순위·더보기) + 모바일 바텀탭
 - [x] "내 구단" 선택(`selectedTeam`) — 10구단 개인화 (요약/라이브/일정/순위/캘린더)
+- [x] Wave 2 부분 개편 — 상단 브랜드·11옵션 마이팀 선택기·경기장 지역 날씨
+- [x] 중립+10구단 앱 아이콘/매니페스트 — 성인 20~30대 여성 팬 대상의 프리미엄 티켓 굿즈 방향
+- [x] 마이팀 선택 시 manifest/Apple touch icon 교체 + 설치 후 자동 변경 불가 재설치 안내
+- [x] 캐시 v34 및 앱 테스트 99/99
+- [ ] GitHub Pages 프론트 배포
 - [x] 전구단 데이터 전환 (games.json 10팀, 리그 리더 타율/홈런/ERA 실데이터)
 - [x] NOL 티켓 예매처 링크 404 경로 수정 (`ticket.interpark.com/Contents/Sports`)
 - [ ] 과거 macro 커밋 히스토리 rewrite 여부 결정
