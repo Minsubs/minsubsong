@@ -1,7 +1,9 @@
-const CACHE_NAME = "eagles-lounge-v33";
+const CACHE_NAME = "eagles-lounge-v34";
 // Pretendard(CDN) 런타임 캐시 — 앱 셸 버전과 독립. stale-while-revalidate 로
 // 오프라인 재방문 시 폰트 유지. activate 정리에서 보존한다.
 const FONT_CACHE = "fonts-v1";
+const WEATHER_API_ORIGIN = "https://api.open-meteo.com";
+const WEATHER_API_PATH = "/v1/forecast";
 // script.js 게이트 상수 미러(배포 시 동일 값으로 교체; 빈 값이면 inert).
 const PUSH_API_BASE = "";
 const PUSH_VAPID_PUBLIC_KEY = "";
@@ -14,10 +16,65 @@ const APP_SHELL = [
   "./",
   "./index.html",
   "./offline.html",
-  "./styles.css?v=33",
-  "./script.js?v=33",
+  "./styles.css?v=34",
+  "./script.js?v=34",
   "./manifest.webmanifest",
+  "./manifest-hanwha.webmanifest",
+  "./manifest-lg.webmanifest",
+  "./manifest-ssg.webmanifest",
+  "./manifest-doosan.webmanifest",
+  "./manifest-kia.webmanifest",
+  "./manifest-samsung.webmanifest",
+  "./manifest-lotte.webmanifest",
+  "./manifest-kt.webmanifest",
+  "./manifest-nc.webmanifest",
+  "./manifest-kiwoom.webmanifest",
   "./assets/app-icon.svg",
+  "./assets/icons/app-icon-192.png",
+  "./assets/icons/app-icon-512.png",
+  "./assets/icons/app-icon-maskable-512.png",
+  "./assets/icons/apple-touch-icon-180.png",
+  "./assets/icons/notification-badge-96.png",
+  "./assets/icons/team-hanwha-192.png",
+  "./assets/icons/team-hanwha-512.png",
+  "./assets/icons/team-hanwha-maskable-512.png",
+  "./assets/icons/team-hanwha-apple-touch-180.png",
+  "./assets/icons/team-lg-192.png",
+  "./assets/icons/team-lg-512.png",
+  "./assets/icons/team-lg-maskable-512.png",
+  "./assets/icons/team-lg-apple-touch-180.png",
+  "./assets/icons/team-ssg-192.png",
+  "./assets/icons/team-ssg-512.png",
+  "./assets/icons/team-ssg-maskable-512.png",
+  "./assets/icons/team-ssg-apple-touch-180.png",
+  "./assets/icons/team-doosan-192.png",
+  "./assets/icons/team-doosan-512.png",
+  "./assets/icons/team-doosan-maskable-512.png",
+  "./assets/icons/team-doosan-apple-touch-180.png",
+  "./assets/icons/team-kia-192.png",
+  "./assets/icons/team-kia-512.png",
+  "./assets/icons/team-kia-maskable-512.png",
+  "./assets/icons/team-kia-apple-touch-180.png",
+  "./assets/icons/team-samsung-192.png",
+  "./assets/icons/team-samsung-512.png",
+  "./assets/icons/team-samsung-maskable-512.png",
+  "./assets/icons/team-samsung-apple-touch-180.png",
+  "./assets/icons/team-lotte-192.png",
+  "./assets/icons/team-lotte-512.png",
+  "./assets/icons/team-lotte-maskable-512.png",
+  "./assets/icons/team-lotte-apple-touch-180.png",
+  "./assets/icons/team-kt-192.png",
+  "./assets/icons/team-kt-512.png",
+  "./assets/icons/team-kt-maskable-512.png",
+  "./assets/icons/team-kt-apple-touch-180.png",
+  "./assets/icons/team-nc-192.png",
+  "./assets/icons/team-nc-512.png",
+  "./assets/icons/team-nc-maskable-512.png",
+  "./assets/icons/team-nc-apple-touch-180.png",
+  "./assets/icons/team-kiwoom-192.png",
+  "./assets/icons/team-kiwoom-512.png",
+  "./assets/icons/team-kiwoom-maskable-512.png",
+  "./assets/icons/team-kiwoom-apple-touch-180.png",
   "./assets/hero-stadium.png",
   "./data/meta.json?v=19",
   "./data/summary.json?v=19",
@@ -50,6 +107,11 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(request.url);
 
   if (request.method !== "GET") {
+    return;
+  }
+
+  if (url.origin === WEATHER_API_ORIGIN && url.pathname === WEATHER_API_PATH) {
+    event.respondWith(fetch(request));
     return;
   }
 
@@ -137,8 +199,8 @@ self.addEventListener("push", (event) => {
   event.waitUntil(
     self.registration.showNotification(title, {
       body: payload.body || "",
-      icon: "./assets/app-icon.svg",
-      badge: "./assets/app-icon.svg",
+      icon: "./assets/icons/app-icon-192.png",
+      badge: "./assets/icons/notification-badge-96.png",
       tag: payload.tag || "kbo-tido-push",
       data: { url: payload.url || "./index.html#live" },
     }),

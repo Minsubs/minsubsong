@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ticket T icon family validator</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f2ece0;
+      --surface: #fbf7ee;
+      --ink: #1a1712;
+      --muted: #756a52;
+      --line: #c4b89c;
+      --stamp: #c62d1a;
+      --ok: #1f8f4e;
+      --bad: #b42318;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--paper);
+      color: var(--ink);
+      font: 15px/1.5 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    main { width: min(1380px, calc(100% - 32px)); margin: 0 auto; padding: 32px 0 48px; }
+    header { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: end; margin-bottom: 24px; }
+    h1, h2, h3, p { margin: 0; }
+    h1 { font-size: clamp(1.8rem, 4vw, 3rem); line-height: 1; letter-spacing: -.04em; }
+    h2 { margin-bottom: 14px; font-size: 1rem; text-transform: uppercase; letter-spacing: .08em; }
+    h3 { font-size: 1rem; }
+    .lede { max-width: 72ch; margin-top: 10px; color: var(--muted); }
+    .status { min-width: 128px; padding: 10px 14px; border: 1px solid var(--line); background: var(--surface); font-weight: 800; text-align: center; }
+    .status[data-state="pass"] { border-color: var(--ok); color: var(--ok); }
+    .status[data-state="fail"] { border-color: var(--bad); color: var(--bad); }
+    section { margin-top: 20px; padding: 20px; border: 1px solid var(--line); background: var(--surface); }
+    .results { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px 18px; padding: 0; list-style: none; }
+    .result { display: grid; grid-template-columns: 20px 1fr; gap: 7px; align-items: start; padding: 6px 0; border-bottom: 1px dotted var(--line); }
+    .result::before { content: "×"; color: var(--bad); font-weight: 900; }
+    .result.pass::before { content: "✓"; color: var(--ok); }
+    .result small { display: block; color: var(--muted); }
+    .family-table { display: grid; gap: 10px; }
+    .family-row {
+      display: grid;
+      grid-template-columns: 116px repeat(6, minmax(74px, 1fr));
+      gap: 10px;
+      align-items: end;
+      min-height: 160px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+    .family-label { align-self: center; }
+    .family-label small { display: block; color: var(--muted); font: 700 11px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; }
+    figure { margin: 0; text-align: center; }
+    figure img { display: block; width: var(--preview); height: var(--preview); margin: auto; image-rendering: auto; }
+    figcaption { margin-top: 7px; color: var(--muted); font: 700 10px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .empty { opacity: 0; }
+    .mask-table { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+    .mask-family { padding: 12px; border: 1px solid var(--line); background: #fff; }
+    .mask-family h3 { margin-bottom: 8px; }
+    .mask-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .mask-context { display: grid; min-height: 120px; place-items: center; padding: 10px; overflow: hidden; }
+    .mask-context img { width: 88px; height: 88px; }
+    .light { background: #ffffff; }
+    .dark { background: #0c0d11; }
+    .team-context { background: #365c4d; }
+    .circle img { clip-path: circle(50%); }
+    .squircle img { border-radius: 24%; }
+    .rounded img { border-radius: 12%; }
+    .stress-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
+    .stress-family { display: grid; grid-template-columns: 1fr repeat(3, 48px); gap: 8px; align-items: center; padding: 10px; border: 1px solid var(--line); background: #fff; }
+    .stress-family img { width: 48px; height: 48px; }
+    .blind-stress-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }
+    .blind-stress-family { display: grid; grid-template-columns: repeat(3, 48px); gap: 10px; place-content: center; min-height: 92px; padding: 14px; border: 1px solid var(--line); background: #fff; }
+    .blind-stress-family img { width: 48px; height: 48px; }
+    .grayscale { filter: grayscale(1); }
+    .soft { filter: blur(.55px); }
+    .badge-checker { background: conic-gradient(#ddd 25%, #fff 0 50%, #ddd 0 75%, #fff 0) 0 0 / 14px 14px; padding: 12px; }
+    @media (max-width: 900px) {
+      header { grid-template-columns: 1fr; align-items: start; }
+      .status { justify-self: start; }
+      .results { grid-template-columns: 1fr; }
+      .family-row { grid-template-columns: repeat(3, 1fr); }
+      .family-label { grid-column: 1 / -1; }
+      .mask-table, .stress-grid, .blind-stress-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body data-status="running">
+  <main>
+    <header>
+      <div>
+        <h1>Ticket T · 11 install families</h1>
+        <p class="lede">Neutral plus ten original team ticket stickers. Canvas checks cover exact roles, opaque mask edges, central safe zones, and the transparent notification badge.</p>
+      </div>
+      <div id="status" class="status" data-state="running" role="status">RUNNING</div>
+    </header>
+
+    <section aria-labelledby="assertions-title">
+      <h2 id="assertions-title">Canvas assertions</h2>
+      <ul id="results" class="results"></ul>
+    </section>
+
+    <section aria-labelledby="contact-title">
+      <h2 id="contact-title">True-size source contact sheet</h2>
+      <div id="contactSheet" class="family-table"></div>
+    </section>
+
+    <section aria-labelledby="mask-title">
+      <h2 id="mask-title">Circle · squircle · rounded-square masks</h2>
+      <div id="maskSheet" class="mask-table"></div>
+    </section>
+
+    <section aria-labelledby="stress-title">
+      <h2 id="stress-title">48 px · grayscale · blur stress</h2>
+      <div id="stressSheet" class="stress-grid"></div>
+    </section>
+
+    <section aria-labelledby="blind-title">
+      <h2 id="blind-title">Unlabeled 48 px identity gate · source · grayscale · blur</h2>
+      <div id="blindStressSheet" class="blind-stress-grid"></div>
+    </section>
+
+    <section aria-labelledby="badge-title">
+      <h2 id="badge-title">Notification badge transparency</h2>
+      <figure class="badge-checker" style="width:140px"><img src="../assets/icons/notification-badge-96.png" alt="투명 배경 Ticket T 알림 배지" style="--preview:96px"><figcaption>badge · 96</figcaption></figure>
+    </section>
+  </main>
+
+  <script type="module">
+    import { TEAM_ICON_FAMILIES } from "../scripts/team-icon-config.mjs";
+
+    const root = "../assets/icons/";
+    const neutral = { team: "KBO 전체", slug: "neutral", anchor: "T", mask: "app-icon-maskable-512.png" };
+    const families = [neutral, ...TEAM_ICON_FAMILIES.map((family) => ({ ...family, mask: `team-${family.slug}-maskable-512.png` }))];
+    const results = [];
+    const add = (name, pass, detail) => results.push({ name, pass, detail });
+
+    function loadImage(src) {
+      return new Promise((resolve, reject) => {
+        const image = new Image();
+        image.decoding = "async";
+        image.onload = () => resolve(image);
+        image.onerror = () => reject(new Error(`missing or unreadable: ${src}`));
+        image.src = `${src}?validator=2`;
+      });
+    }
+
+    function pixelsFor(image, size) {
+      const canvas = document.createElement("canvas");
+      canvas.width = size;
+      canvas.height = size;
+      const context = canvas.getContext("2d", { willReadFrequently: true });
+      context.clearRect(0, 0, size, size);
+      context.drawImage(image, 0, 0, size, size);
+      return context.getImageData(0, 0, size, size).data;
+    }
+
+    function pixel(data, size, x, y) {
+      const offset = (y * size + x) * 4;
+      return [data[offset], data[offset + 1], data[offset + 2], data[offset + 3]];
+    }
+
+    function colorDistance(left, right) {
+      return Math.hypot(left[0] - right[0], left[1] - right[1], left[2] - right[2]);
+    }
+
+    async function validateMask(family, image) {
+      const data = pixelsFor(image, 512);
+      let transparentEdgePixels = 0;
+      for (let index = 0; index < 512; index += 1) {
+        for (const [x, y] of [[index, 0], [index, 511], [0, index], [511, index]]) {
+          if (pixel(data, 512, x, y)[3] !== 255) transparentEdgePixels += 1;
+        }
+      }
+      add(`${family.slug} opaque mask edge`, transparentEdgePixels === 0, `${transparentEdgePixels} non-opaque edge samples`);
+
+      const background = pixel(data, 512, 0, 0);
+      let corePixels = 0;
+      let outside = 0;
+      for (let y = 0; y < 512; y += 1) {
+        for (let x = 0; x < 512; x += 1) {
+          const current = pixel(data, 512, x, y);
+          const isCore = current[3] > 0 && colorDistance(current, background) > 32;
+          if (isCore) {
+            corePixels += 1;
+            if (x < 51 || x > 460 || y < 51 || y > 460) outside += 1;
+          }
+        }
+      }
+      add(`${family.slug} central 80% safe zone`, corePixels > 18000 && outside === 0, `${corePixels} core pixels; ${outside} outside`);
+    }
+
+    function roleFiles(family) {
+      if (family.slug === "neutral") {
+        return [
+          ["app-icon-192.png", 192],
+          ["app-icon-512.png", 512],
+          ["app-icon-maskable-512.png", 512],
+          ["apple-touch-icon-180.png", 180],
+          ["app-icon-1024.png", 1024],
+        ];
+      }
+      return [
+        [`team-${family.slug}-192.png`, 192],
+        [`team-${family.slug}-512.png`, 512],
+        [`team-${family.slug}-apple-touch-180.png`, 180],
+        [`team-${family.slug}-maskable-512.png`, 512],
+      ];
+    }
+
+    function previewFiles(family) {
+      if (family.slug === "neutral") {
+        return [
+          ["app-icon-192.png", 48, "48"], ["app-icon-192.png", 96, "96"],
+          ["apple-touch-icon-180.png", 90, "180"], ["app-icon-192.png", 96, "192"],
+          ["app-icon-512.png", 128, "512"], ["app-icon-1024.png", 144, "1024"],
+        ];
+      }
+      return [
+        [`team-${family.slug}-192.png`, 48, "48"], [`team-${family.slug}-192.png`, 96, "96"],
+        [`team-${family.slug}-apple-touch-180.png`, 90, "180"], [`team-${family.slug}-192.png`, 96, "192"],
+        [`team-${family.slug}-512.png`, 128, "512"], [null, 1, ""],
+      ];
+    }
+
+    function buildPreviewSheets() {
+      const contact = document.getElementById("contactSheet");
+      const masks = document.getElementById("maskSheet");
+      const stress = document.getElementById("stressSheet");
+      const blindStress = document.getElementById("blindStressSheet");
+      for (const family of families) {
+        const row = document.createElement("article");
+        row.className = "family-row";
+        const label = document.createElement("div");
+        label.className = "family-label";
+        label.innerHTML = `<h3>${family.team}</h3><small>${family.slug} · bold ${family.anchor}</small>`;
+        row.append(label);
+        for (const [name, displaySize, captionText] of previewFiles(family)) {
+          const figure = document.createElement("figure");
+          if (!name) {
+            figure.className = "empty";
+          } else {
+            const image = document.createElement("img");
+            image.src = root + name;
+            image.alt = `${family.team} ${captionText}픽셀 미리보기`;
+            image.style.setProperty("--preview", `${displaySize}px`);
+            const caption = document.createElement("figcaption");
+            caption.textContent = captionText;
+            figure.append(image, caption);
+          }
+          row.append(figure);
+        }
+        contact.append(row);
+
+        const maskFamily = document.createElement("article");
+        maskFamily.className = "mask-family";
+        const maskTitle = document.createElement("h3");
+        maskTitle.textContent = family.team;
+        const maskRow = document.createElement("div");
+        maskRow.className = "mask-row";
+        for (const [shape, context] of [["circle", "light"], ["squircle", "dark"], ["rounded", "team-context"]]) {
+          const box = document.createElement("div");
+          box.className = `mask-context ${shape} ${context}`;
+          const image = document.createElement("img");
+          image.src = root + family.mask;
+          image.alt = `${family.team} ${shape} 마스크`;
+          box.append(image);
+          maskRow.append(box);
+        }
+        maskFamily.append(maskTitle, maskRow);
+        masks.append(maskFamily);
+
+        const stressFamily = document.createElement("article");
+        stressFamily.className = "stress-family";
+        const stressLabel = document.createElement("strong");
+        stressLabel.textContent = family.team;
+        const stressSource = family.slug === "neutral" ? "app-icon-192.png" : `team-${family.slug}-192.png`;
+        stressFamily.append(stressLabel);
+        for (const className of ["", "grayscale", "soft"]) {
+          const image = document.createElement("img");
+          image.src = root + stressSource;
+          image.className = className;
+          image.alt = `${family.team} ${className || "원본"} 48픽셀`;
+          stressFamily.append(image);
+        }
+        stress.append(stressFamily);
+
+        const blindFamily = document.createElement("article");
+        blindFamily.className = "blind-stress-family";
+        blindFamily.setAttribute("aria-label", `${family.team} unlabeled identity stress`);
+        for (const className of ["", "grayscale", "soft"]) {
+          const image = document.createElement("img");
+          image.src = root + stressSource;
+          image.className = className;
+          image.alt = "";
+          blindFamily.append(image);
+        }
+        blindStress.append(blindFamily);
+      }
+    }
+
+    async function validate() {
+      buildPreviewSheets();
+      for (const family of families) {
+        const roleResults = [];
+        for (const [name, size] of roleFiles(family)) {
+          try {
+            const image = await loadImage(root + name);
+            roleResults.push(`${name}=${image.naturalWidth}×${image.naturalHeight}`);
+            if (image.naturalWidth !== size || image.naturalHeight !== size) throw new Error(`${name} expected ${size}×${size}`);
+          } catch (error) {
+            roleResults.push(error.message);
+          }
+        }
+        const rolesPass = roleResults.every((result) => !result.includes("expected") && !result.includes("missing"));
+        add(`${family.slug} install role dimensions`, rolesPass, roleResults.join(" · "));
+
+        const svgName = family.slug === "neutral" ? "app-icon-maskable.svg" : `team-${family.slug}.svg`;
+        try {
+          const svg = await loadImage(root + svgName);
+          add(`${family.slug} SVG readable`, svg.naturalWidth > 0 && svg.naturalHeight > 0, `${svg.naturalWidth}×${svg.naturalHeight}`);
+        } catch (error) {
+          add(`${family.slug} SVG readable`, false, error.message);
+        }
+
+        try {
+          const mask = await loadImage(root + family.mask);
+          await validateMask(family, mask);
+        } catch (error) {
+          add(`${family.slug} opaque mask edge`, false, error.message);
+          add(`${family.slug} central 80% safe zone`, false, error.message);
+        }
+      }
+
+      try {
+        const badge = await loadImage(root + "notification-badge-96.png");
+        const data = pixelsFor(badge, 96);
+        let transparent = 0;
+        const colors = new Set();
+        for (let y = 0; y < 96; y += 1) {
+          for (let x = 0; x < 96; x += 1) {
+            const [red, green, blue, alpha] = pixel(data, 96, x, y);
+            if (alpha === 0) transparent += 1;
+            else colors.add(`${red},${green},${blue}`);
+          }
+        }
+        const cornersClear = [[0, 0], [95, 0], [0, 95], [95, 95]].every(([x, y]) => pixel(data, 96, x, y)[3] === 0);
+        add("badge transparent background", cornersClear && transparent > 3200, `${transparent} transparent; corners ${cornersClear}`);
+        add("badge monochrome pixels", colors.size === 1, `${colors.size} RGB colors`);
+      } catch (error) {
+        add("badge transparent background", false, error.message);
+        add("badge monochrome pixels", false, error.message);
+      }
+
+      const list = document.getElementById("results");
+      for (const result of results) {
+        const item = document.createElement("li");
+        item.className = `result ${result.pass ? "pass" : "fail"}`;
+        const content = document.createElement("span");
+        content.textContent = result.name;
+        const detail = document.createElement("small");
+        detail.textContent = result.detail;
+        content.append(detail);
+        item.append(content);
+        list.append(item);
+      }
+
+      const pass = results.length === 46 && results.every((result) => result.pass);
+      const status = document.getElementById("status");
+      status.dataset.state = pass ? "pass" : "fail";
+      status.textContent = pass ? `PASS ${results.length}/${results.length}` : `FAIL ${results.filter((result) => result.pass).length}/${results.length}`;
+      document.body.dataset.status = pass ? "pass" : "fail";
+      window.iconValidationResults = results;
+      window.iconValidationDone = true;
+      document.title = `${pass ? "PASS" : "FAIL"} · Ticket T icon family validator`;
+    }
+
+    validate().catch((error) => {
+      document.body.dataset.status = "fail";
+      document.getElementById("status").textContent = `FAIL · ${error.message}`;
+      window.iconValidationResults = [...results, { name: "validator runtime", pass: false, detail: error.message }];
+      window.iconValidationDone = true;
+    });
+  </script>
+</body>
+</html>

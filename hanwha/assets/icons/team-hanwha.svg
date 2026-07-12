@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="한화 오리지널 티켓 설치 아이콘">
+  <title>한화 collectible ticket icon</title>
+  <rect width="1024" height="1024" fill="#c23e00"/>
+  <path fill="#fbf7ee" d="M148 148h728v242c-70 0-70 244 0 244v242H148V634c70 0 70-244 0-244Z"/>
+  <path fill="#ff6a16" d="M202 202h620v188c-62 0-62 244 0 244v188H202V634c62 0 62-244 0-244Z"/>
+  <g data-motif="side-block"><path fill="#c23e00" d="M202 202h160v620H202z"/><path fill="#fbf7ee" d="M258 258h104v508H258z"/></g>
+  <g data-letterpress="bold" data-anchor="H"><path fill="#c23e00" fill-rule="evenodd" transform="translate(18 20)" d="M316 318h96v150h200V318h96v388h-96V558H412v148h-96Z"/><path fill="#ffffff" fill-rule="evenodd" d="M316 318h96v150h200V318h96v388h-96V558H412v148h-96Z"/></g>
+</svg>

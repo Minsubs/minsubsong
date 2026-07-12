@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="KT 오리지널 티켓 설치 아이콘">
+  <title>KT collectible ticket icon</title>
+  <rect width="1024" height="1024" fill="#000000"/>
+  <path fill="#fbf7ee" d="M148 148h728v242c-70 0-70 244 0 244v242H148V634c70 0 70-244 0-244Z"/>
+  <path fill="#2c2c30" d="M202 202h620v188c-62 0-62 244 0 244v188H202V634c62 0 62-244 0-244Z"/>
+  <g data-motif="corner-cuts"><path fill="#000000" d="M202 202h238v174H202zM584 648h238v174H584z"/></g>
+  <g data-letterpress="bold" data-anchor="K"><path fill="#000000" fill-rule="evenodd" transform="translate(18 20)" d="M316 318h104v388H316ZM410 502l190-184h132L506 536ZM486 516l246 190H588L410 572Z"/><path fill="#ffffff" fill-rule="evenodd" d="M316 318h104v388H316ZM410 502l190-184h132L506 536ZM486 516l246 190H588L410 572Z"/></g>
+</svg>

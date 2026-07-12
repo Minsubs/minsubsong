@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="두산 오리지널 티켓 설치 아이콘">
+  <title>두산 collectible ticket icon</title>
+  <rect width="1024" height="1024" fill="#0c1640"/>
+  <path fill="#fbf7ee" d="M148 148h728v242c-70 0-70 244 0 244v242H148V634c70 0 70-244 0-244Z"/>
+  <path fill="#1a2a6c" d="M202 202h620v188c-62 0-62 244 0 244v188H202V634c62 0 62-244 0-244Z"/>
+  <g data-motif="diagonal-panel"><path fill="#0c1640" d="M202 202h230l390 620H592L202 432Z"/></g>
+  <g data-letterpress="bold" data-anchor="D"><path fill="#0c1640" fill-rule="evenodd" transform="translate(18 20)" d="M320 318h224c124 0 196 74 196 194s-72 194-196 194H320ZM424 414v196h120c62 0 96-36 96-98s-34-98-96-98Z"/><path fill="#ffffff" fill-rule="evenodd" d="M320 318h224c124 0 196 74 196 194s-72 194-196 194H320ZM424 414v196h120c62 0 96-36 96-98s-34-98-96-98Z"/></g>
+</svg>

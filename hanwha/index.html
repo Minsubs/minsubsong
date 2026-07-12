@@ -36,26 +36,92 @@
     <meta name="twitter:title" content="KBO TIDO — 10구단 예매 오픈 캘린더·알림" />
     <meta name="twitter:description" content="예매 오픈을 놓치지 않게, 10구단 예매 캘린더와 알림 체크." />
     <meta name="twitter:image" content="https://minsubs.github.io/minsubsong/assets/hero-stadium.png" />
-    <link rel="manifest" href="./manifest.webmanifest" />
+    <link id="manifestLink" rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" href="./assets/app-icon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="./assets/app-icon.svg" />
+    <link id="appleTouchIcon" rel="apple-touch-icon" href="./assets/icons/apple-touch-icon-180.png" />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
     />
-    <link rel="stylesheet" href="./styles.css?v=33" />
+    <link rel="stylesheet" href="./styles.css?v=34" />
   </head>
   <body>
     <header class="topbar">
-      <a class="brand" href="#home" data-view-target="home" aria-label="KBO TIDO 홈">
-        <span>
-          <strong>KBO TIDO</strong>
-          <small>10구단 예매 캘린더 · 알림 체크</small>
-        </span>
-      </a>
+      <div class="topbar__primary">
+        <a class="brand" href="#home" data-view-target="home" aria-label="KBO TIDO 홈">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 36 36" focusable="false">
+              <path d="M8 5h20v6a4 4 0 0 0 0 8v12H8V19a4 4 0 0 0 0-8V5Z" />
+              <path class="brand-mark__letter" d="M13 11h10M18 11v14" />
+            </svg>
+          </span>
+          <span class="brand-lockup">
+            <strong class="brand-wordmark"><span class="brand-wordmark__kbo">KBO</span> <span class="brand-wordmark__tido">TIDO</span></strong>
+            <small>10구단 예매 캘린더 · 알림 체크</small>
+          </span>
+        </a>
+
+        <div class="weather-disclosure" id="weatherDisclosure" data-status="no-game">
+          <button
+            class="weather-disclosure__trigger"
+            id="weatherDisclosureButton"
+            type="button"
+            aria-expanded="false"
+            aria-controls="weatherDisclosurePanel"
+          >
+            <span class="weather-disclosure__signal" aria-hidden="true"></span>
+            <span class="weather-disclosure__summary" aria-live="polite">
+              <span class="weather-disclosure__venue" id="weatherDisclosureVenue">경기장 날씨</span>
+              <span class="weather-disclosure__reading" id="weatherDisclosureSummary">예정 경기 확인 중</span>
+            </span>
+            <svg class="weather-disclosure__caret" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="m4 6 4 4 4-4" />
+            </svg>
+          </button>
+          <div
+            class="weather-disclosure__panel"
+            id="weatherDisclosurePanel"
+            role="region"
+            aria-labelledby="weatherDisclosureButton"
+            hidden
+          >
+            <div class="weather-disclosure__heading">
+              <span>STADIUM WEATHER</span>
+              <strong id="weatherDetailVenue">경기장 기준 날씨</strong>
+            </div>
+            <dl class="weather-disclosure__metrics">
+              <div><dt>현재</dt><dd id="weatherCurrentDetail">확인 중</dd></div>
+              <div><dt>경기 시각</dt><dd id="weatherGameDetail">확인 중</dd></div>
+            </dl>
+            <p class="weather-disclosure__updated" id="weatherUpdatedDetail">업데이트 대기 중</p>
+            <p class="weather-disclosure__provider">
+              경기장 기준 · 내 위치 미사용 ·
+              <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a>
+            </p>
+            <p class="weather-disclosure__privacy">
+              브라우저 위치 권한과 사용자 좌표를 사용하거나 저장하지 않습니다. 브라우저가 Open-Meteo에 직접 요청하므로 IP 등 일반 요청 정보는 제공자에게 전달됩니다.
+            </p>
+          </div>
+        </div>
+      </div>
       <div class="top-actions">
-        <select class="team-chip" id="teamSelect" aria-label="내 구단 선택"></select>
+        <div class="team-picker" id="teamPicker">
+          <button
+            class="team-picker__trigger"
+            id="teamPickerButton"
+            type="button"
+            aria-haspopup="listbox"
+            aria-expanded="false"
+            aria-controls="teamPickerList"
+          >
+            <span class="team-picker__badge" id="teamPickerBadge" aria-hidden="true">KBO</span>
+            <span class="team-picker__label" id="teamPickerLabel">KBO 전체</span>
+            <svg class="team-picker__caret" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="m4 6 4 4 4-4" />
+            </svg>
+          </button>
+        </div>
         <button class="icon-button notify-button" id="notifyButton" type="button" aria-label="알림" title="알림" hidden>
           <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 19a2 2 0 0 0 4 0"/></svg>
         </button>
@@ -65,6 +131,60 @@
         </button>
       </div>
     </header>
+
+    <div
+      class="team-picker__popover"
+      id="teamPickerList"
+      role="listbox"
+      aria-label="내 구단 선택"
+      popover="manual"
+      hidden
+    >
+      <button class="team-picker__option" type="button" role="option" aria-selected="false" tabindex="-1" data-team-value="all">
+        <span class="team-picker__badge" aria-hidden="true">KBO</span><span>KBO 전체</span>
+        <svg class="team-picker__check" viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7" /></svg>
+      </button>
+      <button class="team-picker__option" type="button" role="option" aria-selected="false" tabindex="-1" data-team-value="한화">
+        <span class="team-picker__badge" aria-hidden="true">한화</span><span>한화</span>
+        <svg class="team-picker__check" viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7" /></svg>
+      </button>
+      <button class="team-picker__option" type="button" role="option" aria-selected="false" tabindex="-1" data-team-value="LG">
+        <span class="team-picker__badge" aria-hidden="true">LG</span><span>LG</span>
+        <svg class="team-picker__check" viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7" /></svg>
+      </button>
+      <button class="team-picker__option" type="button" role="option" aria-selected="false" tabindex="-1" data-team-value="SSG">
+        <span class="team-picker__badge" aria-hidden="true">SSG</span><span>SSG</span>
+        <svg class="team-picker__check" viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7" /></svg>
+      </button>
+      <button class="team-picker__option" type="button" role="option" aria-selected="false" tabindex="-1" data-team-value="두산">
+        <span class="team-picker__badge" aria-hidden="true">두산</span><span>두산</span>
+        <svg class="team-picker__check" viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7" /></svg>
+      </button>
+      <button class="team-picker__option" type="button" role="option" aria-selected="false" tabindex="-1" data-team-value="KIA">
+        <span class="team-picker__badge" aria-hidden="true">KIA</span><span>KIA</span>
+        <svg class="team-picker__check" viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7" /></svg>
+      </button>
+      <button class="team-picker__option" type="button" role="option" aria-selected="false" tabindex="-1" data-team-value="삼성">
+        <span class="team-picker__badge" aria-hidden="true">삼성</span><span>삼성</span>
+        <svg class="team-picker__check" viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7" /></svg>
+      </button>
+      <button class="team-picker__option" type="button" role="option" aria-selected="false" tabindex="-1" data-team-value="롯데">
+        <span class="team-picker__badge" aria-hidden="true">롯데</span><span>롯데</span>
+        <svg class="team-picker__check" viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7" /></svg>
+      </button>
+      <button class="team-picker__option" type="button" role="option" aria-selected="false" tabindex="-1" data-team-value="KT">
+        <span class="team-picker__badge" aria-hidden="true">KT</span><span>KT</span>
+        <svg class="team-picker__check" viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7" /></svg>
+      </button>
+      <button class="team-picker__option" type="button" role="option" aria-selected="false" tabindex="-1" data-team-value="NC">
+        <span class="team-picker__badge" aria-hidden="true">NC</span><span>NC</span>
+        <svg class="team-picker__check" viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7" /></svg>
+      </button>
+      <button class="team-picker__option" type="button" role="option" aria-selected="false" tabindex="-1" data-team-value="키움">
+        <span class="team-picker__badge" aria-hidden="true">키움</span><span>키움</span>
+        <svg class="team-picker__check" viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7" /></svg>
+      </button>
+    </div>
 
     <nav class="view-tabs" aria-label="화면 탭" role="tablist">
       <button class="active" type="button" data-view-target="home" aria-controls="home" role="tab">홈</button>
@@ -205,6 +325,7 @@
         <button type="button" class="ios-install-sheet__close" data-ios-install-close aria-label="닫기">×</button>
         <h2 id="iosInstallSheetTitle">홈 화면에 추가하기</h2>
         <p class="ios-install-sheet__lead">KBO TIDO를 홈 화면에 추가하면 앱처럼 열고 예매 오픈 알림을 받을 수 있어요.</p>
+        <p class="ios-install-sheet__lead">마이팀 아이콘을 바꾸려면 앱을 삭제한 뒤 다시&nbsp;설치하세요. 설치&nbsp;후 자동 변경은 지원되지&nbsp;않습니다.</p>
         <p class="ios-install-sheet__safari-note">이 안내는 Safari에서만 동작해요. Safari로 이 페이지를 열어 진행해 주세요.</p>
         <ol class="ios-install-steps">
           <li data-step="1">
@@ -226,6 +347,6 @@
       </div>
     </div>
 
-    <script src="./script.js?v=33"></script>
+    <script src="./script.js?v=34"></script>
   </body>
 </html>

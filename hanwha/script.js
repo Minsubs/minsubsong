@@ -24,7 +24,54 @@ const POLL_INTERVAL_MS = 5 * 60 * 1000;
 const DEMAND_SIGNALS_KEY = "eaglesDemandSignals";
 const DEMAND_EVENT_LIMIT = 12;
 const SELECTED_TEAM_KEY = "selectedTeam";
-const DEFAULT_TEAM = "한화";
+const TEAM_PICKER_DISCOVERY_KEY = "teamPickerDiscovered";
+const ALL_TEAMS = "all";
+const INSTALL_ICON_FAMILIES = Object.freeze({
+  "all": Object.freeze({
+    manifest: "./manifest.webmanifest",
+    apple: "./assets/icons/apple-touch-icon-180.png",
+  }),
+  "한화": Object.freeze({
+    manifest: "./manifest-hanwha.webmanifest",
+    apple: "./assets/icons/team-hanwha-apple-touch-180.png",
+  }),
+  "LG": Object.freeze({
+    manifest: "./manifest-lg.webmanifest",
+    apple: "./assets/icons/team-lg-apple-touch-180.png",
+  }),
+  "SSG": Object.freeze({
+    manifest: "./manifest-ssg.webmanifest",
+    apple: "./assets/icons/team-ssg-apple-touch-180.png",
+  }),
+  "두산": Object.freeze({
+    manifest: "./manifest-doosan.webmanifest",
+    apple: "./assets/icons/team-doosan-apple-touch-180.png",
+  }),
+  "KIA": Object.freeze({
+    manifest: "./manifest-kia.webmanifest",
+    apple: "./assets/icons/team-kia-apple-touch-180.png",
+  }),
+  "삼성": Object.freeze({
+    manifest: "./manifest-samsung.webmanifest",
+    apple: "./assets/icons/team-samsung-apple-touch-180.png",
+  }),
+  "롯데": Object.freeze({
+    manifest: "./manifest-lotte.webmanifest",
+    apple: "./assets/icons/team-lotte-apple-touch-180.png",
+  }),
+  "KT": Object.freeze({
+    manifest: "./manifest-kt.webmanifest",
+    apple: "./assets/icons/team-kt-apple-touch-180.png",
+  }),
+  "NC": Object.freeze({
+    manifest: "./manifest-nc.webmanifest",
+    apple: "./assets/icons/team-nc-apple-touch-180.png",
+  }),
+  "키움": Object.freeze({
+    manifest: "./manifest-kiwoom.webmanifest",
+    apple: "./assets/icons/team-kiwoom-apple-touch-180.png",
+  }),
+});
 const CANCEL_WATCH_KEY = "cancelWatchGames";
 // 취소표 확인 리마인더 슬롯 — 경기 전날 21:00, 경기 당일 11:00 (각 1회).
 const CANCEL_WATCH_SLOTS = [
@@ -52,7 +99,7 @@ const teamInitials = {
 
 // 구단 크레스트(엠블럼) 색상. 공식 로고가 아닌 자체 방패형 엠블럼용 팀 컬러.
 const teamColors = {
-  한화: { base: "#ff6a16", edge: "#c23e00", ink: "#ffffff" },
+  한화: { base: "#ff6a16", edge: "#c23e00", ink: "#0c0d11" },
   LG: { base: "#c4194e", edge: "#8a0033", ink: "#ffffff" },
   SSG: { base: "#d10d2b", edge: "#960019", ink: "#ffffff" },
   두산: { base: "#1a2a6c", edge: "#0c1640", ink: "#ffffff" },
@@ -91,6 +138,25 @@ const STADIUM_NAME = {
   광주: "광주 기아챔피언스필드", 사직: "사직야구장", 창원: "창원 NC파크",
   울산: "울산 문수야구장", 포항: "포항야구장", 청주: "청주야구장",
 };
+const STADIUM_COORDINATES = {
+  잠실: { latitude: 37.5122, longitude: 127.0719 },
+  고척: { latitude: 37.4982, longitude: 126.8671 },
+  문학: { latitude: 37.437, longitude: 126.6933 },
+  수원: { latitude: 37.2997, longitude: 127.0097 },
+  대전: { latitude: 36.3171, longitude: 127.4291 },
+  대구: { latitude: 35.8411, longitude: 128.6816 },
+  광주: { latitude: 35.1682, longitude: 126.8885 },
+  사직: { latitude: 35.194, longitude: 129.0615 },
+  창원: { latitude: 35.2225, longitude: 128.5822 },
+  울산: { latitude: 35.5322, longitude: 129.2656 },
+  포항: { latitude: 36.0089, longitude: 129.3594 },
+  청주: { latitude: 36.6395, longitude: 127.4291 },
+};
+const WEATHER_API_URL = "https://api.open-meteo.com/v1/forecast";
+const WEATHER_CACHE_KEY = "kboTidoWeatherCacheV1";
+const WEATHER_FRESH_MS = 10 * 60 * 1000;
+const WEATHER_STALE_MS = 6 * 60 * 60 * 1000;
+const WEATHER_TIMEOUT_MS = 5 * 1000;
 function stadiumName(location) {
   return STADIUM_NAME[location] ?? location ?? "";
 }
@@ -101,28 +167,81 @@ function stadiumShort(location) {
   return sp > 0 ? full.slice(sp + 1) : full;
 }
 
+function isValidTeamSelection(team) {
+  return team === ALL_TEAMS || Object.hasOwn(teamColors, team);
+}
+
 function readSelectedTeam() {
   try {
     const stored = localStorage.getItem(SELECTED_TEAM_KEY);
-    return stored && teamColors[stored] ? stored : DEFAULT_TEAM;
+    return isValidTeamSelection(stored) ? stored : ALL_TEAMS;
   } catch {
-    return DEFAULT_TEAM;
+    return ALL_TEAMS;
   }
 }
 
+function hasValidStoredTeamSelection() {
+  try {
+    return isValidTeamSelection(localStorage.getItem(SELECTED_TEAM_KEY));
+  } catch {
+    return false;
+  }
+}
+
+function hasDiscoveredTeamPicker() {
+  try {
+    return localStorage.getItem(TEAM_PICKER_DISCOVERY_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function installIconFamilyForTeam(team) {
+  return Object.hasOwn(INSTALL_ICON_FAMILIES, team)
+    ? INSTALL_ICON_FAMILIES[team]
+    : INSTALL_ICON_FAMILIES[ALL_TEAMS];
+}
+
+function syncInstallIconLinks() {
+  const family = installIconFamilyForTeam(selectedTeam);
+  document.querySelector("#manifestLink")?.setAttribute("href", family.manifest);
+  document.querySelector("#appleTouchIcon")?.setAttribute("href", family.apple);
+}
+
+let teamPickerDiscoveryActive = !hasValidStoredTeamSelection() && !hasDiscoveredTeamPicker();
 let selectedTeam = readSelectedTeam();
+syncInstallIconLinks();
 
 function setSelectedTeam(team) {
-  if (!teamColors[team]) {
+  if (!isValidTeamSelection(team)) {
     return;
   }
   selectedTeam = team;
+  if (typeof document !== "undefined") {
+    syncInstallIconLinks();
+  }
   try {
     localStorage.setItem(SELECTED_TEAM_KEY, team);
   } catch {
     // localStorage 비활성 환경에서는 세션 한정으로만 적용된다.
   }
   applyTeamAccent();
+}
+
+function isNeutralTeamSelection() {
+  return selectedTeam === ALL_TEAMS;
+}
+
+function selectionIncludesTeams(homeTeam, awayTeam) {
+  return isNeutralTeamSelection() || homeTeam === selectedTeam || awayTeam === selectedTeam;
+}
+
+function isSelectedTeam(team) {
+  return !isNeutralTeamSelection() && team === selectedTeam;
+}
+
+function selectedTeamDemandDetails() {
+  return isNeutralTeamSelection() ? { scope: "league" } : { team: selectedTeam };
 }
 
 // 선택 구단 색을 UI 에 반영: 헤더 배경 밴드(--accent-diag)는 구단 원색,
@@ -159,21 +278,30 @@ function readableAccent(baseHex, dark) {
   return tidoRgbToHex(target);
 }
 function applyTeamAccent() {
-  const color = teamColors[selectedTeam] || teamColors[DEFAULT_TEAM];
-  if (!color || typeof document === "undefined") {
+  if (typeof document === "undefined") {
     return;
   }
+  const style = document.documentElement.style;
+  const accentProperties = [
+    "--accent", "--accent-strong", "--accent-2", "--stamp", "--ring",
+    "--accent-diag", "--team-ink", "--grad-accent",
+  ];
+  if (isNeutralTeamSelection()) {
+    accentProperties.forEach((property) => style.removeProperty(property));
+    return;
+  }
+  const color = teamColors[selectedTeam];
+  if (!color) return;
   const dark = document.documentElement.classList.contains("dark");
   const accent = readableAccent(color.base, dark);
-  const s = document.documentElement.style;
-  s.setProperty("--accent", accent);
-  s.setProperty("--accent-strong", accent);
-  s.setProperty("--accent-2", accent);
-  s.setProperty("--stamp", accent);
-  s.setProperty("--ring", accent);
-  s.setProperty("--accent-diag", color.base); // 헤더 배경 밴드 = 구단 원색
-  s.setProperty("--team-ink", color.ink || "#ffffff"); // 헤더 텍스트(구단색 위 가독)
-  s.setProperty("--grad-accent", `linear-gradient(135deg, ${accent} 0%, ${color.base} 100%)`);
+  style.setProperty("--accent", accent);
+  style.setProperty("--accent-strong", accent);
+  style.setProperty("--accent-2", accent);
+  style.setProperty("--stamp", accent);
+  style.setProperty("--ring", accent);
+  style.setProperty("--accent-diag", color.base); // 헤더 배경 밴드 = 구단 원색
+  style.setProperty("--team-ink", color.ink || "#ffffff"); // 헤더 텍스트(구단색 위 가독)
+  style.setProperty("--grad-accent", `linear-gradient(135deg, ${accent} 0%, ${color.base} 100%)`);
 }
 
 // 예매처별 취소표/예매대기 서비스 메타 (컨시어지형 — 자동 잔여석 감시 없음).
@@ -298,7 +426,21 @@ const ticketOpenCard = document.querySelector("#ticketOpenCard");
 const ticketCalendarFilters = document.querySelector("#ticketCalendarFilters");
 const ticketCalendarList = document.querySelector("#ticketCalendarList");
 const cancelWatchList = document.querySelector("#cancelWatchList");
-const teamSelect = document.querySelector("#teamSelect");
+const teamPicker = document.querySelector("#teamPicker");
+const teamPickerButton = document.querySelector("#teamPickerButton");
+const teamPickerList = document.querySelector("#teamPickerList");
+const teamPickerLabel = document.querySelector("#teamPickerLabel");
+const teamPickerBadge = document.querySelector("#teamPickerBadge");
+const teamPickerOptions = [...document.querySelectorAll("[data-team-value]")];
+const weatherDisclosure = document.querySelector("#weatherDisclosure");
+const weatherDisclosureButton = document.querySelector("#weatherDisclosureButton");
+const weatherDisclosurePanel = document.querySelector("#weatherDisclosurePanel");
+const weatherDisclosureVenue = document.querySelector("#weatherDisclosureVenue");
+const weatherDisclosureSummary = document.querySelector("#weatherDisclosureSummary");
+const weatherDetailVenue = document.querySelector("#weatherDetailVenue");
+const weatherCurrentDetail = document.querySelector("#weatherCurrentDetail");
+const weatherGameDetail = document.querySelector("#weatherGameDetail");
+const weatherUpdatedDetail = document.querySelector("#weatherUpdatedDetail");
 const themeToggle = document.querySelector("#themeToggle");
 const installApp = document.querySelector("#installApp");
 const notifyButton = document.querySelector("#notifyButton");
@@ -402,6 +544,9 @@ async function loadData() {
 }
 
 function summaryCardsForSelectedTeam() {
+  if (isNeutralTeamSelection()) {
+    return [];
+  }
   const row = (data.teamStandings ?? []).find((team) => team.team === selectedTeam);
   if (!row) {
     return null;
@@ -417,6 +562,12 @@ function summaryCardsForSelectedTeam() {
 
 function renderSummary() {
   if (!summaryBoard) return; // 홈 리디자인에서 스냅샷 제거 — 요소 없으면 no-op.
+  if (isNeutralTeamSelection()) {
+    summaryBoard.hidden = true;
+    summaryBoard.innerHTML = "";
+    return;
+  }
+  summaryBoard.hidden = false;
   // 내 구단 행에서 4카드 파생, 없으면 기존 한화 고정 summary 로 폴백.
   const cards = summaryCardsForSelectedTeam() ?? data.summary;
   summaryBoard.innerHTML = html`${cards.map(
@@ -432,7 +583,7 @@ function renderSummary() {
 
 function renderGames(filter = "recent") {
   // 전구단 games 를 내 구단(홈/원정)으로 먼저 필터.
-  const teamGames = data.games.filter((game) => game.home === selectedTeam || game.away === selectedTeam);
+  const teamGames = data.games.filter((game) => selectionIncludesTeams(game.home, game.away));
   const games = filter === "all" ? teamGames.filter((game) => game.type === "recent" || game.type === "upcoming") : teamGames.filter((game) => game.type === filter);
   const featured = games[0] ?? teamGames.find((game) => game.type !== "upcoming");
 
@@ -440,7 +591,7 @@ function renderGames(filter = "recent") {
     featuredGame.innerHTML = html`
       <div class="empty-state" role="status">
         <span class="empty-state__icon" aria-hidden="true">📺</span>
-        <p class="empty-state__title">${selectedTeam} 경기 데이터가 없습니다</p>
+        <p class="empty-state__title">${isNeutralTeamSelection() ? "KBO 전체" : selectedTeam} 경기 데이터가 없습니다</p>
         <p class="empty-state__hint">다른 필터를 선택하거나 잠시 후 다시 확인해 주세요.</p>
       </div>
     `;
@@ -486,7 +637,7 @@ function renderGames(filter = "recent") {
   gameList.innerHTML = html`${games.map((game) => {
     const up = game.type === "upcoming";
     const num = up ? "VS" : (game.score ?? "");
-    const mine = game.home === selectedTeam || game.away === selectedTeam ? " is-myteam" : "";
+    const mine = isSelectedTeam(game.home) || isSelectedTeam(game.away) ? " is-myteam" : "";
     return html`
         <article class="broadcast-game${raw(mine)}">
           <div class="broadcast-game__rail" aria-hidden="true"></div>
@@ -607,12 +758,13 @@ function renderTickets() {
 
   ticketGameList.innerHTML = html`${upcomingGames.map((game) => {
     const ticketing = getTicketing(game);
+    const venueLabel = ticketing.venueType === "홈팀 기준" ? ticketing.venueType : `${ticketing.venueType}석`;
     const stamp = ticketDayStamp(game);
     return html`
         <article class="ticket-stub ticket-stub--game">
           <div class="ticket-stub__main">
             <span class="ticket-serial">${ticketSerial(game)}</span>
-            <span class="ticket-stub__eyebrow">${game.date} ${game.time} · ${ticketing.venueType}석 ${ticketing.provider}</span>
+            <span class="ticket-stub__eyebrow">${game.date} ${game.time} · ${venueLabel} ${ticketing.provider}</span>
             <strong class="toc-matchup">${game.away} vs ${game.home}</strong>
             <p class="ticket-stub__meta">${stadiumName(game.location)} · ${game.detail}</p>
             ${renderTicketInfo(game)}
@@ -795,7 +947,7 @@ const TEAM_MASCOT_LETTER = {
 function renderTeamBadge(team) {
   const color = teamColors[team] ?? { base: "#4a4a4a", edge: "#262626", ink: "#ffffff" };
   const letter = TEAM_MASCOT_LETTER[team] ?? String(teamInitials[team] ?? team).slice(0, 1).toUpperCase();
-  const myTeam = team === selectedTeam ? " is-myteam" : "";
+  const myTeam = isSelectedTeam(team) ? " is-myteam" : "";
   // 2글자(SL·NC)는 한 단계 작게 — 원판 안에 꽉 차되 답답하지 않게.
   const fontSize = letter.length >= 2 ? 21 : 32;
   // 플랫-볼드 레터마크: 팀 base 단색 + edge 스트로크. 그라디언트/하이라이트/글로우 없음.
@@ -1043,7 +1195,7 @@ function getTicketing(game) {
 
   return {
     ...provider,
-    venueType: game.home === selectedTeam ? "홈" : "원정",
+    venueType: isNeutralTeamSelection() ? "홈팀 기준" : game.home === selectedTeam ? "홈" : "원정",
     status: game.type === "upcoming" ? "예매 확인" : "예매 종료",
     openLabel: provider.openLabel ?? "홈팀 예매 일정 기준",
   };
@@ -1367,7 +1519,9 @@ function renderTicketOpenCard() {
     ticketOpenCard.innerHTML = html`
       <div class="toc-empty">
         <span class="toc-eyebrow">다음 예매 오픈</span>
-        <p class="meta">${selectedTeam} 의 다가오는 예매 오픈 경기가 없습니다. 예매 캘린더에서 일정을 확인하세요.</p>
+        <p class="meta">${isNeutralTeamSelection()
+          ? "다가오는 KBO 예매 오픈 경기가 없습니다."
+          : `${selectedTeam}의 다가오는 예매 오픈 경기가 없습니다.`} 예매 캘린더에서 일정을 확인하세요.</p>
       </div>
     `;
     return;
@@ -1657,7 +1811,7 @@ function renderLineScore(game, linescore) {
 function selectedTeamGames() {
   // 전구단 games + 캘린더 예정 경기 중 selectedTeam 이 홈/원정인 경기.
   const all = [...(data.games ?? []), ...(data.ticketCalendar ?? [])];
-  return all.filter((game) => game.home === selectedTeam || game.away === selectedTeam);
+  return all.filter((game) => selectionIncludesTeams(game.home, game.away));
 }
 
 function representativeGame() {
@@ -1692,7 +1846,466 @@ function normalizedLiveGames() {
 
 function selectedLiveGame() {
   // 오늘 경기 배열에서 selectedTeam 이 홈/원정인 경기를 찾는다.
-  return normalizedLiveGames().find((game) => game.homeTeam === selectedTeam || game.awayTeam === selectedTeam) ?? null;
+  const games = normalizedLiveGames();
+  if (isNeutralTeamSelection()) {
+    return games.find((game) => game.status === "live") ?? games[0] ?? null;
+  }
+  return games.find((game) => selectionIncludesTeams(game.homeTeam, game.awayTeam)) ?? null;
+}
+
+function weatherCodeLabel(code) {
+  if (code === 0) return "맑음";
+  if (code === 1) return "대체로 맑음";
+  if (code === 2) return "구름 조금";
+  if (code === 3) return "흐림";
+  if (code === 45 || code === 48) return "안개";
+  if ([51, 53, 55].includes(code)) return "이슬비";
+  if (code === 56 || code === 57) return "어는 이슬비";
+  if ([61, 63, 65].includes(code)) return "비";
+  if (code === 66 || code === 67) return "어는 비";
+  if ([71, 73, 75].includes(code)) return "눈";
+  if (code === 77) return "싸락눈";
+  if ([80, 81, 82].includes(code)) return "소나기";
+  if (code === 85 || code === 86) return "눈 소나기";
+  if (code === 95) return "뇌우";
+  if (code === 96 || code === 99) return "우박 동반 뇌우";
+  return "알 수 없음";
+}
+
+function openMeteoKstTime(time) {
+  const match = String(time).match(/^(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2})(?::\d{2})?$/);
+  if (!match) return null;
+  const timestamp = Date.parse(`${match[1]}T${match[2]}:00+09:00`);
+  return Number.isFinite(timestamp) ? timestamp : null;
+}
+
+function validWeatherNumber(value) {
+  return typeof value === "number" && Number.isFinite(value);
+}
+
+function parseWeatherPayload(payload) {
+  if (!payload || typeof payload !== "object" || !payload.current || !payload.hourly) {
+    throw new TypeError("Open-Meteo response shape is invalid");
+  }
+
+  const current = payload.current;
+  const hourly = payload.hourly;
+  const hourlyTimes = hourly.time;
+  const hourlyTemperatures = hourly.temperature_2m;
+  const hourlyCodes = hourly.weather_code;
+  const hourlyRain = hourly.precipitation_probability;
+  const currentValues = [
+    current.temperature_2m,
+    current.apparent_temperature,
+    current.precipitation,
+    current.weather_code,
+  ];
+
+  if (typeof current.time !== "string" || openMeteoKstTime(current.time) === null) {
+    throw new TypeError("Open-Meteo current time is invalid");
+  }
+  if (!currentValues.every(validWeatherNumber)) {
+    throw new TypeError("Open-Meteo current values are invalid");
+  }
+  if (![hourlyTimes, hourlyTemperatures, hourlyCodes, hourlyRain].every(Array.isArray)) {
+    throw new TypeError("Open-Meteo hourly arrays are missing");
+  }
+  if (
+    hourlyTimes.length === 0
+    || hourlyTimes.length !== hourlyTemperatures.length
+    || hourlyTimes.length !== hourlyCodes.length
+    || hourlyTimes.length !== hourlyRain.length
+  ) {
+    throw new TypeError("Open-Meteo hourly arrays are not aligned");
+  }
+
+  const normalizedHourly = hourlyTimes.map((time, index) => {
+    const temperature = hourlyTemperatures[index];
+    const code = hourlyCodes[index];
+    const precipitationProbability = hourlyRain[index];
+    if (
+      typeof time !== "string"
+      || openMeteoKstTime(time) === null
+      || !validWeatherNumber(temperature)
+      || !validWeatherNumber(code)
+      || !validWeatherNumber(precipitationProbability)
+    ) {
+      throw new TypeError("Open-Meteo hourly value is invalid");
+    }
+    return {
+      time,
+      temperature,
+      code,
+      condition: weatherCodeLabel(code),
+      precipitationProbability,
+    };
+  });
+
+  return {
+    current: {
+      time: current.time,
+      temperature: current.temperature_2m,
+      apparentTemperature: current.apparent_temperature,
+      precipitation: current.precipitation,
+      code: current.weather_code,
+      condition: weatherCodeLabel(current.weather_code),
+    },
+    hourly: normalizedHourly,
+  };
+}
+
+function validNormalizedForecast(forecast) {
+  if (!forecast || typeof forecast !== "object" || !forecast.current || !Array.isArray(forecast.hourly)) {
+    return false;
+  }
+  const current = forecast.current;
+  if (
+    typeof current.time !== "string"
+    || typeof current.condition !== "string"
+    || !validWeatherNumber(current.temperature)
+    || !validWeatherNumber(current.apparentTemperature)
+    || !validWeatherNumber(current.precipitation)
+    || !validWeatherNumber(current.code)
+  ) {
+    return false;
+  }
+  return forecast.hourly.length > 0 && forecast.hourly.every((slot) => (
+    slot
+    && typeof slot.time === "string"
+    && openMeteoKstTime(slot.time) !== null
+    && typeof slot.condition === "string"
+    && validWeatherNumber(slot.temperature)
+    && validWeatherNumber(slot.code)
+    && validWeatherNumber(slot.precipitationProbability)
+  ));
+}
+
+function writeWeatherCache(cache) {
+  try {
+    localStorage.setItem(WEATHER_CACHE_KEY, JSON.stringify(cache));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function readWeatherCache(now = Date.now()) {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(WEATHER_CACHE_KEY) ?? "{}");
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return {};
+    const kept = {};
+    let pruned = false;
+    for (const [stadiumId, entry] of Object.entries(parsed)) {
+      const age = now - entry?.fetchedAt;
+      if (
+        !Object.hasOwn(STADIUM_COORDINATES, stadiumId)
+        || !validWeatherNumber(entry?.fetchedAt)
+        || age < 0
+        || age > WEATHER_STALE_MS
+        || !validNormalizedForecast(entry?.data)
+      ) {
+        pruned = true;
+        continue;
+      }
+      kept[stadiumId] = { data: entry.data, fetchedAt: entry.fetchedAt };
+    }
+    if (pruned) writeWeatherCache(kept);
+    return kept;
+  } catch {
+    return {};
+  }
+}
+
+function cachedWeather(stadiumId, now = Date.now()) {
+  const entry = readWeatherCache(now)[stadiumId];
+  if (!entry) return null;
+  return {
+    data: entry.data,
+    fetchedAt: entry.fetchedAt,
+    freshness: now - entry.fetchedAt <= WEATHER_FRESH_MS ? "fresh" : "stale",
+  };
+}
+
+function storeWeatherForecast(stadiumId, forecast, fetchedAt = Date.now()) {
+  const cache = readWeatherCache(fetchedAt);
+  cache[stadiumId] = { data: forecast, fetchedAt };
+  writeWeatherCache(cache);
+}
+
+function nearestGameWeather(forecast, gameAt) {
+  const first = openMeteoKstTime(forecast.hourly[0]?.time);
+  const last = openMeteoKstTime(forecast.hourly.at(-1)?.time);
+  if (!Number.isFinite(gameAt) || gameAt < first || gameAt > last) return null;
+  return forecast.hourly.reduce((nearest, slot) => {
+    const distance = Math.abs(openMeteoKstTime(slot.time) - gameAt);
+    return distance < nearest.distance ? { slot, distance } : nearest;
+  }, { slot: forecast.hourly[0], distance: Number.POSITIVE_INFINITY }).slot;
+}
+
+function weatherStateFromForecast(stadiumId, forecast, context) {
+  const game = nearestGameWeather(forecast, context.gameAt);
+  const outOfRange = game === null;
+  return {
+    status: context.freshness === "stale" ? "stale" : outOfRange ? "out-of-range" : "fresh",
+    forecastStatus: outOfRange ? "out-of-range" : "ready",
+    stadiumId,
+    stadium: stadiumName(stadiumId),
+    current: forecast.current,
+    game,
+    fetchedAt: context.fetchedAt,
+    message: outOfRange ? "경기 예보 준비 중" : "",
+  };
+}
+
+function weatherUrlForStadium(stadiumId) {
+  const coordinates = STADIUM_COORDINATES[stadiumId];
+  if (!coordinates) return null;
+  const url = new URL(WEATHER_API_URL);
+  url.searchParams.set("latitude", String(coordinates.latitude));
+  url.searchParams.set("longitude", String(coordinates.longitude));
+  url.searchParams.set("timezone", "Asia/Seoul");
+  url.searchParams.set("current", "temperature_2m,apparent_temperature,precipitation,weather_code");
+  url.searchParams.set("hourly", "temperature_2m,weather_code,precipitation_probability");
+  return url.toString();
+}
+
+const stadiumWeatherRequests = new Map();
+let activeWeatherStadium = null;
+let weatherRequestGeneration = 0;
+let stadiumWeatherState = { status: "no-game", stadiumId: null, stadium: "", current: null, game: null };
+
+function requestStadiumForecast(stadiumId) {
+  const existing = stadiumWeatherRequests.get(stadiumId);
+  if (existing) return existing.promise;
+  const weatherUrl = weatherUrlForStadium(stadiumId);
+  if (!weatherUrl) return Promise.reject(new RangeError("Unknown stadium"));
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort("timeout"), WEATHER_TIMEOUT_MS);
+  const promise = fetch(weatherUrl, { cache: "no-store", signal: controller.signal })
+    .then((response) => {
+      if (!response.ok || response.type === "opaque") {
+        throw new TypeError(`Open-Meteo unavailable (${response.status})`);
+      }
+      return response.json();
+    })
+    .then(parseWeatherPayload)
+    .finally(() => {
+      window.clearTimeout(timeout);
+      if (stadiumWeatherRequests.get(stadiumId)?.promise === promise) {
+        stadiumWeatherRequests.delete(stadiumId);
+      }
+    });
+  stadiumWeatherRequests.set(stadiumId, { controller, promise });
+  return promise;
+}
+
+function cancelStadiumWeatherRequest(nextStadiumId = null) {
+  if (activeWeatherStadium && activeWeatherStadium !== nextStadiumId) {
+    const active = stadiumWeatherRequests.get(activeWeatherStadium);
+    stadiumWeatherRequests.delete(activeWeatherStadium);
+    active?.controller.abort("selection-changed");
+  }
+  activeWeatherStadium = nextStadiumId;
+}
+
+function publishStadiumWeatherState(state) {
+  stadiumWeatherState = state;
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new CustomEvent("kbo-tido-weather-state", { detail: state }));
+  }
+}
+
+function currentStadiumWeatherState() {
+  return stadiumWeatherState;
+}
+
+function weatherTemperature(value) {
+  return validWeatherNumber(value) ? `${Math.round(value * 10) / 10}°` : "--";
+}
+
+function weatherUpdatedLabel(fetchedAt, stale = false) {
+  if (!validWeatherNumber(fetchedAt)) {
+    return stale ? "저장된 날씨 · 최신 확인 실패" : "업데이트 대기 중";
+  }
+  const time = new Intl.DateTimeFormat("ko-KR", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+    timeZone: "Asia/Seoul",
+  }).format(new Date(fetchedAt));
+  return stale ? `${time} 저장 · 최신 확인 실패` : `${time} 업데이트`;
+}
+
+function renderWeatherDisclosure(state) {
+  if (
+    !weatherDisclosure
+    || !weatherDisclosureButton
+    || !weatherDisclosureVenue
+    || !weatherDisclosureSummary
+    || !weatherDetailVenue
+    || !weatherCurrentDetail
+    || !weatherGameDetail
+    || !weatherUpdatedDetail
+  ) {
+    return;
+  }
+
+  const input = state && typeof state === "object" ? state : {};
+  const knownStatuses = new Set([
+    "loading", "fresh", "stale", "unavailable", "no-game", "unknown-stadium", "out-of-range",
+  ]);
+  const status = knownStatuses.has(input.status) ? input.status : "unavailable";
+  const stadium = typeof input.stadium === "string" && input.stadium.trim()
+    ? input.stadium.trim()
+    : status === "no-game" ? "KBO 경기장" : "경기장 날씨";
+  const condition = typeof input.current?.condition === "string" && input.current.condition.trim()
+    ? input.current.condition.trim()
+    : "날씨 확인 중";
+  const temperature = weatherTemperature(input.current?.temperature);
+  const rain = validWeatherNumber(input.game?.precipitationProbability)
+    ? `${Math.round(input.game.precipitationProbability)}%`
+    : null;
+  let summary = "날씨를 확인하지 못함";
+  let current = "현재 날씨를 확인하지 못했습니다";
+  let game = "경기 시각 예보를 확인하지 못했습니다";
+  let updated = "다시 열어도 경기 정보는 계속 이용할 수 있습니다";
+
+  switch (status) {
+    case "loading":
+      summary = "날씨 불러오는 중";
+      current = "현재 날씨를 불러오는 중입니다";
+      game = "경기 시각 강수 확률을 확인 중입니다";
+      updated = "업데이트 중";
+      break;
+    case "fresh":
+      summary = `${temperature} · ${condition}`;
+      current = `${temperature} · ${condition}`;
+      game = rain ? `강수 확률 ${rain}` : "강수 확률 확인 중";
+      updated = weatherUpdatedLabel(input.fetchedAt);
+      break;
+    case "stale":
+      summary = `${temperature} · 저장된 날씨`;
+      current = `${temperature} · ${condition}`;
+      game = rain ? `강수 확률 ${rain}` : "경기 시각 예보 범위 밖";
+      updated = weatherUpdatedLabel(input.fetchedAt, true);
+      break;
+    case "unavailable":
+      summary = "날씨 연결 안 됨";
+      current = "현재 날씨를 불러오지 못했습니다";
+      game = "경기 정보는 정상적으로 이용할 수 있습니다";
+      break;
+    case "no-game":
+      summary = "예정 경기 없음";
+      current = "선택 범위에 대표 경기가 없습니다";
+      game = "경기가 정해지면 강수 확률을 표시합니다";
+      updated = "날씨 요청 없음";
+      break;
+    case "unknown-stadium":
+      summary = "지원 경기장 아님";
+      current = "이 경기장의 좌표를 사용하지 않습니다";
+      game = "지원 경기장이 추가되면 예보를 표시합니다";
+      updated = "날씨 요청 없음";
+      break;
+    case "out-of-range":
+      summary = `${temperature} · ${condition}`;
+      current = `${temperature} · ${condition}`;
+      game = "경기 시각 예보 범위 밖";
+      updated = weatherUpdatedLabel(input.fetchedAt);
+      break;
+  }
+
+  weatherDisclosure.dataset.status = status;
+  weatherDisclosureVenue.textContent = stadium;
+  weatherDisclosureSummary.textContent = summary;
+  weatherDetailVenue.textContent = stadium;
+  weatherCurrentDetail.textContent = current;
+  weatherGameDetail.textContent = game;
+  weatherUpdatedDetail.textContent = updated;
+  weatherDisclosureButton.setAttribute("aria-label", `${stadium} 날씨 상세: ${summary}`);
+}
+
+function toggleWeatherDisclosure(forceOpen, restoreFocus = false) {
+  if (!weatherDisclosureButton || !weatherDisclosurePanel) return;
+  const isOpen = weatherDisclosureButton.getAttribute("aria-expanded") === "true";
+  const nextOpen = typeof forceOpen === "boolean" ? forceOpen : !isOpen;
+  weatherDisclosureButton.setAttribute("aria-expanded", String(nextOpen));
+  weatherDisclosurePanel.hidden = !nextOpen;
+  if (!nextOpen && restoreFocus) {
+    weatherDisclosureButton.focus();
+  }
+}
+
+async function loadStadiumWeather(stadiumId, gameAt, now = Date.now()) {
+  const cached = cachedWeather(stadiumId, now);
+  if (cached?.freshness === "fresh") {
+    return weatherStateFromForecast(stadiumId, cached.data, {
+      fetchedAt: cached.fetchedAt,
+      gameAt,
+      freshness: "fresh",
+    });
+  }
+  try {
+    const forecast = await requestStadiumForecast(stadiumId);
+    const fetchedAt = Date.now();
+    storeWeatherForecast(stadiumId, forecast, fetchedAt);
+    return weatherStateFromForecast(stadiumId, forecast, { fetchedAt, gameAt, freshness: "fresh" });
+  } catch {
+    if (cached?.freshness === "stale") {
+      return weatherStateFromForecast(stadiumId, cached.data, {
+        fetchedAt: cached.fetchedAt,
+        gameAt,
+        freshness: "stale",
+      });
+    }
+    return {
+      status: "unavailable",
+      stadiumId,
+      stadium: stadiumName(stadiumId),
+      current: null,
+      game: null,
+      fetchedAt: null,
+      message: "날씨 정보를 불러오지 못했습니다",
+    };
+  }
+}
+
+function refreshStadiumWeather() {
+  const generation = ++weatherRequestGeneration;
+  const game = selectedLiveGame() ?? representativeGame();
+  if (!game) {
+    cancelStadiumWeatherRequest();
+    const state = { status: "no-game", stadiumId: null, stadium: "", current: null, game: null };
+    publishStadiumWeatherState(state);
+    return Promise.resolve(state);
+  }
+  const stadiumId = game.location;
+  if (!Object.hasOwn(STADIUM_COORDINATES, stadiumId)) {
+    cancelStadiumWeatherRequest();
+    const state = { status: "unknown-stadium", stadiumId, stadium: stadiumName(stadiumId), current: null, game: null };
+    publishStadiumWeatherState(state);
+    return Promise.resolve(state);
+  }
+
+  cancelStadiumWeatherRequest(stadiumId);
+  const gameDate = parseKstDate(game.date, game.time);
+  const gameAt = gameDate?.getTime() ?? Number.NaN;
+  const cached = cachedWeather(stadiumId);
+  if (!cached || cached.freshness === "stale") {
+    publishStadiumWeatherState({
+      status: "loading",
+      stadiumId,
+      stadium: stadiumName(stadiumId),
+      current: null,
+      game: null,
+    });
+  }
+
+  return loadStadiumWeather(stadiumId, gameAt).then((state) => {
+    if (generation === weatherRequestGeneration && activeWeatherStadium === stadiumId) {
+      publishStadiumWeatherState(state);
+    }
+    return state;
+  });
 }
 
 function liveGameFromCalendar(game) {
@@ -1703,7 +2316,7 @@ function liveGameFromCalendar(game) {
     time: game.time,
     location: game.location,
     statusLabel: game.type === "upcoming" ? "다음 경기" : "최근 경기",
-    state: isHome ? "홈" : "원정",
+    state: isNeutralTeamSelection() ? "홈팀 기준" : isHome ? "홈" : "원정",
     inning: game.status,
     awayTeam: game.away,
     homeTeam: game.home,
@@ -1730,7 +2343,9 @@ function renderLiveGame() {
       <div class="empty-state empty-state--inline" role="status">
         <span class="empty-state__icon" aria-hidden="true">⚾</span>
         <p class="empty-state__title">예정된 경기 없음</p>
-        <p class="empty-state__hint">${selectedTeam} 의 오늘 경기 데이터가 없습니다.</p>
+        <p class="empty-state__hint">${isNeutralTeamSelection()
+          ? "오늘 KBO 경기 데이터가 없습니다."
+          : `${selectedTeam}의 오늘 경기 데이터가 없습니다.`}</p>
       </div>
     `;
     return;
@@ -1785,7 +2400,7 @@ function renderLiveScoreboard() {
     </div>
     <div class="lsb-list">
       ${live.map((game) => {
-        const mine = game.homeTeam === selectedTeam || game.awayTeam === selectedTeam;
+        const mine = isSelectedTeam(game.homeTeam) || isSelectedTeam(game.awayTeam);
         return html`
           <div class="lsb-game is-live ${raw(mine ? "is-myteam" : "")}">
             <span class="lsb-inning">${game.inning}</span>
@@ -1808,10 +2423,10 @@ function renderLiveScoreboard() {
 // 알림 센터(더보기) — 카테고리 opt-in 토글(로컬 저장). 실제 발송은 백엔드(X0) 도입 후.
 const PUSH_TOPICS_KEY = "eaglesPushTopics";
 const NOTIFY_TOPICS = [
-  { key: "ticket_open", label: "예매 오픈 임박", desc: "내 구단 예매 오픈 직전 알림" },
-  { key: "cancel_window", label: "취소표 타임", desc: "공식 취소표 대기 안내 리마인더" },
-  { key: "weather_cancel", label: "우천 취소", desc: "경기 취소·지연 공지" },
-  { key: "game_result", label: "경기 결과", desc: "내 구단 경기 종료 결과" },
+  { key: "ticket_open", label: "예매 오픈 임박", desc: "내 구단 예매 오픈 직전 알림", leagueDesc: "KBO 예매 오픈 일정 안내" },
+  { key: "cancel_window", label: "취소표 타임", desc: "공식 취소표 대기 안내 리마인더", leagueDesc: "KBO 공식 취소표 대기 안내" },
+  { key: "weather_cancel", label: "우천 취소", desc: "경기 취소·지연 공지", leagueDesc: "KBO 경기 취소·지연 공지" },
+  { key: "game_result", label: "경기 결과", desc: "내 구단 경기 종료 결과", leagueDesc: "KBO 경기 종료 결과" },
 ];
 function readPushTopics() {
   try {
@@ -1845,7 +2460,7 @@ function renderNotifyCenter() {
       >
         <span class="notify-topic__main">
           <strong>${topic.label}</strong>
-          <small>${topic.desc}</small>
+          <small>${isNeutralTeamSelection() ? topic.leagueDesc : topic.desc}</small>
         </span>
         <span class="notify-topic__sw" aria-hidden="true"></span>
       </button>
@@ -1903,7 +2518,7 @@ function renderRankingPanels() {
 }
 
 function renderStandingRow(team) {
-  const isMine = team.team === selectedTeam;
+  const isMine = isSelectedTeam(team.team);
   // 승률(0~1)을 퍼포먼스 바 채움으로. 파싱 실패 시 0.
   const pctNum = Number.parseFloat(team.pct);
   const fill = Number.isFinite(pctNum) ? Math.max(0, Math.min(1, pctNum)) : 0;
@@ -1944,15 +2559,115 @@ function currentGameFilter() {
   return document.querySelector("[data-game-filter].active")?.dataset.gameFilter ?? "recent";
 }
 
-function populateTeamSelect() {
-  if (!teamSelect) {
+function teamPickerDisplayLabel(team) {
+  return team === ALL_TEAMS ? "KBO 전체" : team;
+}
+
+function teamPickerBadgeLabel(team) {
+  return team === ALL_TEAMS ? "KBO" : teamInitials[team] ?? team;
+}
+
+function syncTeamPicker() {
+  if (!teamPickerButton || !teamPickerLabel || !teamPickerBadge) {
     return;
   }
 
-  teamSelect.innerHTML = html`${Object.keys(teamColors).map(
-    (team) => html`<option value="${team}">${team}</option>`,
-  )}`;
-  teamSelect.value = selectedTeam;
+  teamPickerButton.dataset.team = selectedTeam;
+  teamPickerButton.setAttribute("aria-label", `내 구단: ${teamPickerDisplayLabel(selectedTeam)}`);
+  teamPickerLabel.textContent = teamPickerDisplayLabel(selectedTeam);
+  teamPickerBadge.textContent = teamPickerBadgeLabel(selectedTeam);
+  teamPickerOptions.forEach((option) => {
+    const isSelected = option.dataset.teamValue === selectedTeam;
+    option.setAttribute("aria-selected", String(isSelected));
+    option.tabIndex = isSelected ? 0 : -1;
+  });
+}
+
+function dismissTeamPickerDiscovery() {
+  if (!teamPickerDiscoveryActive) {
+    return;
+  }
+  teamPickerDiscoveryActive = false;
+  teamPickerButton?.classList.remove("is-discovering");
+  try {
+    localStorage.setItem(TEAM_PICKER_DISCOVERY_KEY, "1");
+  } catch {}
+}
+
+function isTeamPickerOpen() {
+  return teamPickerButton?.getAttribute("aria-expanded") === "true";
+}
+
+function positionTeamPicker() {
+  if (!teamPickerButton || !teamPickerList || !isTeamPickerOpen()) {
+    return;
+  }
+  const triggerRect = teamPickerButton.getBoundingClientRect();
+  const edge = 12;
+  const gap = 8;
+  const popoverWidth = Math.min(264, window.innerWidth - edge * 2);
+  const left = Math.min(Math.max(edge, triggerRect.right - popoverWidth), window.innerWidth - popoverWidth - edge);
+  teamPickerList.style.width = `${popoverWidth}px`;
+  teamPickerList.style.left = `${left}px`;
+  teamPickerList.style.top = `${triggerRect.bottom + gap}px`;
+}
+
+function focusTeamPickerOption(index) {
+  if (teamPickerOptions.length === 0) {
+    return;
+  }
+  const boundedIndex = (index + teamPickerOptions.length) % teamPickerOptions.length;
+  teamPickerOptions.forEach((option, optionIndex) => {
+    option.tabIndex = optionIndex === boundedIndex ? 0 : -1;
+  });
+  teamPickerOptions[boundedIndex].focus();
+}
+
+function openTeamPicker(optionIndex) {
+  if (!teamPickerButton || !teamPickerList) {
+    return;
+  }
+  dismissTeamPickerDiscovery();
+  syncTeamPicker();
+  teamPickerList.hidden = false;
+  if (typeof teamPickerList.showPopover === "function") {
+    teamPickerList.showPopover();
+  }
+  teamPickerButton.setAttribute("aria-expanded", "true");
+  positionTeamPicker();
+  const selectedIndex = teamPickerOptions.findIndex((option) => option.dataset.teamValue === selectedTeam);
+  focusTeamPickerOption(optionIndex ?? Math.max(0, selectedIndex));
+}
+
+function closeTeamPicker(restoreFocus = false) {
+  if (!teamPickerButton || !teamPickerList) {
+    return;
+  }
+  if (typeof teamPickerList.hidePopover === "function" && teamPickerList.matches(":popover-open")) {
+    teamPickerList.hidePopover();
+  }
+  teamPickerList.hidden = true;
+  teamPickerButton.setAttribute("aria-expanded", "false");
+  syncTeamPicker();
+  if (restoreFocus) {
+    teamPickerButton.focus();
+  }
+}
+
+function selectTeamFromPicker(team) {
+  if (!isValidTeamSelection(team)) {
+    return;
+  }
+  dismissTeamPickerDiscovery();
+  setSelectedTeam(team);
+  syncTeamPicker();
+  trackDemandSignal("team_selected", selectedTeamDemandDetails());
+  ticketCalendarFilters?.querySelectorAll("[data-calendar-filter].active").forEach((button) => {
+    button.classList.remove("active");
+  });
+  refreshSelectedTeamViews();
+  subscribeToPush();
+  closeTeamPicker(true);
 }
 
 function refreshSelectedTeamViews() {
@@ -1961,9 +2676,12 @@ function refreshSelectedTeamViews() {
   renderRankingPanels();
   renderTicketCalendar();
   renderLiveGame();
+  renderLiveScoreboard();
   renderGames(currentGameFilter());
   renderTickets();
   renderTicketOpenCard();
+  renderNotifyCenter();
+  refreshStadiumWeather();
 }
 
 function renderAll() {
@@ -1978,6 +2696,7 @@ function renderAll() {
   renderCancelWatch();
   renderTicketOpenCard();
   renderNotifyCenter();
+  refreshStadiumWeather();
 }
 
 async function pollData() {
@@ -2144,15 +2863,114 @@ ticketCalendarFilters?.addEventListener("click", (event) => {
   renderTicketCalendar(button.dataset.calendarFilter);
 });
 
-teamSelect?.addEventListener("change", () => {
-  setSelectedTeam(teamSelect.value);
-  trackDemandSignal("team_selected", { team: selectedTeam });
-  // 활성 캘린더 필터 버튼을 비워, 다음 렌더가 새 선택 팀으로 기본 필터를 잡게 한다.
-  ticketCalendarFilters?.querySelectorAll("[data-calendar-filter].active").forEach((button) => {
-    button.classList.remove("active");
-  });
-  refreshSelectedTeamViews();
-  subscribeToPush(); // 팀 변경 → 서버 topics 재동기화
+teamPickerButton?.addEventListener("click", () => {
+  if (isTeamPickerOpen()) {
+    closeTeamPicker(true);
+    return;
+  }
+  openTeamPicker();
+});
+
+teamPickerButton?.addEventListener("keydown", (event) => {
+  switch (event.key) {
+    case "ArrowDown":
+      event.preventDefault();
+      openTeamPicker();
+      break;
+    case "ArrowUp":
+      event.preventDefault();
+      openTeamPicker();
+      break;
+    case "Home":
+      event.preventDefault();
+      openTeamPicker(0);
+      break;
+    case "End":
+      event.preventDefault();
+      openTeamPicker(teamPickerOptions.length - 1);
+      break;
+  }
+});
+
+teamPickerList?.addEventListener("click", (event) => {
+  const option = event.target.closest("[data-team-value]");
+  if (option) {
+    selectTeamFromPicker(option.dataset.teamValue);
+  }
+});
+
+teamPickerList?.addEventListener("keydown", (event) => {
+  const option = event.target.closest("[data-team-value]");
+  if (!option) {
+    return;
+  }
+  const optionIndex = teamPickerOptions.indexOf(option);
+  switch (event.key) {
+    case "ArrowDown":
+      event.preventDefault();
+      focusTeamPickerOption(optionIndex + 1);
+      break;
+    case "ArrowUp":
+      event.preventDefault();
+      focusTeamPickerOption(optionIndex - 1);
+      break;
+    case "Home":
+      event.preventDefault();
+      focusTeamPickerOption(0);
+      break;
+    case "End":
+      event.preventDefault();
+      focusTeamPickerOption(teamPickerOptions.length - 1);
+      break;
+    case "Enter":
+    case " ":
+      event.preventDefault();
+      selectTeamFromPicker(option.dataset.teamValue);
+      break;
+    case "Escape":
+      event.preventDefault();
+      closeTeamPicker(true);
+      break;
+    case "Tab":
+      closeTeamPicker(false);
+      break;
+  }
+});
+
+document.addEventListener("pointerdown", (event) => {
+  if (
+    isTeamPickerOpen()
+    && !teamPicker?.contains(event.target)
+    && !teamPickerList?.contains(event.target)
+  ) {
+    closeTeamPicker(false);
+  }
+});
+
+window.addEventListener("resize", positionTeamPicker);
+window.addEventListener("scroll", positionTeamPicker, { passive: true });
+window.addEventListener("kbo-tido-weather-state", (event) => {
+  renderWeatherDisclosure(event.detail);
+});
+
+weatherDisclosureButton?.addEventListener("click", () => {
+  toggleWeatherDisclosure();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && weatherDisclosureButton?.getAttribute("aria-expanded") === "true") {
+    event.preventDefault();
+    toggleWeatherDisclosure(false, true);
+  }
+});
+
+document.addEventListener("pointerdown", (event) => {
+  if (
+    weatherDisclosureButton?.getAttribute("aria-expanded") === "true"
+    && !weatherDisclosure?.contains(event.target)
+  ) {
+    toggleWeatherDisclosure(false);
+  }
 });
 
 // 알림 센터 — 카테고리 토글(로컬), 권한 버튼, iOS 설치
@@ -2383,11 +3201,13 @@ function buildGameNotification() {
   const game = selectedLiveGame() ?? {};
   const awayScore = scoreValue(game.awayScore);
   const homeScore = scoreValue(game.homeScore);
-  const matchup = game.awayTeam && game.homeTeam ? `${game.awayTeam} ${awayScore}:${homeScore} ${game.homeTeam}` : `${selectedTeam} 경기`;
+  const matchup = game.awayTeam && game.homeTeam
+    ? `${game.awayTeam} ${awayScore}:${homeScore} ${game.homeTeam}`
+    : isNeutralTeamSelection() ? "KBO 경기 소식" : `${selectedTeam} 경기`;
   const schedule = [game.date, game.time, game.location].filter(Boolean).join(" · ");
 
   return {
-    title: `${selectedTeam} 경기 알림`,
+    title: isNeutralTeamSelection() ? "KBO 경기 알림" : `${selectedTeam} 경기 알림`,
     body: `${matchup}${schedule ? ` · ${schedule}` : ""}`,
   };
 }
@@ -2398,8 +3218,8 @@ async function showGameNotification() {
 
   await registration.showNotification(notification.title, {
     body: notification.body,
-    icon: "./assets/app-icon.svg",
-    badge: "./assets/app-icon.svg",
+    icon: "./assets/icons/app-icon-192.png",
+    badge: "./assets/icons/notification-badge-96.png",
     tag: "eagles-game-alert",
     data: {
       url: "./index.html#live",
@@ -2412,8 +3232,8 @@ async function showTicketNotification(game, ticketing, title = "티켓 알림 �
 
   await registration.showNotification(title, {
     body: `${game.date} ${game.time} ${game.away} vs ${game.home} · ${ticketing.provider}`,
-    icon: "./assets/app-icon.svg",
-    badge: "./assets/app-icon.svg",
+    icon: "./assets/icons/app-icon-192.png",
+    badge: "./assets/icons/notification-badge-96.png",
     tag: `eagles-ticket-${gameId(game)}`,
     data: {
       url: ticketing.url,
@@ -2458,6 +3278,9 @@ function urlBase64ToUint8Array(base64) {
   return Uint8Array.from([...raw].map((char) => char.charCodeAt(0)));
 }
 function selectedPushTopics() {
+  if (isNeutralTeamSelection()) {
+    return [];
+  }
   const code = TEAM_PUSH_CODE[selectedTeam] ?? selectedTeam;
   return Object.entries(readPushTopics())
     .filter(([, on]) => on === true)
@@ -2592,8 +3415,8 @@ async function checkTicketReminders() {
       const registration = await navigator.serviceWorker.ready;
       await registration.showNotification("티켓팅 10분 전", {
         body: `${reminder.matchup} · ${reminder.provider} ${formatKstDateTime(new Date(reminder.openAt))} 오픈`,
-        icon: "./assets/app-icon.svg",
-        badge: "./assets/app-icon.svg",
+        icon: "./assets/icons/app-icon-192.png",
+        badge: "./assets/icons/notification-badge-96.png",
         tag: `eagles-ticket-due-${key}`,
         data: {
           url: reminder.url,
@@ -2658,8 +3481,8 @@ async function checkCancelWatchReminders() {
         const registration = await navigator.serviceWorker.ready;
         await registration.showNotification(title, {
           body,
-          icon: "./assets/app-icon.svg",
-          badge: "./assets/app-icon.svg",
+          icon: "./assets/icons/app-icon-192.png",
+          badge: "./assets/icons/notification-badge-96.png",
           tag: `cancel-watch-${key}-${slot.id}`,
           data: {
             url: entry.url,
@@ -2842,7 +3665,11 @@ if (localStorage.getItem("eaglesNotifications") === "on") {
 }
 updateInstallAffordance();
 applyTeamAccent();
-populateTeamSelect();
+syncTeamPicker();
+renderWeatherDisclosure(currentStadiumWeatherState());
+if (teamPickerDiscoveryActive) {
+  teamPickerButton?.classList.add("is-discovering");
+}
 setActiveView(viewFromHash(), false);
 loadData()
   .then(() => {

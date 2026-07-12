@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="삼성 오리지널 티켓 설치 아이콘">
+  <title>삼성 collectible ticket icon</title>
+  <rect width="1024" height="1024" fill="#063a6b"/>
+  <path fill="#fbf7ee" d="M148 148h728v242c-70 0-70 244 0 244v242H148V634c70 0 70-244 0-244Z"/>
+  <path fill="#1063b0" d="M202 202h620v188c-62 0-62 244 0 244v188H202V634c62 0 62-244 0-244Z"/>
+  <g data-motif="bottom-block"><path fill="#063a6b" d="M202 630h620v192H202z"/><path fill="#fbf7ee" d="M612 678h154v96H612z"/></g>
+  <g data-letterpress="bold" data-anchor="S"><path fill="none" stroke="#063a6b" stroke-width="124" stroke-linecap="round" stroke-linejoin="round" transform="translate(18 20)" d="M652 374H482c-92 0-142 38-142 96s50 96 142 96h70c92 0 142 38 142 96s-50 96-142 96H352"/><path fill="none" stroke="#ffffff" stroke-width="112" stroke-linecap="round" stroke-linejoin="round" d="M652 374H482c-92 0-142 38-142 96s50 96 142 96h70c92 0 142 38 142 96s-50 96-142 96H352"/></g>
+</svg>

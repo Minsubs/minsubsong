@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="롯데 오리지널 티켓 설치 아이콘">
+  <title>롯데 collectible ticket icon</title>
+  <rect width="1024" height="1024" fill="#c8102e"/>
+  <path fill="#fbf7ee" d="M148 148h728v242c-70 0-70 244 0 244v242H148V634c70 0 70-244 0-244Z"/>
+  <path fill="#0a2a55" d="M202 202h620v188c-62 0-62 244 0 244v188H202V634c62 0 62-244 0-244Z"/>
+  <g data-motif="split-field"><path fill="#c8102e" d="M510 202h312v620H510z"/><path fill="#fbf7ee" d="M640 246h138v154H640z"/><path fill="#0a2a55" d="M676 282h102v118H676z"/></g>
+  <g data-letterpress="bold" data-anchor="L"><path fill="#c8102e" fill-rule="evenodd" transform="translate(18 20)" d="M350 318h104v282h240v106H350Z"/><path fill="#ffffff" fill-rule="evenodd" d="M350 318h104v282h240v106H350Z"/></g>
+</svg>
