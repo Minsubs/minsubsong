@@ -324,92 +324,17 @@ const cancelWaitingLinkOnly = {
   label: "공식 링크만 지원",
 };
 
-const ticketProviders = {
-  한화: {
-    provider: "티켓링크",
-    url: "https://www.ticketlink.co.kr/sports/137/63",
-    note: "한화 홈 예매",
-    openDaysBefore: 7,
-    openTime: "11:00",
-    cancelWaiting: cancelWaitingTicketlink,
-  },
-  SSG: {
-    provider: "SSG 티켓",
-    url: "https://ticket.ssg.com/ticket",
-    note: "SSG 홈 예매",
-    openDaysBefore: 5,
-    openTime: "11:00",
-    cancelWaiting: cancelWaitingManual,
-  },
-  NC: {
-    provider: "NC 다이노스",
-    url: "https://www.ncdinos.com/",
-    note: "NC 홈 예매",
-    openDaysBefore: 7,
-    openTime: "11:00",
-    cancelWaiting: cancelWaitingManual,
-  },
-  두산: {
-    provider: "NOL 티켓",
-    url: "https://ticket.interpark.com/Contents/Sports",
-    note: "두산 홈 예매",
-    openDaysBefore: 7,
-    openTime: "11:00",
-    earlyOpenLabel: "베어스클럽 10:00",
-    cancelWaiting: cancelWaitingInterpark,
-  },
-  롯데: {
-    provider: "롯데 자이언츠",
-    url: "https://ticket.giantsclub.com/",
-    note: "롯데 홈 예매",
-    openDaysBefore: 14,
-    openTime: "14:00",
-    openCaution: "구단 앱 공지 기준 확인",
-    cancelWaiting: cancelWaitingLinkOnly,
-  },
-  KIA: {
-    provider: "티켓링크",
-    url: "https://www.ticketlink.co.kr/sports/137/58",
-    note: "KIA 홈 예매",
-    openDaysBefore: 7,
-    openTime: "11:00",
-    cancelWaiting: cancelWaitingTicketlink,
-  },
-  키움: {
-    provider: "NOL 티켓",
-    url: "https://ticket.interpark.com/Contents/Sports",
-    note: "키움 홈 예매",
-    openDaysBefore: 7,
-    openTime: "14:00",
-    cancelWaiting: cancelWaitingInterpark,
-  },
-  LG: {
-    provider: "티켓링크",
-    url: "https://www.ticketlink.co.kr/sports/137/59",
-    note: "LG 홈 예매",
-    openDaysBefore: 7,
-    openTime: "11:00",
-    openCaution: "구단 공지 기준 확인",
-    cancelWaiting: cancelWaitingTicketlink,
-  },
-  KT: {
-    provider: "티켓링크",
-    url: "https://www.ticketlink.co.kr/sports",
-    note: "KT 홈 예매",
-    openDaysBefore: 7,
-    openTime: "11:00",
-    openCaution: "구단 공지 기준 확인",
-    cancelWaiting: cancelWaitingTicketlink,
-  },
-  삼성: {
-    provider: "티켓링크",
-    url: "https://www.ticketlink.co.kr/sports",
-    note: "삼성 홈 예매",
-    openDaysBefore: 7,
-    openTime: "11:00",
-    openCaution: "구단 공지 기준 확인",
-    cancelWaiting: cancelWaitingTicketlink,
-  },
+const cancelWaitingByTeam = {
+  한화: cancelWaitingTicketlink,
+  SSG: cancelWaitingManual,
+  NC: cancelWaitingManual,
+  두산: cancelWaitingInterpark,
+  롯데: cancelWaitingLinkOnly,
+  KIA: cancelWaitingTicketlink,
+  키움: cancelWaitingInterpark,
+  LG: cancelWaitingTicketlink,
+  KT: cancelWaitingTicketlink,
+  삼성: cancelWaitingTicketlink,
 };
 
 const summaryBoard = document.querySelector("#summaryBoard");
@@ -1063,7 +988,7 @@ function pruneCancelWatchGames() {
 }
 
 function cancelWaitingMeta(homeTeam) {
-  return ticketProviders[homeTeam]?.cancelWaiting ?? cancelWaitingManual;
+  return cancelWaitingByTeam[homeTeam] ?? cancelWaitingManual;
 }
 
 function emptyDemandSignals(now = new Date()) {
@@ -1184,14 +1109,11 @@ function setTicketReminder(game, ticketing) {
 }
 
 function getTicketing(game) {
-  const baseProvider = ticketProviders[game.home] ?? {
+  const provider = game.ticketing ?? {
     provider: "홈팀 예매처",
     url: "https://www.koreabaseball.com/Schedule/Schedule.aspx",
     note: "KBO 일정에서 홈팀 예매처 확인",
-    openDaysBefore: 7,
-    openTime: "11:00",
   };
-  const provider = { ...baseProvider, ...(game.ticketing ?? {}) };
 
   return {
     ...provider,
@@ -2327,6 +2249,62 @@ function liveGameFromCalendar(game) {
   };
 }
 
+// 스코어보드 영문 팀명 → 한국어(scripts/update-data.mjs:24 TEAM_NAMES 미러 — 함께 동기 유지).
+const SCOREBOARD_TEAM_KO = {
+  HANWHA: "한화", SSG: "SSG", NC: "NC", LG: "LG", SAMSUNG: "삼성",
+  DOOSAN: "두산", KIA: "KIA", KT: "KT", LOTTE: "롯데", KIWOOM: "키움",
+};
+
+// 이닝 상태 문자열을 한국어 표기로. "TOP 5"→"5회 초", "BOT 12"→"12회 말",
+// "FINAL"→"최종". 미인식 표기는 원문 그대로 노출(방어 — LV0 실측 방침).
+function formatInningLabel(state) {
+  const s = String(state ?? "").trim();
+  let m = /^TOP\s*(\d{1,2})$/i.exec(s);
+  if (m) return `${Number(m[1])}회 초`;
+  m = /^BOT\s*(\d{1,2})$/i.exec(s);
+  if (m) return `${Number(m[1])}회 말`;
+  if (/^FINAL$/i.test(s)) return "최종";
+  return s;
+}
+
+// /api/live 원소({away,home(영문),awayScore,homeScore,state,location,rawTime,linescore})
+// → data.liveGame 엔트리 shape. 판정은 update-data.mjs buildLiveGameEntry 와 동일 의미론.
+function liveEntryFromScoreboard(sb, today) {
+  const awayName = SCOREBOARD_TEAM_KO[sb.away] ?? sb.away;
+  const homeName = SCOREBOARD_TEAM_KO[sb.home] ?? sb.home;
+  const awayScore = sb.awayScore ?? null;
+  const homeScore = sb.homeScore ?? null;
+  const hasScore = awayScore !== null && awayScore !== undefined && homeScore !== null && homeScore !== undefined;
+  const isFinal = String(sb.state ?? "").trim().toUpperCase() === "FINAL";
+  const isLive = hasScore && !isFinal;
+
+  let status = "scheduled";
+  let statusLabel = "경기 예정";
+  if (isFinal) {
+    status = "final";
+    statusLabel = "경기 종료";
+  } else if (isLive) {
+    status = "live";
+    statusLabel = "진행 중";
+  }
+
+  return {
+    date: today,
+    time: sb.rawTime ?? "",
+    location: sb.location ?? "",
+    status,
+    statusLabel,
+    state: isFinal ? "종료" : isLive ? sb.state : "스코어 대기",
+    inning: isFinal ? "최종" : isLive ? sb.state : "연동 대기",
+    awayTeam: awayName,
+    homeTeam: homeName,
+    awayScore,
+    homeScore,
+    note: "",
+    linescore: sb.linescore ?? [],
+  };
+}
+
 function renderLiveGame() {
   liveGamePanel.removeAttribute("aria-busy");
   // 오늘 경기 배열에서 selectedTeam 경기를 찾고, 없으면 대표 경기로 대체.
@@ -2363,7 +2341,7 @@ function renderLiveGame() {
         <span class="hss-team">${game.awayTeam}</span>
         <b class="hss-score ${raw(hasScore ? "" : "is-pending")}">${scoreValue(game.awayScore)}</b>
       </div>
-      <span class="hss-vs" aria-hidden="true">${hasScore ? game.inning || "VS" : "VS"}</span>
+      <span class="hss-vs" aria-hidden="true">${hasScore ? formatInningLabel(game.inning) || "VS" : "VS"}</span>
       <div class="hss-side hss-side--home">
         <b class="hss-score ${raw(hasScore ? "" : "is-pending")}">${scoreValue(game.homeScore)}</b>
         <span class="hss-team">${game.homeTeam}</span>
@@ -2403,7 +2381,7 @@ function renderLiveScoreboard() {
         const mine = isSelectedTeam(game.homeTeam) || isSelectedTeam(game.awayTeam);
         return html`
           <div class="lsb-game is-live ${raw(mine ? "is-myteam" : "")}">
-            <span class="lsb-inning">${game.inning}</span>
+            <span class="lsb-inning">${formatInningLabel(game.inning)}</span>
             <div class="lsb-team lsb-team--away">
               ${renderTeamBadge(game.awayTeam)}<span class="lsb-name">${game.awayTeam}</span>
             </div>
@@ -2427,6 +2405,10 @@ const NOTIFY_TOPICS = [
   { key: "cancel_window", label: "취소표 타임", desc: "공식 취소표 대기 안내 리마인더", leagueDesc: "KBO 공식 취소표 대기 안내" },
   { key: "weather_cancel", label: "우천 취소", desc: "경기 취소·지연 공지", leagueDesc: "KBO 경기 취소·지연 공지" },
   { key: "game_result", label: "경기 결과", desc: "내 구단 경기 종료 결과", leagueDesc: "KBO 경기 종료 결과" },
+  // 워커 F4(game_live) 토픽과 일치 — 기본 OFF(KISA 내용특정형). LV1 클라 폴링 diff 알림 게이트도 겸함.
+  { key: "game_live", label: "경기 알림", desc: "내 구단 경기 시작·득점·종료·취소·지연 알림", leagueDesc: "KBO 경기 시작·종료 알림" },
+  // 워커 F2(<CODE>:weekly_brief) 기구현인데 클라 토글이 없던 갭 보완.
+  { key: "weekly_brief", label: "주간 예매 브리핑", desc: "일요일 저녁 내 구단 주간 예매 일정 요약", leagueDesc: "일요일 저녁 KBO 주간 예매 일정 요약" },
 ];
 function readPushTopics() {
   try {
@@ -2783,8 +2765,11 @@ function viewFromHash(hash = window.location.hash) {
   return viewExists(id) ? id : DEFAULT_VIEW;
 }
 
+let activeViewName = DEFAULT_VIEW;
+
 function setActiveView(view = DEFAULT_VIEW, updateHash = true) {
   const selectedView = viewExists(view) ? view : DEFAULT_VIEW;
+  activeViewName = selectedView;
 
   viewPanels.forEach((panel) => {
     panel.hidden = panel.dataset.viewPanel !== selectedView;
@@ -2805,6 +2790,9 @@ function setActiveView(view = DEFAULT_VIEW, updateHash = true) {
   }
 
   window.scrollTo({ top: 0, behavior: "smooth" });
+
+  // 홈 진입 시 라이브 폴링 시작, 이탈 시 중지(livePollEligible 이 뷰까지 판정).
+  syncLivePolling();
 }
 
 viewTriggers.forEach((trigger) => {
@@ -3266,8 +3254,8 @@ async function maybeShowTicketNotification(game, ticketing) {
 }
 
 // ===== Web Push 구독 (백엔드 X0) — VAPID 공개키 / 백엔드 URL 미설정 시 inert 셸(게이트) =====
-const VAPID_PUBLIC_KEY = ""; // 배포 시 실제 VAPID 공개키로 교체 (worker/wrangler.toml VAPID_PUBLIC 와 동일)
-const PUSH_API_BASE = ""; // 배포된 Worker origin (예: https://kbo-tido.<sub>.workers.dev). 미설정 시 구독 안 함.
+const VAPID_PUBLIC_KEY = "BBfIbpOL-5c-Y2IHzTu5HyCI2fl1ENI-Dbg-krKJzFDVuM4nbJnXCylAwb8tJ9OkG04hLj9eCG5FYVG8vi2bqfU"; // worker/wrangler.toml VAPID_PUBLIC 와 동일 (X0 배포 2026-07-16)
+const PUSH_API_BASE = "https://kbo-tido-push.minsubs.workers.dev"; // 배포된 Worker origin (X0, 2026-07-16)
 function pushConfigured() {
   return Boolean(VAPID_PUBLIC_KEY && PUSH_API_BASE);
 }
@@ -3330,6 +3318,240 @@ async function unsubscribeFromPush() {
     });
   } catch {
     // 실패는 조용히 무시(다음 시도에 재시도).
+  }
+}
+
+// ===== LV1b 홈 라이브 실시간화 — 클라 폴링 + diff 알림 =====
+// PUSH_API_BASE(워커 /api/live) 미설정 시 폴링/알림 전부 비활성 → 현행 정적 동작 유지.
+const LIVE_POLL_MS = 45_000; // 설계 DL3
+const LIVE_POLL_IDLE_MS = 300_000; // 오늘 경기 0건이면 5분 간격
+
+let livePollTimer = null;
+let livePollInFlight = false;
+// 직전 폴링 스냅샷(Map key `${awayTeam}@${homeTeam}`). null 이면 콜드스타트(발화 금지).
+let livePrevSnapshot = null;
+// 세션 내 once-per-key 중복 방지(start:key / end:key / score:key:{a}-{h}).
+const liveFiredKeys = new Set();
+
+// KST 분(0~1439) — 워커 minutesOfDayInTimeZone 패턴 미러.
+function livePollMinutesKst(epochMs) {
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Asia/Seoul", hour: "2-digit", minute: "2-digit", hour12: false,
+  }).formatToParts(new Date(epochMs));
+  const hh = Number(parts.find((p) => p.type === "hour")?.value);
+  const mm = Number(parts.find((p) => p.type === "minute")?.value);
+  if (!Number.isFinite(hh) || !Number.isFinite(mm)) return null;
+  return (hh % 24) * 60 + mm;
+}
+function isLivePollWindow(epochMs) {
+  const mins = livePollMinutesKst(epochMs);
+  if (mins === null) return false;
+  return mins >= 12 * 60 && mins <= 23 * 60 + 30; // 12:00~23:30 KST
+}
+
+function livePollEligible(now = Date.now()) {
+  if (!PUSH_API_BASE) return false; // 게이트: 워커 미배포 시 폴링/알림 비활성
+  if (activeViewName !== "home") return false;
+  if (typeof document !== "undefined" && document.visibilityState !== "visible") return false;
+  return isLivePollWindow(now);
+}
+
+function liveTodayMMDD(epochMs = Date.now()) {
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Asia/Seoul", month: "2-digit", day: "2-digit",
+  }).formatToParts(new Date(epochMs));
+  const mm = parts.find((p) => p.type === "month")?.value ?? "";
+  const dd = parts.find((p) => p.type === "day")?.value ?? "";
+  return `${mm}.${dd}`;
+}
+
+// diff — 순수 함수(테스트 대상). prevMap 이 null 이면 콜드스타트라 발화하지 않는다.
+// selectedTeam 경기의 (a)start scheduled→live (b)score 마이팀 점수 증가 (c)end live→final.
+function computeLiveEvents(prevMap, games, selectedTeam, firedKeys) {
+  if (!prevMap) return []; // 콜드스타트 가드
+  const events = [];
+  for (const game of games) {
+    const key = `${game.awayTeam}@${game.homeTeam}`;
+    const prev = prevMap.get(key);
+    if (!prev) continue; // 직전 스냅샷에 없던 경기(신규 등장) → 전이 판정 불가
+    const mineAway = game.awayTeam === selectedTeam;
+    const mineHome = game.homeTeam === selectedTeam;
+    if (!mineAway && !mineHome) continue; // 마이팀 경기만
+
+    if (prev.status === "scheduled" && game.status === "live") {
+      const fk = `start:${key}`;
+      if (!firedKeys.has(fk)) {
+        firedKeys.add(fk);
+        events.push({ type: "start", key, game });
+      }
+    }
+    if (prev.status === "live" && game.status === "final") {
+      const fk = `end:${key}`;
+      if (!firedKeys.has(fk)) {
+        firedKeys.add(fk);
+        events.push({ type: "end", key, game });
+      }
+    }
+    const myPrev = mineAway ? prev.awayScore : prev.homeScore;
+    const myNow = mineAway ? game.awayScore : game.homeScore;
+    // prev live 한정 — 종료(final) 후 점수 정정이 득점으로 오발화되지 않게(끝내기 live→final 은 통과).
+    if (prev.status === "live" && typeof myPrev === "number" && typeof myNow === "number" && myNow > myPrev) {
+      const fk = `score:${key}:${game.awayScore}-${game.homeScore}`;
+      if (!firedKeys.has(fk)) {
+        firedKeys.add(fk);
+        events.push({ type: "score", key, game });
+      }
+    }
+  }
+  return events;
+}
+
+// 카피 — 워커 페이로드와 통일.
+function liveEventMessage(ev, selectedTeam) {
+  const g = ev.game;
+  if (ev.type === "start") return `경기 시작 — ${g.awayTeam} vs ${g.homeTeam}`;
+  if (ev.type === "end") return `경기 종료 — ${g.awayTeam} ${scoreValue(g.awayScore)}:${scoreValue(g.homeScore)} ${g.homeTeam}`;
+  if (ev.type === "score") {
+    const myScore = g.awayTeam === selectedTeam ? g.awayScore : g.homeScore;
+    const oppScore = g.awayTeam === selectedTeam ? g.homeScore : g.awayScore;
+    return `${selectedTeam} 득점! ${myScore}:${oppScore}`;
+  }
+  return "";
+}
+
+// 알림 아이콘/뱃지는 전 알림 역할이 공유하는 중립 PNG(pwa-team-icons 가드).
+const LIVE_NOTIFY_ICON = "./assets/icons/app-icon-192.png";
+const LIVE_NOTIFY_BADGE = "./assets/icons/notification-badge-96.png";
+
+// 로컬 시스템 알림(showTicketNotification 패턴 미러).
+// tag 는 이벤트별 고유값을 받는다 — 같은 폴링의 두 알림(종료+득점)이 서로 replace 되지 않게.
+async function showLiveNotification(title, body, tag = "eagles-live-alert") {
+  try {
+    const registration = await navigator.serviceWorker.ready;
+    await registration.showNotification(title, {
+      body,
+      icon: LIVE_NOTIFY_ICON,
+      badge: LIVE_NOTIFY_BADGE,
+      tag,
+      data: { url: "./index.html#home" },
+    });
+  } catch {
+    // SW 미준비 등 실패는 조용히 무시(토스트는 이미 노출됨).
+  }
+}
+
+// 이벤트별 고유 알림 tag — 끝내기 득점처럼 한 폴링에 종료+득점이 함께 나와도 각각 노출.
+function liveEventTag(ev) {
+  return `eagles-live-${ev.type}-${ev.key}`;
+}
+
+// 한 폴링의 이벤트들을 알림 페이로드로 변환.
+// 단일 .toast 요소와 단일 tag 는 서로를 덮어써 종료 알림이 득점에 눌려 사라지므로,
+// 토스트는 한 문장으로 합치고 시스템 알림은 이벤트별 고유 tag 로 각각 발행한다.
+function liveEventNotifications(events, selectedTeam) {
+  return {
+    toast: events.map((ev) => liveEventMessage(ev, selectedTeam)).join(" · "),
+    system: events.map((ev) => ({
+      title: `${selectedTeam} 경기 알림`,
+      body: liveEventMessage(ev, selectedTeam),
+      tag: liveEventTag(ev),
+    })),
+  };
+}
+
+function emitLiveEvents(newSnapshot) {
+  // 게이트: game_live 토픽이 켜져 있을 때만(토스트 포함 전부).
+  if (readPushTopics().game_live !== true) return;
+  if (isNeutralTeamSelection()) return; // 마이팀 미설정 시 대상 없음
+  const events = computeLiveEvents(livePrevSnapshot, [...newSnapshot.values()], selectedTeam, liveFiredKeys);
+  if (!events.length) return;
+  const payload = liveEventNotifications(events, selectedTeam);
+  showToast(payload.toast); // 인앱 토스트는 항상(합쳐서 덮어쓰기 방지)
+  if (
+    notificationSupported()
+    && Notification.permission === "granted"
+    && localStorage.getItem("eaglesNotifications") === "on"
+  ) {
+    for (const note of payload.system) {
+      showLiveNotification(note.title, note.body, note.tag);
+    }
+  }
+}
+
+// 폴링 결과 병합 — data.liveGame 의 일치 엔트리를 갱신, 없으면 신규 추가.
+function applyLiveScoreboard(games) {
+  const today = liveTodayMMDD();
+  const entries = games.map((sb) => liveEntryFromScoreboard(sb, today));
+  if (!Array.isArray(data.liveGame)) {
+    data.liveGame = normalizedLiveGames();
+  }
+  const list = data.liveGame;
+  const newSnapshot = new Map();
+  for (const entry of entries) {
+    const key = `${entry.awayTeam}@${entry.homeTeam}`;
+    newSnapshot.set(key, entry);
+    const existing = list.find((g) => `${g.awayTeam}@${g.homeTeam}` === key);
+    if (existing) {
+      existing.awayScore = entry.awayScore;
+      existing.homeScore = entry.homeScore;
+      existing.status = entry.status;
+      existing.statusLabel = entry.statusLabel;
+      existing.inning = entry.inning;
+      existing.linescore = entry.linescore;
+    } else {
+      list.push(entry);
+    }
+  }
+  emitLiveEvents(newSnapshot);
+  livePrevSnapshot = newSnapshot;
+  renderLiveGame();
+  renderLiveScoreboard();
+}
+
+function scheduleLivePoll(delay) {
+  window.clearTimeout(livePollTimer);
+  livePollTimer = window.setTimeout(runLivePoll, delay);
+}
+
+async function runLivePoll() {
+  livePollTimer = null;
+  if (!livePollEligible()) return; // 뷰 이탈/백그라운드/창 밖이면 재스케줄 없이 정지
+  if (livePollInFlight) return;
+  livePollInFlight = true;
+  try {
+    const res = await fetch(`${PUSH_API_BASE}/api/live`);
+    const json = await res.json();
+    const games = Array.isArray(json?.games) ? json.games : [];
+    if (games.length) {
+      applyLiveScoreboard(games);
+      scheduleLivePoll(LIVE_POLL_MS);
+    } else {
+      scheduleLivePoll(LIVE_POLL_IDLE_MS);
+    }
+  } catch {
+    // 실패는 조용히 넘기고 다음 주기 재시도.
+    scheduleLivePoll(LIVE_POLL_MS);
+  } finally {
+    livePollInFlight = false;
+  }
+}
+
+function startLivePolling() {
+  if (!livePollEligible()) return;
+  if (livePollTimer) return; // 이미 스케줄됨
+  runLivePoll();
+}
+
+function stopLivePolling() {
+  window.clearTimeout(livePollTimer);
+  livePollTimer = null;
+}
+
+function syncLivePolling() {
+  if (livePollEligible()) {
+    startLivePolling();
+  } else {
+    stopLivePolling();
   }
 }
 
@@ -3652,11 +3874,13 @@ document.addEventListener("visibilitychange", () => {
   if (document.hidden) {
     // 숨김 동안 1초 인터벌 정지(배터리/연산 절약).
     stopTicketOpenCountdown();
+    stopLivePolling();
     return;
   }
   pollData();
   // 복귀 시 카드 재렌더로 상태/카운트다운을 현재 시각 기준으로 재개.
   renderTicketOpenCard();
+  syncLivePolling();
 });
 
 updateNotifyButton();
@@ -3675,6 +3899,7 @@ loadData()
   .then(() => {
     lastUpdatedAt = data.meta.updatedAt;
     renderAll();
+    syncLivePolling(); // 부팅 데이터 로드 후 1회 폴링 시작 시도(게이트 통과 시).
   })
   .catch(renderDataError);
 // 취소표 컨시어지 목록은 localStorage 만 사용하므로 데이터 로드와 무관하게 즉시 렌더한다.

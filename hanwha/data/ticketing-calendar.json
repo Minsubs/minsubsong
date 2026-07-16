@@ -79,11 +79,11 @@
       "note": "KT 홈 예매",
       "openLabel": "KT 홈 예매 일정 기준",
       "openDaysBefore": 7,
-      "openTime": "11:00",
+      "openTime": "16:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
     },
-    "openAt": "2026-07-02T11:00:00+09:00"
+    "openAt": "2026-07-02T16:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -177,27 +177,6 @@
     "status": "예정 경기",
     "date": "07.17",
     "time": "금 18:00",
-    "location": "창원",
-    "home": "NC",
-    "away": "두산",
-    "score": "경기전",
-    "detail": "NC 홈 경기",
-    "ticketing": {
-      "provider": "NC 다이노스",
-      "url": "https://www.ncdinos.com/",
-      "note": "NC 홈 예매",
-      "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-10T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "07.17",
-    "time": "금 18:00",
     "location": "잠실",
     "home": "LG",
     "away": "KT",
@@ -227,12 +206,12 @@
     "detail": "삼성 홈 경기",
     "ticketing": {
       "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
       "note": "삼성 홈 예매",
       "openLabel": "삼성 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
       "venueType": "원정"
     },
     "openAt": "2026-07-10T11:00:00+09:00"
@@ -262,6 +241,27 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
+    "date": "07.17",
+    "time": "금 18:00",
+    "location": "창원",
+    "home": "NC",
+    "away": "두산",
+    "score": "경기전",
+    "detail": "NC 홈 경기",
+    "ticketing": {
+      "provider": "NC 다이노스",
+      "url": "https://www.ncdinos.com/",
+      "note": "NC 홈 예매",
+      "openLabel": "NC 홈 예매 일정 기준",
+      "openDaysBefore": 6,
+      "openTime": "11:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-07-11T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
     "date": "07.18",
     "time": "토 18:00",
     "location": "대전",
@@ -277,27 +277,6 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    },
-    "openAt": "2026-07-11T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "07.18",
-    "time": "토 18:00",
-    "location": "창원",
-    "home": "NC",
-    "away": "두산",
-    "score": "경기전",
-    "detail": "NC 홈 경기",
-    "ticketing": {
-      "provider": "NC 다이노스",
-      "url": "https://www.ncdinos.com/",
-      "note": "NC 홈 예매",
-      "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
     },
     "openAt": "2026-07-11T11:00:00+09:00"
   },
@@ -335,12 +314,12 @@
     "detail": "삼성 홈 경기",
     "ticketing": {
       "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
       "note": "삼성 홈 예매",
       "openLabel": "삼성 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
       "venueType": "원정"
     },
     "openAt": "2026-07-11T11:00:00+09:00"
@@ -370,19 +349,19 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "07.17",
-    "time": "금 18:00",
-    "location": "문학",
-    "home": "SSG",
-    "away": "KIA",
+    "date": "07.18",
+    "time": "토 18:00",
+    "location": "창원",
+    "home": "NC",
+    "away": "두산",
     "score": "경기전",
-    "detail": "SSG 홈 경기",
+    "detail": "NC 홈 경기",
     "ticketing": {
-      "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
-      "note": "SSG 홈 예매",
-      "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
+      "provider": "NC 다이노스",
+      "url": "https://www.ncdinos.com/",
+      "note": "NC 홈 예매",
+      "openLabel": "NC 홈 예매 일정 기준",
+      "openDaysBefore": 6,
       "openTime": "11:00",
       "venueType": "원정"
     },
@@ -406,27 +385,6 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    },
-    "openAt": "2026-07-12T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "07.19",
-    "time": "일 18:00",
-    "location": "창원",
-    "home": "NC",
-    "away": "두산",
-    "score": "경기전",
-    "detail": "NC 홈 경기",
-    "ticketing": {
-      "provider": "NC 다이노스",
-      "url": "https://www.ncdinos.com/",
-      "note": "NC 홈 예매",
-      "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
     },
     "openAt": "2026-07-12T11:00:00+09:00"
   },
@@ -464,12 +422,12 @@
     "detail": "삼성 홈 경기",
     "ticketing": {
       "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
       "note": "삼성 홈 예매",
       "openLabel": "삼성 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
       "venueType": "원정"
     },
     "openAt": "2026-07-12T11:00:00+09:00"
@@ -499,6 +457,48 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
+    "date": "07.17",
+    "time": "금 18:00",
+    "location": "문학",
+    "home": "SSG",
+    "away": "KIA",
+    "score": "경기전",
+    "detail": "SSG 홈 경기",
+    "ticketing": {
+      "provider": "SSG 티켓",
+      "url": "https://ticket.ssg.com/",
+      "note": "SSG 홈 예매",
+      "openLabel": "SSG 홈 예매 일정 기준",
+      "openDaysBefore": 4,
+      "openTime": "11:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-07-13T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "07.19",
+    "time": "일 18:00",
+    "location": "창원",
+    "home": "NC",
+    "away": "두산",
+    "score": "경기전",
+    "detail": "NC 홈 경기",
+    "ticketing": {
+      "provider": "NC 다이노스",
+      "url": "https://www.ncdinos.com/",
+      "note": "NC 홈 예매",
+      "openLabel": "NC 홈 예매 일정 기준",
+      "openDaysBefore": 6,
+      "openTime": "11:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-07-13T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
     "date": "07.18",
     "time": "토 18:00",
     "location": "문학",
@@ -508,14 +508,100 @@
     "detail": "SSG 홈 경기",
     "ticketing": {
       "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
+      "url": "https://ticket.ssg.com/",
       "note": "SSG 홈 예매",
       "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
+      "openDaysBefore": 4,
       "openTime": "11:00",
       "venueType": "원정"
     },
-    "openAt": "2026-07-13T11:00:00+09:00"
+    "openAt": "2026-07-14T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "07.21",
+    "time": "화 18:30",
+    "location": "광주",
+    "home": "KIA",
+    "away": "한화",
+    "score": "경기전",
+    "detail": "KIA 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports/137/58",
+      "note": "KIA 홈 예매",
+      "openLabel": "KIA 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-07-14T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "07.21",
+    "time": "화 18:30",
+    "location": "잠실",
+    "home": "LG",
+    "away": "NC",
+    "score": "경기전",
+    "detail": "LG 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports/137/59",
+      "note": "LG 홈 예매",
+      "openLabel": "LG 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "openCaution": "구단 공지 기준 확인",
+      "venueType": "원정"
+    },
+    "openAt": "2026-07-14T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "07.21",
+    "time": "화 18:30",
+    "location": "고척",
+    "home": "키움",
+    "away": "삼성",
+    "score": "경기전",
+    "detail": "키움 홈 경기",
+    "ticketing": {
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/heroes",
+      "note": "키움 홈 예매",
+      "openLabel": "키움 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "14:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-07-14T14:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "07.21",
+    "time": "화 18:30",
+    "location": "수원",
+    "home": "KT",
+    "away": "두산",
+    "score": "경기전",
+    "detail": "KT 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports",
+      "note": "KT 홈 예매",
+      "openLabel": "KT 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "16:00",
+      "openCaution": "구단 공지 기준 확인",
+      "venueType": "원정"
+    },
+    "openAt": "2026-07-14T16:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -529,117 +615,10 @@
     "detail": "SSG 홈 경기",
     "ticketing": {
       "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
+      "url": "https://ticket.ssg.com/",
       "note": "SSG 홈 예매",
       "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-14T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "07.21",
-    "time": "화 18:30",
-    "location": "광주",
-    "home": "KIA",
-    "away": "한화",
-    "score": "경기전",
-    "detail": "KIA 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports/137/58",
-      "note": "KIA 홈 예매",
-      "openLabel": "KIA 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-14T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "07.21",
-    "time": "화 18:30",
-    "location": "수원",
-    "home": "KT",
-    "away": "두산",
-    "score": "경기전",
-    "detail": "KT 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
-      "note": "KT 홈 예매",
-      "openLabel": "KT 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-14T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "07.21",
-    "time": "화 18:30",
-    "location": "잠실",
-    "home": "LG",
-    "away": "NC",
-    "score": "경기전",
-    "detail": "LG 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports/137/59",
-      "note": "LG 홈 예매",
-      "openLabel": "LG 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-14T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "07.21",
-    "time": "화 18:30",
-    "location": "고척",
-    "home": "키움",
-    "away": "삼성",
-    "score": "경기전",
-    "detail": "키움 홈 경기",
-    "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
-      "note": "키움 홈 예매",
-      "openLabel": "키움 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "14:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-14T14:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "07.22",
-    "time": "수 18:30",
-    "location": "광주",
-    "home": "KIA",
-    "away": "한화",
-    "score": "경기전",
-    "detail": "KIA 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports/137/58",
-      "note": "KIA 홈 예매",
-      "openLabel": "KIA 홈 예매 일정 기준",
-      "openDaysBefore": 7,
+      "openDaysBefore": 4,
       "openTime": "11:00",
       "venueType": "원정"
     },
@@ -650,19 +629,18 @@
     "status": "예정 경기",
     "date": "07.22",
     "time": "수 18:30",
-    "location": "수원",
-    "home": "KT",
-    "away": "두산",
+    "location": "광주",
+    "home": "KIA",
+    "away": "한화",
     "score": "경기전",
-    "detail": "KT 홈 경기",
+    "detail": "KIA 홈 경기",
     "ticketing": {
       "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
-      "note": "KT 홈 예매",
-      "openLabel": "KT 홈 예매 일정 기준",
+      "url": "https://www.ticketlink.co.kr/sports/137/58",
+      "note": "KIA 홈 예매",
+      "openLabel": "KIA 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
     },
     "openAt": "2026-07-15T11:00:00+09:00"
@@ -700,8 +678,8 @@
     "score": "경기전",
     "detail": "키움 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/heroes",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -713,6 +691,28 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
+    "date": "07.22",
+    "time": "수 18:30",
+    "location": "수원",
+    "home": "KT",
+    "away": "두산",
+    "score": "경기전",
+    "detail": "KT 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports",
+      "note": "KT 홈 예매",
+      "openLabel": "KT 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "16:00",
+      "openCaution": "구단 공지 기준 확인",
+      "venueType": "원정"
+    },
+    "openAt": "2026-07-15T16:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
     "date": "07.23",
     "time": "목 18:30",
     "location": "광주",
@@ -727,28 +727,6 @@
       "openLabel": "KIA 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-16T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "07.23",
-    "time": "목 18:30",
-    "location": "수원",
-    "home": "KT",
-    "away": "두산",
-    "score": "경기전",
-    "detail": "KT 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
-      "note": "KT 홈 예매",
-      "openLabel": "KT 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
     },
     "openAt": "2026-07-16T11:00:00+09:00"
@@ -786,8 +764,8 @@
     "score": "경기전",
     "detail": "키움 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/heroes",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -795,6 +773,28 @@
       "venueType": "원정"
     },
     "openAt": "2026-07-16T14:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "07.23",
+    "time": "목 18:30",
+    "location": "수원",
+    "home": "KT",
+    "away": "두산",
+    "score": "경기전",
+    "detail": "KT 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports",
+      "note": "KT 홈 예매",
+      "openLabel": "KT 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "16:00",
+      "openCaution": "구단 공지 기준 확인",
+      "venueType": "원정"
+    },
+    "openAt": "2026-07-16T16:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -828,13 +828,13 @@
     "score": "경기전",
     "detail": "두산 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/bears",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "earlyOpenLabel": "베어스클럽 10:00",
+      "earlyOpenLabel": "베어스클럽 선예매 · 일반 1시간 전",
       "venueType": "원정"
     },
     "openAt": "2026-07-17T11:00:00+09:00"
@@ -914,13 +914,13 @@
     "score": "경기전",
     "detail": "두산 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/bears",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "earlyOpenLabel": "베어스클럽 10:00",
+      "earlyOpenLabel": "베어스클럽 선예매 · 일반 1시간 전",
       "venueType": "원정"
     },
     "openAt": "2026-07-18T11:00:00+09:00"
@@ -971,27 +971,6 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "07.24",
-    "time": "금 18:30",
-    "location": "문학",
-    "home": "SSG",
-    "away": "NC",
-    "score": "경기전",
-    "detail": "SSG 홈 경기",
-    "ticketing": {
-      "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
-      "note": "SSG 홈 예매",
-      "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-19T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
     "date": "07.26",
     "time": "일 18:00",
     "location": "대전",
@@ -1021,13 +1000,13 @@
     "score": "경기전",
     "detail": "두산 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/bears",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "earlyOpenLabel": "베어스클럽 10:00",
+      "earlyOpenLabel": "베어스클럽 선예매 · 일반 1시간 전",
       "venueType": "원정"
     },
     "openAt": "2026-07-19T11:00:00+09:00"
@@ -1078,6 +1057,27 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
+    "date": "07.24",
+    "time": "금 18:30",
+    "location": "문학",
+    "home": "SSG",
+    "away": "NC",
+    "score": "경기전",
+    "detail": "SSG 홈 경기",
+    "ticketing": {
+      "provider": "SSG 티켓",
+      "url": "https://ticket.ssg.com/",
+      "note": "SSG 홈 예매",
+      "openLabel": "SSG 홈 예매 일정 기준",
+      "openDaysBefore": 4,
+      "openTime": "11:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-07-20T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
     "date": "07.25",
     "time": "토 18:00",
     "location": "문학",
@@ -1087,31 +1087,10 @@
     "detail": "SSG 홈 경기",
     "ticketing": {
       "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
+      "url": "https://ticket.ssg.com/",
       "note": "SSG 홈 예매",
       "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-20T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "07.26",
-    "time": "일 18:00",
-    "location": "문학",
-    "home": "SSG",
-    "away": "NC",
-    "score": "경기전",
-    "detail": "SSG 홈 경기",
-    "ticketing": {
-      "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
-      "note": "SSG 홈 예매",
-      "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
+      "openDaysBefore": 4,
       "openTime": "11:00",
       "venueType": "원정"
     },
@@ -1172,33 +1151,12 @@
     "detail": "삼성 홈 경기",
     "ticketing": {
       "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
       "note": "삼성 홈 예매",
       "openLabel": "삼성 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-21T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "07.28",
-    "time": "화 18:30",
-    "location": "창원",
-    "home": "NC",
-    "away": "KT",
-    "score": "경기전",
-    "detail": "NC 홈 경기",
-    "ticketing": {
-      "provider": "NC 다이노스",
-      "url": "https://www.ncdinos.com/",
-      "note": "NC 홈 예매",
-      "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
       "venueType": "원정"
     },
     "openAt": "2026-07-21T11:00:00+09:00"
@@ -1228,6 +1186,48 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
+    "date": "07.26",
+    "time": "일 18:00",
+    "location": "문학",
+    "home": "SSG",
+    "away": "NC",
+    "score": "경기전",
+    "detail": "SSG 홈 경기",
+    "ticketing": {
+      "provider": "SSG 티켓",
+      "url": "https://ticket.ssg.com/",
+      "note": "SSG 홈 예매",
+      "openLabel": "SSG 홈 예매 일정 기준",
+      "openDaysBefore": 4,
+      "openTime": "11:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-07-22T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "07.28",
+    "time": "화 18:30",
+    "location": "창원",
+    "home": "NC",
+    "away": "KT",
+    "score": "경기전",
+    "detail": "NC 홈 경기",
+    "ticketing": {
+      "provider": "NC 다이노스",
+      "url": "https://www.ncdinos.com/",
+      "note": "NC 홈 예매",
+      "openLabel": "NC 홈 예매 일정 기준",
+      "openDaysBefore": 6,
+      "openTime": "11:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-07-22T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
     "date": "07.29",
     "time": "수 18:30",
     "location": "대전",
@@ -1280,33 +1280,12 @@
     "detail": "삼성 홈 경기",
     "ticketing": {
       "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
       "note": "삼성 홈 예매",
       "openLabel": "삼성 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-22T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "07.29",
-    "time": "수 18:30",
-    "location": "창원",
-    "home": "NC",
-    "away": "KT",
-    "score": "경기전",
-    "detail": "NC 홈 경기",
-    "ticketing": {
-      "provider": "NC 다이노스",
-      "url": "https://www.ncdinos.com/",
-      "note": "NC 홈 예매",
-      "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
       "venueType": "원정"
     },
     "openAt": "2026-07-22T11:00:00+09:00"
@@ -1336,19 +1315,19 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "07.28",
-    "time": "화 18:30",
-    "location": "문학",
-    "home": "SSG",
-    "away": "두산",
+    "date": "07.29",
+    "time": "수 18:30",
+    "location": "창원",
+    "home": "NC",
+    "away": "KT",
     "score": "경기전",
-    "detail": "SSG 홈 경기",
+    "detail": "NC 홈 경기",
     "ticketing": {
-      "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
-      "note": "SSG 홈 예매",
-      "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
+      "provider": "NC 다이노스",
+      "url": "https://www.ncdinos.com/",
+      "note": "NC 홈 예매",
+      "openLabel": "NC 홈 예매 일정 기준",
+      "openDaysBefore": 6,
       "openTime": "11:00",
       "venueType": "원정"
     },
@@ -1409,33 +1388,12 @@
     "detail": "삼성 홈 경기",
     "ticketing": {
       "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
       "note": "삼성 홈 예매",
       "openLabel": "삼성 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-23T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "07.30",
-    "time": "목 18:30",
-    "location": "창원",
-    "home": "NC",
-    "away": "KT",
-    "score": "경기전",
-    "detail": "NC 홈 경기",
-    "ticketing": {
-      "provider": "NC 다이노스",
-      "url": "https://www.ncdinos.com/",
-      "note": "NC 홈 예매",
-      "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
       "venueType": "원정"
     },
     "openAt": "2026-07-23T11:00:00+09:00"
@@ -1465,8 +1423,8 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "07.29",
-    "time": "수 18:30",
+    "date": "07.28",
+    "time": "화 18:30",
     "location": "문학",
     "home": "SSG",
     "away": "두산",
@@ -1474,14 +1432,78 @@
     "detail": "SSG 홈 경기",
     "ticketing": {
       "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
+      "url": "https://ticket.ssg.com/",
       "note": "SSG 홈 예매",
       "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
+      "openDaysBefore": 4,
       "openTime": "11:00",
       "venueType": "원정"
     },
     "openAt": "2026-07-24T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "07.30",
+    "time": "목 18:30",
+    "location": "창원",
+    "home": "NC",
+    "away": "KT",
+    "score": "경기전",
+    "detail": "NC 홈 경기",
+    "ticketing": {
+      "provider": "NC 다이노스",
+      "url": "https://www.ncdinos.com/",
+      "note": "NC 홈 예매",
+      "openLabel": "NC 홈 예매 일정 기준",
+      "openDaysBefore": 6,
+      "openTime": "11:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-07-24T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "07.31",
+    "time": "금 18:30",
+    "location": "잠실",
+    "home": "두산",
+    "away": "LG",
+    "score": "경기전",
+    "detail": "두산 홈 경기",
+    "ticketing": {
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/bears",
+      "note": "두산 홈 예매",
+      "openLabel": "두산 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "earlyOpenLabel": "베어스클럽 선예매 · 일반 1시간 전",
+      "venueType": "원정"
+    },
+    "openAt": "2026-07-24T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "07.31",
+    "time": "금 18:30",
+    "location": "고척",
+    "home": "키움",
+    "away": "SSG",
+    "score": "경기전",
+    "detail": "키움 홈 경기",
+    "ticketing": {
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/heroes",
+      "note": "키움 홈 예매",
+      "openLabel": "키움 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "14:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-07-24T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1499,33 +1521,32 @@
       "note": "KT 홈 예매",
       "openLabel": "KT 홈 예매 일정 기준",
       "openDaysBefore": 7,
-      "openTime": "11:00",
+      "openTime": "16:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
     },
-    "openAt": "2026-07-24T11:00:00+09:00"
+    "openAt": "2026-07-24T16:00:00+09:00"
   },
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "07.31",
-    "time": "금 18:30",
-    "location": "잠실",
-    "home": "두산",
-    "away": "LG",
+    "date": "07.29",
+    "time": "수 18:30",
+    "location": "문학",
+    "home": "SSG",
+    "away": "두산",
     "score": "경기전",
-    "detail": "두산 홈 경기",
+    "detail": "SSG 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
-      "note": "두산 홈 예매",
-      "openLabel": "두산 홈 예매 일정 기준",
-      "openDaysBefore": 7,
+      "provider": "SSG 티켓",
+      "url": "https://ticket.ssg.com/",
+      "note": "SSG 홈 예매",
+      "openLabel": "SSG 홈 예매 일정 기준",
+      "openDaysBefore": 4,
       "openTime": "11:00",
-      "earlyOpenLabel": "베어스클럽 10:00",
       "venueType": "원정"
     },
-    "openAt": "2026-07-24T11:00:00+09:00"
+    "openAt": "2026-07-25T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1542,32 +1563,76 @@
       "url": "https://www.ncdinos.com/",
       "note": "NC 홈 예매",
       "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
+      "openDaysBefore": 6,
       "openTime": "11:00",
       "venueType": "원정"
     },
-    "openAt": "2026-07-24T11:00:00+09:00"
+    "openAt": "2026-07-25T11:00:00+09:00"
   },
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "07.31",
-    "time": "금 18:30",
+    "date": "08.01",
+    "time": "토 18:00",
+    "location": "잠실",
+    "home": "두산",
+    "away": "LG",
+    "score": "경기전",
+    "detail": "두산 홈 경기",
+    "ticketing": {
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/bears",
+      "note": "두산 홈 예매",
+      "openLabel": "두산 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "earlyOpenLabel": "베어스클럽 선예매 · 일반 1시간 전",
+      "venueType": "원정"
+    },
+    "openAt": "2026-07-25T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.01",
+    "time": "토 18:00",
     "location": "고척",
     "home": "키움",
     "away": "SSG",
     "score": "경기전",
     "detail": "키움 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/heroes",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "14:00",
       "venueType": "원정"
     },
-    "openAt": "2026-07-24T14:00:00+09:00"
+    "openAt": "2026-07-25T14:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.01",
+    "time": "토 18:00",
+    "location": "수원",
+    "home": "KT",
+    "away": "한화",
+    "score": "경기전",
+    "detail": "KT 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports",
+      "note": "KT 홈 예매",
+      "openLabel": "KT 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "16:00",
+      "openCaution": "구단 공지 기준 확인",
+      "venueType": "원정"
+    },
+    "openAt": "2026-07-25T16:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1581,58 +1646,14 @@
     "detail": "SSG 홈 경기",
     "ticketing": {
       "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
+      "url": "https://ticket.ssg.com/",
       "note": "SSG 홈 예매",
       "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
+      "openDaysBefore": 4,
       "openTime": "11:00",
       "venueType": "원정"
     },
-    "openAt": "2026-07-25T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.01",
-    "time": "토 18:00",
-    "location": "수원",
-    "home": "KT",
-    "away": "한화",
-    "score": "경기전",
-    "detail": "KT 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
-      "note": "KT 홈 예매",
-      "openLabel": "KT 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-25T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.01",
-    "time": "토 18:00",
-    "location": "잠실",
-    "home": "두산",
-    "away": "LG",
-    "score": "경기전",
-    "detail": "두산 홈 경기",
-    "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
-      "note": "두산 홈 예매",
-      "openLabel": "두산 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "earlyOpenLabel": "베어스클럽 10:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-25T11:00:00+09:00"
+    "openAt": "2026-07-26T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1649,51 +1670,8 @@
       "url": "https://www.ncdinos.com/",
       "note": "NC 홈 예매",
       "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
+      "openDaysBefore": 6,
       "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-25T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.01",
-    "time": "토 18:00",
-    "location": "고척",
-    "home": "키움",
-    "away": "SSG",
-    "score": "경기전",
-    "detail": "키움 홈 경기",
-    "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
-      "note": "키움 홈 예매",
-      "openLabel": "키움 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "14:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-25T14:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.02",
-    "time": "일 18:00",
-    "location": "수원",
-    "home": "KT",
-    "away": "한화",
-    "score": "경기전",
-    "detail": "KT 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
-      "note": "KT 홈 예매",
-      "openLabel": "KT 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
     },
     "openAt": "2026-07-26T11:00:00+09:00"
@@ -1709,34 +1687,13 @@
     "score": "경기전",
     "detail": "두산 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/bears",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "earlyOpenLabel": "베어스클럽 10:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-26T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.02",
-    "time": "일 18:00",
-    "location": "창원",
-    "home": "NC",
-    "away": "KIA",
-    "score": "경기전",
-    "detail": "NC 홈 경기",
-    "ticketing": {
-      "provider": "NC 다이노스",
-      "url": "https://www.ncdinos.com/",
-      "note": "NC 홈 예매",
-      "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
+      "earlyOpenLabel": "베어스클럽 선예매 · 일반 1시간 전",
       "venueType": "원정"
     },
     "openAt": "2026-07-26T11:00:00+09:00"
@@ -1752,8 +1709,8 @@
     "score": "경기전",
     "detail": "키움 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/heroes",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1765,6 +1722,49 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
+    "date": "08.02",
+    "time": "일 18:00",
+    "location": "수원",
+    "home": "KT",
+    "away": "한화",
+    "score": "경기전",
+    "detail": "KT 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports",
+      "note": "KT 홈 예매",
+      "openLabel": "KT 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "16:00",
+      "openCaution": "구단 공지 기준 확인",
+      "venueType": "원정"
+    },
+    "openAt": "2026-07-26T16:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.02",
+    "time": "일 18:00",
+    "location": "창원",
+    "home": "NC",
+    "away": "KIA",
+    "score": "경기전",
+    "detail": "NC 홈 경기",
+    "ticketing": {
+      "provider": "NC 다이노스",
+      "url": "https://www.ncdinos.com/",
+      "note": "NC 홈 예매",
+      "openLabel": "NC 홈 예매 일정 기준",
+      "openDaysBefore": 6,
+      "openTime": "11:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-07-27T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
     "date": "08.04",
     "time": "화 18:30",
     "location": "대구",
@@ -1774,12 +1774,12 @@
     "detail": "삼성 홈 경기",
     "ticketing": {
       "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
       "note": "삼성 홈 예매",
       "openLabel": "삼성 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
       "venueType": "원정"
     },
     "openAt": "2026-07-28T11:00:00+09:00"
@@ -1795,13 +1795,13 @@
     "score": "경기전",
     "detail": "두산 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/bears",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "earlyOpenLabel": "베어스클럽 10:00",
+      "earlyOpenLabel": "베어스클럽 선예매 · 일반 1시간 전",
       "venueType": "원정"
     },
     "openAt": "2026-07-28T11:00:00+09:00"
@@ -1839,12 +1839,12 @@
     "detail": "삼성 홈 경기",
     "ticketing": {
       "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
       "note": "삼성 홈 예매",
       "openLabel": "삼성 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
       "venueType": "원정"
     },
     "openAt": "2026-07-29T11:00:00+09:00"
@@ -1860,13 +1860,13 @@
     "score": "경기전",
     "detail": "두산 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/bears",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "earlyOpenLabel": "베어스클럽 10:00",
+      "earlyOpenLabel": "베어스클럽 선예매 · 일반 1시간 전",
       "venueType": "원정"
     },
     "openAt": "2026-07-29T11:00:00+09:00"
@@ -1891,6 +1891,71 @@
       "venueType": "원정"
     },
     "openAt": "2026-07-29T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.06",
+    "time": "목 18:30",
+    "location": "대구",
+    "home": "삼성",
+    "away": "한화",
+    "score": "경기전",
+    "detail": "삼성 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
+      "note": "삼성 홈 예매",
+      "openLabel": "삼성 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
+      "venueType": "원정"
+    },
+    "openAt": "2026-07-30T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.06",
+    "time": "목 18:30",
+    "location": "잠실",
+    "home": "두산",
+    "away": "NC",
+    "score": "경기전",
+    "detail": "두산 홈 경기",
+    "ticketing": {
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/bears",
+      "note": "두산 홈 예매",
+      "openLabel": "두산 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "earlyOpenLabel": "베어스클럽 선예매 · 일반 1시간 전",
+      "venueType": "원정"
+    },
+    "openAt": "2026-07-30T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.06",
+    "time": "목 18:30",
+    "location": "광주",
+    "home": "KIA",
+    "away": "KT",
+    "score": "경기전",
+    "detail": "KIA 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports/137/58",
+      "note": "KIA 홈 예매",
+      "openLabel": "KIA 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-07-30T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -1904,96 +1969,10 @@
     "detail": "SSG 홈 경기",
     "ticketing": {
       "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
+      "url": "https://ticket.ssg.com/",
       "note": "SSG 홈 예매",
       "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-30T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.06",
-    "time": "목 18:30",
-    "location": "대구",
-    "home": "삼성",
-    "away": "한화",
-    "score": "경기전",
-    "detail": "삼성 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
-      "note": "삼성 홈 예매",
-      "openLabel": "삼성 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-30T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.06",
-    "time": "목 18:30",
-    "location": "잠실",
-    "home": "두산",
-    "away": "NC",
-    "score": "경기전",
-    "detail": "두산 홈 경기",
-    "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
-      "note": "두산 홈 예매",
-      "openLabel": "두산 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "earlyOpenLabel": "베어스클럽 10:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-30T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.06",
-    "time": "목 18:30",
-    "location": "광주",
-    "home": "KIA",
-    "away": "KT",
-    "score": "경기전",
-    "detail": "KIA 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports/137/58",
-      "note": "KIA 홈 예매",
-      "openLabel": "KIA 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-30T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.05",
-    "time": "수 18:30",
-    "location": "문학",
-    "home": "SSG",
-    "away": "LG",
-    "score": "경기전",
-    "detail": "SSG 홈 경기",
-    "ticketing": {
-      "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
-      "note": "SSG 홈 예매",
-      "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
+      "openDaysBefore": 4,
       "openTime": "11:00",
       "venueType": "원정"
     },
@@ -2032,12 +2011,12 @@
     "detail": "삼성 홈 경기",
     "ticketing": {
       "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
       "note": "삼성 홈 예매",
       "openLabel": "삼성 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
       "venueType": "원정"
     },
     "openAt": "2026-07-31T11:00:00+09:00"
@@ -2057,49 +2036,6 @@
       "url": "https://www.ticketlink.co.kr/sports/137/59",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-31T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.07",
-    "time": "금 18:30",
-    "location": "창원",
-    "home": "NC",
-    "away": "SSG",
-    "score": "경기전",
-    "detail": "NC 홈 경기",
-    "ticketing": {
-      "provider": "NC 다이노스",
-      "url": "https://www.ncdinos.com/",
-      "note": "NC 홈 예매",
-      "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-31T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.07",
-    "time": "금 18:30",
-    "location": "수원",
-    "home": "KT",
-    "away": "롯데",
-    "score": "경기전",
-    "detail": "KT 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
-      "note": "KT 홈 예매",
-      "openLabel": "KT 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
@@ -2132,8 +2068,30 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "08.06",
-    "time": "목 18:30",
+    "date": "08.07",
+    "time": "금 18:30",
+    "location": "수원",
+    "home": "KT",
+    "away": "롯데",
+    "score": "경기전",
+    "detail": "KT 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports",
+      "note": "KT 홈 예매",
+      "openLabel": "KT 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "16:00",
+      "openCaution": "구단 공지 기준 확인",
+      "venueType": "원정"
+    },
+    "openAt": "2026-07-31T16:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.05",
+    "time": "수 18:30",
     "location": "문학",
     "home": "SSG",
     "away": "LG",
@@ -2141,10 +2099,31 @@
     "detail": "SSG 홈 경기",
     "ticketing": {
       "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
+      "url": "https://ticket.ssg.com/",
       "note": "SSG 홈 예매",
       "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
+      "openDaysBefore": 4,
+      "openTime": "11:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-01T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.07",
+    "time": "금 18:30",
+    "location": "창원",
+    "home": "NC",
+    "away": "SSG",
+    "score": "경기전",
+    "detail": "NC 홈 경기",
+    "ticketing": {
+      "provider": "NC 다이노스",
+      "url": "https://www.ncdinos.com/",
+      "note": "NC 홈 예매",
+      "openLabel": "NC 홈 예매 일정 기준",
+      "openDaysBefore": 6,
       "openTime": "11:00",
       "venueType": "원정"
     },
@@ -2183,12 +2162,12 @@
     "detail": "삼성 홈 경기",
     "ticketing": {
       "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
       "note": "삼성 홈 예매",
       "openLabel": "삼성 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
       "venueType": "원정"
     },
     "openAt": "2026-08-01T11:00:00+09:00"
@@ -2208,49 +2187,6 @@
       "url": "https://www.ticketlink.co.kr/sports/137/59",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-01T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.08",
-    "time": "토 18:00",
-    "location": "창원",
-    "home": "NC",
-    "away": "SSG",
-    "score": "경기전",
-    "detail": "NC 홈 경기",
-    "ticketing": {
-      "provider": "NC 다이노스",
-      "url": "https://www.ncdinos.com/",
-      "note": "NC 홈 예매",
-      "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-01T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.08",
-    "time": "토 18:00",
-    "location": "수원",
-    "home": "KT",
-    "away": "롯데",
-    "score": "경기전",
-    "detail": "KT 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
-      "note": "KT 홈 예매",
-      "openLabel": "KT 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
@@ -2283,6 +2219,70 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
+    "date": "08.08",
+    "time": "토 18:00",
+    "location": "수원",
+    "home": "KT",
+    "away": "롯데",
+    "score": "경기전",
+    "detail": "KT 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports",
+      "note": "KT 홈 예매",
+      "openLabel": "KT 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "16:00",
+      "openCaution": "구단 공지 기준 확인",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-01T16:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.06",
+    "time": "목 18:30",
+    "location": "문학",
+    "home": "SSG",
+    "away": "LG",
+    "score": "경기전",
+    "detail": "SSG 홈 경기",
+    "ticketing": {
+      "provider": "SSG 티켓",
+      "url": "https://ticket.ssg.com/",
+      "note": "SSG 홈 예매",
+      "openLabel": "SSG 홈 예매 일정 기준",
+      "openDaysBefore": 4,
+      "openTime": "11:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-02T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.08",
+    "time": "토 18:00",
+    "location": "창원",
+    "home": "NC",
+    "away": "SSG",
+    "score": "경기전",
+    "detail": "NC 홈 경기",
+    "ticketing": {
+      "provider": "NC 다이노스",
+      "url": "https://www.ncdinos.com/",
+      "note": "NC 홈 예매",
+      "openLabel": "NC 홈 예매 일정 기준",
+      "openDaysBefore": 6,
+      "openTime": "11:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-02T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
     "date": "08.09",
     "time": "일 18:00",
     "location": "대전",
@@ -2313,12 +2313,12 @@
     "detail": "삼성 홈 경기",
     "ticketing": {
       "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
       "note": "삼성 홈 예매",
       "openLabel": "삼성 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
       "venueType": "원정"
     },
     "openAt": "2026-08-02T11:00:00+09:00"
@@ -2338,49 +2338,6 @@
       "url": "https://www.ticketlink.co.kr/sports/137/59",
       "note": "LG 홈 예매",
       "openLabel": "LG 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-02T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.09",
-    "time": "일 18:00",
-    "location": "창원",
-    "home": "NC",
-    "away": "SSG",
-    "score": "경기전",
-    "detail": "NC 홈 경기",
-    "ticketing": {
-      "provider": "NC 다이노스",
-      "url": "https://www.ncdinos.com/",
-      "note": "NC 홈 예매",
-      "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-02T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.09",
-    "time": "일 18:00",
-    "location": "수원",
-    "home": "KT",
-    "away": "롯데",
-    "score": "경기전",
-    "detail": "KT 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
-      "note": "KT 홈 예매",
-      "openLabel": "KT 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
@@ -2413,6 +2370,49 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
+    "date": "08.09",
+    "time": "일 18:00",
+    "location": "수원",
+    "home": "KT",
+    "away": "롯데",
+    "score": "경기전",
+    "detail": "KT 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports",
+      "note": "KT 홈 예매",
+      "openLabel": "KT 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "16:00",
+      "openCaution": "구단 공지 기준 확인",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-02T16:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.09",
+    "time": "일 18:00",
+    "location": "창원",
+    "home": "NC",
+    "away": "SSG",
+    "score": "경기전",
+    "detail": "NC 홈 경기",
+    "ticketing": {
+      "provider": "NC 다이노스",
+      "url": "https://www.ncdinos.com/",
+      "note": "NC 홈 예매",
+      "openLabel": "NC 홈 예매 일정 기준",
+      "openDaysBefore": 6,
+      "openTime": "11:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-03T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
     "date": "08.11",
     "time": "화 18:30",
     "location": "잠실",
@@ -2421,13 +2421,13 @@
     "score": "경기전",
     "detail": "두산 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/bears",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "earlyOpenLabel": "베어스클럽 10:00",
+      "earlyOpenLabel": "베어스클럽 선예매 · 일반 1시간 전",
       "venueType": "원정"
     },
     "openAt": "2026-08-04T11:00:00+09:00"
@@ -2458,35 +2458,14 @@
     "status": "예정 경기",
     "date": "08.11",
     "time": "화 18:30",
-    "location": "창원",
-    "home": "NC",
-    "away": "KT",
-    "score": "경기전",
-    "detail": "NC 홈 경기",
-    "ticketing": {
-      "provider": "NC 다이노스",
-      "url": "https://www.ncdinos.com/",
-      "note": "NC 홈 예매",
-      "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-04T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.11",
-    "time": "화 18:30",
     "location": "고척",
     "home": "키움",
     "away": "LG",
     "score": "경기전",
     "detail": "키움 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/heroes",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -2520,6 +2499,27 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
+    "date": "08.11",
+    "time": "화 18:30",
+    "location": "창원",
+    "home": "NC",
+    "away": "KT",
+    "score": "경기전",
+    "detail": "NC 홈 경기",
+    "ticketing": {
+      "provider": "NC 다이노스",
+      "url": "https://www.ncdinos.com/",
+      "note": "NC 홈 예매",
+      "openLabel": "NC 홈 예매 일정 기준",
+      "openDaysBefore": 6,
+      "openTime": "11:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-05T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
     "date": "08.12",
     "time": "수 18:30",
     "location": "잠실",
@@ -2528,13 +2528,13 @@
     "score": "경기전",
     "detail": "두산 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/bears",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "earlyOpenLabel": "베어스클럽 10:00",
+      "earlyOpenLabel": "베어스클럽 선예매 · 일반 1시간 전",
       "venueType": "원정"
     },
     "openAt": "2026-08-05T11:00:00+09:00"
@@ -2565,35 +2565,14 @@
     "status": "예정 경기",
     "date": "08.12",
     "time": "수 18:30",
-    "location": "창원",
-    "home": "NC",
-    "away": "KT",
-    "score": "경기전",
-    "detail": "NC 홈 경기",
-    "ticketing": {
-      "provider": "NC 다이노스",
-      "url": "https://www.ncdinos.com/",
-      "note": "NC 홈 예매",
-      "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-05T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.12",
-    "time": "수 18:30",
     "location": "고척",
     "home": "키움",
     "away": "LG",
     "score": "경기전",
     "detail": "키움 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/heroes",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -2623,6 +2602,113 @@
       "venueType": "원정"
     },
     "openAt": "2026-08-05T14:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.12",
+    "time": "수 18:30",
+    "location": "창원",
+    "home": "NC",
+    "away": "KT",
+    "score": "경기전",
+    "detail": "NC 홈 경기",
+    "ticketing": {
+      "provider": "NC 다이노스",
+      "url": "https://www.ncdinos.com/",
+      "note": "NC 홈 예매",
+      "openLabel": "NC 홈 예매 일정 기준",
+      "openDaysBefore": 6,
+      "openTime": "11:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-06T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.13",
+    "time": "목 18:30",
+    "location": "잠실",
+    "home": "두산",
+    "away": "한화",
+    "score": "경기전",
+    "detail": "두산 홈 경기",
+    "ticketing": {
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/bears",
+      "note": "두산 홈 예매",
+      "openLabel": "두산 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "earlyOpenLabel": "베어스클럽 선예매 · 일반 1시간 전",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-06T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.13",
+    "time": "목 18:30",
+    "location": "광주",
+    "home": "KIA",
+    "away": "삼성",
+    "score": "경기전",
+    "detail": "KIA 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports/137/58",
+      "note": "KIA 홈 예매",
+      "openLabel": "KIA 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-06T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.13",
+    "time": "목 18:30",
+    "location": "고척",
+    "home": "키움",
+    "away": "LG",
+    "score": "경기전",
+    "detail": "키움 홈 경기",
+    "ticketing": {
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/heroes",
+      "note": "키움 홈 예매",
+      "openLabel": "키움 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "14:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-06T14:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.20",
+    "time": "목 18:30",
+    "location": "사직",
+    "home": "롯데",
+    "away": "키움",
+    "score": "경기전",
+    "detail": "롯데 홈 경기",
+    "ticketing": {
+      "provider": "롯데 자이언츠",
+      "url": "https://ticket.giantsclub.com/",
+      "note": "롯데 홈 예매",
+      "openLabel": "롯데 홈 예매 일정 기준",
+      "openDaysBefore": 14,
+      "openTime": "14:00",
+      "openCaution": "구단 앱 공지 기준 확인",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-06T14:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2636,57 +2722,14 @@
     "detail": "SSG 홈 경기",
     "ticketing": {
       "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
+      "url": "https://ticket.ssg.com/",
       "note": "SSG 홈 예매",
       "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
+      "openDaysBefore": 4,
       "openTime": "11:00",
       "venueType": "원정"
     },
-    "openAt": "2026-08-06T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.13",
-    "time": "목 18:30",
-    "location": "잠실",
-    "home": "두산",
-    "away": "한화",
-    "score": "경기전",
-    "detail": "두산 홈 경기",
-    "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
-      "note": "두산 홈 예매",
-      "openLabel": "두산 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "earlyOpenLabel": "베어스클럽 10:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-06T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.13",
-    "time": "목 18:30",
-    "location": "광주",
-    "home": "KIA",
-    "away": "삼성",
-    "score": "경기전",
-    "detail": "KIA 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports/137/58",
-      "note": "KIA 홈 예매",
-      "openLabel": "KIA 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-06T11:00:00+09:00"
+    "openAt": "2026-08-07T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2703,54 +2746,98 @@
       "url": "https://www.ncdinos.com/",
       "note": "NC 홈 예매",
       "openLabel": "NC 홈 예매 일정 기준",
+      "openDaysBefore": 6,
+      "openTime": "11:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-07T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.14",
+    "time": "금 18:30",
+    "location": "대구",
+    "home": "삼성",
+    "away": "한화",
+    "score": "경기전",
+    "detail": "삼성 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
+      "note": "삼성 홈 예매",
+      "openLabel": "삼성 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-07T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.14",
+    "time": "금 18:30",
+    "location": "광주",
+    "home": "KIA",
+    "away": "두산",
+    "score": "경기전",
+    "detail": "KIA 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports/137/58",
+      "note": "KIA 홈 예매",
+      "openLabel": "KIA 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
     },
-    "openAt": "2026-08-06T11:00:00+09:00"
+    "openAt": "2026-08-07T11:00:00+09:00"
   },
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "08.13",
-    "time": "목 18:30",
-    "location": "고척",
-    "home": "키움",
-    "away": "LG",
+    "date": "08.14",
+    "time": "금 18:30",
+    "location": "잠실",
+    "home": "LG",
+    "away": "SSG",
     "score": "경기전",
-    "detail": "키움 홈 경기",
+    "detail": "LG 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
-      "note": "키움 홈 예매",
-      "openLabel": "키움 홈 예매 일정 기준",
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports/137/59",
+      "note": "LG 홈 예매",
+      "openLabel": "LG 홈 예매 일정 기준",
       "openDaysBefore": 7,
-      "openTime": "14:00",
+      "openTime": "11:00",
+      "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
     },
-    "openAt": "2026-08-06T14:00:00+09:00"
+    "openAt": "2026-08-07T11:00:00+09:00"
   },
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "08.20",
-    "time": "목 18:30",
-    "location": "사직",
-    "home": "롯데",
+    "date": "08.14",
+    "time": "금 18:30",
+    "location": "수원",
+    "home": "KT",
     "away": "키움",
     "score": "경기전",
-    "detail": "롯데 홈 경기",
+    "detail": "KT 홈 경기",
     "ticketing": {
-      "provider": "롯데 자이언츠",
-      "url": "https://ticket.giantsclub.com/",
-      "note": "롯데 홈 예매",
-      "openLabel": "롯데 홈 예매 일정 기준",
-      "openDaysBefore": 14,
-      "openTime": "14:00",
-      "openCaution": "구단 앱 공지 기준 확인",
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports",
+      "note": "KT 홈 예매",
+      "openLabel": "KT 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "16:00",
+      "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
     },
-    "openAt": "2026-08-06T14:00:00+09:00"
+    "openAt": "2026-08-07T16:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2764,20 +2851,20 @@
     "detail": "SSG 홈 경기",
     "ticketing": {
       "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
+      "url": "https://ticket.ssg.com/",
       "note": "SSG 홈 예매",
       "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
+      "openDaysBefore": 4,
       "openTime": "11:00",
       "venueType": "원정"
     },
-    "openAt": "2026-08-07T11:00:00+09:00"
+    "openAt": "2026-08-08T11:00:00+09:00"
   },
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "08.14",
-    "time": "금 18:30",
+    "date": "08.15",
+    "time": "토 18:00",
     "location": "대구",
     "home": "삼성",
     "away": "한화",
@@ -2785,21 +2872,21 @@
     "detail": "삼성 홈 경기",
     "ticketing": {
       "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
       "note": "삼성 홈 예매",
       "openLabel": "삼성 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
       "venueType": "원정"
     },
-    "openAt": "2026-08-07T11:00:00+09:00"
+    "openAt": "2026-08-08T11:00:00+09:00"
   },
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "08.14",
-    "time": "금 18:30",
+    "date": "08.15",
+    "time": "토 18:00",
     "location": "광주",
     "home": "KIA",
     "away": "두산",
@@ -2814,13 +2901,13 @@
       "openTime": "11:00",
       "venueType": "원정"
     },
-    "openAt": "2026-08-07T11:00:00+09:00"
+    "openAt": "2026-08-08T11:00:00+09:00"
   },
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "08.14",
-    "time": "금 18:30",
+    "date": "08.15",
+    "time": "토 18:00",
     "location": "잠실",
     "home": "LG",
     "away": "SSG",
@@ -2836,13 +2923,13 @@
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
     },
-    "openAt": "2026-08-07T11:00:00+09:00"
+    "openAt": "2026-08-08T11:00:00+09:00"
   },
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "08.14",
-    "time": "금 18:30",
+    "date": "08.15",
+    "time": "토 18:00",
     "location": "수원",
     "home": "KT",
     "away": "키움",
@@ -2854,11 +2941,11 @@
       "note": "KT 홈 예매",
       "openLabel": "KT 홈 예매 일정 기준",
       "openDaysBefore": 7,
-      "openTime": "11:00",
+      "openTime": "16:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
     },
-    "openAt": "2026-08-07T11:00:00+09:00"
+    "openAt": "2026-08-08T16:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2872,101 +2959,14 @@
     "detail": "SSG 홈 경기",
     "ticketing": {
       "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
+      "url": "https://ticket.ssg.com/",
       "note": "SSG 홈 예매",
       "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
+      "openDaysBefore": 4,
       "openTime": "11:00",
       "venueType": "원정"
     },
-    "openAt": "2026-08-08T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.15",
-    "time": "토 18:00",
-    "location": "대구",
-    "home": "삼성",
-    "away": "한화",
-    "score": "경기전",
-    "detail": "삼성 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
-      "note": "삼성 홈 예매",
-      "openLabel": "삼성 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-08T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.15",
-    "time": "토 18:00",
-    "location": "광주",
-    "home": "KIA",
-    "away": "두산",
-    "score": "경기전",
-    "detail": "KIA 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports/137/58",
-      "note": "KIA 홈 예매",
-      "openLabel": "KIA 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-08T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.15",
-    "time": "토 18:00",
-    "location": "잠실",
-    "home": "LG",
-    "away": "SSG",
-    "score": "경기전",
-    "detail": "LG 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports/137/59",
-      "note": "LG 홈 예매",
-      "openLabel": "LG 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-08T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.15",
-    "time": "토 18:00",
-    "location": "수원",
-    "home": "KT",
-    "away": "키움",
-    "score": "경기전",
-    "detail": "KT 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
-      "note": "KT 홈 예매",
-      "openLabel": "KT 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-08T11:00:00+09:00"
+    "openAt": "2026-08-09T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -2980,12 +2980,12 @@
     "detail": "삼성 홈 경기",
     "ticketing": {
       "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
       "note": "삼성 홈 예매",
       "openLabel": "삼성 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
       "venueType": "원정"
     },
     "openAt": "2026-08-09T11:00:00+09:00"
@@ -3049,11 +3049,11 @@
       "note": "KT 홈 예매",
       "openLabel": "KT 홈 예매 일정 기준",
       "openDaysBefore": 7,
-      "openTime": "11:00",
+      "openTime": "16:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
     },
-    "openAt": "2026-08-09T11:00:00+09:00"
+    "openAt": "2026-08-09T16:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3073,27 +3073,6 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    },
-    "openAt": "2026-08-11T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.18",
-    "time": "화 18:30",
-    "location": "창원",
-    "home": "NC",
-    "away": "두산",
-    "score": "경기전",
-    "detail": "NC 홈 경기",
-    "ticketing": {
-      "provider": "NC 다이노스",
-      "url": "https://www.ncdinos.com/",
-      "note": "NC 홈 예매",
-      "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
     },
     "openAt": "2026-08-11T11:00:00+09:00"
   },
@@ -3131,12 +3110,12 @@
     "detail": "삼성 홈 경기",
     "ticketing": {
       "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
       "note": "삼성 홈 예매",
       "openLabel": "삼성 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
       "venueType": "원정"
     },
     "openAt": "2026-08-11T11:00:00+09:00"
@@ -3144,6 +3123,27 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
+    "date": "08.18",
+    "time": "화 18:30",
+    "location": "창원",
+    "home": "NC",
+    "away": "두산",
+    "score": "경기전",
+    "detail": "NC 홈 경기",
+    "ticketing": {
+      "provider": "NC 다이노스",
+      "url": "https://www.ncdinos.com/",
+      "note": "NC 홈 예매",
+      "openLabel": "NC 홈 예매 일정 기준",
+      "openDaysBefore": 6,
+      "openTime": "11:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-12T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
     "date": "08.19",
     "time": "수 18:30",
     "location": "대전",
@@ -3159,27 +3159,6 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    },
-    "openAt": "2026-08-12T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.19",
-    "time": "수 18:30",
-    "location": "창원",
-    "home": "NC",
-    "away": "두산",
-    "score": "경기전",
-    "detail": "NC 홈 경기",
-    "ticketing": {
-      "provider": "NC 다이노스",
-      "url": "https://www.ncdinos.com/",
-      "note": "NC 홈 예매",
-      "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
     },
     "openAt": "2026-08-12T11:00:00+09:00"
   },
@@ -3217,15 +3196,36 @@
     "detail": "삼성 홈 경기",
     "ticketing": {
       "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
       "note": "삼성 홈 예매",
       "openLabel": "삼성 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
       "venueType": "원정"
     },
     "openAt": "2026-08-12T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.19",
+    "time": "수 18:30",
+    "location": "창원",
+    "home": "NC",
+    "away": "두산",
+    "score": "경기전",
+    "detail": "NC 홈 경기",
+    "ticketing": {
+      "provider": "NC 다이노스",
+      "url": "https://www.ncdinos.com/",
+      "note": "NC 홈 예매",
+      "openLabel": "NC 홈 예매 일정 기준",
+      "openDaysBefore": 6,
+      "openTime": "11:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-13T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3245,27 +3245,6 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    },
-    "openAt": "2026-08-13T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.20",
-    "time": "목 18:30",
-    "location": "창원",
-    "home": "NC",
-    "away": "두산",
-    "score": "경기전",
-    "detail": "NC 홈 경기",
-    "ticketing": {
-      "provider": "NC 다이노스",
-      "url": "https://www.ncdinos.com/",
-      "note": "NC 홈 예매",
-      "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
     },
     "openAt": "2026-08-13T11:00:00+09:00"
   },
@@ -3303,15 +3282,36 @@
     "detail": "삼성 홈 경기",
     "ticketing": {
       "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
       "note": "삼성 홈 예매",
       "openLabel": "삼성 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
       "venueType": "원정"
     },
     "openAt": "2026-08-13T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.20",
+    "time": "목 18:30",
+    "location": "창원",
+    "home": "NC",
+    "away": "두산",
+    "score": "경기전",
+    "detail": "NC 홈 경기",
+    "ticketing": {
+      "provider": "NC 다이노스",
+      "url": "https://www.ncdinos.com/",
+      "note": "NC 홈 예매",
+      "openLabel": "NC 홈 예매 일정 기준",
+      "openDaysBefore": 6,
+      "openTime": "11:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-14T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3345,34 +3345,13 @@
     "score": "경기전",
     "detail": "두산 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/bears",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "earlyOpenLabel": "베어스클럽 10:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-14T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.21",
-    "time": "금 18:30",
-    "location": "창원",
-    "home": "NC",
-    "away": "삼성",
-    "score": "경기전",
-    "detail": "NC 홈 경기",
-    "ticketing": {
-      "provider": "NC 다이노스",
-      "url": "https://www.ncdinos.com/",
-      "note": "NC 홈 예매",
-      "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
+      "earlyOpenLabel": "베어스클럽 선예매 · 일반 1시간 전",
       "venueType": "원정"
     },
     "openAt": "2026-08-14T11:00:00+09:00"
@@ -3388,8 +3367,8 @@
     "score": "경기전",
     "detail": "키움 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/heroes",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -3423,6 +3402,27 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
+    "date": "08.21",
+    "time": "금 18:30",
+    "location": "창원",
+    "home": "NC",
+    "away": "삼성",
+    "score": "경기전",
+    "detail": "NC 홈 경기",
+    "ticketing": {
+      "provider": "NC 다이노스",
+      "url": "https://www.ncdinos.com/",
+      "note": "NC 홈 예매",
+      "openLabel": "NC 홈 예매 일정 기준",
+      "openDaysBefore": 6,
+      "openTime": "11:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-15T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
     "date": "08.22",
     "time": "토 18:00",
     "location": "대전",
@@ -3452,34 +3452,13 @@
     "score": "경기전",
     "detail": "두산 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/bears",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "earlyOpenLabel": "베어스클럽 10:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-15T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.22",
-    "time": "토 18:00",
-    "location": "창원",
-    "home": "NC",
-    "away": "삼성",
-    "score": "경기전",
-    "detail": "NC 홈 경기",
-    "ticketing": {
-      "provider": "NC 다이노스",
-      "url": "https://www.ncdinos.com/",
-      "note": "NC 홈 예매",
-      "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
+      "earlyOpenLabel": "베어스클럽 선예매 · 일반 1시간 전",
       "venueType": "원정"
     },
     "openAt": "2026-08-15T11:00:00+09:00"
@@ -3495,8 +3474,8 @@
     "score": "경기전",
     "detail": "키움 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/heroes",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -3530,19 +3509,19 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "08.21",
-    "time": "금 18:30",
-    "location": "문학",
-    "home": "SSG",
-    "away": "KT",
+    "date": "08.22",
+    "time": "토 18:00",
+    "location": "창원",
+    "home": "NC",
+    "away": "삼성",
     "score": "경기전",
-    "detail": "SSG 홈 경기",
+    "detail": "NC 홈 경기",
     "ticketing": {
-      "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
-      "note": "SSG 홈 예매",
-      "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
+      "provider": "NC 다이노스",
+      "url": "https://www.ncdinos.com/",
+      "note": "NC 홈 예매",
+      "openLabel": "NC 홈 예매 일정 기준",
+      "openDaysBefore": 6,
       "openTime": "11:00",
       "venueType": "원정"
     },
@@ -3580,34 +3559,13 @@
     "score": "경기전",
     "detail": "두산 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/bears",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "earlyOpenLabel": "베어스클럽 10:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-16T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.23",
-    "time": "일 18:00",
-    "location": "창원",
-    "home": "NC",
-    "away": "삼성",
-    "score": "경기전",
-    "detail": "NC 홈 경기",
-    "ticketing": {
-      "provider": "NC 다이노스",
-      "url": "https://www.ncdinos.com/",
-      "note": "NC 홈 예매",
-      "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
+      "earlyOpenLabel": "베어스클럽 선예매 · 일반 1시간 전",
       "venueType": "원정"
     },
     "openAt": "2026-08-16T11:00:00+09:00"
@@ -3623,8 +3581,8 @@
     "score": "경기전",
     "detail": "키움 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/heroes",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -3658,6 +3616,48 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
+    "date": "08.21",
+    "time": "금 18:30",
+    "location": "문학",
+    "home": "SSG",
+    "away": "KT",
+    "score": "경기전",
+    "detail": "SSG 홈 경기",
+    "ticketing": {
+      "provider": "SSG 티켓",
+      "url": "https://ticket.ssg.com/",
+      "note": "SSG 홈 예매",
+      "openLabel": "SSG 홈 예매 일정 기준",
+      "openDaysBefore": 4,
+      "openTime": "11:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-17T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.23",
+    "time": "일 18:00",
+    "location": "창원",
+    "home": "NC",
+    "away": "삼성",
+    "score": "경기전",
+    "detail": "NC 홈 경기",
+    "ticketing": {
+      "provider": "NC 다이노스",
+      "url": "https://www.ncdinos.com/",
+      "note": "NC 홈 예매",
+      "openLabel": "NC 홈 예매 일정 기준",
+      "openDaysBefore": 6,
+      "openTime": "11:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-17T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
     "date": "08.22",
     "time": "토 18:00",
     "location": "문학",
@@ -3667,14 +3667,100 @@
     "detail": "SSG 홈 경기",
     "ticketing": {
       "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
+      "url": "https://ticket.ssg.com/",
       "note": "SSG 홈 예매",
       "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
+      "openDaysBefore": 4,
       "openTime": "11:00",
       "venueType": "원정"
     },
-    "openAt": "2026-08-17T11:00:00+09:00"
+    "openAt": "2026-08-18T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.25",
+    "time": "화 18:30",
+    "location": "잠실",
+    "home": "LG",
+    "away": "NC",
+    "score": "경기전",
+    "detail": "LG 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports/137/59",
+      "note": "LG 홈 예매",
+      "openLabel": "LG 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "openCaution": "구단 공지 기준 확인",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-18T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.25",
+    "time": "화 18:30",
+    "location": "광주",
+    "home": "KIA",
+    "away": "롯데",
+    "score": "경기전",
+    "detail": "KIA 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports/137/58",
+      "note": "KIA 홈 예매",
+      "openLabel": "KIA 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-18T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.25",
+    "time": "화 18:30",
+    "location": "고척",
+    "home": "키움",
+    "away": "삼성",
+    "score": "경기전",
+    "detail": "키움 홈 경기",
+    "ticketing": {
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/heroes",
+      "note": "키움 홈 예매",
+      "openLabel": "키움 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "14:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-18T14:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.25",
+    "time": "화 18:30",
+    "location": "수원",
+    "home": "KT",
+    "away": "두산",
+    "score": "경기전",
+    "detail": "KT 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports",
+      "note": "KT 홈 예매",
+      "openLabel": "KT 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "16:00",
+      "openCaution": "구단 공지 기준 확인",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-18T16:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3688,119 +3774,11 @@
     "detail": "SSG 홈 경기",
     "ticketing": {
       "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
+      "url": "https://ticket.ssg.com/",
       "note": "SSG 홈 예매",
       "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
+      "openDaysBefore": 4,
       "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-18T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.25",
-    "time": "화 18:30",
-    "location": "수원",
-    "home": "KT",
-    "away": "두산",
-    "score": "경기전",
-    "detail": "KT 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
-      "note": "KT 홈 예매",
-      "openLabel": "KT 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-18T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.25",
-    "time": "화 18:30",
-    "location": "잠실",
-    "home": "LG",
-    "away": "NC",
-    "score": "경기전",
-    "detail": "LG 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports/137/59",
-      "note": "LG 홈 예매",
-      "openLabel": "LG 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-18T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.25",
-    "time": "화 18:30",
-    "location": "광주",
-    "home": "KIA",
-    "away": "롯데",
-    "score": "경기전",
-    "detail": "KIA 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports/137/58",
-      "note": "KIA 홈 예매",
-      "openLabel": "KIA 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-18T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.25",
-    "time": "화 18:30",
-    "location": "고척",
-    "home": "키움",
-    "away": "삼성",
-    "score": "경기전",
-    "detail": "키움 홈 경기",
-    "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
-      "note": "키움 홈 예매",
-      "openLabel": "키움 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "14:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-18T14:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.26",
-    "time": "수 18:30",
-    "location": "수원",
-    "home": "KT",
-    "away": "두산",
-    "score": "경기전",
-    "detail": "KT 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
-      "note": "KT 홈 예매",
-      "openLabel": "KT 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
     },
     "openAt": "2026-08-19T11:00:00+09:00"
@@ -3859,8 +3837,8 @@
     "score": "경기전",
     "detail": "키움 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/heroes",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -3872,29 +3850,8 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "08.25",
-    "time": "화 18:30",
-    "location": "문학",
-    "home": "SSG",
-    "away": "한화",
-    "score": "경기전",
-    "detail": "SSG 홈 경기",
-    "ticketing": {
-      "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
-      "note": "SSG 홈 예매",
-      "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-20T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.27",
-    "time": "목 18:30",
+    "date": "08.26",
+    "time": "수 18:30",
     "location": "수원",
     "home": "KT",
     "away": "두산",
@@ -3906,11 +3863,11 @@
       "note": "KT 홈 예매",
       "openLabel": "KT 홈 예매 일정 기준",
       "openDaysBefore": 7,
-      "openTime": "11:00",
+      "openTime": "16:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
     },
-    "openAt": "2026-08-20T11:00:00+09:00"
+    "openAt": "2026-08-19T16:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3966,8 +3923,8 @@
     "score": "경기전",
     "detail": "키움 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/heroes",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -3975,6 +3932,135 @@
       "venueType": "원정"
     },
     "openAt": "2026-08-20T14:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.27",
+    "time": "목 18:30",
+    "location": "수원",
+    "home": "KT",
+    "away": "두산",
+    "score": "경기전",
+    "detail": "KT 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports",
+      "note": "KT 홈 예매",
+      "openLabel": "KT 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "16:00",
+      "openCaution": "구단 공지 기준 확인",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-20T16:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.25",
+    "time": "화 18:30",
+    "location": "문학",
+    "home": "SSG",
+    "away": "한화",
+    "score": "경기전",
+    "detail": "SSG 홈 경기",
+    "ticketing": {
+      "provider": "SSG 티켓",
+      "url": "https://ticket.ssg.com/",
+      "note": "SSG 홈 예매",
+      "openLabel": "SSG 홈 예매 일정 기준",
+      "openDaysBefore": 4,
+      "openTime": "11:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-21T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.28",
+    "time": "금 18:30",
+    "location": "대전",
+    "home": "한화",
+    "away": "NC",
+    "score": "경기전",
+    "detail": "한화 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports/137/63",
+      "note": "한화 홈 예매",
+      "openLabel": "홈경기 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "venueType": "홈"
+    },
+    "openAt": "2026-08-21T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.28",
+    "time": "금 18:30",
+    "location": "잠실",
+    "home": "두산",
+    "away": "키움",
+    "score": "경기전",
+    "detail": "두산 홈 경기",
+    "ticketing": {
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/bears",
+      "note": "두산 홈 예매",
+      "openLabel": "두산 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "earlyOpenLabel": "베어스클럽 선예매 · 일반 1시간 전",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-21T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.28",
+    "time": "금 18:30",
+    "location": "광주",
+    "home": "KIA",
+    "away": "SSG",
+    "score": "경기전",
+    "detail": "KIA 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports/137/58",
+      "note": "KIA 홈 예매",
+      "openLabel": "KIA 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-21T11:00:00+09:00"
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.28",
+    "time": "금 18:30",
+    "location": "대구",
+    "home": "삼성",
+    "away": "KT",
+    "score": "경기전",
+    "detail": "삼성 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
+      "note": "삼성 홈 예매",
+      "openLabel": "삼성 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
+      "venueType": "원정"
+    },
+    "openAt": "2026-08-21T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -3988,20 +4074,20 @@
     "detail": "SSG 홈 경기",
     "ticketing": {
       "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
+      "url": "https://ticket.ssg.com/",
       "note": "SSG 홈 예매",
       "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
+      "openDaysBefore": 4,
       "openTime": "11:00",
       "venueType": "원정"
     },
-    "openAt": "2026-08-21T11:00:00+09:00"
+    "openAt": "2026-08-22T11:00:00+09:00"
   },
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "08.28",
-    "time": "금 18:30",
+    "date": "08.29",
+    "time": "토 18:00",
     "location": "대전",
     "home": "한화",
     "away": "NC",
@@ -4016,35 +4102,35 @@
       "openTime": "11:00",
       "venueType": "홈"
     },
-    "openAt": "2026-08-21T11:00:00+09:00"
+    "openAt": "2026-08-22T11:00:00+09:00"
   },
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "08.28",
-    "time": "금 18:30",
+    "date": "08.29",
+    "time": "토 18:00",
     "location": "잠실",
     "home": "두산",
     "away": "키움",
     "score": "경기전",
     "detail": "두산 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/bears",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "earlyOpenLabel": "베어스클럽 10:00",
+      "earlyOpenLabel": "베어스클럽 선예매 · 일반 1시간 전",
       "venueType": "원정"
     },
-    "openAt": "2026-08-21T11:00:00+09:00"
+    "openAt": "2026-08-22T11:00:00+09:00"
   },
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "08.28",
-    "time": "금 18:30",
+    "date": "08.29",
+    "time": "토 18:00",
     "location": "광주",
     "home": "KIA",
     "away": "SSG",
@@ -4059,13 +4145,13 @@
       "openTime": "11:00",
       "venueType": "원정"
     },
-    "openAt": "2026-08-21T11:00:00+09:00"
+    "openAt": "2026-08-22T11:00:00+09:00"
   },
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "08.28",
-    "time": "금 18:30",
+    "date": "08.29",
+    "time": "토 18:00",
     "location": "대구",
     "home": "삼성",
     "away": "KT",
@@ -4073,15 +4159,15 @@
     "detail": "삼성 홈 경기",
     "ticketing": {
       "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
       "note": "삼성 홈 예매",
       "openLabel": "삼성 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
       "venueType": "원정"
     },
-    "openAt": "2026-08-21T11:00:00+09:00"
+    "openAt": "2026-08-22T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4095,100 +4181,14 @@
     "detail": "SSG 홈 경기",
     "ticketing": {
       "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
+      "url": "https://ticket.ssg.com/",
       "note": "SSG 홈 예매",
       "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
+      "openDaysBefore": 4,
       "openTime": "11:00",
       "venueType": "원정"
     },
-    "openAt": "2026-08-22T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.29",
-    "time": "토 18:00",
-    "location": "대전",
-    "home": "한화",
-    "away": "NC",
-    "score": "경기전",
-    "detail": "한화 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports/137/63",
-      "note": "한화 홈 예매",
-      "openLabel": "홈경기 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "홈"
-    },
-    "openAt": "2026-08-22T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.29",
-    "time": "토 18:00",
-    "location": "잠실",
-    "home": "두산",
-    "away": "키움",
-    "score": "경기전",
-    "detail": "두산 홈 경기",
-    "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
-      "note": "두산 홈 예매",
-      "openLabel": "두산 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "earlyOpenLabel": "베어스클럽 10:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-22T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.29",
-    "time": "토 18:00",
-    "location": "광주",
-    "home": "KIA",
-    "away": "SSG",
-    "score": "경기전",
-    "detail": "KIA 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports/137/58",
-      "note": "KIA 홈 예매",
-      "openLabel": "KIA 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-22T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.29",
-    "time": "토 18:00",
-    "location": "대구",
-    "home": "삼성",
-    "away": "KT",
-    "score": "경기전",
-    "detail": "삼성 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
-      "note": "삼성 홈 예매",
-      "openLabel": "삼성 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
-    },
-    "openAt": "2026-08-22T11:00:00+09:00"
+    "openAt": "2026-08-23T11:00:00+09:00"
   },
   {
     "type": "upcoming",
@@ -4222,13 +4222,13 @@
     "score": "경기전",
     "detail": "두산 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/bears",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "earlyOpenLabel": "베어스클럽 10:00",
+      "earlyOpenLabel": "베어스클럽 선예매 · 일반 1시간 전",
       "venueType": "원정"
     },
     "openAt": "2026-08-23T11:00:00+09:00"
@@ -4266,12 +4266,12 @@
     "detail": "삼성 홈 경기",
     "ticketing": {
       "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
       "note": "삼성 홈 예매",
       "openLabel": "삼성 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
       "venueType": "원정"
     },
     "openAt": "2026-08-23T11:00:00+09:00"

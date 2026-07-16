@@ -27,7 +27,7 @@ test("app shell and data loader include ticketing calendar", async () => {
   assert.match(script, /ticketCalendar:\s*\[\]/);
   assert.match(script, /ticketCalendar:\s*"\.\/data\/ticketing-calendar\.json"/);
   assert.match(script, /fetchJson\(dataFiles\.ticketCalendar\)/);
-  assert.match(serviceWorker, /eagles-lounge-v34/);
+  assert.match(serviceWorker, /eagles-lounge-v36/);
   assert.match(serviceWorker, /\.\/data\/ticketing-calendar\.json\?v=19/);
 });
 
@@ -138,17 +138,28 @@ test("buildOpenIcs produces a compliant VEVENT with a -PT10M alarm and no extern
   assert.match(script, /data-add-ics="\$\{gameId\(game\)\}"/);
 });
 
-test("NOL ticket providers use the current Interpark sports landing URL", async () => {
-  const [script, ticketCalendar] = await Promise.all([
+test("booking provider URLs have one source in the data pipeline", async () => {
+  const [script, updateData, providerConfig, ticketCalendar] = await Promise.all([
     readFile(new URL("../script.js", import.meta.url), "utf8"),
+    readFile(new URL("../scripts/update-data.mjs", import.meta.url), "utf8"),
+    readFile(new URL("../scripts/ticket-provider-config.mjs", import.meta.url), "utf8"),
     readFile(new URL("../data/ticketing-calendar.json", import.meta.url), "utf8"),
   ]);
 
   assert.doesNotMatch(script, /https:\/\/tickets\.interpark\.com\/contents\/sports/);
   assert.doesNotMatch(ticketCalendar, /https:\/\/tickets\.interpark\.com\/contents\/sports/);
+  assert.doesNotMatch(script, /const ticketProviders\s*=/);
+  assert.match(updateData, /import \{ TICKET_PROVIDERS \} from "\.\/ticket-provider-config\.mjs"/);
+  assert.doesNotMatch(updateData, /url: "https:\/\/ticket\.interpark\.com\/Contents\/Sports"/);
+  // 2026-07-24 NOL(야놀자) 통합 — 구 인터파크 예매 URL은 설정에서 완전 소멸(두산·키움 모두 이관).
   assert.equal(
-    [...script.matchAll(/url: "https:\/\/ticket\.interpark\.com\/Contents\/Sports"/g)].length,
-    2,
+    [...providerConfig.matchAll(/url: "https:\/\/ticket\.interpark\.com\/Contents\/Sports"/g)].length,
+    0,
   );
-  assert.match(ticketCalendar, /"url": "https:\/\/ticket\.interpark\.com\/Contents\/Sports"/);
+  assert.match(providerConfig, /url: "https:\/\/nol\.yanolja\.com\/ticket\/genre\/sports\/bears"/);
+  assert.match(providerConfig, /url: "https:\/\/nol\.yanolja\.com\/ticket\/genre\/sports\/heroes"/);
+  assert.doesNotMatch(script, /https:\/\/(?:www\.)?ticketlink\.co\.kr\/sports/);
+  assert.match(script, /const cancelWaitingByTeam\s*=/);
+  assert.match(ticketCalendar, /"url": "https:\/\/nol\.yanolja\.com\/ticket\/genre\/sports\/(bears|heroes)"/);
+  assert.doesNotMatch(ticketCalendar, /"url": "https:\/\/ticket\.interpark\.com\/Contents\/Sports"/);
 });

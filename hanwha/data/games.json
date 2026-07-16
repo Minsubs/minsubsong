@@ -50,13 +50,13 @@
     "score": "0:7",
     "detail": "잠실 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/bears",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "earlyOpenLabel": "베어스클럽 10:00",
+      "earlyOpenLabel": "베어스클럽 선예매 · 일반 1시간 전",
       "venueType": "원정"
     }
   },
@@ -75,7 +75,7 @@
       "url": "https://www.ncdinos.com/",
       "note": "NC 홈 예매",
       "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
+      "openDaysBefore": 6,
       "openTime": "11:00",
       "venueType": "원정"
     }
@@ -92,12 +92,12 @@
     "detail": "대구 경기",
     "ticketing": {
       "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
       "note": "삼성 홈 예매",
       "openLabel": "삼성 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
       "venueType": "원정"
     }
   },
@@ -134,10 +134,10 @@
     "detail": "문학 경기",
     "ticketing": {
       "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
+      "url": "https://ticket.ssg.com/",
       "note": "SSG 홈 예매",
       "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
+      "openDaysBefore": 4,
       "openTime": "11:00",
       "venueType": "원정"
     }
@@ -175,12 +175,12 @@
     "detail": "대구 경기",
     "ticketing": {
       "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
       "note": "삼성 홈 예매",
       "openLabel": "삼성 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
       "venueType": "원정"
     }
   },
@@ -439,7 +439,7 @@
       "url": "https://www.ncdinos.com/",
       "note": "NC 홈 예매",
       "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
+      "openDaysBefore": 6,
       "openTime": "11:00",
       "venueType": "원정"
     }
@@ -459,7 +459,7 @@
       "url": "https://www.ncdinos.com/",
       "note": "NC 홈 예매",
       "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
+      "openDaysBefore": 6,
       "openTime": "11:00",
       "venueType": "원정"
     }
@@ -479,7 +479,7 @@
       "url": "https://www.ncdinos.com/",
       "note": "NC 홈 예매",
       "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
+      "openDaysBefore": 6,
       "openTime": "11:00",
       "venueType": "원정"
     }
@@ -500,7 +500,7 @@
       "note": "KT 홈 예매",
       "openLabel": "KT 홈 예매 일정 기준",
       "openDaysBefore": 7,
-      "openTime": "11:00",
+      "openTime": "16:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
     }
@@ -521,7 +521,7 @@
       "note": "KT 홈 예매",
       "openLabel": "KT 홈 예매 일정 기준",
       "openDaysBefore": 7,
-      "openTime": "11:00",
+      "openTime": "16:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
     }
@@ -542,7 +542,7 @@
       "note": "KT 홈 예매",
       "openLabel": "KT 홈 예매 일정 기준",
       "openDaysBefore": 7,
-      "openTime": "11:00",
+      "openTime": "16:00",
       "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
     }
@@ -558,13 +558,13 @@
     "score": "경기전",
     "detail": "두산 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/bears",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "earlyOpenLabel": "베어스클럽 10:00",
+      "earlyOpenLabel": "베어스클럽 선예매 · 일반 1시간 전",
       "venueType": "원정"
     }
   },
@@ -579,13 +579,13 @@
     "score": "경기전",
     "detail": "두산 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/bears",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "earlyOpenLabel": "베어스클럽 10:00",
+      "earlyOpenLabel": "베어스클럽 선예매 · 일반 1시간 전",
       "venueType": "원정"
     }
   },
@@ -600,13 +600,13 @@
     "score": "경기전",
     "detail": "두산 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/bears",
       "note": "두산 홈 예매",
       "openLabel": "두산 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "earlyOpenLabel": "베어스클럽 10:00",
+      "earlyOpenLabel": "베어스클럽 선예매 · 일반 1시간 전",
       "venueType": "원정"
     }
   },
@@ -622,10 +622,10 @@
     "detail": "SSG 홈 경기",
     "ticketing": {
       "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
+      "url": "https://ticket.ssg.com/",
       "note": "SSG 홈 예매",
       "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
+      "openDaysBefore": 4,
       "openTime": "11:00",
       "venueType": "원정"
     }
@@ -642,10 +642,10 @@
     "detail": "SSG 홈 경기",
     "ticketing": {
       "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
+      "url": "https://ticket.ssg.com/",
       "note": "SSG 홈 예매",
       "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
+      "openDaysBefore": 4,
       "openTime": "11:00",
       "venueType": "원정"
     }
@@ -662,10 +662,10 @@
     "detail": "SSG 홈 경기",
     "ticketing": {
       "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
+      "url": "https://ticket.ssg.com/",
       "note": "SSG 홈 예매",
       "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
+      "openDaysBefore": 4,
       "openTime": "11:00",
       "venueType": "원정"
     }
@@ -871,10 +871,10 @@
     "detail": "SSG 홈 경기",
     "ticketing": {
       "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
+      "url": "https://ticket.ssg.com/",
       "note": "SSG 홈 예매",
       "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
+      "openDaysBefore": 4,
       "openTime": "11:00",
       "venueType": "원정"
     }
@@ -891,10 +891,10 @@
     "detail": "SSG 홈 경기",
     "ticketing": {
       "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
+      "url": "https://ticket.ssg.com/",
       "note": "SSG 홈 예매",
       "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
+      "openDaysBefore": 4,
       "openTime": "11:00",
       "venueType": "원정"
     }
@@ -911,10 +911,10 @@
     "detail": "SSG 홈 경기",
     "ticketing": {
       "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
+      "url": "https://ticket.ssg.com/",
       "note": "SSG 홈 예매",
       "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
+      "openDaysBefore": 4,
       "openTime": "11:00",
       "venueType": "원정"
     }
@@ -994,10 +994,10 @@
     "detail": "SSG 홈 경기",
     "ticketing": {
       "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
+      "url": "https://ticket.ssg.com/",
       "note": "SSG 홈 예매",
       "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
+      "openDaysBefore": 4,
       "openTime": "11:00",
       "venueType": "원정"
     }
@@ -1014,10 +1014,10 @@
     "detail": "SSG 홈 경기",
     "ticketing": {
       "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
+      "url": "https://ticket.ssg.com/",
       "note": "SSG 홈 예매",
       "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
+      "openDaysBefore": 4,
       "openTime": "11:00",
       "venueType": "원정"
     }
@@ -1034,10 +1034,10 @@
     "detail": "SSG 홈 경기",
     "ticketing": {
       "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/ticket",
+      "url": "https://ticket.ssg.com/",
       "note": "SSG 홈 예매",
       "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 5,
+      "openDaysBefore": 4,
       "openTime": "11:00",
       "venueType": "원정"
     }
@@ -1053,8 +1053,8 @@
     "score": "경기전",
     "detail": "키움 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/heroes",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1073,8 +1073,8 @@
     "score": "경기전",
     "detail": "키움 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/heroes",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1093,8 +1093,8 @@
     "score": "경기전",
     "detail": "키움 홈 경기",
     "ticketing": {
-      "provider": "NOL 티켓",
-      "url": "https://ticket.interpark.com/Contents/Sports",
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/heroes",
       "note": "키움 홈 예매",
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
@@ -1174,12 +1174,12 @@
     "detail": "삼성 홈 경기",
     "ticketing": {
       "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
       "note": "삼성 홈 예매",
       "openLabel": "삼성 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
       "venueType": "원정"
     }
   },
@@ -1195,12 +1195,12 @@
     "detail": "삼성 홈 경기",
     "ticketing": {
       "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
       "note": "삼성 홈 예매",
       "openLabel": "삼성 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
       "venueType": "원정"
     }
   },
@@ -1216,12 +1216,12 @@
     "detail": "삼성 홈 경기",
     "ticketing": {
       "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
       "note": "삼성 홈 예매",
       "openLabel": "삼성 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
       "venueType": "원정"
     }
   },
@@ -1237,12 +1237,12 @@
     "detail": "삼성 홈 경기",
     "ticketing": {
       "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
       "note": "삼성 홈 예매",
       "openLabel": "삼성 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
       "venueType": "원정"
     }
   },
@@ -1258,12 +1258,12 @@
     "detail": "삼성 홈 경기",
     "ticketing": {
       "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
       "note": "삼성 홈 예매",
       "openLabel": "삼성 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
       "venueType": "원정"
     }
   },
@@ -1279,12 +1279,12 @@
     "detail": "삼성 홈 경기",
     "ticketing": {
       "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
+      "url": "https://www.ticketlink.co.kr/sports/137/57",
       "note": "삼성 홈 예매",
       "openLabel": "삼성 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
+      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
       "venueType": "원정"
     }
   },
@@ -1366,7 +1366,7 @@
       "url": "https://www.ncdinos.com/",
       "note": "NC 홈 예매",
       "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
+      "openDaysBefore": 6,
       "openTime": "11:00",
       "venueType": "원정"
     }
@@ -1386,7 +1386,7 @@
       "url": "https://www.ncdinos.com/",
       "note": "NC 홈 예매",
       "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
+      "openDaysBefore": 6,
       "openTime": "11:00",
       "venueType": "원정"
     }
@@ -1406,7 +1406,7 @@
       "url": "https://www.ncdinos.com/",
       "note": "NC 홈 예매",
       "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 7,
+      "openDaysBefore": 6,
       "openTime": "11:00",
       "venueType": "원정"
     }

@@ -1,6 +1,6 @@
 # 데이터 연동 전략
 
-검토 기준: 2026-06-06 KST
+검토 기준: 2026-07-14 KST
 
 ## 목적
 
@@ -17,13 +17,14 @@ KBO 티켓팅 도우미는 10구단 경기 일정, 홈팀 기준 예매처, 예�
 
 ## 현재 파이프라인
 
-1. `scripts/update-data.mjs`가 KBO 데이터와 일정 API를 호출한다.
-2. 한화 중심 경기 데이터는 `data/games.json`, `data/live-game.json`에 쓴다.
-3. 10구단 캘린더는 `KBO_TEAM_IDS` 전체를 월별로 호출한다.
-4. 중복 경기는 `date|time|away|home` 기준으로 병합한다.
-5. `buildTicketCalendar()`가 예정 경기만 남기고 홈팀 기준 `ticketing` metadata를 붙인다.
-6. public JSON에서는 내부 원본 필드(`rawTime`, `rawScore`)를 제거한다.
-7. 수집 원본은 `data/cache/raw/`에 저장하며 버전 관리에서는 제외한다.
+1. `scripts/ticket-provider-config.mjs`가 10구단 예매처·오픈 규칙·공식 근거 메타의 단일 원본이다.
+2. `scripts/update-data.mjs`가 KBO 데이터와 일정 API를 호출하고 예매 설정을 결합한다.
+3. 한화 중심 경기 데이터는 `data/games.json`, `data/live-game.json`에 쓴다.
+4. 10구단 캘린더는 `KBO_TEAM_IDS` 전체를 월별로 호출한다.
+5. 중복 경기는 `date|time|away|home` 기준으로 병합한다.
+6. `buildTicketCalendar()`가 예정 경기만 남기고 홈팀 기준 `ticketing` metadata를 붙인다.
+7. public JSON에서는 내부 원본 필드(`rawTime`, `rawScore`)와 감사 메타(`verification`)를 제거한다.
+8. 수집 원본은 `data/cache/raw/`에 저장하며 버전 관리에서는 제외한다.
 
 ## 생성 파일
 
@@ -38,12 +39,15 @@ KBO 티켓팅 도우미는 10구단 경기 일정, 홈팀 기준 예매처, 예�
 
 ```bash
 npm run update:data
+npm run rebuild:ticketing
 ```
 
 ## 검증
 
 ```bash
 npm run check
+npm run audit:ticketing
+npm run audit:ticketing:network
 ```
 
 중요 회귀 조건:
@@ -53,19 +57,21 @@ npm run check
 - `ticketing-calendar.json`은 예정 경기만 포함한다.
 - `ticketing-calendar.json`은 `rawTime`, `rawScore`를 노출하지 않는다.
 - 예매 캘린더는 오픈 시각순으로 정렬된다.
-- 서비스워커가 `data/ticketing-calendar.json?v=18`을 캐시 목록에 포함한다.
+- 서비스워커가 `data/ticketing-calendar.json?v=19`를 캐시 목록에 포함한다.
+- 기본 검사는 정확히 10구단인지, URL/시각 형식과 근거 메타가 유효한지 확인한다.
+- 엄격 감사는 공식 근거가 없거나 최종 확인 후 92일이 지난 규칙을 실패 처리한다.
+- 네트워크 감사는 공식 URL을 GET으로 확인하되 401/403/429 봇 차단은 소멸과 구분해 경고 처리한다.
 
 ## 운영 리스크
 
 - KBO 일정 endpoint는 공식 문서화된 public API가 아니다.
 - 호출 수는 현재 월 2개 x 팀 10개로 늘어났으므로, 실패 시 graceful skip과 기존 스냅샷 보존이 중요하다.
-- 예매 오픈 규칙은 홈팀 정책 변경 가능성이 있으므로 `openCaution` 문구와 수동 점검 루틴이 필요하다.
+- 예매 오픈 규칙은 홈팀 정책 변경 가능성이 있으므로 분기 CI와 수동 1차 출처 판정이 필요하다. CI는 내용을 추론하거나 설정을 자동 수정하지 않는다.
 - 취소표 관심 경기 알림은 무단 스크래핑이나 안티봇 우회 없이 구현 가능할 때만 지원한다.
 - 예매처별 상태 조회 빈도 제한, 실패 시 backoff, 중복 알림 방지 정책이 필요하다.
 
 ## 다음 개선 후보
 
-1. 예매처/오픈 규칙의 최신성 점검 체크리스트 추가
-2. 취소표 관심 경기 알림의 예매처별 허용 범위와 데이터 접근 방식 조사
-3. 수집 실패 섹션별 기존 JSON 보존 테스트 강화
-4. 수요 검증 신호를 서버로 보낼지 여부 결정 전 개인정보 영향 검토
+1. 한화·NC·두산·롯데·삼성의 2026 공식 오픈 규칙 1차 근거 확보
+2. 수집 실패 섹션별 기존 JSON 보존 테스트 강화
+3. 수요 검증 신호를 서버로 보낼지 여부 결정 전 개인정보 영향 검토

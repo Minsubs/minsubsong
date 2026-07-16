@@ -38,3 +38,4 @@ test_results/
 
 # Persistent context (로그인 쿠키/세션 — 절대 커밋 금지)
 profile/
+node_modules/

@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0c0d11" />
+    <script>
+      // 저장된/시스템 테마를 첫 페인트 전에 적용해 FOUC 와 라이트 리셋을 막는다(index.html 미러).
+      (function () {
+        try {
+          var t = localStorage.getItem("eaglesTheme");
+          if (!t) {
+            t = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          }
+          if (t === "dark") {
+            document.documentElement.classList.add("dark");
+          }
+          var meta = document.querySelector('meta[name="theme-color"]');
+          if (meta) {
+            meta.setAttribute("content", t === "dark" ? "#0c0d11" : "#f2ece0");
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <title>KBO TIDO | 개인정보처리방침</title>
+    <meta name="description" content="KBO TIDO 개인정보처리방침 — 무엇을 처리하고, 얼마나 보관하며, 어디로 이전되는지." />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+    />
+    <link rel="stylesheet" href="./styles.css?v=34" />
+    <style>
+      /* 처리방침 전용 레이아웃 — styles.css 의 테마 토큰(:root/:root.dark)을 그대로 재사용.
+         새 전역 클래스를 만들지 않도록 이 페이지 안에서만 스코프한다. */
+      body {
+        min-height: 100svh;
+        padding: 0;
+      }
+      .privacy-wrap {
+        width: min(760px, 100%);
+        margin: 0 auto;
+        padding: 24px 20px 72px;
+      }
+      .privacy-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin: 8px 0 20px;
+        font-weight: 800;
+        color: var(--orange-dark);
+        text-decoration: none;
+      }
+      .privacy-back:hover {
+        text-decoration: underline;
+      }
+      .privacy-draft {
+        margin: 0 0 24px;
+        padding: 12px 16px;
+        border: 1px solid var(--line);
+        border-left: 4px solid var(--accent);
+        border-radius: 10px;
+        background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+        color: var(--text);
+        font-weight: 700;
+      }
+      .privacy-wrap h1 {
+        font-family: var(--font-display);
+        font-size: clamp(1.7rem, 6vw, 2.4rem);
+        margin: 0 0 6px;
+      }
+      .privacy-updated {
+        margin: 0 0 28px;
+        color: var(--muted);
+      }
+      .privacy-wrap h2 {
+        font-size: 1.18rem;
+        margin: 32px 0 10px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid var(--line);
+      }
+      .privacy-wrap p,
+      .privacy-wrap li {
+        line-height: 1.75;
+        color: var(--text);
+      }
+      .privacy-wrap ul {
+        padding-left: 1.2em;
+        margin: 10px 0;
+      }
+      .privacy-wrap li {
+        margin: 6px 0;
+      }
+      .privacy-wrap a {
+        color: var(--orange-dark);
+        font-weight: 700;
+      }
+      .privacy-wrap mark {
+        background: var(--gold);
+        color: #1a1712;
+        padding: 1px 6px;
+        border-radius: 4px;
+        font-weight: 800;
+      }
+      /* 표는 모바일에서 가로 스크롤 컨테이너로 감싼다. */
+      .table-scroll {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 12px 0;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+      }
+      .table-scroll table {
+        border-collapse: collapse;
+        width: 100%;
+        min-width: 640px;
+        font-size: 0.94rem;
+      }
+      .table-scroll th,
+      .table-scroll td {
+        padding: 10px 12px;
+        text-align: left;
+        vertical-align: top;
+        border-bottom: 1px solid var(--line);
+      }
+      .table-scroll thead th {
+        background: var(--surface-2);
+        color: var(--text);
+        white-space: nowrap;
+      }
+      .table-scroll tbody tr:last-child td {
+        border-bottom: 0;
+      }
+      .table-scroll code {
+        font-family: var(--font-mono);
+        font-size: 0.9em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="privacy-wrap">
+      <a class="privacy-back" href="./index.html">← KBO TIDO로 돌아가기</a>
+
+      <p class="privacy-draft" role="note">초안 — 시행 전 확정 필요</p>
+
+      <h1>개인정보처리방침</h1>
+      <p class="privacy-updated">KBO TIDO · 초안 2026-07</p>
+
+      <h2>1. 총칙</h2>
+      <p>
+        KBO TIDO(이하 “서비스”)는 KBO 10구단 예매 오픈 일정과 경기 알림을 제공하는 개인 운영 무료 웹앱입니다. 서비스는
+        개인을 식별할 수 있는 정보(이름·이메일·전화번호·계정·위치 등)를 <strong>수집하지 않는 것을 원칙</strong>으로
+        설계되었습니다.
+      </p>
+
+      <h2>2. 처리하는 정보와 목적</h2>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>항목</th>
+              <th>내용</th>
+              <th>목적</th>
+              <th>저장 위치</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>푸시 구독 정보</td>
+              <td>
+                브라우저가 발급한 익명 push endpoint URL, 메시지 암호화 키(p256dh/auth), 구독 주제(팀 코드+알림 종류,
+                예: <code>HH:ticket_open</code>)
+              </td>
+              <td>사용자가 켠 알림(예매 오픈·주간 브리핑·경기 알림)의 발송</td>
+              <td>서비스 서버(Cloudflare Workers/D1)</td>
+            </tr>
+            <tr>
+              <td>발송 기록</td>
+              <td>endpoint별 발송 완료 키(중복 발송 방지용), 발송 시각</td>
+              <td>같은 알림의 중복 발송 방지(경기당 1회 등)</td>
+              <td>서비스 서버</td>
+            </tr>
+            <tr>
+              <td>익명 수요 집계</td>
+              <td>일자별 카운터(예: 특정 팀 관심 수) — 개인 단위 행 없음</td>
+              <td>서비스 개선을 위한 총량 통계</td>
+              <td>서비스 서버</td>
+            </tr>
+            <tr>
+              <td>앱 설정·신호</td>
+              <td>내 구단, 알림 토글, 관심 경기, 수요 검증 신호 등</td>
+              <td>개인화 표시</td>
+              <td><strong>이용자 기기(localStorage)에만 저장, 서버 미전송</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        서비스 서버에는 IP 주소, User-Agent, 기기 식별자, 쿠키, 위치정보를 <strong>저장하는 컬럼이 없으며</strong>,
+        어떠한 개인 식별 정보도 데이터베이스에 기록하지 않습니다. 푸시 endpoint는 로그에도 평문으로 남기지
+        않습니다(마스킹 처리).
+      </p>
+
+      <h2>3. 보유 기간</h2>
+      <ul>
+        <li>
+          푸시 구독 정보: <strong>알림 해제(구독 취소) 시 즉시 삭제</strong>됩니다. 브라우저가 구독을 만료시킨
+          경우(발송 실패 410/404)에도 삭제됩니다.
+        </li>
+        <li>발송 기록: 중복 방지 목적 달성 후 주기적으로 정리됩니다.</li>
+        <li>기기 내 설정: 이용자가 브라우저 데이터 삭제 또는 앱 내 초기화로 언제든 삭제할 수 있습니다.</li>
+      </ul>
+
+      <h2>4. 제3자 제공 및 처리 위탁·국외 이전</h2>
+      <ul>
+        <li>개인정보를 제3자에게 판매·제공하지 않습니다.</li>
+        <li>
+          서버 인프라는 <strong>Cloudflare, Inc.</strong>(미국)의 Workers/D1을 사용합니다. 위 §2의 익명 구독 정보가
+          Cloudflare의 글로벌 엣지 인프라에서 처리·보관됩니다.
+        </li>
+        <li>
+          푸시 메시지 전달은 이용자의 브라우저 제조사 푸시 서비스(Google FCM, Apple APNs, Mozilla 등)를
+          경유합니다(웹 표준 Web Push 동작).
+        </li>
+        <li>
+          경기장 날씨는 브라우저가 <strong>Open-Meteo</strong>(비영리 오픈 API)에 직접 요청합니다. 요청에는 사용자의
+          위치가 아닌 <strong>경기장 좌표</strong>가 사용되며, 통신 특성상 IP 등 일반 요청 정보가 제공자에게 전달됩니다.
+        </li>
+        <li>정적 페이지 호스팅: GitHub Pages(GitHub, Inc., 미국).</li>
+      </ul>
+
+      <h2>5. 알림(푸시)의 성격과 수신 동의</h2>
+      <ul>
+        <li>
+          모든 알림은 이용자가 <strong>알림 센터에서 항목별로 직접 켠 것만</strong> 발송되는
+          <strong>수신자 요청 정보성 알림</strong>입니다(광고성 정보 아님).
+        </li>
+        <li>각 알림 카테고리는 기본 꺼짐(OFF)이며, 켤 때 어떤 내용이 오는지 항목별로 표시합니다.</li>
+        <li>
+          알림 끄기: 앱 내 종 버튼/알림 센터에서 원탭으로 해제할 수 있고, 해제 시 서버의 구독 정보가 삭제됩니다.
+          브라우저 설정에서도 차단할 수 있습니다.
+        </li>
+        <li>
+          야간 발송 제한: 기본적으로 KST 22:00~08:00에는 발송하지 않습니다(진행 중 경기 알림만 경기일 23:30까지 예외).
+        </li>
+      </ul>
+
+      <h2>6. 이용자의 권리</h2>
+      <p>
+        이용자는 언제든 ①알림 해제(=서버 구독 정보 삭제) ②기기 내 데이터 초기화 ③아래 연락처를 통한 문의·삭제 요청을 할
+        수 있습니다. 서비스에 계정이 없으므로 별도 탈퇴 절차는 없습니다.
+      </p>
+
+      <h2>7. 아동의 개인정보</h2>
+      <p>서비스는 연령 정보를 수집하지 않으며, 만 14세 미만 아동을 대상으로 하는 서비스가 아닙니다.</p>
+
+      <h2>8. 안전성 확보 조치</h2>
+      <ul>
+        <li>서버 저장 정보에 개인 식별 컬럼 자체를 두지 않는 최소화 설계</li>
+        <li>푸시 발송 개인키는 서버 비밀 저장소(Cloudflare Secret)에만 보관</li>
+        <li>endpoint 로그 마스킹, HTTPS 전 구간 적용, 허용 출처(CORS) 제한</li>
+      </ul>
+
+      <h2>9. 개인정보 보호책임자 및 문의처</h2>
+      <ul>
+        <li>운영자: <mark>[운영자 표기 — 확정 필요]</mark></li>
+        <li>문의: <mark>[이메일 주소 — 확정 필요]</mark></li>
+      </ul>
+
+      <h2>10. 고지</h2>
+      <p>
+        이 방침은 <mark>[시행일 — 확정 필요]</mark>부터 적용됩니다. 내용 변경 시 앱 내 공지로 알립니다.
+      </p>
+    </div>
+  </body>
+</html>

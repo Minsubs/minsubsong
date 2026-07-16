@@ -70,18 +70,19 @@ export const SQL = {
   getSeenIds: `SELECT game_id FROM calendar_seen`,
   // F4. 라이브 경기 상태 diff — game_key 당 최신 스냅샷.
   getLiveStates: `
-    SELECT game_key, home_score, away_score, state, missing_count, updated_at
+    SELECT game_key, home_score, away_score, state, missing_count, last_change_at, updated_at
     FROM live_state
   `,
   upsertLiveState: `
-    INSERT INTO live_state (game_key, home_score, away_score, state, missing_count, updated_at)
-    VALUES (?1, ?2, ?3, ?4, ?5, ?6)
+    INSERT INTO live_state (game_key, home_score, away_score, state, missing_count, last_change_at, updated_at)
+    VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)
     ON CONFLICT(game_key) DO UPDATE SET
-      home_score    = excluded.home_score,
-      away_score    = excluded.away_score,
-      state         = excluded.state,
-      missing_count = excluded.missing_count,
-      updated_at    = excluded.updated_at
+      home_score     = excluded.home_score,
+      away_score     = excluded.away_score,
+      state          = excluded.state,
+      missing_count  = excluded.missing_count,
+      last_change_at = excluded.last_change_at,
+      updated_at     = excluded.updated_at
   `,
   deleteOldLiveState: `DELETE FROM live_state WHERE updated_at < ?1`,
 };
@@ -327,7 +328,7 @@ export async function getLiveStates(db) {
 /**
  * Upsert a batch of live_state rows (one per game_key).
  * @param {D1Database} db
- * @param {Array<{game_key:string,home_score:number|null,away_score:number|null,state:string,missing_count:number,updated_at:number}>} rows
+ * @param {Array<{game_key:string,home_score:number|null,away_score:number|null,state:string,missing_count:number,last_change_at:number|null,updated_at:number}>} rows
  */
 export async function upsertLiveStates(db, rows) {
   const list = Array.isArray(rows) ? rows.filter((r) => r && r.game_key) : [];
@@ -341,6 +342,7 @@ export async function upsertLiveStates(db, rows) {
         r.away_score ?? null,
         String(r.state ?? ""),
         Number.isFinite(r.missing_count) ? r.missing_count : 0,
+        Number.isFinite(r.last_change_at) ? r.last_change_at : null,
         r.updated_at,
       ),
     ),

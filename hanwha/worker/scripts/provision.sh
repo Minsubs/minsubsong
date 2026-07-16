@@ -33,15 +33,20 @@ npx wrangler whoami 2>&1 | grep -i "associated with" || true
 # ── 1) D1 생성/연결 ──────────────────────────────────────────────────────────
 step "1/5 D1 database ($DB_NAME)"
 if grep -q "$DB_PLACEHOLDER" "$TOML"; then
-  # 이미 존재하면 create 는 실패하므로 무시하고 info 로 id 조회.
+  # 이미 존재하면 create 는 실패하므로 무시하고 list 로 id 조회.
+  # (d1 info <name> 은 wrangler 4.x 에서 wrangler.toml 의 database_id — 아직
+  #  플레이스홀더 — 를 우선 해석해 7404 가 난다. list 는 config 를 안 본다.)
   npx wrangler d1 create "$DB_NAME" 2>/dev/null || true
-  DB_ID="$(npx wrangler d1 info "$DB_NAME" --json | node -e '
+  DB_ID="$(npx wrangler d1 list --json | DB_NAME="$DB_NAME" node -e '
     let s = "";
     process.stdin.on("data", (d) => (s += d));
     process.stdin.on("end", () => {
       try {
-        const j = JSON.parse(s);
-        process.stdout.write(j.uuid || j.id || j.database_id || "");
+        const rows = JSON.parse(s);
+        const row = (Array.isArray(rows) ? rows : []).find(
+          (r) => r && (r.name === process.env.DB_NAME || r.database_name === process.env.DB_NAME),
+        );
+        process.stdout.write(row?.uuid || row?.id || row?.database_id || "");
       } catch { /* empty -> caller fails */ }
     });
   ')" || true

@@ -69,8 +69,9 @@ CREATE TABLE IF NOT EXISTS live_state (
   game_key      TEXT PRIMARY KEY,  -- e.g. '2026-07-15:HH@LG'
   home_score    INTEGER,           -- NULL before first score / pre-game
   away_score    INTEGER,
-  state         TEXT,              -- raw scoreboard state string ('18:30'/'FINAL'/live)
+  state         TEXT,              -- raw scoreboard state string ('18:30'/'FINAL'/'TOP 5')
   missing_count INTEGER NOT NULL DEFAULT 0, -- consecutive ticks absent (cancel diff)
+  last_change_at INTEGER,          -- epoch ms; tick where state/score last changed (delayed/stalled diff)
   updated_at    INTEGER NOT NULL   -- epoch ms, UTC
 );
 

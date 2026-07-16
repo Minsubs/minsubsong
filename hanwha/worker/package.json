@@ -12,5 +12,8 @@
   },
   "devDependencies": {
     "wrangler": "^3.78.0"
+  },
+  "dependencies": {
+    "@openai/codex": "^0.144.5"
   }
 }

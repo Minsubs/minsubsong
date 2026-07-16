@@ -1,5 +1,11 @@
 # KBO 티켓팅 도우미 진행상황
 
+> 2026-07-16 미구현 백로그 전체 구현: 후반기 재개일 실측(진행중 state = `TOP n`/`BOT n`)으로 **LV2 `delayed`**(시작 지연/진행 중단 2경로, 경기당 1회 캡)와 **LV1b**(45s 클라 폴링 + 앱 열림 알림 + 알림센터 `game_live`/`weekly_brief` 토글, 캐시 **v36**)를 구현했다. 예매 데이터는 한화·롯데 verified 승격, **NC D-6 교정**, **두산 NOL(야놀자) 전환**을 반영했다. 앱 **118/118** · 워커 **124/124** · 브라우저 실검증 통과. **X0 워커는 같은 날 밤 실배포 완료** — `https://kbo-tido-push.minsubs.workers.dev`, 클라 키 주입 완료. 심야 추가 배치로 삼성·두산 verified, 두산·키움 NOL 전환, D8 처리방침 초안+`privacy.html`, 득점 오탐 가드까지 반영(앱 **125/125**·워커 **124/124**) 후 **본 커밋으로 main→Pages 배포**. 잔여: 실기기 푸시 검증 · D8 §9/시행일 확정 · NC 1차 근거 · 개명 결정. 상세는 `HANDOFF.md` 최상단.
+
+> 2026-07-14 다음 플랜: 10구단 예매 설정을 `scripts/ticket-provider-config.mjs` 단일 원본으로 분리하고, 공식 근거·최종 확인일을 검증하는 CLI와 분기 CI를 구현했다. SSG는 공식 판매 목록 기준 D-5→**D-4 11:00**으로 교정했다. `npm run check` **107/107** 통과. 엄격 감사의 남은 실패는 한화·NC·두산·롯데·삼성 오픈 규칙 공식 근거 5건이며, 현재 미커밋·미배포다.
+
+> 2026-07-14 cold start: NC 자체 예매 채널을 공식 자료로 재확인하고, KT 일반회원 예매를 공식 공지에 맞춰 경기 7일 전 **16:00**으로 교정했다. 브라우저의 중복 예매처 상수를 제거하고 앱 캐시를 **v35**로 올렸다(후속 작업에서 운영 설정은 `ticket-provider-config.mjs`로 분리). `npm run check` **100/100**과 로컬 브라우저 KT/NC/오프라인 검증을 통과했으며, 현재 미커밋·미배포다. 상세는 `HANDOFF.md` 최상단.
+
 > 2026-07-12 Wave 2 배포 완료: 기존 화면에서 상단·마이팀 선택기·경기장 날씨만 부분 개편하고, 중립+10구단 PWA 아이콘/매니페스트와 iOS 재설치 안내를 연결했다. 앱 캐시는 **v34**, 검증은 **99/99 통과**했다. 커밋 `945100e`를 [GitHub Pages](https://minsubs.github.io/minsubsong/)에 배포했으며([run 29176947950](https://github.com/Minsubs/minsubsong/actions/runs/29176947950)), Cloudflare Worker는 미인증 상태라 미배포다. 실사용자 푸시는 빈 Worker 연동값과 법률 게이트로 비활성이다. 상세는 `HANDOFF.md` 최상단.
 
 > 2026-07-04 배치 완료: `docs/BATCH_DESIGN_2026-07.md`의 R2~R8 전체 구현 + LG 예매처/키움 오픈시각 긴급 데이터 수정, 캐시 v31. 상세는 `HANDOFF.md` 해당 절.
@@ -45,6 +51,11 @@
 - [x] GitHub Pages 프론트 배포 — `945100e`, run `29176947950`
 - [x] 전구단 데이터 전환 (games.json 10팀, 리그 리더 타율/홈런/ERA 실데이터)
 - [x] NOL 티켓 예매처 링크 404 경로 수정 (`ticket.interpark.com/Contents/Sports`)
+- [x] NC 자체 예매 채널 공식 재확인 + KT 일반예매 16:00 교정 (2026-07-14)
+- [x] 예매처 URL 코드 소스 `scripts/ticket-provider-config.mjs` 단일화 + 누락 메타 fail-closed
+- [x] 분기 예매 규칙 감사 CLI/CI — 10구단 스키마·92일 최신성·공식 URL 읽기 전용 점검
+- [x] SSG 공식 오픈 규칙 D-4 11:00 교정 + 현재 JSON 재생성
+- [ ] 한화·NC·두산·롯데·삼성 2026 공식 오픈 규칙 1차 근거 확보 (`npm run audit:ticketing` 엄격 감사 해소)
 - [ ] 과거 macro 커밋 히스토리 rewrite 여부 결정
 - [ ] 노출 가능성이 있는 계정 비밀번호 사용자 직접 교체
 - [ ] 수요 검증 운영 루틴 정의
@@ -69,7 +80,16 @@
 - [ ] (Now·착수 보류) N3 프로모션 일정 칩 — 공개 데이터 소스 조사가 선결, 소스 미확보 상태
 - [ ] (Now·착수 보류) N5 여행/숙박 어필리에이트 — D11(수익화 착수 시점) 사용자 결정 대기
 - [x] X0 배포 게이트 결정 — D3(Cloudflare Workers+D1+Cron)·D7(`wrangler secret`)·D8(발송 전 법률 게이트 유지) 확정(2026-07-10)
-- [ ] X0 배포 실행 — **코드·프로비저닝 준비 완료, `wrangler login` 대기**: `cd hanwha/worker && npx wrangler login && bash scripts/provision.sh` → 클라 키 주입 → 실기기 검증. D8 검토 전 실사용자 발송 금지
+- [x] X0 배포 실행 — **완료(2026-07-16 밤)**: 이메일 인증 → 서브도메인 `minsubs` 등록 → provision.sh 완주 → **`https://kbo-tido-push.minsubs.workers.dev`** 가동, D1 스키마 적용, 클라 키 주입(`VAPID_PUBLIC_KEY`/`PUSH_API_BASE`, 캐시 v36). `/api/live` 실데이터 200 + 로컬 렌더 경로 검증. 잔여: 실기기 푸시 검증(Pages 배포 후), D8 검토 전 실사용자 발송 금지
+- [x] provision.sh 버그 수정 — wrangler 4.x `d1 info`가 wrangler.toml 플레이스홀더 database_id 를 우선 해석해 7404 나던 것을 `d1 list --json` 이름 조회로 교체 (2026-07-16, 미커밋)
+- [x] LV2 `delayed` 구현 — 7/16 실측(진행중 `TOP n`/`BOT n`) 기반 시작지연/진행중단 2경로 + `live_state.last_change_at` + 경기당 1회 캡 + FINAL 후 점수정정 오탐 가드. 워커 **124/124** (미커밋)
+- [x] LV1b 구현 — 45s 클라 폴링(`/api/live`, PUSH_API_BASE 게이트)·홈 라이브 병합·이닝 한글 라벨·마이팀 diff 로컬알림+토스트·알림센터 `game_live`/`weekly_brief` 토글(기본 OFF). 캐시 **v36**, 앱 **118/118** (미커밋)
+- [x] 예매 데이터 교정(2026-07-16) — 한화·롯데·삼성·두산 openRule **verified**(삼성=티켓링크 전용관 판매목록 '시리즈 화 11:00', 두산=NOL 판매 데이터 D-7 11:00), NC **D-6 11:00** 교정, **두산·키움 NOL(야놀자) 전용관 전환**(구 인터파크 URL 설정에서 소멸). strict 잔여 **NC 1건**, 네트워크 감사 TLS 경고 분류 신설
+- [x] D8 패키지 — 처리방침 초안(`docs/PRIVACY_POLICY_DRAFT_2026-07.md`) + 앱 `privacy.html`(더보기 링크·SW 등재). **§9 운영자·이메일, §10 시행일 미확정(`<mark>`) — 조속 확정 필요**
+- [x] 득점 오탐 가드 — FINAL 후 점수 정정 오발화 차단(워커·클라) + 회귀 테스트. 앱 **125/125** · 워커 **124/124**
+- [ ] 브랜드 개명 — 후보 Top3(선구안·워닝트랙·티났다, 충돌 스크리닝 완료) 사용자 결정 + KIPRIS 확인 대기
+- [ ] NC 2026 오픈 규칙 1차 근거 — 잔여(힌트: 2025 연간 안내 seq=541756 → 2026 대응 공지 탐색)
+- [ ] 실기기 푸시 검증 — Pages 배포 후: 알림센터 토글 ON → 앱 닫고 수신 확인(Chrome + iOS PWA)
 - [x] X0 차단 버그 수정 — `worker/wrangler.toml`의 `ALLOWED_ORIGIN`/`DATA_BASE_URL`/`VAPID_SUBJECT` 오타 도메인(`minsub.github.io`) → 실측 HTTP 200 도메인(`minsubs.github.io`)으로 정정 (미커밋, 작업트리)
 - [x] `worker/scripts/provision.sh` 신설 — D1/VAPID/deploy/secret/스키마 자동화, 멱등. Opus 검증으로 실패경로 3건(P1 키 유실 롤백/P2 pipefail/P3 secret list 판정) 발견·패치 (미커밋, 작업트리)
 - [x] X0 클라 결함 9건 패치 — C1(팀명↔코드 불일치, critical)~C6(team_interest 소실), Opus 전원 CONFIRMED. 앱 테스트 **47/47**, 캐시 v31→v32 (미커밋, 작업트리)

@@ -9,6 +9,7 @@ import {
   parseKoreanScheduleRows,
   scheduleMonthTargets,
 } from "./kbo-schedule-api.mjs";
+import { TICKET_PROVIDERS } from "./ticket-provider-config.mjs";
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const DATA_DIR = join(ROOT, "data");
@@ -31,94 +32,6 @@ const TEAM_NAMES = {
   KT: "KT",
   LOTTE: "롯데",
   KIWOOM: "키움",
-};
-
-const TICKET_PROVIDERS = {
-  한화: {
-    provider: "티켓링크",
-    url: "https://www.ticketlink.co.kr/sports/137/63",
-    note: "한화 홈 예매",
-    openLabel: "홈경기 예매 일정 기준",
-    openDaysBefore: 7,
-    openTime: "11:00",
-  },
-  SSG: {
-    provider: "SSG 티켓",
-    url: "https://ticket.ssg.com/ticket",
-    note: "SSG 홈 예매",
-    openLabel: "SSG 홈 예매 일정 기준",
-    openDaysBefore: 5,
-    openTime: "11:00",
-  },
-  NC: {
-    provider: "NC 다이노스",
-    url: "https://www.ncdinos.com/",
-    note: "NC 홈 예매",
-    openLabel: "NC 홈 예매 일정 기준",
-    openDaysBefore: 7,
-    openTime: "11:00",
-  },
-  두산: {
-    provider: "NOL 티켓",
-    url: "https://ticket.interpark.com/Contents/Sports",
-    note: "두산 홈 예매",
-    openLabel: "두산 홈 예매 일정 기준",
-    openDaysBefore: 7,
-    openTime: "11:00",
-    earlyOpenLabel: "베어스클럽 10:00",
-  },
-  롯데: {
-    provider: "롯데 자이언츠",
-    url: "https://ticket.giantsclub.com/",
-    note: "롯데 홈 예매",
-    openLabel: "롯데 홈 예매 일정 기준",
-    openDaysBefore: 14,
-    openTime: "14:00",
-    openCaution: "구단 앱 공지 기준 확인",
-  },
-  KIA: {
-    provider: "티켓링크",
-    url: "https://www.ticketlink.co.kr/sports/137/58",
-    note: "KIA 홈 예매",
-    openLabel: "KIA 홈 예매 일정 기준",
-    openDaysBefore: 7,
-    openTime: "11:00",
-  },
-  키움: {
-    provider: "NOL 티켓",
-    url: "https://ticket.interpark.com/Contents/Sports",
-    note: "키움 홈 예매",
-    openLabel: "키움 홈 예매 일정 기준",
-    openDaysBefore: 7,
-    openTime: "14:00",
-  },
-  LG: {
-    provider: "티켓링크",
-    url: "https://www.ticketlink.co.kr/sports/137/59",
-    note: "LG 홈 예매",
-    openLabel: "LG 홈 예매 일정 기준",
-    openDaysBefore: 7,
-    openTime: "11:00",
-    openCaution: "구단 공지 기준 확인",
-  },
-  KT: {
-    provider: "티켓링크",
-    url: "https://www.ticketlink.co.kr/sports",
-    note: "KT 홈 예매",
-    openLabel: "KT 홈 예매 일정 기준",
-    openDaysBefore: 7,
-    openTime: "11:00",
-    openCaution: "구단 공지 기준 확인",
-  },
-  삼성: {
-    provider: "티켓링크",
-    url: "https://www.ticketlink.co.kr/sports",
-    note: "삼성 홈 예매",
-    openLabel: "삼성 홈 예매 일정 기준",
-    openDaysBefore: 7,
-    openTime: "11:00",
-    openCaution: "구단 공지 기준 확인",
-  },
 };
 
 // 전 구단 경기 보드 날짜 창(일). 최근 결과는 과거 RECENT, 예정은 향후 UPCOMING.
@@ -641,7 +554,8 @@ function daysFromToday(monthDay) {
 }
 
 function buildTicketing(game) {
-  const provider = TICKET_PROVIDERS[game.home] ?? {
+  const configured = TICKET_PROVIDERS[game.home];
+  const { verification: _verification, ...provider } = configured ?? {
     provider: "홈팀 예매처",
     url: "https://www.koreabaseball.com/Schedule/Schedule.aspx",
     note: "KBO 일정에서 홈팀 예매처 확인",
@@ -912,6 +826,7 @@ export {
   buildGames,
   buildLiveGame,
   buildLiveGames,
+  buildTicketing,
   buildTicketCalendar,
   buildOpenAt,
   collectAllTeamScheduleGames,

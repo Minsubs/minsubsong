@@ -13,7 +13,7 @@ crons = ["* * * * *"]
 [[d1_databases]]
 binding = "DB"
 database_name = "kbo-tido"
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+database_id = "65cfc8c5-9e74-476a-8c96-40583b40dd53"
 
 # ── 공개 환경변수(비밀 아님) ─────────────────────────────────────────────────
 # 개인키(VAPID_PRIVATE)는 여기에 절대 넣지 않는다 → wrangler secret 만 사용.
@@ -26,7 +26,7 @@ DATA_BASE_URL = "https://minsubs.github.io/minsubsong"
 # LV1 라이브 프록시 소스 — GET /api/live 가 fetch 하는 KBO 스코어보드 HTML.
 SCOREBOARD_URL = "https://eng.koreabaseball.com/Schedule/Scoreboard.aspx"
 # VAPID 공개키 — 플레이스홀더. 프로덕션 키쌍 생성 후 교체(개인키는 secret).
-VAPID_PUBLIC = "REPLACE_WITH_VAPID_PUBLIC_KEY_PLACEHOLDER"
+VAPID_PUBLIC = "BBfIbpOL-5c-Y2IHzTu5HyCI2fl1ENI-Dbg-krKJzFDVuM4nbJnXCylAwb8tJ9OkG04hLj9eCG5FYVG8vi2bqfU"
 # 연락처(푸시 서비스 VAPID sub). mailto: 또는 https:.
 VAPID_SUBJECT = "https://minsubs.github.io/minsubsong/"
 # 발송 윈도우 — 오픈 몇 분 전부터 발송(lead).

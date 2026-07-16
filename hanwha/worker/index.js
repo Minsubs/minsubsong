@@ -682,7 +682,7 @@ async function runLiveMonitor(env, { now, sender }) {
   for (const ev of events) {
     if (sender.halted) break;
     const payload = buildLivePayload(ev);
-    const urgency = ev.type === "start" || ev.type === "canceled" ? "high" : "normal";
+    const urgency = ev.type === "start" || ev.type === "canceled" || ev.type === "delayed" ? "high" : "normal";
     const already = sentByKey.get(ev.dedupKey) ?? new Set();
     const seenEndpoint = new Set();
     for (const code of ev.targetCodes ?? []) {

@@ -589,6 +589,16 @@ test("F4 detectLiveEvents end: FINAL 전이 시 홈·원정 발송(최종 스코
   assert.ok(p.title.includes("5") && p.title.includes("3")); // 최종 스코어
 });
 
+test("F4 detectLiveEvents score: 종료(FINAL) 후 점수 정정은 score 를 발화하지 않는다", () => {
+  const day = "2026-07-15";
+  const schedule = [{ homeTeam: "LG", awayTeam: "한화" }];
+  const prev = [{ game_key: `${day}:HH@LG`, home_score: 3, away_score: 5, state: "FINAL", missing_count: 0 }];
+  const current = [{ home: "LG", away: "HANWHA", homeScore: 3, awayScore: 6, state: "FINAL" }]; // 정정 +1
+  const { events } = detectLiveEvents({ current, schedule, prevStates: prev, now: kst("2026-07-15T22:10:00"), options: { dayStr: day } });
+  assert.equal(events.filter((e) => e.type === "score").length, 0);
+  assert.equal(events.filter((e) => e.type === "end").length, 0); // 이미 final→final
+});
+
 test("F4 detectLiveEvents canceled: 시작+유예 후 미출현 연속 2회 확인 후 발송", () => {
   const day = "2026-07-15";
   const schedule = [{ homeTeam: "LG", awayTeam: "한화", time: "수 18:30", location: "잠실" }];
@@ -646,4 +656,100 @@ test("F4 buildLivePayload: 이벤트 타입별 title + game_live 는 tag 로 트
 test("F4 kstDateStr", () => {
   assert.equal(kstDateStr(kst("2026-07-15T23:30:00")), "2026-07-15");
   assert.equal(kstDateStr(kst("2026-07-15T00:30:00")), "2026-07-15");
+});
+
+// ==========================================================================
+// LV2 delayed(경기 지연) — 2026-07-16 실측 진행중 표기(TOP/BOT n) 기반
+// ==========================================================================
+
+test("F4 livePhaseOf: TOP/BOT n 진행중 표기(2026-07-16 실측) → live", () => {
+  assert.equal(livePhaseOf({ state: "TOP 5", homeScore: 1, awayScore: 4 }), "live");
+  assert.equal(livePhaseOf({ state: "BOT 5", homeScore: 4, awayScore: 0 }), "live");
+  assert.equal(livePhaseOf({ state: "TOP 6", homeScore: 0, awayScore: 5 }), "live");
+  assert.equal(livePhaseOf({ state: "top 9", homeScore: 3, awayScore: 3 }), "live"); // 소문자
+  // 회귀: 시작시각 무점수=pre, FINAL=final(기존 계약 불변)
+  assert.equal(livePhaseOf({ state: "18:30", homeScore: null, awayScore: null }), "pre");
+  assert.equal(livePhaseOf({ state: "FINAL", homeScore: 3, awayScore: 5 }), "final");
+});
+
+test("F4 delayed-A(시작지연): 시작+20분 경계 발화 / 1ms 전 미발화, sched 없이 rawTime 판정", () => {
+  const day = "2026-07-16";
+  // 진행 전(pre): state 시작시각 문자열 + 점수 null, 블록은 스코어보드에 남아 있음.
+  const cur = { home: "HANWHA", away: "KIWOOM", homeScore: null, awayScore: null, state: "18:30", rawTime: "18:30", location: "대전" };
+  const startAt = kst("2026-07-16T18:30:00");
+
+  // 경계(== startAt+20분) → 발화. sched 없이 cur.rawTime 만으로 startAt 판정.
+  const fire = detectLiveEvents({ current: [cur], schedule: [], prevStates: [], now: startAt + 20 * 60_000, options: { dayStr: day } });
+  const d = fire.events.find((e) => e.type === "delayed");
+  assert.ok(d);
+  assert.equal(d.reason, "start");
+  assert.equal(d.dedupKey, `live:${day}:WO@HH:delayed`);
+  assert.deepEqual(d.targetCodes.sort(), ["HH", "WO"]);
+
+  // 경계 1ms 전 → 미발화.
+  const noFire = detectLiveEvents({ current: [cur], schedule: [], prevStates: [], now: startAt + 20 * 60_000 - 1, options: { dayStr: day } });
+  assert.equal(noFire.events.filter((e) => e.type === "delayed").length, 0);
+});
+
+test("F4 delayed-A 후 정상 시작: 다음 틱 pre→live 전이 시 start 정상 발화(회귀)", () => {
+  const day = "2026-07-16";
+  const startAt = kst("2026-07-16T18:30:00");
+  const prevPre = [{ game_key: `${day}:WO@HH`, home_score: null, away_score: null, state: "18:30", missing_count: 0, last_change_at: startAt }];
+  const live = { home: "HANWHA", away: "KIWOOM", homeScore: 0, awayScore: 1, state: "TOP 1", location: "대전" };
+  const r = detectLiveEvents({ current: [live], schedule: [], prevStates: prevPre, now: startAt + 25 * 60_000, options: { dayStr: day } });
+  assert.equal(r.events.filter((e) => e.type === "start").length, 1);
+  assert.equal(r.events.filter((e) => e.type === "delayed").length, 0); // 시작했으니 지연 아님
+});
+
+test("F4 delayed-B(진행중단): 45분 동결 발화 / 44분 미발화 / last_change_at 유지", () => {
+  const day = "2026-07-16";
+  const t0 = kst("2026-07-16T20:00:00");
+  const cur = { home: "HANWHA", away: "KIWOOM", homeScore: 0, awayScore: 5, state: "TOP 6", location: "대전" };
+  const prev45 = [{ game_key: `${day}:WO@HH`, home_score: 0, away_score: 5, state: "TOP 6", missing_count: 0, last_change_at: t0 - 45 * 60_000, updated_at: t0 - 60_000 }];
+
+  // 45분 동결(state/점수 동일) → stalled 발화.
+  const fire = detectLiveEvents({ current: [cur], schedule: [], prevStates: prev45, now: t0, options: { dayStr: day } });
+  const d = fire.events.find((e) => e.type === "delayed");
+  assert.ok(d);
+  assert.equal(d.reason, "stalled");
+  assert.equal(d.dedupKey, `live:${day}:WO@HH:delayed`);
+  assert.equal(fire.upserts[0].last_change_at, t0 - 45 * 60_000); // 미변경 → 마지막 변경시각 유지
+
+  // 44분 → 미발화.
+  const prev44 = [{ ...prev45[0], last_change_at: t0 - 44 * 60_000 }];
+  const no = detectLiveEvents({ current: [cur], schedule: [], prevStates: prev44, now: t0, options: { dayStr: day } });
+  assert.equal(no.events.filter((e) => e.type === "delayed").length, 0);
+});
+
+test("F4 delayed-B: 점수/상태 변화가 있으면 last_change_at 갱신되어 미발화", () => {
+  const day = "2026-07-16";
+  const t0 = kst("2026-07-16T20:00:00");
+  const prev45 = [{ game_key: `${day}:WO@HH`, home_score: 0, away_score: 5, state: "TOP 6", missing_count: 0, last_change_at: t0 - 45 * 60_000 }];
+  const curScored = { home: "HANWHA", away: "KIWOOM", homeScore: 1, awayScore: 5, state: "BOT 6", location: "대전" };
+  const r = detectLiveEvents({ current: [curScored], schedule: [], prevStates: prev45, now: t0, options: { dayStr: day } });
+  assert.equal(r.events.filter((e) => e.type === "delayed").length, 0);
+  assert.equal(r.upserts[0].last_change_at, t0); // 변경 → now 로 갱신
+});
+
+test("F4 delayed-B: 미출현 분기는 last_change_at 유지(carry)", () => {
+  const day = "2026-07-16";
+  const t0 = kst("2026-07-16T20:00:00");
+  const schedule = [{ homeTeam: "HANWHA", awayTeam: "KIWOOM", time: "목 18:30" }];
+  const prevLive = [{ game_key: `${day}:WO@HH`, home_score: 0, away_score: 5, state: "TOP 6", missing_count: 1, last_change_at: t0 - 10 * 60_000 }];
+  const r = detectLiveEvents({ current: [], schedule, prevStates: prevLive, now: t0, options: { dayStr: day } });
+  assert.equal(r.upserts[0].last_change_at, t0 - 10 * 60_000); // 미출현 → 유지
+});
+
+test("F4 delayed buildLivePayload: reason별 body + data.event + 2KB", () => {
+  const base = { key: "2026-07-16:WO@HH", homeCode: "HH", awayCode: "WO", home: "HANWHA", away: "KIWOOM", location: "대전", targetCodes: ["HH", "WO"] };
+  const startP = buildLivePayload({ ...base, type: "delayed", reason: "start" });
+  assert.ok(startP.title.includes("경기 지연"));
+  assert.ok(startP.body.includes("시작이 늦어지고"));
+  assert.ok(startP.body.includes("대전"));
+  assert.equal(startP.data.event, "delayed");
+  const stalledP = buildLivePayload({ ...base, type: "delayed", reason: "stalled" });
+  assert.ok(stalledP.body.includes("잠시 중단"));
+  // 긴 입력도 2KB 보장(clampPayload 경유).
+  const big = buildLivePayload({ type: "delayed", reason: "start", key: "k".repeat(500), home: "한화", away: "LG", location: "잠실".repeat(50), targetCodes: ["HH", "LG"] });
+  assert.ok(byteLen(big) <= 2048, `delayed ${byteLen(big)}`);
 });

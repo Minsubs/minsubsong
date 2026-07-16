@@ -16,6 +16,7 @@ import {
   buildLiveGame,
   buildLiveGames,
   buildGames,
+  buildTicketing,
   buildTicketCalendar,
   buildOpenAt,
   collectAllTeamScheduleGames,
@@ -351,8 +352,8 @@ test("buildTicketCalendar returns all-team upcoming games sorted by ticket open 
   );
   assert.ok(calendar.every((game) => !("rawTime" in game)), "public calendar JSON must not expose rawTime");
   assert.equal(calendar[0].ticketing.provider, "롯데 자이언츠");
-  assert.equal(calendar[1].ticketing.provider, "NOL 티켓");
-  assert.equal(calendar[1].ticketing.url, "https://ticket.interpark.com/Contents/Sports");
+  assert.equal(calendar[1].ticketing.provider, "NOL(야놀자)"); // 2026-07-24 NOL 통합(두산 공지 140)
+  assert.equal(calendar[1].ticketing.url, "https://nol.yanolja.com/ticket/genre/sports/bears");
 });
 
 // --- buildOpenAt: 예매 오픈 절대시각 파생 (ISO +09:00, 실패=null) ---
@@ -370,6 +371,27 @@ test("buildOpenAt: 롯데 — 14일 전 14:00 KST", () => {
   // 롯데: openDaysBefore 14, openTime 14:00. 06.20 → 06.06 14:00.
   const openAt = buildOpenAt({ date: "06.20", rawTime: "18:00", home: "롯데" }, 2026);
   assert.equal(openAt, "2026-06-06T14:00:00+09:00");
+});
+
+test("예매 메타: NC는 자체 채널, KT 일반예매는 7일 전 16:00", () => {
+  const nc = buildTicketing({ home: "NC" });
+  assert.equal(nc.provider, "NC 다이노스");
+  assert.equal(nc.url, "https://www.ncdinos.com/");
+
+  const kt = buildTicketing({ home: "KT" });
+  assert.equal(kt.provider, "티켓링크");
+  assert.equal(kt.openDaysBefore, 7);
+  assert.equal(kt.openTime, "16:00");
+  assert.equal(buildOpenAt({ date: "07.21", rawTime: "18:30", home: "KT" }, 2026), "2026-07-14T16:00:00+09:00");
+});
+
+test("예매 메타: SSG 공식 판매 일정 기준 4일 전 11:00", () => {
+  const ssg = buildTicketing({ home: "SSG" });
+  assert.equal(ssg.url, "https://ticket.ssg.com/");
+  assert.equal(ssg.openDaysBefore, 4);
+  assert.equal(ssg.openTime, "11:00");
+  assert.equal(buildOpenAt({ date: "07.26", rawTime: "18:00", home: "SSG" }, 2026), "2026-07-22T11:00:00+09:00");
+  assert.equal("verification" in ssg, false, "감사 메타는 public ticketing 계약에 노출하지 않음");
 });
 
 test("buildOpenAt: ticketing 미리 주입 시 그대로 사용", () => {

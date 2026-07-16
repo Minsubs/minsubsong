@@ -1,4 +1,4 @@
-const CACHE_NAME = "eagles-lounge-v34";
+const CACHE_NAME = "eagles-lounge-v36";
 // Pretendard(CDN) 런타임 캐시 — 앱 셸 버전과 독립. stale-while-revalidate 로
 // 오프라인 재방문 시 폰트 유지. activate 정리에서 보존한다.
 const FONT_CACHE = "fonts-v1";
@@ -16,8 +16,9 @@ const APP_SHELL = [
   "./",
   "./index.html",
   "./offline.html",
+  "./privacy.html",
   "./styles.css?v=34",
-  "./script.js?v=34",
+  "./script.js?v=36",
   "./manifest.webmanifest",
   "./manifest-hanwha.webmanifest",
   "./manifest-lg.webmanifest",

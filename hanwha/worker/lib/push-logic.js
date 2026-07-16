@@ -555,9 +555,10 @@ export function buildReschedulePayload(game) {
 // ---------------------------------------------------------------------------
 //
 // LV0 실측 의미론(방어적):
-//   - 경기 전: state = 시작시각 문자열("18:30" 형식) & 점수 null.
+//   - 경기 전: state = 시작시각 문자열("18:30" 형식) & 점수 null(rawTime 에도 시작시각).
 //   - 종료: state = "FINAL".
-//   - 진행중: 그 외(미인식) 표기 = 진행중으로 간주(7/16 재확인 예정).
+//   - 진행중: state = "TOP n"/"BOT n" 형식(2026-07-16 실측 확정 — 영문 스코어보드,
+//     TOP|BOT + 공백 + 이닝수). 그 외 미인식 표기도 진행중으로 방어 판정.
 // 취소는 상태 문자열이 없다 → diff 판정(일정에 있는데 스코어보드 미출현/소실).
 
 // 카테고리 인지형 조용한 시간. game_live 는 경기일 23:30 까지 예외(DL2),
@@ -591,6 +592,7 @@ export function livePhaseOf(game) {
   const as = game?.awayScore;
   const hasScore = (hs !== null && hs !== undefined) || (as !== null && as !== undefined);
   if (/^final$/i.test(s)) return "final";
+  if (/^(?:TOP|BOT)\s*\d{1,2}$/i.test(s)) return "live"; // 진행중 표기(2026-07-16 실측 확정)
   if (/^\d{1,2}:\d{2}$/.test(s)) return hasScore ? "live" : "pre"; // 시작시각 표기
   if (s === "" && !hasScore) return "pre"; // 완전 공백 + 점수 없음 → 경기 전(방어)
   return "live"; // 미인식 표기 = 진행중(방어)
@@ -638,6 +640,9 @@ export function detectLiveEvents({ current, schedule, prevStates, now, options =
   const dayStr = options.dayStr ?? kstDateStr(now);
   const graceMs = (options.graceMinutes ?? 20) * 60_000;
   const missingThreshold = options.missingThreshold ?? 2;
+  // delayed 판정: 시작 지연 유예(A) / 진행 중 동결(B) 임계.
+  const delayedGraceMs = (options.delayedGraceMinutes ?? 20) * 60_000;
+  const stalledMs = (options.stalledMinutes ?? 45) * 60_000;
   const nowMs = Number(now);
 
   const curMap = indexByKey(current, dayStr);
@@ -669,6 +674,17 @@ export function detectLiveEvents({ current, schedule, prevStates, now, options =
       const meta = { key, homeCode, awayCode, home: cur.home, away: cur.away, homeScore: hs, awayScore: as, state: String(cur.state ?? ""), location: cur.location ?? "" };
       let endedThisTick = false;
 
+      // 상태/점수가 이번 틱에 바뀌었나 — delayed(중단) 판정과 last_change_at 갱신 공용.
+      // prev 없으면(첫 관측) 변경으로 본다. pre/live/final 모든 phase 동일 규칙.
+      const changed =
+        !prev ||
+        prev.state !== meta.state ||
+        numOrNull(prev.home_score) !== hs ||
+        numOrNull(prev.away_score) !== as;
+      const nextLastChangeAt = changed
+        ? nowMs
+        : (numOrNull(prev.last_change_at) ?? numOrNull(prev.updated_at) ?? nowMs);
+
       // end: 진행중/경기전 → FINAL 전이.
       if (curPhase === "final" && prevPhase !== "final") {
         events.push({ ...meta, type: "end", targetCodes: dedupeCodes(homeCode, awayCode), dedupKey: `live:${key}:end` });
@@ -679,7 +695,8 @@ export function detectLiveEvents({ current, schedule, prevStates, now, options =
         events.push({ ...meta, type: "start", targetCodes: dedupeCodes(homeCode, awayCode), dedupKey: `live:${key}:start` });
       }
       // score: 이전에 수치 점수가 있었고 그 값이 증가한 팀 구독자에게만(DL1: 마이팀 득점).
-      if (!endedThisTick && prev) {
+      //   curPhase live 한정 — 종료(FINAL) 후 스코어보드 점수 정정이 득점으로 오발화되지 않게.
+      if (!endedThisTick && prev && curPhase === "live") {
         const ph = numOrNull(prev.home_score);
         const pa = numOrNull(prev.away_score);
         if (homeCode && ph !== null && hs !== null && hs > ph) {
@@ -689,10 +706,25 @@ export function detectLiveEvents({ current, schedule, prevStates, now, options =
           events.push({ ...meta, type: "score", scoredCode: awayCode, targetCodes: [awayCode], dedupKey: `live:${key}:score:${hs}-${as}` });
         }
       }
-      // delayed: 진행중 표기 실측(7/16) 전까지 구현 보류 — 자리만 남김.
-      //   TODO(delayed): 상태 플래핑 대비 경기당 1회 캡 후 재개 알림은 백로그.
+      // delayed: 경기 지연 2경로(A 시작지연 / B 진행중단). 같은 dedupKey 로
+      //   A/B 합산 경기당 1회 캡(sent_log). endedThisTick 은 phase 상 자연 배제되나
+      //   명시 가드로 FINAL 전이 틱의 오발화를 차단한다. 재개 알림은 백로그.
+      if (!endedThisTick && curPhase === "pre") {
+        // delayed-A: 블록이 남아 있는데(=cur 출현) 시작 예정시각+유예를 지나도 pre.
+        //   근거: 취소면 블록이 통째로 사라진다(실측) → 남아 있으면 지연으로 본다.
+        const startAt = Number.isFinite(sched?.startAt)
+          ? sched.startAt
+          : scheduleStartAt(sched ?? cur, dayStr);
+        if (startAt !== null && nowMs >= startAt + delayedGraceMs) {
+          events.push({ ...meta, type: "delayed", reason: "start", targetCodes: dedupeCodes(homeCode, awayCode), dedupKey: `live:${key}:delayed` });
+        }
+      } else if (!endedThisTick && curPhase === "live" && !changed && nowMs - nextLastChangeAt >= stalledMs) {
+        // delayed-B: 진행중인데 state(하프이닝)/점수가 stalled 임계 이상 동결 → 중단 추정.
+        //   근거: state 는 하프이닝마다 바뀌므로 45분 동결은 정상 진행에서 사실상 없다.
+        events.push({ ...meta, type: "delayed", reason: "stalled", targetCodes: dedupeCodes(homeCode, awayCode), dedupKey: `live:${key}:delayed` });
+      }
 
-      upserts.push({ game_key: key, home_score: hs, away_score: as, state: meta.state, missing_count: 0, updated_at: nowMs });
+      upserts.push({ game_key: key, home_score: hs, away_score: as, state: meta.state, missing_count: 0, last_change_at: nextLastChangeAt, updated_at: nowMs });
     } else {
       // ── 스코어보드 미출현(취소 diff 후보) ────────────────────────────────
       if (prevPhase === "final") continue; // 종료 후 목록에서 빠진 것은 정상.
@@ -722,6 +754,7 @@ export function detectLiveEvents({ current, schedule, prevStates, now, options =
         away_score: numOrNull(prev?.away_score),
         state: String(prev?.state ?? ""),
         missing_count: missing,
+        last_change_at: numOrNull(prev?.last_change_at), // 미출현 — 마지막 변경시각 유지(없으면 null)
         updated_at: nowMs,
       });
     }
@@ -772,6 +805,12 @@ export function buildLivePayload(event) {
   } else if (event?.type === "canceled") {
     title = `우천취소 — ${matchup}`;
     body = `오늘 ${loc ? `${loc} ` : ""}경기가 취소됐어요. 예매 취소/환불은 예매처 공지 확인`;
+  } else if (event?.type === "delayed") {
+    title = `경기 지연 — ${matchup}`;
+    body =
+      event?.reason === "start"
+        ? `${loc ? `${loc} ` : ""}경기 시작이 늦어지고 있어요. 우천 등 현장 사정을 확인하세요`
+        : `${loc ? `${loc} ` : ""}경기가 잠시 중단된 것 같아요. 재개 상황은 앱에서 확인하세요`;
   } else {
     title = "경기 알림";
     body = matchup;

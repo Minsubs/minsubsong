@@ -6,7 +6,10 @@
   "scripts": {
     "serve": "python3 -m http.server 4173",
     "update:data": "node scripts/update-data.mjs",
+    "rebuild:ticketing": "node scripts/rebuild-ticketing-data.mjs",
+    "audit:ticketing": "node scripts/audit-ticket-providers.mjs --strict",
+    "audit:ticketing:network": "node scripts/audit-ticket-providers.mjs --strict --network",
     "test": "node --test tests/*.test.mjs",
-    "check": "node --check script.js && node --check service-worker.js && node --check scripts/update-data.mjs && node --check scripts/kbo-schedule-api.mjs && npm test"
+    "check": "node --check script.js && node --check service-worker.js && node --check scripts/update-data.mjs && node --check scripts/kbo-schedule-api.mjs && node --check scripts/ticket-provider-config.mjs && node --check scripts/audit-ticket-providers.mjs && node --check scripts/rebuild-ticketing-data.mjs && node scripts/audit-ticket-providers.mjs && npm test"
   }
 }
