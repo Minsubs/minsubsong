@@ -22,12 +22,52 @@
   {
     "type": "recent",
     "status": "최근 결과",
+    "date": "07.17",
+    "time": "금 18:00",
+    "location": "대전",
+    "home": "한화",
+    "away": "키움",
+    "score": "무 4:4",
+    "detail": "대전 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports/137/63",
+      "note": "한화 홈 예매",
+      "openLabel": "홈경기 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "venueType": "홈"
+    }
+  },
+  {
+    "type": "recent",
+    "status": "최근 결과",
     "date": "07.16",
     "time": "목 18:30",
     "location": "창원",
     "home": "NC",
     "away": "두산",
     "score": "2:4",
+    "detail": "창원 경기",
+    "ticketing": {
+      "provider": "NC 다이노스",
+      "url": "https://www.ncdinos.com/",
+      "note": "NC 홈 예매",
+      "openLabel": "NC 홈 예매 일정 기준",
+      "openDaysBefore": 6,
+      "openTime": "11:00",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "recent",
+    "status": "최근 결과",
+    "date": "07.17",
+    "time": "금 18:00",
+    "location": "창원",
+    "home": "NC",
+    "away": "두산",
+    "score": "0:0",
     "detail": "창원 경기",
     "ticketing": {
       "provider": "NC 다이노스",
@@ -63,12 +103,53 @@
   {
     "type": "recent",
     "status": "최근 결과",
+    "date": "07.17",
+    "time": "금 18:00",
+    "location": "잠실",
+    "home": "LG",
+    "away": "KT",
+    "score": "0:0",
+    "detail": "잠실 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports/137/59",
+      "note": "LG 홈 예매",
+      "openLabel": "LG 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "openCaution": "구단 공지 기준 확인",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "recent",
+    "status": "최근 결과",
     "date": "07.16",
     "time": "목 18:30",
     "location": "문학",
     "home": "SSG",
     "away": "KIA",
     "score": "0:6",
+    "detail": "문학 경기",
+    "ticketing": {
+      "provider": "SSG 티켓",
+      "url": "https://ticket.ssg.com/",
+      "note": "SSG 홈 예매",
+      "openLabel": "SSG 홈 예매 일정 기준",
+      "openDaysBefore": 4,
+      "openTime": "11:00",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "recent",
+    "status": "최근 결과",
+    "date": "07.17",
+    "time": "금 18:00",
+    "location": "문학",
+    "home": "SSG",
+    "away": "KIA",
+    "score": "0:0",
     "detail": "문학 경기",
     "ticketing": {
       "provider": "SSG 티켓",
@@ -104,26 +185,6 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "07.17",
-    "time": "금 18:00",
-    "location": "대전",
-    "home": "한화",
-    "away": "키움",
-    "score": "경기전",
-    "detail": "한화 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports/137/63",
-      "note": "한화 홈 예매",
-      "openLabel": "홈경기 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "홈"
-    }
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
     "date": "07.18",
     "time": "토 18:00",
     "location": "대전",
@@ -359,26 +420,6 @@
       "openDaysBefore": 7,
       "openTime": "16:00",
       "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
-    }
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "07.17",
-    "time": "금 18:00",
-    "location": "창원",
-    "home": "NC",
-    "away": "두산",
-    "score": "경기전",
-    "detail": "NC 홈 경기",
-    "ticketing": {
-      "provider": "NC 다이노스",
-      "url": "https://www.ncdinos.com/",
-      "note": "NC 홈 예매",
-      "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 6,
-      "openTime": "11:00",
       "venueType": "원정"
     }
   },
@@ -632,27 +673,6 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "07.17",
-    "time": "금 18:00",
-    "location": "잠실",
-    "home": "LG",
-    "away": "KT",
-    "score": "경기전",
-    "detail": "LG 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports/137/59",
-      "note": "LG 홈 예매",
-      "openLabel": "LG 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
-    }
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
     "date": "07.18",
     "time": "토 18:00",
     "location": "잠실",
@@ -815,26 +835,6 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
-    }
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "07.17",
-    "time": "금 18:00",
-    "location": "문학",
-    "home": "SSG",
-    "away": "KIA",
-    "score": "경기전",
-    "detail": "SSG 홈 경기",
-    "ticketing": {
-      "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/",
-      "note": "SSG 홈 예매",
-      "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 4,
-      "openTime": "11:00",
       "venueType": "원정"
     }
   },
