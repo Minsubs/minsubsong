@@ -67,7 +67,7 @@
     "location": "대전",
     "home": "한화",
     "away": "키움",
-    "score": "승 4:1",
+    "score": "9:9",
     "detail": "대전 경기",
     "ticketing": {
       "provider": "티켓링크",
@@ -147,7 +147,7 @@
     "location": "창원",
     "home": "NC",
     "away": "두산",
-    "score": "0:0",
+    "score": "10:3",
     "detail": "창원 경기",
     "ticketing": {
       "provider": "NC 다이노스",
@@ -230,7 +230,7 @@
     "location": "잠실",
     "home": "LG",
     "away": "KT",
-    "score": "0:0",
+    "score": "4:1",
     "detail": "잠실 경기",
     "ticketing": {
       "provider": "티켓링크",
@@ -311,7 +311,7 @@
     "location": "문학",
     "home": "SSG",
     "away": "KIA",
-    "score": "0:0",
+    "score": "9:5",
     "detail": "문학 경기",
     "ticketing": {
       "provider": "SSG 티켓",
@@ -373,7 +373,7 @@
     "location": "대구",
     "home": "삼성",
     "away": "롯데",
-    "score": "0:0",
+    "score": "11:8",
     "detail": "대구 경기",
     "ticketing": {
       "provider": "티켓링크",
