@@ -102,6 +102,26 @@
   {
     "type": "recent",
     "status": "최근 결과",
+    "date": "07.22",
+    "time": "수 18:30",
+    "location": "광주",
+    "home": "KIA",
+    "away": "한화",
+    "score": "승 4:1",
+    "detail": "광주 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports/137/58",
+      "note": "KIA 홈 예매",
+      "openLabel": "KIA 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "recent",
+    "status": "최근 결과",
     "date": "07.16",
     "time": "목 18:30",
     "location": "창원",
@@ -409,12 +429,53 @@
   {
     "type": "recent",
     "status": "최근 결과",
+    "date": "07.22",
+    "time": "수 18:30",
+    "location": "사직",
+    "home": "롯데",
+    "away": "SSG",
+    "score": "0:0",
+    "detail": "사직 경기",
+    "ticketing": {
+      "provider": "롯데 자이언츠",
+      "url": "https://ticket.giantsclub.com/",
+      "note": "롯데 홈 예매",
+      "openLabel": "롯데 홈 예매 일정 기준",
+      "openDaysBefore": 14,
+      "openTime": "14:00",
+      "openCaution": "구단 앱 공지 기준 확인",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "recent",
+    "status": "최근 결과",
     "date": "07.21",
     "time": "화 18:30",
     "location": "고척",
     "home": "키움",
     "away": "삼성",
     "score": "8:6",
+    "detail": "고척 경기",
+    "ticketing": {
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/heroes",
+      "note": "키움 홈 예매",
+      "openLabel": "키움 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "14:00",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "recent",
+    "status": "최근 결과",
+    "date": "07.22",
+    "time": "수 18:30",
+    "location": "고척",
+    "home": "키움",
+    "away": "삼성",
+    "score": "0:0",
     "detail": "고척 경기",
     "ticketing": {
       "provider": "NOL(야놀자)",
@@ -492,26 +553,6 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "07.22",
-    "time": "수 18:30",
-    "location": "광주",
-    "home": "KIA",
-    "away": "한화",
-    "score": "경기전",
-    "detail": "KIA 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports/137/58",
-      "note": "KIA 홈 예매",
-      "openLabel": "KIA 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    }
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
     "date": "07.23",
     "time": "목 18:30",
     "location": "광주",
@@ -964,27 +1005,6 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "07.22",
-    "time": "수 18:30",
-    "location": "사직",
-    "home": "롯데",
-    "away": "SSG",
-    "score": "경기전",
-    "detail": "롯데 홈 경기",
-    "ticketing": {
-      "provider": "롯데 자이언츠",
-      "url": "https://ticket.giantsclub.com/",
-      "note": "롯데 홈 예매",
-      "openLabel": "롯데 홈 예매 일정 기준",
-      "openDaysBefore": 14,
-      "openTime": "14:00",
-      "openCaution": "구단 앱 공지 기준 확인",
-      "venueType": "원정"
-    }
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
     "date": "07.23",
     "time": "목 18:30",
     "location": "사직",
@@ -1071,26 +1091,6 @@
     "location": "고척",
     "home": "키움",
     "away": "SSG",
-    "score": "경기전",
-    "detail": "키움 홈 경기",
-    "ticketing": {
-      "provider": "NOL(야놀자)",
-      "url": "https://nol.yanolja.com/ticket/genre/sports/heroes",
-      "note": "키움 홈 예매",
-      "openLabel": "키움 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "14:00",
-      "venueType": "원정"
-    }
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "07.22",
-    "time": "수 18:30",
-    "location": "고척",
-    "home": "키움",
-    "away": "삼성",
     "score": "경기전",
     "detail": "키움 홈 경기",
     "ticketing": {
