@@ -1,1 +1,307 @@
-[]
+[
+  {
+    "date": "07.28",
+    "time": "화 18:30",
+    "location": "잠실",
+    "status": "scheduled",
+    "statusLabel": "경기 예정",
+    "state": "스코어 대기",
+    "inning": "연동 대기",
+    "awayTeam": "키움",
+    "homeTeam": "LG",
+    "awayScore": null,
+    "homeScore": null,
+    "note": "07.28 18:30 키움 vs LG. 경기 시작 후 스코어가 갱신됩니다.",
+    "linescore": [
+      {
+        "inning": "1",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "2",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "3",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "4",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "5",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "6",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "7",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "8",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "9",
+        "away": null,
+        "home": null
+      }
+    ]
+  },
+  {
+    "date": "07.28",
+    "time": "화 18:30",
+    "location": "창원",
+    "status": "scheduled",
+    "statusLabel": "경기 예정",
+    "state": "스코어 대기",
+    "inning": "연동 대기",
+    "awayTeam": "KT",
+    "homeTeam": "NC",
+    "awayScore": null,
+    "homeScore": null,
+    "note": "07.28 18:30 KT vs NC. 경기 시작 후 스코어가 갱신됩니다.",
+    "linescore": [
+      {
+        "inning": "1",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "2",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "3",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "4",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "5",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "6",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "7",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "8",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "9",
+        "away": null,
+        "home": null
+      }
+    ]
+  },
+  {
+    "date": "07.28",
+    "time": "화 18:30",
+    "location": "문학",
+    "status": "scheduled",
+    "statusLabel": "경기 예정",
+    "state": "스코어 대기",
+    "inning": "연동 대기",
+    "awayTeam": "두산",
+    "homeTeam": "SSG",
+    "awayScore": null,
+    "homeScore": null,
+    "note": "07.28 18:30 두산 vs SSG. 경기 시작 후 스코어가 갱신됩니다.",
+    "linescore": [
+      {
+        "inning": "1",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "2",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "3",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "4",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "5",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "6",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "7",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "8",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "9",
+        "away": null,
+        "home": null
+      }
+    ]
+  },
+  {
+    "date": "07.28",
+    "time": "화 18:30",
+    "location": "대구",
+    "status": "scheduled",
+    "statusLabel": "경기 예정",
+    "state": "스코어 대기",
+    "inning": "연동 대기",
+    "awayTeam": "KIA",
+    "homeTeam": "삼성",
+    "awayScore": null,
+    "homeScore": null,
+    "note": "07.28 18:30 KIA vs 삼성. 경기 시작 후 스코어가 갱신됩니다.",
+    "linescore": [
+      {
+        "inning": "1",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "2",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "3",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "4",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "5",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "6",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "7",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "8",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "9",
+        "away": null,
+        "home": null
+      }
+    ]
+  },
+  {
+    "date": "07.28",
+    "time": "화 18:30",
+    "location": "대전",
+    "status": "scheduled",
+    "statusLabel": "경기 예정",
+    "state": "스코어 대기",
+    "inning": "연동 대기",
+    "awayTeam": "롯데",
+    "homeTeam": "한화",
+    "awayScore": null,
+    "homeScore": null,
+    "note": "07.28 18:30 롯데 vs 한화. 경기 시작 후 스코어가 갱신됩니다.",
+    "linescore": [
+      {
+        "inning": "1",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "2",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "3",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "4",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "5",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "6",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "7",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "8",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "9",
+        "away": null,
+        "home": null
+      }
+    ]
+  }
+]
