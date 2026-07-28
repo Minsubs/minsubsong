@@ -2,26 +2,6 @@
   {
     "type": "recent",
     "status": "최근 결과",
-    "date": "07.21",
-    "time": "화 18:30",
-    "location": "광주",
-    "home": "KIA",
-    "away": "한화",
-    "score": "3:7",
-    "detail": "광주 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports/137/58",
-      "note": "KIA 홈 예매",
-      "openLabel": "KIA 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
-    }
-  },
-  {
-    "type": "recent",
-    "status": "최근 결과",
     "date": "07.22",
     "time": "수 18:30",
     "location": "광주",
@@ -127,7 +107,7 @@
     "location": "대전",
     "home": "한화",
     "away": "롯데",
-    "score": "패 2:4",
+    "score": "9:3",
     "detail": "대전 경기",
     "ticketing": {
       "provider": "티켓링크",
@@ -137,27 +117,6 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    }
-  },
-  {
-    "type": "recent",
-    "status": "최근 결과",
-    "date": "07.21",
-    "time": "화 18:30",
-    "location": "수원",
-    "home": "KT",
-    "away": "두산",
-    "score": "2:2",
-    "detail": "수원 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
-      "note": "KT 홈 예매",
-      "openLabel": "KT 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "16:00",
-      "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
     }
   },
   {
@@ -231,7 +190,7 @@
     "location": "문학",
     "home": "SSG",
     "away": "두산",
-    "score": "0:0",
+    "score": "2:1",
     "detail": "문학 경기",
     "ticketing": {
       "provider": "SSG 티켓",
@@ -240,27 +199,6 @@
       "openLabel": "SSG 홈 예매 일정 기준",
       "openDaysBefore": 4,
       "openTime": "11:00",
-      "venueType": "원정"
-    }
-  },
-  {
-    "type": "recent",
-    "status": "최근 결과",
-    "date": "07.21",
-    "time": "화 18:30",
-    "location": "잠실",
-    "home": "LG",
-    "away": "NC",
-    "score": "7:5",
-    "detail": "잠실 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports/137/59",
-      "note": "LG 홈 예매",
-      "openLabel": "LG 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
     }
   },
@@ -293,7 +231,7 @@
     "location": "잠실",
     "home": "LG",
     "away": "키움",
-    "score": "0:0",
+    "score": "3:5",
     "detail": "잠실 경기",
     "ticketing": {
       "provider": "티켓링크",
@@ -303,27 +241,6 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "openCaution": "구단 공지 기준 확인",
-      "venueType": "원정"
-    }
-  },
-  {
-    "type": "recent",
-    "status": "최근 결과",
-    "date": "07.21",
-    "time": "화 18:30",
-    "location": "사직",
-    "home": "롯데",
-    "away": "SSG",
-    "score": "2:6",
-    "detail": "사직 경기",
-    "ticketing": {
-      "provider": "롯데 자이언츠",
-      "url": "https://ticket.giantsclub.com/",
-      "note": "롯데 홈 예매",
-      "openLabel": "롯데 홈 예매 일정 기준",
-      "openDaysBefore": 14,
-      "openTime": "14:00",
-      "openCaution": "구단 앱 공지 기준 확인",
       "venueType": "원정"
     }
   },
@@ -426,26 +343,6 @@
       "openLabel": "SSG 홈 예매 일정 기준",
       "openDaysBefore": 4,
       "openTime": "11:00",
-      "venueType": "원정"
-    }
-  },
-  {
-    "type": "recent",
-    "status": "최근 결과",
-    "date": "07.21",
-    "time": "화 18:30",
-    "location": "고척",
-    "home": "키움",
-    "away": "삼성",
-    "score": "8:6",
-    "detail": "고척 경기",
-    "ticketing": {
-      "provider": "NOL(야놀자)",
-      "url": "https://nol.yanolja.com/ticket/genre/sports/heroes",
-      "note": "키움 홈 예매",
-      "openLabel": "키움 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "14:00",
       "venueType": "원정"
     }
   },
@@ -557,7 +454,7 @@
     "location": "대구",
     "home": "삼성",
     "away": "KIA",
-    "score": "0:0",
+    "score": "5:12",
     "detail": "대구 경기",
     "ticketing": {
       "provider": "티켓링크",
@@ -641,7 +538,7 @@
     "location": "창원",
     "home": "NC",
     "away": "KT",
-    "score": "0:0",
+    "score": "10:0",
     "detail": "창원 경기",
     "ticketing": {
       "provider": "NC 다이노스",
@@ -1149,6 +1046,27 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
+    "date": "08.12",
+    "time": "수 18:30",
+    "location": "잠실",
+    "home": "두산",
+    "away": "한화",
+    "score": "경기전",
+    "detail": "두산 홈 경기",
+    "ticketing": {
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/bears",
+      "note": "두산 홈 예매",
+      "openLabel": "두산 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "earlyOpenLabel": "베어스클럽 선예매 · 일반 1시간 전",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
     "date": "08.01",
     "time": "토 18:00",
     "location": "잠실",
@@ -1442,6 +1360,26 @@
     "status": "예정 경기",
     "date": "08.11",
     "time": "화 18:30",
+    "location": "고척",
+    "home": "키움",
+    "away": "LG",
+    "score": "경기전",
+    "detail": "키움 홈 경기",
+    "ticketing": {
+      "provider": "NOL(야놀자)",
+      "url": "https://nol.yanolja.com/ticket/genre/sports/heroes",
+      "note": "키움 홈 예매",
+      "openLabel": "키움 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "14:00",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.12",
+    "time": "수 18:30",
     "location": "고척",
     "home": "키움",
     "away": "LG",
@@ -1580,6 +1518,26 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
+    "date": "08.12",
+    "time": "수 18:30",
+    "location": "문학",
+    "home": "SSG",
+    "away": "롯데",
+    "score": "경기전",
+    "detail": "SSG 홈 경기",
+    "ticketing": {
+      "provider": "SSG 티켓",
+      "url": "https://ticket.ssg.com/",
+      "note": "SSG 홈 예매",
+      "openLabel": "SSG 홈 예매 일정 기준",
+      "openDaysBefore": 4,
+      "openTime": "11:00",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
     "date": "08.04",
     "time": "화 18:30",
     "location": "사직",
@@ -1745,6 +1703,26 @@
     "status": "예정 경기",
     "date": "08.11",
     "time": "화 18:30",
+    "location": "광주",
+    "home": "KIA",
+    "away": "삼성",
+    "score": "경기전",
+    "detail": "KIA 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports/137/58",
+      "note": "KIA 홈 예매",
+      "openLabel": "KIA 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.12",
+    "time": "수 18:30",
     "location": "광주",
     "home": "KIA",
     "away": "삼성",
@@ -1870,6 +1848,26 @@
     "status": "예정 경기",
     "date": "08.11",
     "time": "화 18:30",
+    "location": "창원",
+    "home": "NC",
+    "away": "KT",
+    "score": "경기전",
+    "detail": "NC 홈 경기",
+    "ticketing": {
+      "provider": "NC 다이노스",
+      "url": "https://www.ncdinos.com/",
+      "note": "NC 홈 예매",
+      "openLabel": "NC 홈 예매 일정 기준",
+      "openDaysBefore": 6,
+      "openTime": "11:00",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "08.12",
+    "time": "수 18:30",
     "location": "창원",
     "home": "NC",
     "away": "KT",
