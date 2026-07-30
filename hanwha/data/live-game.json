@@ -1,46 +1,46 @@
 [
   {
-    "date": "07.30",
-    "time": "목 18:30",
-    "location": "잠실",
-    "status": "live",
-    "statusLabel": "경기 중",
-    "state": "TOP 6",
-    "inning": "TOP 6",
-    "awayTeam": "키움",
-    "homeTeam": "LG",
-    "awayScore": 3,
-    "homeScore": 1,
-    "note": "키움 3:1 LG. TOP 6 진행 중입니다.",
+    "date": "07.31",
+    "time": "금 18:30",
+    "location": "수원",
+    "status": "scheduled",
+    "statusLabel": "경기 예정",
+    "state": "스코어 대기",
+    "inning": "연동 대기",
+    "awayTeam": "한화",
+    "homeTeam": "KT",
+    "awayScore": null,
+    "homeScore": null,
+    "note": "07.31 18:30 한화 vs KT. 경기 시작 후 스코어가 갱신됩니다.",
     "linescore": [
       {
         "inning": "1",
-        "away": 3,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "2",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "3",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "4",
-        "away": 0,
-        "home": 1
+        "away": null,
+        "home": null
       },
       {
         "inning": "5",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "6",
-        "away": 0,
+        "away": null,
         "home": null
       },
       {
@@ -61,160 +61,38 @@
     ]
   },
   {
-    "date": "07.30",
-    "time": "목 18:30",
+    "date": "07.31",
+    "time": "금 18:30",
     "location": "창원",
-    "status": "live",
-    "statusLabel": "경기 중",
-    "state": "BOT 4",
-    "inning": "BOT 4",
-    "awayTeam": "KT",
-    "homeTeam": "NC",
-    "awayScore": 4,
-    "homeScore": 1,
-    "note": "KT 4:1 NC. BOT 4 진행 중입니다.",
-    "linescore": [
-      {
-        "inning": "1",
-        "away": 0,
-        "home": 0
-      },
-      {
-        "inning": "2",
-        "away": 1,
-        "home": 0
-      },
-      {
-        "inning": "3",
-        "away": 0,
-        "home": 0
-      },
-      {
-        "inning": "4",
-        "away": 3,
-        "home": 1
-      },
-      {
-        "inning": "5",
-        "away": null,
-        "home": null
-      },
-      {
-        "inning": "6",
-        "away": null,
-        "home": null
-      },
-      {
-        "inning": "7",
-        "away": null,
-        "home": null
-      },
-      {
-        "inning": "8",
-        "away": null,
-        "home": null
-      },
-      {
-        "inning": "9",
-        "away": null,
-        "home": null
-      }
-    ]
-  },
-  {
-    "date": "07.30",
-    "time": "목 18:30",
-    "location": "문학",
-    "status": "live",
-    "statusLabel": "경기 중",
-    "state": "TOP 5",
-    "inning": "TOP 5",
-    "awayTeam": "두산",
-    "homeTeam": "SSG",
-    "awayScore": 2,
-    "homeScore": 1,
-    "note": "두산 2:1 SSG. TOP 5 진행 중입니다.",
-    "linescore": [
-      {
-        "inning": "1",
-        "away": 0,
-        "home": 0
-      },
-      {
-        "inning": "2",
-        "away": 2,
-        "home": 1
-      },
-      {
-        "inning": "3",
-        "away": 0,
-        "home": 0
-      },
-      {
-        "inning": "4",
-        "away": 0,
-        "home": 0
-      },
-      {
-        "inning": "5",
-        "away": 0,
-        "home": null
-      },
-      {
-        "inning": "6",
-        "away": null,
-        "home": null
-      },
-      {
-        "inning": "7",
-        "away": null,
-        "home": null
-      },
-      {
-        "inning": "8",
-        "away": null,
-        "home": null
-      },
-      {
-        "inning": "9",
-        "away": null,
-        "home": null
-      }
-    ]
-  },
-  {
-    "date": "07.30",
-    "time": "목 18:30",
-    "location": "대구",
-    "status": "live",
-    "statusLabel": "경기 중",
-    "state": "BOT 4",
-    "inning": "BOT 4",
+    "status": "scheduled",
+    "statusLabel": "경기 예정",
+    "state": "스코어 대기",
+    "inning": "연동 대기",
     "awayTeam": "KIA",
-    "homeTeam": "삼성",
-    "awayScore": 6,
-    "homeScore": 2,
-    "note": "KIA 6:2 삼성. BOT 4 진행 중입니다.",
+    "homeTeam": "NC",
+    "awayScore": null,
+    "homeScore": null,
+    "note": "07.31 18:30 KIA vs NC. 경기 시작 후 스코어가 갱신됩니다.",
     "linescore": [
       {
         "inning": "1",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "2",
-        "away": 5,
-        "home": 2
+        "away": null,
+        "home": null
       },
       {
         "inning": "3",
-        "away": 1,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "4",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "5",
@@ -244,47 +122,169 @@
     ]
   },
   {
-    "date": "07.30",
-    "time": "목 18:30",
-    "location": "대전",
-    "status": "live",
-    "statusLabel": "경기 중",
-    "state": "TOP 6",
-    "inning": "TOP 6",
-    "awayTeam": "롯데",
-    "homeTeam": "한화",
-    "awayScore": 2,
-    "homeScore": 1,
-    "note": "롯데 2:1 한화. TOP 6 진행 중입니다.",
+    "date": "07.31",
+    "time": "금 18:30",
+    "location": "잠실",
+    "status": "scheduled",
+    "statusLabel": "경기 예정",
+    "state": "스코어 대기",
+    "inning": "연동 대기",
+    "awayTeam": "LG",
+    "homeTeam": "두산",
+    "awayScore": null,
+    "homeScore": null,
+    "note": "07.31 18:30 LG vs 두산. 경기 시작 후 스코어가 갱신됩니다.",
     "linescore": [
       {
         "inning": "1",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "2",
-        "away": 1,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "3",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "4",
-        "away": 1,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "5",
-        "away": 0,
-        "home": 1
+        "away": null,
+        "home": null
       },
       {
         "inning": "6",
-        "away": 0,
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "7",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "8",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "9",
+        "away": null,
+        "home": null
+      }
+    ]
+  },
+  {
+    "date": "07.31",
+    "time": "금 18:30",
+    "location": "사직",
+    "status": "scheduled",
+    "statusLabel": "경기 예정",
+    "state": "스코어 대기",
+    "inning": "연동 대기",
+    "awayTeam": "삼성",
+    "homeTeam": "롯데",
+    "awayScore": null,
+    "homeScore": null,
+    "note": "07.31 18:30 삼성 vs 롯데. 경기 시작 후 스코어가 갱신됩니다.",
+    "linescore": [
+      {
+        "inning": "1",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "2",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "3",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "4",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "5",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "6",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "7",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "8",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "9",
+        "away": null,
+        "home": null
+      }
+    ]
+  },
+  {
+    "date": "07.31",
+    "time": "금 18:30",
+    "location": "고척",
+    "status": "scheduled",
+    "statusLabel": "경기 예정",
+    "state": "스코어 대기",
+    "inning": "연동 대기",
+    "awayTeam": "SSG",
+    "homeTeam": "키움",
+    "awayScore": null,
+    "homeScore": null,
+    "note": "07.31 18:30 SSG vs 키움. 경기 시작 후 스코어가 갱신됩니다.",
+    "linescore": [
+      {
+        "inning": "1",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "2",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "3",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "4",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "5",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "6",
+        "away": null,
         "home": null
       },
       {
