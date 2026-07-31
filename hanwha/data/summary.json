@@ -2,7 +2,7 @@
   {
     "label": "순위",
     "value": "6위",
-    "caption": "46승 46패"
+    "caption": "46승 47패"
   },
   {
     "label": "팀 타율",
@@ -11,12 +11,12 @@
   },
   {
     "label": "홈런",
-    "value": "110",
+    "value": "111",
     "caption": "팀 홈런"
   },
   {
     "label": "최근 흐름",
-    "value": "W2",
-    "caption": "2연승"
+    "value": "L1",
+    "caption": "1연패"
   }
 ]
