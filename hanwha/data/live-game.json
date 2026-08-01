@@ -3,35 +3,35 @@
     "date": "08.01",
     "time": "토 18:00",
     "location": "수원",
-    "status": "scheduled",
-    "statusLabel": "경기 예정",
-    "state": "스코어 대기",
-    "inning": "연동 대기",
+    "status": "live",
+    "statusLabel": "경기 중",
+    "state": "BOT 4",
+    "inning": "BOT 4",
     "awayTeam": "한화",
     "homeTeam": "KT",
-    "awayScore": null,
-    "homeScore": null,
-    "note": "08.01 18:00 한화 vs KT. 경기 시작 후 스코어가 갱신됩니다.",
+    "awayScore": 4,
+    "homeScore": 7,
+    "note": "한화 4:7 KT. BOT 4 진행 중입니다.",
     "linescore": [
       {
         "inning": "1",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 0
       },
       {
         "inning": "2",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 0
       },
       {
         "inning": "3",
-        "away": null,
-        "home": null
+        "away": 1,
+        "home": 7
       },
       {
         "inning": "4",
-        "away": null,
-        "home": null
+        "away": 3,
+        "home": 0
       },
       {
         "inning": "5",
@@ -125,45 +125,45 @@
     "date": "08.01",
     "time": "토 18:00",
     "location": "잠실",
-    "status": "scheduled",
-    "statusLabel": "경기 예정",
-    "state": "스코어 대기",
-    "inning": "연동 대기",
+    "status": "live",
+    "statusLabel": "경기 중",
+    "state": "BOT 6",
+    "inning": "BOT 6",
     "awayTeam": "LG",
     "homeTeam": "두산",
-    "awayScore": null,
-    "homeScore": null,
-    "note": "08.01 18:00 LG vs 두산. 경기 시작 후 스코어가 갱신됩니다.",
+    "awayScore": 2,
+    "homeScore": 0,
+    "note": "LG 2:0 두산. BOT 6 진행 중입니다.",
     "linescore": [
       {
         "inning": "1",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 0
       },
       {
         "inning": "2",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 0
       },
       {
         "inning": "3",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 0
       },
       {
         "inning": "4",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 0
       },
       {
         "inning": "5",
-        "away": null,
-        "home": null
+        "away": 2,
+        "home": 0
       },
       {
         "inning": "6",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 0
       },
       {
         "inning": "7",
@@ -247,35 +247,35 @@
     "date": "08.01",
     "time": "토 18:00",
     "location": "고척",
-    "status": "scheduled",
-    "statusLabel": "경기 예정",
-    "state": "스코어 대기",
-    "inning": "연동 대기",
+    "status": "live",
+    "statusLabel": "경기 중",
+    "state": "BOT 4",
+    "inning": "BOT 4",
     "awayTeam": "SSG",
     "homeTeam": "키움",
-    "awayScore": null,
-    "homeScore": null,
-    "note": "08.01 18:00 SSG vs 키움. 경기 시작 후 스코어가 갱신됩니다.",
+    "awayScore": 3,
+    "homeScore": 1,
+    "note": "SSG 3:1 키움. BOT 4 진행 중입니다.",
     "linescore": [
       {
         "inning": "1",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 0
       },
       {
         "inning": "2",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 0
       },
       {
         "inning": "3",
-        "away": null,
-        "home": null
+        "away": 1,
+        "home": 1
       },
       {
         "inning": "4",
-        "away": null,
-        "home": null
+        "away": 2,
+        "home": 0
       },
       {
         "inning": "5",
