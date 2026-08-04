@@ -24,28 +24,6 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "08.04",
-    "time": "화 18:30",
-    "location": "사직",
-    "home": "롯데",
-    "away": "키움",
-    "score": "경기전",
-    "detail": "롯데 홈 경기",
-    "ticketing": {
-      "provider": "롯데 자이언츠",
-      "url": "https://ticket.giantsclub.com/",
-      "note": "롯데 홈 예매",
-      "openLabel": "롯데 홈 예매 일정 기준",
-      "openDaysBefore": 14,
-      "openTime": "14:00",
-      "openCaution": "구단 앱 공지 기준 확인",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-21T14:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
     "date": "08.05",
     "time": "수 18:30",
     "location": "사직",
@@ -134,28 +112,6 @@
     "status": "예정 경기",
     "date": "08.04",
     "time": "화 18:30",
-    "location": "대구",
-    "home": "삼성",
-    "away": "한화",
-    "score": "경기전",
-    "detail": "삼성 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports/137/57",
-      "note": "삼성 홈 예매",
-      "openLabel": "삼성 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "시리즈 단위 화요일 11:00 일괄 오픈 — 시리즈 후속 경기는 더 일찍 열림",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-28T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.04",
-    "time": "화 18:30",
     "location": "잠실",
     "home": "두산",
     "away": "NC",
@@ -323,27 +279,6 @@
       "venueType": "원정"
     },
     "openAt": "2026-07-30T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "08.04",
-    "time": "화 18:30",
-    "location": "문학",
-    "home": "SSG",
-    "away": "LG",
-    "score": "경기전",
-    "detail": "SSG 홈 경기",
-    "ticketing": {
-      "provider": "SSG 티켓",
-      "url": "https://ticket.ssg.com/",
-      "note": "SSG 홈 예매",
-      "openLabel": "SSG 홈 예매 일정 기준",
-      "openDaysBefore": 4,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-07-31T11:00:00+09:00"
   },
   {
     "type": "upcoming",
