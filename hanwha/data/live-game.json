@@ -1,7 +1,7 @@
 [
   {
-    "date": "08.07",
-    "time": "금 18:30",
+    "date": "08.08",
+    "time": "토 18:00",
     "location": "수원",
     "status": "scheduled",
     "statusLabel": "경기 예정",
@@ -11,7 +11,7 @@
     "homeTeam": "KT",
     "awayScore": null,
     "homeScore": null,
-    "note": "08.07 18:30 롯데 vs KT. 경기 시작 후 스코어가 갱신됩니다.",
+    "note": "08.08 18:00 롯데 vs KT. 경기 시작 후 스코어가 갱신됩니다.",
     "linescore": [
       {
         "inning": "1",
@@ -61,8 +61,8 @@
     ]
   },
   {
-    "date": "08.07",
-    "time": "금 18:30",
+    "date": "08.08",
+    "time": "토 18:00",
     "location": "잠실",
     "status": "scheduled",
     "statusLabel": "경기 예정",
@@ -72,7 +72,7 @@
     "homeTeam": "LG",
     "awayScore": null,
     "homeScore": null,
-    "note": "08.07 18:30 KIA vs LG. 경기 시작 후 스코어가 갱신됩니다.",
+    "note": "08.08 18:00 KIA vs LG. 경기 시작 후 스코어가 갱신됩니다.",
     "linescore": [
       {
         "inning": "1",
@@ -122,8 +122,8 @@
     ]
   },
   {
-    "date": "08.07",
-    "time": "금 18:30",
+    "date": "08.08",
+    "time": "토 18:00",
     "location": "창원",
     "status": "scheduled",
     "statusLabel": "경기 예정",
@@ -133,7 +133,7 @@
     "homeTeam": "NC",
     "awayScore": null,
     "homeScore": null,
-    "note": "08.07 18:30 SSG vs NC. 경기 시작 후 스코어가 갱신됩니다.",
+    "note": "08.08 18:00 SSG vs NC. 경기 시작 후 스코어가 갱신됩니다.",
     "linescore": [
       {
         "inning": "1",
@@ -183,8 +183,8 @@
     ]
   },
   {
-    "date": "08.07",
-    "time": "금 18:30",
+    "date": "08.08",
+    "time": "토 18:00",
     "location": "대구",
     "status": "scheduled",
     "statusLabel": "경기 예정",
@@ -194,7 +194,7 @@
     "homeTeam": "삼성",
     "awayScore": null,
     "homeScore": null,
-    "note": "08.07 18:30 두산 vs 삼성. 경기 시작 후 스코어가 갱신됩니다.",
+    "note": "08.08 18:00 두산 vs 삼성. 경기 시작 후 스코어가 갱신됩니다.",
     "linescore": [
       {
         "inning": "1",
@@ -244,8 +244,8 @@
     ]
   },
   {
-    "date": "08.07",
-    "time": "금 18:30",
+    "date": "08.08",
+    "time": "토 18:00",
     "location": "대전",
     "status": "scheduled",
     "statusLabel": "경기 예정",
@@ -255,7 +255,7 @@
     "homeTeam": "한화",
     "awayScore": null,
     "homeScore": null,
-    "note": "08.07 18:30 키움 vs 한화. 경기 시작 후 스코어가 갱신됩니다.",
+    "note": "08.08 18:00 키움 vs 한화. 경기 시작 후 스코어가 갱신됩니다.",
     "linescore": [
       {
         "inning": "1",
