@@ -1,306 +1,306 @@
 [
   {
-    "date": "08.18",
-    "time": "화 19:00",
+    "date": "08.19",
+    "time": "수 19:00",
     "location": "잠실",
-    "status": "final",
-    "statusLabel": "경기 결과",
-    "state": "종료",
-    "inning": "최종",
+    "status": "scheduled",
+    "statusLabel": "경기 예정",
+    "state": "스코어 대기",
+    "inning": "연동 대기",
     "awayTeam": "KT",
     "homeTeam": "LG",
-    "awayScore": 1,
-    "homeScore": 9,
-    "note": "KT 1:9 LG. KBO 스코어보드 기준 결과입니다.",
+    "awayScore": null,
+    "homeScore": null,
+    "note": "08.19 19:00 KT vs LG. 경기 시작 후 스코어가 갱신됩니다.",
     "linescore": [
       {
         "inning": "1",
-        "away": 0,
-        "home": 2
+        "away": null,
+        "home": null
       },
       {
         "inning": "2",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "3",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "4",
-        "away": 1,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "5",
-        "away": 0,
-        "home": 4
+        "away": null,
+        "home": null
       },
       {
         "inning": "6",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "7",
-        "away": 0,
-        "home": 3
+        "away": null,
+        "home": null
       },
       {
         "inning": "8",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "9",
-        "away": 0,
+        "away": null,
         "home": null
       }
     ]
   },
   {
-    "date": "08.18",
-    "time": "화 19:00",
+    "date": "08.19",
+    "time": "수 19:00",
     "location": "창원",
-    "status": "final",
-    "statusLabel": "경기 결과",
-    "state": "종료",
-    "inning": "최종",
+    "status": "scheduled",
+    "statusLabel": "경기 예정",
+    "state": "스코어 대기",
+    "inning": "연동 대기",
     "awayTeam": "두산",
     "homeTeam": "NC",
-    "awayScore": 6,
-    "homeScore": 4,
-    "note": "두산 6:4 NC. KBO 스코어보드 기준 결과입니다.",
+    "awayScore": null,
+    "homeScore": null,
+    "note": "08.19 19:00 두산 vs NC. 경기 시작 후 스코어가 갱신됩니다.",
     "linescore": [
       {
         "inning": "1",
-        "away": 0,
-        "home": 2
+        "away": null,
+        "home": null
       },
       {
         "inning": "2",
-        "away": 0,
-        "home": 1
+        "away": null,
+        "home": null
       },
       {
         "inning": "3",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "4",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "5",
-        "away": 1,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "6",
-        "away": 1,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "7",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "8",
-        "away": 1,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "9",
-        "away": 3,
-        "home": 1
-      }
-    ]
-  },
-  {
-    "date": "08.18",
-    "time": "화 19:00",
-    "location": "사직",
-    "status": "final",
-    "statusLabel": "경기 결과",
-    "state": "종료",
-    "inning": "최종",
-    "awayTeam": "키움",
-    "homeTeam": "롯데",
-    "awayScore": 10,
-    "homeScore": 15,
-    "note": "키움 10:15 롯데. KBO 스코어보드 기준 결과입니다.",
-    "linescore": [
-      {
-        "inning": "1",
-        "away": 2,
-        "home": 0
-      },
-      {
-        "inning": "2",
-        "away": 5,
-        "home": 0
-      },
-      {
-        "inning": "3",
-        "away": 0,
-        "home": 0
-      },
-      {
-        "inning": "4",
-        "away": 0,
-        "home": 0
-      },
-      {
-        "inning": "5",
-        "away": 0,
-        "home": 0
-      },
-      {
-        "inning": "6",
-        "away": 1,
-        "home": 0
-      },
-      {
-        "inning": "7",
-        "away": 0,
-        "home": 13
-      },
-      {
-        "inning": "8",
-        "away": 1,
-        "home": 2
-      },
-      {
-        "inning": "9",
-        "away": 1,
+        "away": null,
         "home": null
       }
     ]
   },
   {
-    "date": "08.18",
-    "time": "화 19:00",
-    "location": "대구",
-    "status": "final",
-    "statusLabel": "경기 결과",
-    "state": "종료",
-    "inning": "최종",
-    "awayTeam": "SSG",
-    "homeTeam": "삼성",
-    "awayScore": 5,
-    "homeScore": 4,
-    "note": "SSG 5:4 삼성. KBO 스코어보드 기준 결과입니다.",
+    "date": "08.19",
+    "time": "수 19:00",
+    "location": "사직",
+    "status": "scheduled",
+    "statusLabel": "경기 예정",
+    "state": "스코어 대기",
+    "inning": "연동 대기",
+    "awayTeam": "키움",
+    "homeTeam": "롯데",
+    "awayScore": null,
+    "homeScore": null,
+    "note": "08.19 19:00 키움 vs 롯데. 경기 시작 후 스코어가 갱신됩니다.",
     "linescore": [
       {
         "inning": "1",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "2",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "3",
-        "away": 0,
-        "home": 1
+        "away": null,
+        "home": null
       },
       {
         "inning": "4",
-        "away": 1,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "5",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "6",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "7",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "8",
-        "away": 0,
-        "home": 1
+        "away": null,
+        "home": null
       },
       {
         "inning": "9",
-        "away": 4,
-        "home": 2
+        "away": null,
+        "home": null
       }
     ]
   },
   {
-    "date": "08.18",
-    "time": "화 19:00",
-    "location": "대전",
-    "status": "final",
-    "statusLabel": "경기 결과",
-    "state": "종료",
-    "inning": "최종",
-    "awayTeam": "KIA",
-    "homeTeam": "한화",
-    "awayScore": 4,
-    "homeScore": 3,
-    "note": "KIA 4:3 한화. KBO 스코어보드 기준 결과입니다.",
+    "date": "08.19",
+    "time": "수 19:00",
+    "location": "대구",
+    "status": "scheduled",
+    "statusLabel": "경기 예정",
+    "state": "스코어 대기",
+    "inning": "연동 대기",
+    "awayTeam": "SSG",
+    "homeTeam": "삼성",
+    "awayScore": null,
+    "homeScore": null,
+    "note": "08.19 19:00 SSG vs 삼성. 경기 시작 후 스코어가 갱신됩니다.",
     "linescore": [
       {
         "inning": "1",
-        "away": 0,
-        "home": 1
+        "away": null,
+        "home": null
       },
       {
         "inning": "2",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "3",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "4",
-        "away": 3,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "5",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "6",
-        "away": 0,
-        "home": 1
+        "away": null,
+        "home": null
       },
       {
         "inning": "7",
-        "away": 1,
-        "home": 1
+        "away": null,
+        "home": null
       },
       {
         "inning": "8",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
       },
       {
         "inning": "9",
-        "away": 0,
-        "home": 0
+        "away": null,
+        "home": null
+      }
+    ]
+  },
+  {
+    "date": "08.19",
+    "time": "수 19:00",
+    "location": "대전",
+    "status": "scheduled",
+    "statusLabel": "경기 예정",
+    "state": "스코어 대기",
+    "inning": "연동 대기",
+    "awayTeam": "KIA",
+    "homeTeam": "한화",
+    "awayScore": null,
+    "homeScore": null,
+    "note": "08.19 19:00 KIA vs 한화. 경기 시작 후 스코어가 갱신됩니다.",
+    "linescore": [
+      {
+        "inning": "1",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "2",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "3",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "4",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "5",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "6",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "7",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "8",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "9",
+        "away": null,
+        "home": null
       }
     ]
   }
