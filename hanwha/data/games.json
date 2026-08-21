@@ -109,8 +109,8 @@
     "location": "대전",
     "home": "한화",
     "away": "LG",
-    "score": "무 0:0",
-    "detail": "대전 경기",
+    "score": "승 15:11",
+    "detail": "KBO 스코어보드 최종",
     "ticketing": {
       "provider": "티켓링크",
       "url": "https://www.ticketlink.co.kr/sports/137/63",
@@ -249,7 +249,7 @@
     "location": "잠실",
     "home": "두산",
     "away": "롯데",
-    "score": "0:0",
+    "score": "11:4",
     "detail": "잠실 경기",
     "ticketing": {
       "provider": "NOL(야놀자)",
@@ -459,7 +459,7 @@
     "location": "문학",
     "home": "SSG",
     "away": "KT",
-    "score": "0:0",
+    "score": "3:3",
     "detail": "문학 경기",
     "ticketing": {
       "provider": "SSG 티켓",
@@ -605,7 +605,7 @@
     "location": "고척",
     "home": "키움",
     "away": "KIA",
-    "score": "0:0",
+    "score": "11:1",
     "detail": "고척 경기",
     "ticketing": {
       "provider": "NOL(야놀자)",
@@ -625,7 +625,7 @@
     "location": "창원",
     "home": "NC",
     "away": "삼성",
-    "score": "0:0",
+    "score": "2:3",
     "detail": "창원 경기",
     "ticketing": {
       "provider": "NC 다이노스",
