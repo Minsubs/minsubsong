@@ -29,20 +29,6 @@
   },
   {
     "rank": "3",
-    "team": "KIA",
-    "games": "111",
-    "wins": "60",
-    "losses": "49",
-    "draws": "2",
-    "pct": "0.550",
-    "gamesBehind": "5.5",
-    "streak": "L1",
-    "home": "30-22-2",
-    "away": "30-27-0",
-    "isHanwha": false
-  },
-  {
-    "rank": "4",
     "team": "LG",
     "games": "111",
     "wins": "60",
@@ -53,6 +39,20 @@
     "streak": "L2",
     "home": "35-23-0",
     "away": "25-27-1",
+    "isHanwha": false
+  },
+  {
+    "rank": "3",
+    "team": "KIA",
+    "games": "112",
+    "wins": "60",
+    "losses": "50",
+    "draws": "2",
+    "pct": "0.545",
+    "gamesBehind": "6.0",
+    "streak": "L2",
+    "home": "30-22-2",
+    "away": "30-28-0",
     "isHanwha": false
   },
   {
@@ -128,14 +128,14 @@
   {
     "rank": "10",
     "team": "키움",
-    "games": "115",
-    "wins": "41",
+    "games": "116",
+    "wins": "42",
     "losses": "72",
     "draws": "2",
-    "pct": "0.363",
-    "gamesBehind": "26.5",
-    "streak": "W1",
-    "home": "24-34-1",
+    "pct": "0.368",
+    "gamesBehind": "26.0",
+    "streak": "W2",
+    "home": "25-34-1",
     "away": "17-38-1",
     "isHanwha": false
   }
