@@ -87,8 +87,8 @@
     "location": "대전",
     "home": "한화",
     "away": "LG",
-    "score": "패 3:12",
-    "detail": "KBO 스코어보드 최종",
+    "score": "12:3",
+    "detail": "대전 경기",
     "ticketing": {
       "provider": "티켓링크",
       "url": "https://www.ticketlink.co.kr/sports/137/63",
@@ -97,26 +97,6 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "홈"
-    }
-  },
-  {
-    "type": "recent",
-    "status": "최근 결과",
-    "date": "08.16",
-    "time": "일 19:00",
-    "location": "광주",
-    "home": "KIA",
-    "away": "두산",
-    "score": "1:2",
-    "detail": "광주 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports/137/58",
-      "note": "KIA 홈 예매",
-      "openLabel": "KIA 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "venueType": "원정"
     }
   },
   {
@@ -218,27 +198,6 @@
       "openDaysBefore": 7,
       "openTime": "11:00",
       "earlyOpenLabel": "베어스클럽 선예매 · 일반 1시간 전",
-      "venueType": "원정"
-    }
-  },
-  {
-    "type": "recent",
-    "status": "최근 결과",
-    "date": "08.16",
-    "time": "일 19:00",
-    "location": "잠실",
-    "home": "LG",
-    "away": "SSG",
-    "score": "6:0",
-    "detail": "잠실 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports/137/59",
-      "note": "LG 홈 예매",
-      "openLabel": "LG 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "11:00",
-      "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
     }
   },
@@ -405,27 +364,6 @@
       "openLabel": "SSG 홈 예매 일정 기준",
       "openDaysBefore": 4,
       "openTime": "11:00",
-      "venueType": "원정"
-    }
-  },
-  {
-    "type": "recent",
-    "status": "최근 결과",
-    "date": "08.16",
-    "time": "일 19:00",
-    "location": "수원",
-    "home": "KT",
-    "away": "키움",
-    "score": "2:6",
-    "detail": "수원 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports",
-      "note": "KT 홈 예매",
-      "openLabel": "KT 홈 예매 일정 기준",
-      "openDaysBefore": 7,
-      "openTime": "16:00",
-      "openCaution": "구단 공지 기준 확인",
       "venueType": "원정"
     }
   },
