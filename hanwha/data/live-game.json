@@ -1,1 +1,307 @@
-[]
+[
+  {
+    "date": "08.25",
+    "time": "화 18:30",
+    "location": "광주",
+    "status": "scheduled",
+    "statusLabel": "경기 예정",
+    "state": "스코어 대기",
+    "inning": "연동 대기",
+    "awayTeam": "롯데",
+    "homeTeam": "KIA",
+    "awayScore": null,
+    "homeScore": null,
+    "note": "08.25 18:30 롯데 vs KIA. 경기 시작 후 스코어가 갱신됩니다.",
+    "linescore": [
+      {
+        "inning": "1",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "2",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "3",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "4",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "5",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "6",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "7",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "8",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "9",
+        "away": null,
+        "home": null
+      }
+    ]
+  },
+  {
+    "date": "08.25",
+    "time": "화 18:30",
+    "location": "수원",
+    "status": "scheduled",
+    "statusLabel": "경기 예정",
+    "state": "스코어 대기",
+    "inning": "연동 대기",
+    "awayTeam": "두산",
+    "homeTeam": "KT",
+    "awayScore": null,
+    "homeScore": null,
+    "note": "08.25 18:30 두산 vs KT. 경기 시작 후 스코어가 갱신됩니다.",
+    "linescore": [
+      {
+        "inning": "1",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "2",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "3",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "4",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "5",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "6",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "7",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "8",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "9",
+        "away": null,
+        "home": null
+      }
+    ]
+  },
+  {
+    "date": "08.25",
+    "time": "화 18:30",
+    "location": "잠실",
+    "status": "scheduled",
+    "statusLabel": "경기 예정",
+    "state": "스코어 대기",
+    "inning": "연동 대기",
+    "awayTeam": "NC",
+    "homeTeam": "LG",
+    "awayScore": null,
+    "homeScore": null,
+    "note": "08.25 18:30 NC vs LG. 경기 시작 후 스코어가 갱신됩니다.",
+    "linescore": [
+      {
+        "inning": "1",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "2",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "3",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "4",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "5",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "6",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "7",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "8",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "9",
+        "away": null,
+        "home": null
+      }
+    ]
+  },
+  {
+    "date": "08.25",
+    "time": "화 18:30",
+    "location": "문학",
+    "status": "scheduled",
+    "statusLabel": "경기 예정",
+    "state": "스코어 대기",
+    "inning": "연동 대기",
+    "awayTeam": "한화",
+    "homeTeam": "SSG",
+    "awayScore": null,
+    "homeScore": null,
+    "note": "08.25 18:30 한화 vs SSG. 경기 시작 후 스코어가 갱신됩니다.",
+    "linescore": [
+      {
+        "inning": "1",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "2",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "3",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "4",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "5",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "6",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "7",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "8",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "9",
+        "away": null,
+        "home": null
+      }
+    ]
+  },
+  {
+    "date": "08.25",
+    "time": "화 18:30",
+    "location": "고척",
+    "status": "scheduled",
+    "statusLabel": "경기 예정",
+    "state": "스코어 대기",
+    "inning": "연동 대기",
+    "awayTeam": "삼성",
+    "homeTeam": "키움",
+    "awayScore": null,
+    "homeScore": null,
+    "note": "08.25 18:30 삼성 vs 키움. 경기 시작 후 스코어가 갱신됩니다.",
+    "linescore": [
+      {
+        "inning": "1",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "2",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "3",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "4",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "5",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "6",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "7",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "8",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "9",
+        "away": null,
+        "home": null
+      }
+    ]
+  }
+]
