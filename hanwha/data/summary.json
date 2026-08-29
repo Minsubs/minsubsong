@@ -2,21 +2,21 @@
   {
     "label": "순위",
     "value": "8위",
-    "caption": "49승 60패"
+    "caption": "49승 61패"
   },
   {
     "label": "팀 타율",
-    "value": "0.274",
-    "caption": "KBO 3위권"
+    "value": "0.273",
+    "caption": "KBO 5위권"
   },
   {
     "label": "홈런",
-    "value": "136",
+    "value": "138",
     "caption": "팀 홈런"
   },
   {
     "label": "최근 흐름",
-    "value": "L4",
-    "caption": "4연패"
+    "value": "L5",
+    "caption": "5연패"
   }
 ]
