@@ -28,8 +28,8 @@
     "location": "수원",
     "home": "KT",
     "away": "한화",
-    "score": "패 6:9",
-    "detail": "KBO 스코어보드 최종",
+    "score": "6:9",
+    "detail": "수원 경기",
     "ticketing": {
       "provider": "티켓링크",
       "url": "https://www.ticketlink.co.kr/sports",
@@ -70,7 +70,7 @@
     "location": "잠실",
     "home": "두산",
     "away": "LG",
-    "score": "0:0",
+    "score": "5:1",
     "detail": "잠실 경기",
     "ticketing": {
       "provider": "NOL(야놀자)",
@@ -111,7 +111,7 @@
     "location": "고척",
     "home": "키움",
     "away": "SSG",
-    "score": "0:0",
+    "score": "9:6",
     "detail": "고척 경기",
     "ticketing": {
       "provider": "NOL(야놀자)",
@@ -151,7 +151,7 @@
     "location": "창원",
     "home": "NC",
     "away": "KIA",
-    "score": "0:0",
+    "score": "2:3",
     "detail": "창원 경기",
     "ticketing": {
       "provider": "NC 다이노스",
@@ -192,7 +192,7 @@
     "location": "대구",
     "home": "삼성",
     "away": "롯데",
-    "score": "0:0",
+    "score": "5:8",
     "detail": "대구 경기",
     "ticketing": {
       "provider": "티켓링크",
@@ -880,6 +880,26 @@
       "openDaysBefore": 14,
       "openTime": "14:00",
       "openCaution": "구단 앱 공지 기준 확인",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "09.17",
+    "time": "목 18:30",
+    "location": "창원",
+    "home": "NC",
+    "away": "SSG",
+    "score": "경기전",
+    "detail": "NC 홈 경기",
+    "ticketing": {
+      "provider": "NC 다이노스",
+      "url": "https://www.ncdinos.com/",
+      "note": "NC 홈 예매",
+      "openLabel": "NC 홈 예매 일정 기준",
+      "openDaysBefore": 6,
+      "openTime": "11:00",
       "venueType": "원정"
     }
   },
@@ -981,6 +1001,26 @@
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "14:00",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "upcoming",
+    "status": "예정 경기",
+    "date": "09.17",
+    "time": "목 18:30",
+    "location": "광주",
+    "home": "KIA",
+    "away": "키움",
+    "score": "경기전",
+    "detail": "KIA 홈 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports/137/58",
+      "note": "KIA 홈 예매",
+      "openLabel": "KIA 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
       "venueType": "원정"
     }
   },
