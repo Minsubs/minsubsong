@@ -112,8 +112,8 @@
     "location": "사직",
     "home": "롯데",
     "away": "한화",
-    "score": "승 8:2",
-    "detail": "KBO 스코어보드 최종",
+    "score": "8:2",
+    "detail": "사직 경기",
     "ticketing": {
       "provider": "롯데 자이언츠",
       "url": "https://ticket.giantsclub.com/",
