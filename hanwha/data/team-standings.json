@@ -2,15 +2,15 @@
   {
     "rank": "1",
     "team": "KT",
-    "games": "125",
+    "games": "126",
     "wins": "76",
     "losses": "46",
-    "draws": "3",
+    "draws": "4",
     "pct": "0.623",
     "gamesBehind": "0.0",
     "streak": "W7",
     "home": "39-21-1",
-    "away": "37-25-2",
+    "away": "37-25-3",
     "isHanwha": false
   },
   {
@@ -100,14 +100,14 @@
   {
     "rank": "8",
     "team": "한화",
-    "games": "126",
+    "games": "127",
     "wins": "54",
     "losses": "69",
-    "draws": "3",
+    "draws": "4",
     "pct": "0.439",
     "gamesBehind": "22.5",
     "streak": "L4",
-    "home": "25-35-2",
+    "home": "25-35-3",
     "away": "29-34-1",
     "isHanwha": true
   },
