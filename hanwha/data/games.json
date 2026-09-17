@@ -329,6 +329,26 @@
   {
     "type": "recent",
     "status": "최근 결과",
+    "date": "09.17",
+    "time": "목 18:30",
+    "location": "창원",
+    "home": "NC",
+    "away": "SSG",
+    "score": "2:1",
+    "detail": "창원 경기",
+    "ticketing": {
+      "provider": "NC 다이노스",
+      "url": "https://www.ncdinos.com/",
+      "note": "NC 홈 예매",
+      "openLabel": "NC 홈 예매 일정 기준",
+      "openDaysBefore": 6,
+      "openTime": "11:00",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "recent",
+    "status": "최근 결과",
     "date": "09.11",
     "time": "금 18:30",
     "location": "대구",
@@ -364,6 +384,26 @@
       "openLabel": "키움 홈 예매 일정 기준",
       "openDaysBefore": 7,
       "openTime": "14:00",
+      "venueType": "원정"
+    }
+  },
+  {
+    "type": "recent",
+    "status": "최근 결과",
+    "date": "09.17",
+    "time": "목 18:30",
+    "location": "광주",
+    "home": "KIA",
+    "away": "키움",
+    "score": "0:2",
+    "detail": "광주 경기",
+    "ticketing": {
+      "provider": "티켓링크",
+      "url": "https://www.ticketlink.co.kr/sports/137/58",
+      "note": "KIA 홈 예매",
+      "openLabel": "KIA 홈 예매 일정 기준",
+      "openDaysBefore": 7,
+      "openTime": "11:00",
       "venueType": "원정"
     }
   },
@@ -1010,26 +1050,6 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "09.17",
-    "time": "목 18:30",
-    "location": "창원",
-    "home": "NC",
-    "away": "SSG",
-    "score": "경기전",
-    "detail": "NC 홈 경기",
-    "ticketing": {
-      "provider": "NC 다이노스",
-      "url": "https://www.ncdinos.com/",
-      "note": "NC 홈 예매",
-      "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 6,
-      "openTime": "11:00",
-      "venueType": "원정"
-    }
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
     "date": "09.20",
     "time": "일 14:00",
     "location": "문학",
@@ -1103,26 +1123,6 @@
       "note": "SSG 홈 예매",
       "openLabel": "SSG 홈 예매 일정 기준",
       "openDaysBefore": 4,
-      "openTime": "11:00",
-      "venueType": "원정"
-    }
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
-    "date": "09.17",
-    "time": "목 18:30",
-    "location": "광주",
-    "home": "KIA",
-    "away": "키움",
-    "score": "경기전",
-    "detail": "KIA 홈 경기",
-    "ticketing": {
-      "provider": "티켓링크",
-      "url": "https://www.ticketlink.co.kr/sports/137/58",
-      "note": "KIA 홈 예매",
-      "openLabel": "KIA 홈 예매 일정 기준",
-      "openDaysBefore": 7,
       "openTime": "11:00",
       "venueType": "원정"
     }
