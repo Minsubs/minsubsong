@@ -111,27 +111,6 @@
   {
     "type": "upcoming",
     "status": "예정 경기",
-    "date": "09.25",
-    "time": "금 17:00",
-    "location": "창원",
-    "home": "NC",
-    "away": "한화",
-    "score": "경기전",
-    "detail": "NC 홈 경기",
-    "ticketing": {
-      "provider": "NC 다이노스",
-      "url": "https://www.ncdinos.com/",
-      "note": "NC 홈 예매",
-      "openLabel": "NC 홈 예매 일정 기준",
-      "openDaysBefore": 6,
-      "openTime": "11:00",
-      "venueType": "원정"
-    },
-    "openAt": "2026-09-19T11:00:00+09:00"
-  },
-  {
-    "type": "upcoming",
-    "status": "예정 경기",
     "date": "09.26",
     "time": "토 17:00",
     "location": "광주",
