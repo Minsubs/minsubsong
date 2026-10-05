@@ -1,17 +1,17 @@
 [
   {
-    "date": "10.05",
-    "time": "월 14:00",
-    "location": "수원",
+    "date": "10.06",
+    "time": "화 18:30",
+    "location": "광주",
     "status": "scheduled",
     "statusLabel": "경기 예정",
     "state": "스코어 대기",
     "inning": "연동 대기",
-    "awayTeam": "롯데",
-    "homeTeam": "KT",
+    "awayTeam": "삼성",
+    "homeTeam": "KIA",
     "awayScore": null,
     "homeScore": null,
-    "note": "10.05 14:00 롯데 vs KT. 경기 시작 후 스코어가 갱신됩니다.",
+    "note": "10.06 18:30 삼성 vs KIA. 경기 시작 후 스코어가 갱신됩니다.",
     "linescore": [
       {
         "inning": "1",
@@ -61,18 +61,18 @@
     ]
   },
   {
-    "date": "10.05",
-    "time": "월 14:00",
+    "date": "10.06",
+    "time": "화 18:30",
     "location": "잠실",
     "status": "scheduled",
     "statusLabel": "경기 예정",
     "state": "스코어 대기",
     "inning": "연동 대기",
-    "awayTeam": "KIA",
+    "awayTeam": "NC",
     "homeTeam": "LG",
     "awayScore": null,
     "homeScore": null,
-    "note": "10.05 14:00 KIA vs LG. 경기 시작 후 스코어가 갱신됩니다.",
+    "note": "10.06 18:30 NC vs LG. 경기 시작 후 스코어가 갱신됩니다.",
     "linescore": [
       {
         "inning": "1",
@@ -122,79 +122,18 @@
     ]
   },
   {
-    "date": "10.05",
-    "time": "월 14:00",
-    "location": "창원",
-    "status": "scheduled",
-    "statusLabel": "경기 예정",
-    "state": "스코어 대기",
-    "inning": "연동 대기",
-    "awayTeam": "SSG",
-    "homeTeam": "NC",
-    "awayScore": null,
-    "homeScore": null,
-    "note": "10.05 14:00 SSG vs NC. 경기 시작 후 스코어가 갱신됩니다.",
-    "linescore": [
-      {
-        "inning": "1",
-        "away": null,
-        "home": null
-      },
-      {
-        "inning": "2",
-        "away": null,
-        "home": null
-      },
-      {
-        "inning": "3",
-        "away": null,
-        "home": null
-      },
-      {
-        "inning": "4",
-        "away": null,
-        "home": null
-      },
-      {
-        "inning": "5",
-        "away": null,
-        "home": null
-      },
-      {
-        "inning": "6",
-        "away": null,
-        "home": null
-      },
-      {
-        "inning": "7",
-        "away": null,
-        "home": null
-      },
-      {
-        "inning": "8",
-        "away": null,
-        "home": null
-      },
-      {
-        "inning": "9",
-        "away": null,
-        "home": null
-      }
-    ]
-  },
-  {
-    "date": "10.05",
-    "time": "월 14:00",
-    "location": "대구",
+    "date": "10.06",
+    "time": "화 18:30",
+    "location": "사직",
     "status": "scheduled",
     "statusLabel": "경기 예정",
     "state": "스코어 대기",
     "inning": "연동 대기",
     "awayTeam": "두산",
-    "homeTeam": "삼성",
+    "homeTeam": "롯데",
     "awayScore": null,
     "homeScore": null,
-    "note": "10.05 14:00 두산 vs 삼성. 경기 시작 후 스코어가 갱신됩니다.",
+    "note": "10.06 18:30 두산 vs 롯데. 경기 시작 후 스코어가 갱신됩니다.",
     "linescore": [
       {
         "inning": "1",
@@ -244,18 +183,79 @@
     ]
   },
   {
-    "date": "10.05",
-    "time": "월 14:00",
+    "date": "10.06",
+    "time": "화 18:30",
+    "location": "고척",
+    "status": "scheduled",
+    "statusLabel": "경기 예정",
+    "state": "스코어 대기",
+    "inning": "연동 대기",
+    "awayTeam": "KT",
+    "homeTeam": "키움",
+    "awayScore": null,
+    "homeScore": null,
+    "note": "10.06 18:30 KT vs 키움. 경기 시작 후 스코어가 갱신됩니다.",
+    "linescore": [
+      {
+        "inning": "1",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "2",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "3",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "4",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "5",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "6",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "7",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "8",
+        "away": null,
+        "home": null
+      },
+      {
+        "inning": "9",
+        "away": null,
+        "home": null
+      }
+    ]
+  },
+  {
+    "date": "10.06",
+    "time": "화 18:30",
     "location": "대전",
     "status": "scheduled",
     "statusLabel": "경기 예정",
     "state": "스코어 대기",
     "inning": "연동 대기",
-    "awayTeam": "키움",
+    "awayTeam": "SSG",
     "homeTeam": "한화",
     "awayScore": null,
     "homeScore": null,
-    "note": "10.05 14:00 키움 vs 한화. 경기 시작 후 스코어가 갱신됩니다.",
+    "note": "10.06 18:30 SSG vs 한화. 경기 시작 후 스코어가 갱신됩니다.",
     "linescore": [
       {
         "inning": "1",
