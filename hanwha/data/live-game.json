@@ -3,60 +3,60 @@
     "date": "10.10",
     "time": "토 14:00",
     "location": "사직",
-    "status": "scheduled",
-    "statusLabel": "경기 예정",
-    "state": "스코어 대기",
-    "inning": "연동 대기",
+    "status": "final",
+    "statusLabel": "경기 결과",
+    "state": "종료",
+    "inning": "최종",
     "awayTeam": "LG",
     "homeTeam": "롯데",
-    "awayScore": null,
-    "homeScore": null,
-    "note": "10.10 14:00 LG vs 롯데. 경기 시작 후 스코어가 갱신됩니다.",
+    "awayScore": 4,
+    "homeScore": 3,
+    "note": "LG 4:3 롯데. KBO 스코어보드 기준 결과입니다.",
     "linescore": [
       {
         "inning": "1",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 0
       },
       {
         "inning": "2",
-        "away": null,
-        "home": null
+        "away": 1,
+        "home": 1
       },
       {
         "inning": "3",
-        "away": null,
-        "home": null
+        "away": 1,
+        "home": 0
       },
       {
         "inning": "4",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 0
       },
       {
         "inning": "5",
-        "away": null,
-        "home": null
+        "away": 1,
+        "home": 0
       },
       {
         "inning": "6",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 0
       },
       {
         "inning": "7",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 0
       },
       {
         "inning": "8",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 0
       },
       {
         "inning": "9",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 2
       }
     ]
   },
@@ -64,59 +64,59 @@
     "date": "10.10",
     "time": "토 17:00",
     "location": "광주",
-    "status": "scheduled",
-    "statusLabel": "경기 예정",
-    "state": "스코어 대기",
-    "inning": "연동 대기",
+    "status": "final",
+    "statusLabel": "경기 결과",
+    "state": "종료",
+    "inning": "최종",
     "awayTeam": "SSG",
     "homeTeam": "KIA",
-    "awayScore": null,
-    "homeScore": null,
-    "note": "10.10 17:00 SSG vs KIA. 경기 시작 후 스코어가 갱신됩니다.",
+    "awayScore": 5,
+    "homeScore": 8,
+    "note": "SSG 5:8 KIA. KBO 스코어보드 기준 결과입니다.",
     "linescore": [
       {
         "inning": "1",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 0
       },
       {
         "inning": "2",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 2
       },
       {
         "inning": "3",
-        "away": null,
-        "home": null
+        "away": 2,
+        "home": 2
       },
       {
         "inning": "4",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 0
       },
       {
         "inning": "5",
-        "away": null,
-        "home": null
+        "away": 1,
+        "home": 4
       },
       {
         "inning": "6",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 0
       },
       {
         "inning": "7",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 0
       },
       {
         "inning": "8",
-        "away": null,
-        "home": null
+        "away": 2,
+        "home": 0
       },
       {
         "inning": "9",
-        "away": null,
+        "away": 0,
         "home": null
       }
     ]
@@ -125,60 +125,60 @@
     "date": "10.10",
     "time": "토 17:00",
     "location": "대전",
-    "status": "scheduled",
-    "statusLabel": "경기 예정",
-    "state": "스코어 대기",
-    "inning": "연동 대기",
+    "status": "final",
+    "statusLabel": "경기 결과",
+    "state": "종료",
+    "inning": "최종",
     "awayTeam": "NC",
     "homeTeam": "한화",
-    "awayScore": null,
-    "homeScore": null,
-    "note": "10.10 17:00 NC vs 한화. 경기 시작 후 스코어가 갱신됩니다.",
+    "awayScore": 9,
+    "homeScore": 8,
+    "note": "NC 9:8 한화. KBO 스코어보드 기준 결과입니다.",
     "linescore": [
       {
         "inning": "1",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 1
       },
       {
         "inning": "2",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 0
       },
       {
         "inning": "3",
-        "away": null,
-        "home": null
+        "away": 3,
+        "home": 0
       },
       {
         "inning": "4",
-        "away": null,
-        "home": null
+        "away": 5,
+        "home": 2
       },
       {
         "inning": "5",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 0
       },
       {
         "inning": "6",
-        "away": null,
-        "home": null
+        "away": 1,
+        "home": 0
       },
       {
         "inning": "7",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 0
       },
       {
         "inning": "8",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 0
       },
       {
         "inning": "9",
-        "away": null,
-        "home": null
+        "away": 0,
+        "home": 5
       }
     ]
   }

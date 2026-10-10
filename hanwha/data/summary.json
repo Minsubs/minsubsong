@@ -2,7 +2,7 @@
   {
     "label": "순위",
     "value": "9위",
-    "caption": "57승 82패"
+    "caption": "57승 83패"
   },
   {
     "label": "팀 타율",
@@ -11,12 +11,12 @@
   },
   {
     "label": "홈런",
-    "value": "175",
+    "value": "176",
     "caption": "팀 홈런"
   },
   {
     "label": "최근 흐름",
-    "value": "L1",
-    "caption": "1연패"
+    "value": "L2",
+    "caption": "2연패"
   }
 ]
